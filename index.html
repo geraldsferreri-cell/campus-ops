@@ -1,0 +1,2549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校园运营系统 - Campus OPS</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --bg-main: #f9fafb;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-main);
+            color: var(--gray-900);
+            min-height: 100vh;
+        }
+        .app { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 240px;
+            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+            color: #fff;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        .logo { padding: 0 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+        .logo h1 { font-size: 18px; font-weight: 600; color: #fff; }
+        .logo span { font-size: 12px; color: rgba(255,255,255,0.5); }
+        .nav-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.1); }
+        .nav-item.active { background: var(--primary); }
+        .nav-item svg { width: 18px; height: 18px; }
+        .nav-section {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            padding: 16px 20px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .main { flex: 1; margin-left: 240px; padding: 24px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .header h2 { font-size: 24px; font-weight: 600; }
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .card-title { font-size: 16px; font-weight: 600; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+        }
+        .stat-card:nth-child(2) { border-left-color: var(--success); }
+        .stat-card:nth-child(3) { border-left-color: var(--warning); }
+        .stat-card:nth-child(4) { border-left-color: var(--purple); }
+        .stat-card:nth-child(5) { border-left-color: var(--danger); }
+        .stat-card:nth-child(6) { border-left-color: var(--pink); }
+        .stat-label { font-size: 12px; color: var(--gray-500); margin-bottom: 4px; }
+        .stat-value { font-size: 24px; font-weight: 700; color: var(--gray-900); }
+        .stat-sub { font-size: 11px; color: var(--gray-500); margin-top: 4px; }
+        .table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--gray-200); }
+        th { background: var(--gray-100); font-weight: 600; font-size: 13px; color: var(--gray-700); }
+        td { font-size: 14px; }
+        tr:hover { background: #f8fafc; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-success { background: var(--success); color: #fff; }
+        .btn-warning { background: var(--warning); color: #fff; }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
+        .btn-sm { padding: 6px 12px; font-size: 13px; }
+        .btn + .btn { margin-left: 8px; }
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; color: var(--gray-700); }
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        .form-input:focus { outline: none; border-color: var(--primary); }
+        .form-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .form-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-title { font-size: 18px; font-weight: 600; }
+        .modal-close { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--gray-500); }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+        .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+        .filter-bar select, .filter-bar input { padding: 8px 12px; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 14px; }
+        .filter-bar input { min-width: 150px; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
+        .badge-success { background: #d1fae5; color: #065f46; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .badge-purple { background: #ede9fe; color: #5b21b6; }
+        .badge-pink { background: #fce7f3; color: #9d174d; }
+        .link { color: var(--primary); text-decoration: none; }
+        .link:hover { text-decoration: underline; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .empty-state { text-align: center; padding: 60px 20px; color: var(--gray-500); }
+        .loading { text-align: center; padding: 40px; color: var(--gray-500); }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            z-index: 3000;
+            animation: slideIn 0.3s ease;
+        }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .login-page { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); position: relative; z-index: 100; }
+        .login-box { background: #fff; padding: 40px; border-radius: 16px; width: 100%; max-width: 400px; box-shadow: var(--shadow-lg); }
+        .login-box h1 { text-align: center; margin-bottom: 8px; color: var(--gray-900); }
+        .login-box p { text-align: center; color: var(--gray-500); margin-bottom: 32px; }
+        .login-box .form-group { margin-bottom: 20px; }
+        .login-box .btn { width: 100%; justify-content: center; padding: 12px; }
+        /* Charts */
+        .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px; }
+        .chart-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
+        .chart-title { font-size: 14px; font-weight: 600; margin-bottom: 16px; color: var(--gray-700); }
+        .bar-chart { display: flex; flex-direction: column; gap: 8px; }
+        .bar-item { display: flex; align-items: center; gap: 12px; }
+        .bar-label { width: 60px; font-size: 12px; color: var(--gray-600); text-align: right; }
+        .bar-track { flex: 1; height: 20px; background: var(--gray-100); border-radius: 10px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
+        .bar-fill.primary { background: linear-gradient(90deg, var(--primary), #60a5fa); }
+        .bar-fill.success { background: linear-gradient(90deg, var(--success), #34d399); }
+        .bar-fill.warning { background: linear-gradient(90deg, var(--warning), #fbbf24); }
+        .bar-fill.danger { background: linear-gradient(90deg, var(--danger), #f87171); }
+        .bar-fill.purple { background: linear-gradient(90deg, var(--purple), #a78bfa); }
+        .bar-fill.pink { background: linear-gradient(90deg, var(--pink), #f472b6); }
+        .bar-value { width: 50px; font-size: 12px; font-weight: 600; color: var(--gray-700); }
+        /* Teacher Grid */
+        .teacher-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+        .teacher-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+        }
+        .teacher-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .teacher-name { font-weight: 600; font-size: 15px; }
+        .teacher-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+        .teacher-stat { text-align: center; padding: 8px; background: var(--gray-100); border-radius: 8px; }
+        .teacher-stat-value { font-size: 18px; font-weight: 700; color: var(--primary); }
+        .teacher-stat-label { font-size: 11px; color: var(--gray-500); }
+        .teacher-stat-value.gold { color: #f59e0b; }
+        .teacher-stat-value.red { color: #ef4444; }
+        /* Rank list */
+        .rank-list { display: flex; flex-direction: column; gap: 8px; }
+        .rank-item { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: var(--gray-100); border-radius: 8px; }
+        .rank-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--primary); color: #fff; }
+        .rank-num.top1 { background: #fbbf24; }
+        .rank-num.top2 { background: #9ca3af; }
+        .rank-num.top3 { background: #cd7f32; }
+        .rank-name { flex: 1; font-size: 14px; }
+        .rank-value { font-weight: 600; color: var(--primary); }
+        /* Tabs */
+        .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--gray-200); margin-bottom: 16px; }
+        .tab { padding: 10px 20px; cursor: pointer; font-size: 14px; color: var(--gray-500); border-bottom: 2px solid transparent; margin-bottom: -2px; }
+        .tab:hover { color: var(--primary); }
+        .tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 500; }
+        /* Salary */
+        .salary-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
+        .salary-card { background: linear-gradient(135deg, var(--primary) 0%, #60a5fa 100%); color: #fff; padding: 20px; border-radius: 12px; }
+        .salary-card.green { background: linear-gradient(135deg, var(--success) 0%, #34d399 100%); }
+        .salary-card.orange { background: linear-gradient(135deg, var(--warning) 0%, #fbbf24 100%); }
+        .salary-card.red { background: linear-gradient(135deg, var(--danger) 0%, #f87171 100%); }
+        .salary-card-label { font-size: 12px; opacity: 0.9; margin-bottom: 4px; }
+        .salary-card-value { font-size: 28px; font-weight: 700; }
+        /* 权限控制 */
+        .admin-only.nav-item { display: none; }
+        .admin-only.nav-section { display: none; }
+        body.is-admin .admin-only.nav-item { display: flex !important; }
+        body.is-admin .admin-only.nav-section { display: block !important; }
+        /* 学生视频统计 */
+        #studentVideoStats { margin-bottom: 16px; }
+        /* 数据追踪样式 */
+        .stats-cell { display: flex; flex-direction: column; gap: 2px; font-size: 12px; }
+        .stat-item { white-space: nowrap; color: var(--gray-700); }
+        .stats-pending { color: var(--gray-400); font-size: 12px; font-style: italic; }
+        tr.row-reminder { background: rgba(245, 158, 11, 0.08) !important; }
+        td.cell-reminder { background: rgba(245, 158, 11, 0.15); border-left: 3px solid var(--warning); animation: pulse-warning 2s infinite; }
+        td.cell-reminder-day7 { background: rgba(139, 92, 246, 0.15); border-left: 3px solid #8b5cf6; animation: pulse-purple 2s infinite; }
+        @keyframes pulse-warning { 0%, 100% { background: rgba(245, 158, 11, 0.15); } 50% { background: rgba(245, 158, 11, 0.25); } }
+        @keyframes pulse-purple { 0%, 100% { background: rgba(139, 92, 246, 0.15); } 50% { background: rgba(139, 92, 246, 0.25); } }
+        .form-section-title { font-size: 13px; font-weight: 600; color: var(--gray-700); margin: 16px 0 8px; padding: 8px 0; border-top: 1px dashed var(--gray-200); }
+        .form-section-title:first-of-type { border-top: none; margin-top: 0; }
+        .form-hint { font-size: 11px; font-weight: 400; color: var(--gray-500); margin-left: 8px; }
+        .stats-reminder-bar { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.4); border-radius: 8px; padding: 10px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-size: 13px; color: #92400e; }
+        .reminder-icon { font-size: 16px; }
+        #studentVideoStats .stats-grid { margin-bottom: 0; }
+        @media (max-width: 768px) {
+            .sidebar { width: 60px; padding: 20px 0; }
+            .sidebar .nav-text, .sidebar .logo span, .sidebar .logo h1 { display: none; }
+            .sidebar .nav-item { justify-content: center; padding: 14px; }
+            .main { margin-left: 60px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .charts-grid { grid-template-columns: 1fr; }
+            .teacher-grid { grid-template-columns: 1fr; }
+            .salary-summary { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="login-page">
+        <div class="login-box">
+            <h1>🏫 校园运营系统</h1>
+            <p>请登录以继续</p>
+            <div class="form-group">
+                <label class="form-label">用户名 / 姓名</label>
+                <input type="text" id="loginUser" class="form-input" placeholder="输入用户名或姓名" value="admin">
+            </div>
+            <div class="form-group">
+                <label class="form-label">密码</label>
+                <input type="password" id="loginPass" class="form-input" placeholder="输入密码" value="admin123">
+            </div>
+            <button class="btn btn-primary" onclick="doLogin()">登 录</button>
+            <p style="margin-top:16px;font-size:12px;color:var(--gray-500);text-align:center">管理员: admin / admin123 | 其他: 姓名 / 123456</p>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="appPage" class="app" style="display:none">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>🏫 Campus OPS</h1>
+                <span>校园运营管理系统</span>
+            </div>
+            <div class="nav-section" id="navSectionData">数据中心</div>
+            <div class="nav-item admin-only" onclick="showPage('dashboard')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span class="nav-text">数据看板</span>
+            </div>
+            <div class="nav-item" onclick="showPage('videos')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span class="nav-text">视频记录</span>
+            </div>
+            <div class="nav-item admin-only" onclick="showPage('accounts')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="nav-text">账号管理</span>
+            </div>
+            <div class="nav-item admin-only" onclick="showPage('users')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span class="nav-text">人员管理</span>
+            </div>
+            <div class="nav-section admin-only" id="navSectionOps">运营管理</div>
+            <div class="nav-item admin-only" onclick="showPage('export')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="nav-text">数据导出</span>
+            </div>
+            <div class="nav-item admin-only" onclick="showPage('groups')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span class="nav-text">编导分组</span>
+            </div>
+            <div class="nav-section admin-only" id="navSectionFinance">财务管理</div>
+            <div class="nav-item admin-only" onclick="showPage('salaryConfig')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1m15.5-3.5l-4.5 4.5m-5 5l-4.5 4.5m0-14l4.5 4.5m5 5l4.5 4.5"/></svg>
+                <span class="nav-text">薪资配置</span>
+            </div>
+            <div class="nav-item admin-only" onclick="showPage('salary')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                <span class="nav-text">薪资结算</span>
+            </div>
+            <div class="nav-section">系统</div>
+            <div class="nav-item" onclick="logout()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                <span class="nav-text">退出登录</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Dashboard Page -->
+            <div id="page-dashboard" class="page active">
+                <div class="header">
+                    <h2>数据看板</h2>
+                    <span id="currentUser">欢迎，管理员</span>
+                </div>
+                
+                <!-- Date Filter -->
+                <div class="filter-bar">
+                    <span style="font-size:13px;color:var(--gray-500)">📅 日期筛选：</span>
+                    <input type="date" id="filterDateStart" onchange="updateDashboard()">
+                    <span>至</span>
+                    <input type="date" id="filterDateEnd" onchange="updateDashboard()">
+                    <button class="btn btn-sm btn-secondary" onclick="setDateRange('today')">今天</button>
+                    <button class="btn btn-sm btn-secondary" onclick="setDateRange('week')">本周</button>
+                    <button class="btn btn-sm btn-secondary" onclick="setDateRange('month')">本月</button>
+                    <button class="btn btn-sm btn-secondary" onclick="setDateRange('all')">全部</button>
+                    <span style="margin-left:12px;font-size:13px;color:var(--gray-500)">👥 组别筛选：</span>
+                    <select id="filterGroup" class="form-input" style="width:140px;padding:4px 8px;" onchange="updateDashboard()">
+                        <option value="">全部分组</option>
+                    </select>
+                </div>
+                
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">👨‍🏫 老师总数</div>
+                        <div class="stat-value" id="statTeachers">0</div>
+                        <div class="stat-sub">编导/教师</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">👨‍🎓 学生总数</div>
+                        <div class="stat-value" id="statStudents">0</div>
+                        <div class="stat-sub">在队成员</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">📱 账号总数</div>
+                        <div class="stat-value" id="statAccounts">0</div>
+                        <div class="stat-sub">活跃账号</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">🎬 发片总数</div>
+                        <div class="stat-value" id="statVideos">0</div>
+                        <div class="stat-sub">视频记录</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">⭐ 千赞数</div>
+                        <div class="stat-value" id="statThousand">0</div>
+                        <div class="stat-sub">≥1000赞</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">🏆 万赞数</div>
+                        <div class="stat-value" id="statTenThousand">0</div>
+                        <div class="stat-sub">≥10000赞</div>
+                    </div>
+                </div>
+
+                <!-- Teacher Dashboard -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">👨‍🏫 老师看板</span>
+                    </div>
+                    <div class="teacher-grid" id="teacherGrid">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-grid">
+                    <div class="chart-card" style="grid-column: span 2;">
+                        <div class="chart-title">📊 发片趋势（按组别）</div>
+                        <canvas id="groupChart" style="max-height: 250px;"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-title">🏆 千赞TOP5</div>
+                        <canvas id="topThousandChart" style="max-height: 250px;"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-title">👨‍🎓 同学发片数排名</div>
+                        <canvas id="studentRankChart" style="max-height: 250px;"></canvas>
+                    </div>
+                    <div class="chart-card" style="grid-column: span 2;">
+                        <div class="chart-title">⭐ 万赞TOP5</div>
+                        <canvas id="topTenThousandChart" style="max-height: 250px;"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Videos Page -->
+            <div id="page-videos" class="page">
+                <div class="header">
+                    <h2>视频记录</h2>
+                    <div>
+                        <span class="filter-label">📅 日期筛选：</span>
+                        <input type="date" id="filterDateStart" class="form-input" style="width:140px;" onchange="onVideoFilterChange()">
+                        <span>至</span>
+                        <input type="date" id="filterDateEnd" class="form-input" style="width:140px;" onchange="onVideoFilterChange()">
+                        <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('today')">今天</button>
+                        <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('week')">本周</button>
+                        <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('month')">本月</button>
+                        <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('all')">全部</button>
+                        <button class="btn btn-secondary admin-only" onclick="exportVideos()">📥 导出数据</button>
+                        <button class="btn btn-primary" onclick="openVideoModal()">➕ 手动录入</button>
+                    </div>
+                </div>
+                <!-- 学生视角：我的数据统计 -->
+                <div id="studentVideoStats" class="card" style="display:none">
+                    <!-- 待填写数据提醒 -->
+                    <div id="statsReminder" class="stats-reminder-bar" style="display:none">
+                        <span class="reminder-icon">📌</span>
+                        <span id="reminderText"></span>
+                    </div>
+                    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr)">
+                        <div class="stat-card">
+                            <div class="stat-label">我的发片数</div>
+                            <div class="stat-value" id="myVideoCount">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">我的千赞数</div>
+                            <div class="stat-value" id="myThousandLike">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">我的万赞数</div>
+                            <div class="stat-value" id="myTenThousandLike">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="filter-bar admin-only">
+                        <select id="filterPlatform" onchange="loadVideos()">
+                            <option value="">全部平台</option>
+                            <option value="抖音">抖音</option>
+                            <option value="快手">快手</option>
+                            <option value="小红书">小红书</option>
+                            <option value="视频号">视频号</option>
+                            <option value="B站">B站</option>
+                        </select>
+                        <select id="filterStatus" onchange="loadVideos()">
+                            <option value="">全部状态</option>
+                            <option value="待发布">待发布</option>
+                            <option value="已发布">已发布</option>
+                            <option value="爆款">爆款</option>
+                            <option value="失败">失败</option>
+                        </select>
+                        <select id="filterTeacher" onchange="loadVideos()">
+                            <option value="">全部老师</option>
+                        </select>
+                        <input type="text" id="searchKeyword" placeholder="搜索..." oninput="loadVideos()">
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>组别</th><th>链接</th>
+                                    <th>发布时</th><th>第3天</th><th>第7天</th><th>状态</th><th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="videoTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accounts Page -->
+            <div id="page-accounts" class="page">
+                <div class="header">
+                    <h2>账号管理</h2>
+                    <button class="btn btn-primary" onclick="openAccountModal()">➕ 添加账号</button>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>平台</th><th>账号名</th><th>负责人</th><th>分组</th><th>状态</th><th>操作</th></tr>
+                            </thead>
+                            <tbody id="accountTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Page -->
+            <div id="page-users" class="page">
+                <div class="header">
+                    <h2>人员管理</h2>
+                    <button class="btn btn-primary" onclick="openUserModal()">➕ 添加成员</button>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>姓名</th><th>用户名</th><th>角色</th><th>分组</th><th>状态</th><th>操作</th></tr>
+                            </thead>
+                            <tbody id="userTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export Page -->
+            <div id="page-export" class="page">
+                <div class="header">
+                    <h2>数据导出</h2>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📥 选择导出类型</span>
+                    </div>
+                    <div class="form-row-3" style="margin-bottom:20px">
+                        <div class="form-group">
+                            <label class="form-label">导出类型</label>
+                            <select id="exportType" class="form-input" onchange="loadExportPreview()">
+                                <option value="videos">视频记录</option>
+                                <option value="accounts">账号列表</option>
+                                <option value="users">人员名单</option>
+                                <option value="salary">薪资结算</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">开始日期</label>
+                            <input type="date" id="exportDateStart" class="form-input" onchange="loadExportPreview()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">结束日期</label>
+                            <input type="date" id="exportDateEnd" class="form-input" onchange="loadExportPreview()">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="doExport()">📥 导出Excel</button>
+                </div>
+                
+                <!-- 视频数据预览 -->
+                <div class="card" id="exportPreviewCard" style="display:none">
+                    <div class="card-header">
+                        <span class="card-title">📋 符合条件的视频数据 (<span id="exportPreviewCount">0</span> 条)</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>发布时播/赞/评</th><th>第3天</th><th>第7天</th><th>状态</th></tr>
+                            </thead>
+                            <tbody id="exportPreviewTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📊 快速统计报告</span>
+                    </div>
+                    <button class="btn btn-success" onclick="exportWeeklyReport()">📆 导出周报</button>
+                    <button class="btn btn-warning" onclick="exportMonthlyReport()">📅 导出月报</button>
+                    <button class="btn btn-secondary" onclick="exportAllSheets()">📋 导出全部数据</button>
+                </div>
+            </div>
+
+            <!-- Groups Page -->
+            <div id="page-groups" class="page">
+                <div class="header">
+                    <h2>编导分组</h2>
+                    <button class="btn btn-primary" onclick="openGroupModal()">➕ 添加分组</button>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>分组名称</th><th>负责人</th><th>成员数</th><th>备注</th><th>操作</th></tr>
+                            </thead>
+                            <tbody id="groupTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salary Config Page -->
+            <div id="page-salaryConfig" class="page">
+                <div class="header">
+                    <h2>薪资配置</h2>
+                    <button class="btn btn-primary" onclick="openSalaryConfigModal()">➕ 添加配置</button>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">💰 薪资规则配置</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>角色</th><th>底薪</th><th>千赞奖金</th><th>万赞奖金</th><th>备注</th><th>操作</th></tr>
+                            </thead>
+                            <tbody id="salaryConfigTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salary Page -->
+            <div id="page-salary" class="page">
+                <div class="header">
+                    <h2>薪资结算</h2>
+                    <div>
+                        <select id="salaryMonth" class="form-input" style="width:150px" onchange="loadSalaryData()">
+                        </select>
+                        <button class="btn btn-primary" onclick="openSalaryModal()">➕ 结算</button>
+                    </div>
+                </div>
+                <div class="salary-summary">
+                    <div class="salary-card">
+                        <div class="salary-card-label">应发总额</div>
+                        <div class="salary-card-value" id="salaryTotal">¥0</div>
+                    </div>
+                    <div class="salary-card green">
+                        <div class="salary-card-label">已结算</div>
+                        <div class="salary-card-value" id="salaryPaid">¥0</div>
+                    </div>
+                    <div class="salary-card orange">
+                        <div class="salary-card-label">待结算</div>
+                        <div class="salary-card-value" id="salaryPending">¥0</div>
+                    </div>
+                    <div class="salary-card red">
+                        <div class="salary-card-label">未达标扣款</div>
+                        <div class="salary-card-value" id="salaryDeduction">¥0</div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr><th>姓名</th><th>角色</th><th>分组</th><th>发片数</th><th>千赞数</th><th>万赞数</th><th>奖金</th><th>实发</th><th>状态</th><th>操作</th></tr>
+                            </thead>
+                            <tbody id="salaryTable"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="page-settings" class="page">
+                <div class="header"><h2>系统设置</h2></div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">⚙️ 数据库配置</span></div>
+                    <div class="form-group">
+                        <label class="form-label">Supabase 项目ID</label>
+                        <input type="text" class="form-input" id="cfgProjectId" value="eeuvrabunfvsaxgpaiub">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Supabase Anon Key</label>
+                        <input type="text" class="form-input" id="cfgAnonKey" value="sb_publishable_fETyamK-jikojdIg9QwcJw__06jEb7A">
+                    </div>
+                    <button class="btn btn-primary" onclick="saveSettings()">保存设置</button>
+                </div>
+                <div class="card">
+                    <div class="card-header"><span class="card-title">🔧 快速操作</span></div>
+                    <button class="btn btn-secondary" onclick="initTables()">初始化数据库表</button>
+                    <button class="btn btn-danger" onclick="clearAllData()">清空所有数据</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="videoModalTitle">添加视频记录</span>
+                <button class="modal-close" onclick="closeModal('videoModal')">&times;</button>
+            </div>
+            <input type="hidden" id="videoId">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">平台 *</label>
+                    <select id="videoPlatform" class="form-input" required>
+                        <option value="抖音">抖音</option><option value="快手">快手</option>
+                        <option value="小红书">小红书</option><option value="视频号">视频号</option><option value="B站">B站</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">账号 *</label>
+                    <select id="videoAccount" class="form-input" required></select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">发布时间</label>
+                    <input type="datetime-local" id="videoTime" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">状态</label>
+                    <select id="videoStatus" class="form-input">
+                        <option value="待发布">待发布</option><option value="已发布">已发布</option>
+                        <option value="爆款">爆款</option><option value="失败">失败</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">视频链接</label>
+                <input type="url" id="videoLink" class="form-input" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label class="form-label">发布者</label>
+                <input type="text" id="videoPublisher" class="form-input" placeholder="输入发布者姓名">
+            </div>
+            <div class="form-group">
+                <label class="form-label">组别</label>
+                <select id="videoGroup" class="form-input">
+                    <option value="">-- 请选择组别 --</option>
+                </select>
+            </div>
+            <!-- 发布时数据 -->
+            <div class="form-section-title">📊 发布时数据</div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoPlay" class="form-input" placeholder="0" min="0"></div>
+                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLike" class="form-input" placeholder="0" min="0"></div>
+            </div>
+            <div class="form-group"><label class="form-label">评论数</label><input type="number" id="videoComment" class="form-input" placeholder="0" min="0"></div>
+            <!-- 第3天数据 -->
+            <div class="form-section-title">📈 第3天数据 <span class="form-hint" id="day3Hint"></span></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsDay3" class="form-input" placeholder="0" min="0"></div>
+                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesDay3" class="form-input" placeholder="0" min="0"></div>
+            </div>
+            <div class="form-group"><label class="form-label">评论数</label><input type="number" id="videoCommentsDay3" class="form-input" placeholder="0" min="0"></div>
+            <!-- 第7天数据 -->
+            <div class="form-section-title">📈 第7天数据 <span class="form-hint" id="day7Hint"></span></div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsDay7" class="form-input" placeholder="0" min="0"></div>
+                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesDay7" class="form-input" placeholder="0" min="0"></div>
+            </div>
+            <div class="form-group"><label class="form-label">评论数</label><input type="number" id="videoCommentsDay7" class="form-input" placeholder="0" min="0"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('videoModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveVideo()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Modal -->
+    <div id="accountModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="accountModalTitle">添加账号</span>
+                <button class="modal-close" onclick="closeModal('accountModal')">&times;</button>
+            </div>
+            <input type="hidden" id="accountId">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">平台 *</label>
+                    <select id="accountPlatform" class="form-input" required>
+                        <option value="抖音">抖音</option><option value="快手">快手</option>
+                        <option value="小红书">小红书</option><option value="视频号">视频号</option><option value="B站">B站</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">账号名 *</label><input type="text" id="accountName" class="form-input" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">负责人</label><select id="accountOwner" class="form-input"><option value="">-- 选择负责人 --</option></select></div>
+                <div class="form-group"><label class="form-label">分组</label><select id="accountGroup" class="form-input"><option value="">-- 选择分组 --</option></select></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('accountModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveAccount()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="userModalTitle">添加成员</span>
+                <button class="modal-close" onclick="closeModal('userModal')">&times;</button>
+            </div>
+            <input type="hidden" id="userId">
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">姓名 *</label><input type="text" id="userName" class="form-input" required></div>
+                <div class="form-group"><label class="form-label">用户名 *</label><input type="text" id="userUsername" class="form-input" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">角色</label>
+                    <select id="userRole" class="form-input">
+                        <option value="admin">管理员</option>
+                        <option value="teacher">教师/编导</option>
+                        <option value="student">学生</option>
+                    </select>
+                </div>
+                <div class="form-group"><label class="form-label">分组</label><select id="userGroup" class="form-input"><option value="">-- 选择分组 --</option></select></div>
+            </div>
+            <div class="form-group"><label class="form-label">密码</label><input type="password" id="userPassword" class="form-input" placeholder="留空则不修改"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('userModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveUser()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Group Modal -->
+    <div id="groupModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="groupModalTitle">添加分组</span>
+                <button class="modal-close" onclick="closeModal('groupModal')">&times;</button>
+            </div>
+            <input type="hidden" id="groupId">
+            <div class="form-group"><label class="form-label">分组名称 *</label><input type="text" id="groupName" class="form-input" required></div>
+            <div class="form-group"><label class="form-label">负责人</label><select id="groupLeader" class="form-input"><option value="">-- 选择负责人 --</option></select></div>
+            <div class="form-group"><label class="form-label">备注</label><input type="text" id="groupNote" class="form-input"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('groupModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveGroup()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Salary Config Modal -->
+    <div id="salaryConfigModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <span class="modal-title" id="salaryConfigModalTitle">添加薪资配置</span>
+                <button class="modal-close" onclick="closeModal('salaryConfigModal')">&times;</button>
+            </div>
+            <input type="hidden" id="salaryConfigId">
+            <div class="form-group">
+                <label class="form-label">角色</label>
+                <select id="salaryConfigRole" class="form-input">
+                    <option value="teacher">教师/编导</option>
+                    <option value="student">学生</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">底薪</label><input type="number" id="salaryConfigBase" class="form-input" value="0"></div>
+                <div class="form-group"><label class="form-label">千赞奖金(每条)</label><input type="number" id="salaryConfigThousand" class="form-input" value="0"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">万赞奖金(每条)</label><input type="number" id="salaryConfigTenThousand" class="form-input" value="0"></div>
+                <div class="form-group"><label class="form-label">备注</label><input type="text" id="salaryConfigNote" class="form-input"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('salaryConfigModal')">取消</button>
+                <button class="btn btn-primary" onclick="saveSalaryConfig()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast" style="display:none"></div>
+
+    <!-- Supabase SDK -->
+    <script>
+        let supabase = null;
+        let currentUser = null;
+        let allVideos = [];
+        let allAccounts = [];
+        let allUsers = [];
+        let allGroups = [];
+        let allSalaryConfigs = [];
+        let allSalaries = [];
+
+        (async function init() {
+            try {
+                const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
+                window._createClient = createClient;
+            } catch (e) {
+                console.error('Supabase SDK 加载失败:', e);
+            }
+            loadSettings();
+            const savedUser = localStorage.getItem('campus_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appPage').style.display = 'flex';
+                document.getElementById('currentUser').textContent = '欢迎，' + (currentUser.real_name || currentUser.username);
+                updateSidebarByRole();
+                showPage(isAdmin() ? 'dashboard' : 'videos');
+                loadAllData();
+            }
+            initDateFilters();
+        })();
+
+        function loadSettings() {
+            const cfg = JSON.parse(localStorage.getItem('campus_cfg') || '{}');
+            const projectId = cfg.projectId || 'eeuvrabunfvsaxgpaiub';
+            const anonKey = cfg.anonKey || 'sb_publishable_fETyamK-jikojdIg9QwcJw__06jEb7A';
+            initSupabase(projectId, anonKey);
+        }
+
+        function initSupabase(projectId, anonKey) {
+            if (!window._createClient) return;
+            supabase = window._createClient('https://' + projectId + '.supabase.co', anonKey);
+            document.getElementById('cfgProjectId').value = projectId;
+            document.getElementById('cfgAnonKey').value = anonKey;
+        }
+
+        function saveSettings() {
+            const projectId = document.getElementById('cfgProjectId').value;
+            const anonKey = document.getElementById('cfgAnonKey').value;
+            localStorage.setItem('campus_cfg', JSON.stringify({ projectId, anonKey }));
+            initSupabase(projectId, anonKey);
+            toast('设置已保存', 'success');
+        }
+
+        // ============ Login ============
+        async function doLogin() {
+            const u = document.getElementById('loginUser').value.trim();
+            const p = document.getElementById('loginPass').value;
+            if (!u || !p) { toast('请输入姓名和密码', 'error'); return; }
+            
+            // 确保 Supabase SDK 已加载
+            if (!window._createClient) {
+                toast('正在加载系统...', 'error');
+                // 等待 SDK 加载
+                for (let i = 0; i < 50; i++) {
+                    await new Promise(r => setTimeout(r, 100));
+                    if (window._createClient) break;
+                }
+                if (!window._createClient) {
+                    toast('系统加载失败，请刷新页面重试', 'error');
+                    return;
+                }
+                // 重新初始化 Supabase
+                loadSettings();
+            }
+            
+            // admin 管理员登录
+            if (u === 'admin' && p === 'admin123') {
+                currentUser = { username: u, role: 'admin' };
+                localStorage.setItem('campus_user', JSON.stringify(currentUser));
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appPage').style.display = 'flex';
+                document.getElementById('currentUser').textContent = '欢迎，管理员';
+                updateSidebarByRole();
+                showPage('videos');
+                loadAllData();
+                return;
+            }
+            
+            // 从数据库查找用户（按姓名匹配）
+            try {
+                const { data: users, error } = await supabase.from('users').select('*').eq('real_name', u);
+                if (error) throw error;
+                
+                // 如果没找到，再试试 name 字段
+                let user = users && users[0];
+                if (!user) {
+                    const { data: users2 } = await supabase.from('users').select('*').eq('name', u);
+                    user = users2 && users2[0];
+                }
+                
+                if (user && p === '123456') {
+                    const userName = user.real_name || user.name || u;
+                    currentUser = { username: u, real_name: userName, role: user.role || 'student', id: user.id };
+                    localStorage.setItem('campus_user', JSON.stringify(currentUser));
+                    document.getElementById('loginPage').style.display = 'none';
+                    document.getElementById('appPage').style.display = 'flex';
+                    document.getElementById('currentUser').textContent = '欢迎，' + userName;
+                    updateSidebarByRole();
+                    showPage('videos');
+                    loadAllData();
+                } else {
+                    toast('姓名或密码错误', 'error');
+                }
+            } catch (e) {
+                toast('登录失败: ' + e.message, 'error');
+            }
+        }
+
+        // 根据角色更新侧边栏显示
+        function updateSidebarByRole() {
+            const isAdminUser = currentUser && currentUser.role === 'admin';
+            document.body.classList.toggle('is-admin', isAdminUser);
+        }
+
+        // 检查用户角色
+        function isAdmin() {
+            return currentUser && currentUser.role === 'admin';
+        }
+
+        // 获取当前用户角色（admin / teacher / student）
+        function getUserRole() {
+            return currentUser?.role || 'student';
+        }
+
+        // 获取当前用户的组别
+        function getUserGroup() {
+            if (!currentUser) return null;
+            if (currentUser.role === 'admin') return null;
+            // 从 allUsers 中查找当前用户的 group_name
+            const user = allUsers.find(u => (u.real_name === currentUser.real_name || u.name === currentUser.real_name));
+            return user?.group_name || null;
+        }
+
+        // 获取当前老师所带的学生列表
+        function getMyStudents() {
+            const group = getUserGroup();
+            if (!group) return [];
+            return allUsers.filter(u => u.role === 'student' && u.group_name === group);
+        }
+
+        // 判断当前用户是否可以查看某条视频
+        function canViewVideo(v) {
+            if (isAdmin()) return true;
+            const myName = currentUser?.real_name;
+            const group = getUserGroup();
+            if (currentUser?.role === 'student') {
+                return v.publisher === myName;
+            }
+            if (currentUser?.role === 'teacher') {
+                // 老师：看自己和所带学生的视频
+                if (v.publisher === myName) return true;
+                const myStudents = getMyStudents().map(s => s.real_name || s.name);
+                return myStudents.includes(v.publisher);
+            }
+            return v.publisher === myName;
+        }
+
+        // 判断当前用户是否可以编辑某条视频
+        function canEditVideo(v) {
+            if (isAdmin()) return true;
+            return v.publisher === currentUser?.real_name;
+        }
+
+        // 判断当前用户是否可以查看某个用户
+        function canViewUser(u) {
+            if (isAdmin()) return true;
+            if (currentUser?.role === 'student') {
+                // 学生只能看到老师
+                return u.role === 'teacher';
+            }
+            if (currentUser?.role === 'teacher') {
+                // 老师：看所有老师和同组学生
+                if (u.role === 'teacher') return true;
+                const group = getUserGroup();
+                return u.role === 'student' && u.group_name === group;
+            }
+            return true;
+        }
+
+        // 判断当前用户是否可以查看某个账号
+        function canViewAccount(a) {
+            if (isAdmin()) return true;
+            const group = getUserGroup();
+            if (currentUser?.role === 'student') return true; // 学生可看账号列表
+            if (currentUser?.role === 'teacher') {
+                return !group || a.group_name === group;
+            }
+            return false;
+        }
+
+        // 获取当前用户可见的视频列表（用于展示和导出）
+        function getMyVideos() {
+            return allVideos.filter(v => canViewVideo(v));
+        }
+
+        // 获取当前用户可见的账号列表
+        function getMyAccounts() {
+            return allAccounts.filter(a => canViewAccount(a));
+        }
+
+        // 获取当前用户可见的用户列表
+        function getMyUsers() {
+            return allUsers.filter(u => canViewUser(u));
+        }
+
+        function logout() {
+            localStorage.removeItem('campus_user');
+            location.reload();
+        }
+
+        // ============ Page Navigation ============
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('page-' + page).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => {
+                n.classList.remove('active');
+                if (n.getAttribute('onclick')?.includes(page)) n.classList.add('active');
+            });
+            if (page === 'dashboard') {
+                // 等待数据加载完成后再渲染看板
+                loadAllData().then(() => updateDashboard());
+            }
+            if (page === 'videos') loadVideos();
+            if (page === 'accounts') loadAccounts();
+            if (page === 'users') loadUsers();
+            if (page === 'groups') loadGroups();
+            if (page === 'salaryConfig') loadSalaryConfigs();
+            if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
+        }
+
+        // ============ Toast ============
+        function toast(msg, type = 'success') {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast ' + type;
+            t.style.display = 'block';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        // ============ Modal ============
+        function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+        // ============ Date Filters ============
+        function initDateFilters() {
+            const today = new Date();
+            document.getElementById('filterDateEnd').value = today.toISOString().slice(0, 10);
+            const weekAgo = new Date(today - 7 * 24 * 60 * 60 * 1000);
+            document.getElementById('filterDateStart').value = weekAgo.toISOString().slice(0, 10);
+        }
+
+        function setDateRange(type) {
+            const today = new Date();
+            let start = '', end = '';
+            if (type === 'today') {
+                start = today.toISOString().slice(0, 10);
+                end = start;
+            } else if (type === 'week') {
+                const d = new Date(today);
+                d.setDate(d.getDate() - d.getDay());
+                start = d.toISOString().slice(0, 10);
+                end = today.toISOString().slice(0, 10);
+            } else if (type === 'month') {
+                const d = new Date(today.getFullYear(), today.getMonth(), 1);
+                start = d.toISOString().slice(0, 10);
+                end = today.toISOString().slice(0, 10);
+            }
+            // 设置数据看板的日期筛选器
+            document.getElementById('filterDateStart').value = start;
+            document.getElementById('filterDateEnd').value = end;
+            // 同时设置视频记录页面的日期筛选器（保持联动）
+            const videoStartInput = document.getElementById('page-videos').querySelector('#filterDateStart');
+            const videoEndInput = document.getElementById('page-videos').querySelector('#filterDateEnd');
+            if (videoStartInput) videoStartInput.value = start;
+            if (videoEndInput) videoEndInput.value = end;
+            // 刷新数据看板
+            updateDashboard();
+        }
+
+        function getFilteredVideos() {
+            const start = document.getElementById('filterDateStart').value;
+            const end = document.getElementById('filterDateEnd').value;
+            const group = document.getElementById('filterGroup')?.value;
+            return allVideos.filter(v => {
+                const date = v.created_at?.slice(0, 10);
+                if (start && date < start) return false;
+                if (end && date > end) return false;
+                // 组别筛选
+                if (group) {
+                    const videoGroup = getVideoGroupForFilter(v);
+                    if (videoGroup !== group) return false;
+                }
+                return true;
+            });
+        }
+
+        // ============ Load All Data ============
+        async function loadAllData() {
+            await Promise.all([loadVideos(), loadAccounts(), loadUsers(), loadGroups(), loadSalaryConfigs(), loadSalaries()]);
+            // 加载完成后刷新导出预览
+            loadExportPreview();
+        }
+
+        // ============ Videos ============
+        async function loadVideos() {
+            try {
+                let query = supabase.from('videos').select('*').order('created_at', { ascending: false });
+                const platform = document.getElementById('filterPlatform')?.value;
+                const status = document.getElementById('filterStatus')?.value;
+                const keyword = document.getElementById('searchKeyword')?.value.trim();
+                const dateStart = document.getElementById('filterDateStart')?.value;
+                const dateEnd = document.getElementById('filterDateEnd')?.value;
+                
+                if (platform) query = query.eq('platform', platform);
+                if (status) query = query.eq('status', status);
+                if (keyword) query = query.or(`account_name.ilike.%${keyword}%,publisher.ilike.%${keyword}%`);
+                
+                const { data, error } = await query;
+                if (error) throw error;
+                let filteredVideos = data || [];
+                
+                // 日期筛选（客户端筛选）
+                if (dateStart) {
+                    filteredVideos = filteredVideos.filter(v => v.created_at?.slice(0, 10) >= dateStart);
+                }
+                if (dateEnd) {
+                    filteredVideos = filteredVideos.filter(v => v.created_at?.slice(0, 10) <= dateEnd);
+                }
+                
+                // 根据角色过滤可见视频
+                allVideos = filteredVideos.filter(v => canViewVideo(v));
+                
+                renderVideoTable();
+                updateTeacherSelect();
+                updateStudentVideoStats();
+            } catch (e) { console.error(e); toast('加载视频失败', 'error'); }
+        }
+        
+        // 视频记录日期筛选变化时调用
+        function onVideoFilterChange() {
+            loadVideos();
+            // 同时更新数据看板的日期筛选器（保持同步）
+            syncDateFilterToDashboard();
+            // 如果当前在数据看板页面，也更新看板数据
+            if (document.getElementById('page-dashboard')?.classList.contains('active')) {
+                updateDashboard();
+            }
+        }
+        
+        // 同步视频记录的日期筛选到数据看板
+        function syncDateFilterToDashboard() {
+            const videoStart = document.getElementById('filterDateStart')?.value;
+            const videoEnd = document.getElementById('filterDateEnd')?.value;
+            if (document.getElementById('filterDateStart')) {
+                document.getElementById('filterDateStart').value = videoStart || '';
+            }
+            if (document.getElementById('filterDateEnd')) {
+                document.getElementById('filterDateEnd').value = videoEnd || '';
+            }
+        }
+        
+        // 设置视频记录的日期范围
+        function setVideoDateRange(range) {
+            const today = new Date();
+            let start = '', end = '';
+            if (range === 'today') {
+                start = today.toISOString().slice(0, 10);
+                end = start;
+            } else if (range === 'week') {
+                const weekAgo = new Date(today - 7 * 24 * 60 * 60 * 1000);
+                start = weekAgo.toISOString().slice(0, 10);
+                end = today.toISOString().slice(0, 10);
+            } else if (range === 'month') {
+                const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+                start = monthStart.toISOString().slice(0, 10);
+                end = today.toISOString().slice(0, 10);
+            }
+            // 同时设置视频记录页面和数据看板页面的日期筛选器
+            document.getElementById('filterDateStart').value = start;
+            document.getElementById('filterDateEnd').value = end;
+            onVideoFilterChange();
+        }
+
+        // 计算视频发布后第N天的日期（修复时区问题：使用本地时间解析）
+        function getDayDate(publishDate, dayN) {
+            if (!publishDate) return null;
+            // 解析 YYYY-MM-DD 为本地时间午夜（避免UTC偏移问题）
+            const parts = publishDate.split('-').map(Number);
+            const d = new Date(parts[0], parts[1] - 1, parts[2]);
+            d.setDate(d.getDate() + dayN);
+            return d;
+        }
+
+        // 判断是否应该填写第N天数据（今天是否到达或超过第N天）
+        function shouldFillDayN(publishDate, dayN) {
+            if (!publishDate) return false;
+            const dayDate = getDayDate(publishDate, dayN);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return today >= dayDate;
+        }
+
+        // 判断第N天数据是否已填写
+        function isDayNFilled(v, dayN) {
+            if (dayN === 3) return v.views_day3 !== null && v.views_day3 !== undefined;
+            if (dayN === 7) return v.views_day7 !== null && v.views_day7 !== undefined;
+            return false;
+        }
+
+        // 获取提醒状态：是否需要填写第3天或第7天数据
+        function getStatsReminder(v) {
+            const publishDate = v.created_at?.slice(0, 10);
+            const now = new Date();
+            now.setHours(0, 0, 0, 0);
+            
+            if (!publishDate) return { needDay3: false, needDay7: false };
+            
+            const day3Date = getDayDate(publishDate, 3);
+            const day7Date = getDayDate(publishDate, 7);
+            
+            const needDay3 = now >= day3Date && !isDayNFilled(v, 3);
+            const needDay7 = now >= day7Date && !isDayNFilled(v, 7);
+            
+            return { needDay3, needDay7 };
+        }
+
+        // 格式化统计数据显示
+        function formatStatsCell(views, likes, comments, isEmpty, fillStatus) {
+            if (isEmpty) {
+                return `<span class="stats-pending" title="${fillStatus}">待填写</span>`;
+            }
+            return `<div class="stats-cell">
+                <span class="stat-item">播:${views || 0}</span>
+                <span class="stat-item">赞:${likes || 0}</span>
+                <span class="stat-item">评:${comments || 0}</span>
+            </div>`;
+        }
+
+        function renderVideoTable() {
+            const tbody = document.getElementById('videoTable');
+            if (!tbody) return;
+            if (allVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无数据</td></tr>'; return; }
+            tbody.innerHTML = allVideos.map(v => {
+                const statusClass = v.status === '爆款' ? 'badge-danger' : v.status === '已发布' ? 'badge-success' : v.status === '失败' ? 'badge-warning' : 'badge-purple';
+                const canEdit = canEditVideo(v);
+                const reminder = getStatsReminder(v);
+                const publishDate = v.created_at?.slice(0, 10);
+                const day3Filled = isDayNFilled(v, 3);
+                const day7Filled = isDayNFilled(v, 7);
+                const day3Date = publishDate ? getDayDate(publishDate, 3).toLocaleDateString('zh-CN', {month:'numeric',day:'numeric'}) : '-';
+                const day7Date = publishDate ? getDayDate(publishDate, 7).toLocaleDateString('zh-CN', {month:'numeric',day:'numeric'}) : '-';
+                
+                return `<tr class="${reminder.needDay3 || reminder.needDay7 ? 'row-reminder' : ''}">
+                    <td>${v.created_at ? new Date(v.created_at).toLocaleDateString('zh-CN') : '-'}</td>
+                    <td>${v.platform || '-'}</td>
+                    <td>${v.account_name || '-'}</td>
+                    <td>${v.publisher || '-'}</td>
+                    <td>${v.group_name || '-'}</td>
+                    <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" class="link">查看</a>` : '-'}</td>
+                    <td>${formatStatsCell(v.views, v.likes, v.comments, false, '')}</td>
+                    <td class="${reminder.needDay3 ? 'cell-reminder' : ''}" title="${day3Date} (发布后第3天)">
+                        ${formatStatsCell(v.views_day3, v.likes_day3, v.comments_day3, !day3Filled, '第3天')}
+                    </td>
+                    <td class="${reminder.needDay7 ? 'cell-reminder-day7' : ''}" title="${day7Date} (发布后第7天)">
+                        ${formatStatsCell(v.views_day7, v.likes_day7, v.comments_day7, !day7Filled, '第7天')}
+                    </td>
+                    <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
+                    <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${v.id}')">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteVideo('${v.id}')">删除</button>` : '-'}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        function updateTeacherSelect() {
+            const select = document.getElementById('filterTeacher');
+            if (!select) return;
+            const teachers = allUsers.filter(u => u.role === 'teacher');
+            select.innerHTML = '<option value="">全部老师</option>' + teachers.map(t => `<option value="${t.real_name || t.name}">${t.real_name || t.name}</option>`).join('');
+        }
+
+        function updateStudentVideoStats() {
+            const studentStats = document.getElementById('studentVideoStats');
+            if (!studentStats) return;
+            
+            if (!isAdmin()) {
+                studentStats.style.display = 'block';
+                const myVideos = allVideos;
+                document.getElementById('myVideoCount').textContent = myVideos.length;
+                document.getElementById('myThousandLike').textContent = myVideos.filter(v => (v.likes || 0) >= 1000).length;
+                document.getElementById('myTenThousandLike').textContent = myVideos.filter(v => (v.likes || 0) >= 10000).length;
+                
+                // 更新待填写数据提醒
+                const reminderBar = document.getElementById('statsReminder');
+                const reminderText = document.getElementById('reminderText');
+                if (reminderBar && reminderText) {
+                    const pendingDay3 = myVideos.filter(v => shouldFillDayN(v.created_at, 3) && !isDayNFilled(v, 3)).length;
+                    const pendingDay7 = myVideos.filter(v => shouldFillDayN(v.created_at, 7) && !isDayNFilled(v, 7)).length;
+                    
+                    const parts = [];
+                    if (pendingDay3 > 0) parts.push(`有 <b>${pendingDay3}</b> 个视频待填写第3天数据`);
+                    if (pendingDay7 > 0) parts.push(`有 <b>${pendingDay7}</b> 个视频待填写第7天数据`);
+                    
+                    if (parts.length > 0) {
+                        reminderBar.style.display = 'flex';
+                        reminderText.innerHTML = parts.join('，') + '，请及时补充！';
+                    } else {
+                        reminderBar.style.display = 'none';
+                    }
+                }
+            } else {
+                studentStats.style.display = 'none';
+            }
+        }
+
+        function openVideoModal(id = null) {
+            document.getElementById('videoId').value = id || '';
+            document.getElementById('videoModalTitle').textContent = id ? '编辑视频记录' : '添加视频记录';
+            
+            // 清空第3天和第7天数据
+            document.getElementById('videoViewsDay3').value = '';
+            document.getElementById('videoLikesDay3').value = '';
+            document.getElementById('videoCommentsDay3').value = '';
+            document.getElementById('videoViewsDay7').value = '';
+            document.getElementById('videoLikesDay7').value = '';
+            document.getElementById('videoCommentsDay7').value = '';
+            document.getElementById('day3Hint').textContent = '';
+            document.getElementById('day7Hint').textContent = '';
+            
+            if (!id) {
+                document.getElementById('videoTime').value = new Date().toISOString().slice(0, 16);
+                document.getElementById('videoPlatform').value = '抖音';
+                document.getElementById('videoLink').value = '';
+                document.getElementById('videoPlay').value = '';
+                document.getElementById('videoLike').value = '';
+                document.getElementById('videoComment').value = '';
+                // 学生添加时自动填入自己的姓名
+                if (!isAdmin() && currentUser?.real_name) {
+                    document.getElementById('videoPublisher').value = currentUser.real_name;
+                } else {
+                    document.getElementById('videoPublisher').value = '';
+                }
+            } else {
+                // 编辑时：填充第3天和第7天数据，并显示提示
+                const video = allVideos.find(v => v.id === id);
+                if (video) {
+                    document.getElementById('videoViewsDay3').value = video.views_day3 ?? '';
+                    document.getElementById('videoLikesDay3').value = video.likes_day3 ?? '';
+                    document.getElementById('videoCommentsDay3').value = video.comments_day3 ?? '';
+                    document.getElementById('videoViewsDay7').value = video.views_day7 ?? '';
+                    document.getElementById('videoLikesDay7').value = video.likes_day7 ?? '';
+                    document.getElementById('videoCommentsDay7').value = video.comments_day7 ?? '';
+                    
+                    // 显示日期提示
+                    if (video.created_at) {
+                        const day3Date = getDayDate(video.created_at, 3);
+                        const day7Date = getDayDate(video.created_at, 7);
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        if (today >= day3Date) {
+                            document.getElementById('day3Hint').textContent = video.views_day3 !== null && video.views_day3 !== undefined ? '✓ 已填写' : '⚠️ 待填写';
+                        }
+                        if (today >= day7Date) {
+                            document.getElementById('day7Hint').textContent = video.views_day7 !== null && video.views_day7 !== undefined ? '✓ 已填写' : '⚠️ 待填写';
+                        }
+                    }
+                }
+            }
+            updateVideoAccountSelect();
+            updateVideoGroupSelect();
+            document.getElementById('videoModal').classList.add('show');
+        }
+
+        function updateVideoAccountSelect() {
+            const select = document.getElementById('videoAccount');
+            select.innerHTML = allAccounts.map(a => `<option value="${a.account_name}">${a.platform} - ${a.account_name}</option>`).join('');
+        }
+        
+        function updateVideoGroupSelect() {
+            const select = document.getElementById('videoGroup');
+            // 从 users 和 accounts 合并去重的组别
+            const userGroups = allUsers.map(u => u.group_name).filter(Boolean);
+            const accountGroups = allAccounts.map(a => a.group_name).filter(Boolean);
+            const groups = [...new Set([...userGroups, ...accountGroups])];
+            select.innerHTML = '<option value="">-- 请选择组别 --</option>' + 
+                groups.map(g => `<option value="${g}">${g}</option>`).join('');
+        }
+
+        async function editVideo(id) {
+            const v = allVideos.find(x => x.id == id);
+            if (!v) { toast('未找到该记录', 'error'); return; }
+            document.getElementById('videoId').value = id;
+            document.getElementById('videoModalTitle').textContent = '编辑视频记录';
+            document.getElementById('videoPlatform').value = v.platform || '抖音';
+            updateVideoAccountSelect();
+            document.getElementById('videoAccount').value = v.account_name || '';
+            document.getElementById('videoTime').value = v.created_at ? new Date(v.created_at).toISOString().slice(0, 16) : '';
+            document.getElementById('videoStatus').value = v.status || '待发布';
+            document.getElementById('videoLink').value = v.video_link || '';
+            document.getElementById('videoPlay').value = v.views ?? '';
+            document.getElementById('videoLike').value = v.likes ?? '';
+            document.getElementById('videoComment').value = v.comments ?? '';
+            document.getElementById('videoPublisher').value = v.publisher || '';
+            // 第3天/第7天数据
+            document.getElementById('videoViewsDay3').value = v.views_day3 ?? '';
+            document.getElementById('videoLikesDay3').value = v.likes_day3 ?? '';
+            document.getElementById('videoCommentsDay3').value = v.comments_day3 ?? '';
+            document.getElementById('videoViewsDay7').value = v.views_day7 ?? '';
+            document.getElementById('videoLikesDay7').value = v.likes_day7 ?? '';
+            document.getElementById('videoCommentsDay7').value = v.comments_day7 ?? '';
+            document.getElementById('day3Hint').textContent = '';
+            document.getElementById('day7Hint').textContent = '';
+            if (v.created_at) {
+                const today = new Date(); today.setHours(0,0,0,0);
+                const day3Date = getDayDate(v.created_at, 3);
+                const day7Date = getDayDate(v.created_at, 7);
+                if (today >= day3Date) document.getElementById('day3Hint').textContent = (v.views_day3 !== null && v.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+                if (today >= day7Date) document.getElementById('day7Hint').textContent = (v.views_day7 !== null && v.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+            }
+            // 加载组别选项并选中
+            updateVideoGroupSelect();
+            document.getElementById('videoGroup').value = v.group_name || '';
+            document.getElementById('videoModal').classList.add('show');
+        }
+
+        async function saveVideo() {
+            const id = document.getElementById('videoId').value;
+            const now = new Date().toISOString();
+            const getVal = (id) => parseInt(document.getElementById(id).value) || null;
+            
+            const data = {
+                platform: document.getElementById('videoPlatform').value,
+                account_name: document.getElementById('videoAccount').value,
+                status: document.getElementById('videoStatus').value,
+                video_link: document.getElementById('videoLink').value,
+                views: getVal('videoPlay'),
+                likes: getVal('videoLike'),
+                comments: getVal('videoComment'),
+                publisher: document.getElementById('videoPublisher').value,
+                group_name: document.getElementById('videoGroup').value,
+                created_at: document.getElementById('videoTime').value || now,
+                // 第3天数据
+                views_day3: getVal('videoViewsDay3'),
+                likes_day3: getVal('videoLikesDay3'),
+                comments_day3: getVal('videoCommentsDay3'),
+                // 第7天数据
+                views_day7: getVal('videoViewsDay7'),
+                likes_day7: getVal('videoLikesDay7'),
+                comments_day7: getVal('videoCommentsDay7'),
+            };
+            // 填写时自动记录时间
+            if (data.views_day3 !== null && data.views_day3 !== undefined) data.stats_day3_at = now;
+            if (data.views_day7 !== null && data.views_day7 !== undefined) data.stats_day7_at = now;
+            
+            try {
+                if (id) {
+                    const { error } = await supabase.from('videos').update(data).eq('id', id);
+                    if (error) throw error;
+                    toast('更新成功');
+                } else {
+                    const { error } = await supabase.from('videos').insert(data);
+                    if (error) throw error;
+                    toast('添加成功');
+                }
+                closeModal('videoModal');
+                loadVideos();
+            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+        }
+
+        async function deleteVideo(id) {
+            if (!confirm('确定要删除吗？')) return;
+            try {
+                const { error } = await supabase.from('videos').delete().eq('id', id);
+                if (error) throw error;
+                toast('删除成功');
+                loadVideos();
+            } catch (e) { toast('删除失败', 'error'); }
+        }
+
+        // ============ Accounts ============
+        async function loadAccounts() {
+            try {
+                const { data, error } = await supabase.from('accounts').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
+                allAccounts = (data || []).filter(a => canViewAccount(a));
+                renderAccountTable();
+            } catch (e) { console.error(e); }
+        }
+
+        function renderAccountTable() {
+            const tbody = document.getElementById('accountTable');
+            if (!tbody) return;
+            if (allAccounts.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">暂无数据</td></tr>'; return; }
+            tbody.innerHTML = allAccounts.map(a => `<tr>
+                <td>${a.platform || '-'}</td>
+                <td>${a.account_name || '-'}</td>
+                <td>${a.owner || '-'}</td>
+                <td>${a.group_name || '-'}</td>
+                <td><span class="badge ${a.active ? 'badge-success' : 'badge-danger'}">${a.active ? '正常' : '停用'}</span></td>
+                <td><button class="btn btn-sm btn-secondary" onclick="editAccount(${a.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteAccount(${a.id})">删除</button></td>
+            </tr>`).join('');
+        }
+
+        function updateAccountSelects() {
+            const ownerSelect = document.getElementById('accountOwner');
+            const currentOwner = ownerSelect?.value || '';
+            ownerSelect.innerHTML = '<option value="">-- 选择负责人 --</option>';
+            allUsers.forEach(u => { ownerSelect.innerHTML += `<option value="${u.real_name || u.name || u.username}">${u.real_name || u.name || u.username}</option>`; });
+            if (ownerSelect) ownerSelect.value = currentOwner;
+
+            const groupSelect = document.getElementById('accountGroup');
+            const currentGroup = groupSelect?.value || '';
+            groupSelect.innerHTML = '<option value="">-- 选择分组 --</option>';
+            const groups = [...new Set([...allUsers.filter(u => u.group_name).map(u => u.group_name), ...allAccounts.filter(a => a.group_name).map(a => a.group_name)])];
+            groups.forEach(g => { groupSelect.innerHTML += `<option value="${g}">${g}</option>`; });
+            if (groupSelect) groupSelect.value = currentGroup;
+        }
+
+        function openAccountModal(id = null) {
+            document.getElementById('accountId').value = id || '';
+            document.getElementById('accountModalTitle').textContent = id ? '编辑账号' : '添加账号';
+            if (!id) { document.getElementById('accountPlatform').value = '抖音'; document.getElementById('accountName').value = ''; }
+            updateAccountSelects();
+            document.getElementById('accountModal').classList.add('show');
+        }
+
+        async function editAccount(id) {
+            const a = allAccounts.find(x => x.id == id);
+            if (!a) { toast('未找到该账号', 'error'); return; }
+            document.getElementById('accountId').value = id;
+            document.getElementById('accountModalTitle').textContent = '编辑账号';
+            document.getElementById('accountPlatform').value = a.platform || '抖音';
+            document.getElementById('accountName').value = a.account_name || '';
+            updateAccountSelects();
+            document.getElementById('accountOwner').value = a.owner || '';
+            document.getElementById('accountGroup').value = a.group_name || '';
+            document.getElementById('accountModal').classList.add('show');
+        }
+
+        async function saveAccount() {
+            const id = document.getElementById('accountId').value;
+            const data = {
+                name: document.getElementById('accountName').value,
+                account_name: document.getElementById('accountName').value,
+                platform: document.getElementById('accountPlatform').value,
+                owner: document.getElementById('accountOwner').value,
+                group_name: document.getElementById('accountGroup').value,
+                active: true
+            };
+            try {
+                if (id) {
+                    const { error } = await supabase.from('accounts').update(data).eq('id', id);
+                    if (error) throw error;
+                    toast('更新成功');
+                } else {
+                    const { error } = await supabase.from('accounts').insert(data);
+                    if (error) throw error;
+                    toast('添加成功');
+                }
+                closeModal('accountModal');
+                loadAccounts();
+            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+        }
+
+        async function deleteAccount(id) {
+            if (!confirm('确定要删除吗？')) return;
+            try { const { error } = await supabase.from('accounts').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadAccounts(); } catch (e) { toast('删除失败', 'error'); }
+        }
+
+        // ============ Users ============
+        async function loadUsers() {
+            try {
+                const { data, error } = await supabase.from('users').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
+                allUsers = data || [];
+                renderUserTable();
+            } catch (e) { console.error(e); }
+        }
+
+        function renderUserTable() {
+            const tbody = document.getElementById('userTable');
+            if (!tbody) return;
+            // 根据角色过滤可见用户
+            const visibleUsers = allUsers.filter(u => canViewUser(u));
+            if (visibleUsers.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">暂无数据</td></tr>'; return; }
+            const roleMap = { admin: '管理员', teacher: '教师/编导', student: '学生' };
+            tbody.innerHTML = visibleUsers.map(u => `<tr>
+                <td>${u.real_name || '-'}</td>
+                <td>${u.username || '-'}</td>
+                <td><span class="badge ${u.role === 'admin' ? 'badge-purple' : u.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${roleMap[u.role] || u.role}</span></td>
+                <td>${u.group_name || '-'}</td>
+                <td><span class="badge ${u.active ? 'badge-success' : 'badge-danger'}">${u.active ? '正常' : '停用'}</span></td>
+                <td><button class="btn btn-sm btn-secondary" onclick="editUser(${u.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteUser(${u.id})">删除</button></td>
+            </tr>`).join('');
+        }
+
+        function openUserModal(id = null) {
+            document.getElementById('userId').value = id || '';
+            document.getElementById('userModalTitle').textContent = id ? '编辑成员' : '添加成员';
+            updateUserGroupSelect();
+            if (!id) { document.getElementById('userName').value = ''; document.getElementById('userUsername').value = ''; document.getElementById('userRole').value = 'student'; document.getElementById('userGroup').value = ''; document.getElementById('userPassword').value = '123456'; }
+            document.getElementById('userModal').classList.add('show');
+        }
+
+        async function editUser(id) {
+            const u = allUsers.find(x => x.id == id);
+            if (!u) { toast('未找到该成员', 'error'); return; }
+            document.getElementById('userId').value = id;
+            document.getElementById('userModalTitle').textContent = '编辑成员';
+            document.getElementById('userName').value = u.real_name || '';
+            document.getElementById('userUsername').value = u.username || '';
+            document.getElementById('userRole').value = u.role || 'student';
+            updateUserGroupSelect();
+            document.getElementById('userGroup').value = u.group_name || '';
+            document.getElementById('userPassword').value = '';
+            document.getElementById('userModal').classList.add('show');
+        }
+
+        async function saveUser() {
+            const id = document.getElementById('userId').value;
+            const realName = document.getElementById('userName').value.trim();
+            if (!realName) { toast('姓名不能为空', 'error'); return; }
+            const username = realName; // 用户名默认等于姓名
+            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, active: true, password: '123456' };
+            try {
+                if (id) {
+                    const { error } = await supabase.from('users').update(data).eq('id', id);
+                    if (error) throw error;
+                    toast('更新成功');
+                } else {
+                    const { error } = await supabase.from('users').insert(data);
+                    if (error) throw error;
+                    toast('添加成功');
+                }
+                closeModal('userModal');
+                loadUsers();
+            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+        }
+
+        async function deleteUser(id) {
+            if (!confirm('确定要删除吗？')) return;
+            try { const { error } = await supabase.from('users').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadUsers(); } catch (e) { toast('删除失败', 'error'); }
+        }
+
+        // ============ Groups ============
+        async function loadGroups() {
+            try {
+                const { data, error } = await supabase.from('groups').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
+                allGroups = data || [];
+                renderGroupTable();
+                updateGroupLeaderSelect();
+            } catch (e) { console.error(e); allGroups = []; renderGroupTable(); }
+        }
+
+        function renderGroupTable() {
+            const tbody = document.getElementById('groupTable');
+            if (!tbody) return;
+            if (allGroups.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无分组</td></tr>'; return; }
+            tbody.innerHTML = allGroups.map(g => `<tr>
+                <td>${g.name || '-'}</td>
+                <td>${g.leader || '-'}</td>
+                <td>${g.member_count || 0}</td>
+                <td>${g.note || '-'}</td>
+                <td><button class="btn btn-sm btn-secondary" onclick="editGroup(${g.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteGroup(${g.id})">删除</button></td>
+            </tr>`).join('');
+        }
+
+        function updateGroupLeaderSelect() {
+            const select = document.getElementById('groupLeader');
+            if (!select) return;
+            const teachers = allUsers.filter(u => u.role === 'teacher');
+            select.innerHTML = '<option value="">-- 选择负责人 --</option>' + teachers.map(t => `<option value="${t.real_name || t.name}">${t.real_name || t.name}</option>`).join('');
+        }
+
+        function updateUserGroupSelect() {
+            const select = document.getElementById('userGroup');
+            if (!select) return;
+            const currentValue = select.value || '';
+            select.innerHTML = '<option value="">-- 选择分组 --</option>';
+            // 从 groups 表获取分组列表
+            allGroups.forEach(g => {
+                select.innerHTML += `<option value="${g.name}">${g.name}</option>`;
+            });
+            select.value = currentValue;
+        }
+
+        function openGroupModal(id = null) {
+            document.getElementById('groupId').value = id || '';
+            document.getElementById('groupModalTitle').textContent = id ? '编辑分组' : '添加分组';
+            if (!id) { document.getElementById('groupName').value = ''; document.getElementById('groupNote').value = ''; }
+            updateGroupLeaderSelect();
+            document.getElementById('groupModal').classList.add('show');
+        }
+
+        async function editGroup(id) {
+            const g = allGroups.find(x => x.id == id);
+            if (!g) { toast('未找到该分组', 'error'); return; }
+            document.getElementById('groupId').value = id;
+            document.getElementById('groupModalTitle').textContent = '编辑分组';
+            document.getElementById('groupName').value = g.name || '';
+            updateGroupLeaderSelect();
+            document.getElementById('groupLeader').value = g.leader || '';
+            document.getElementById('groupNote').value = g.note || '';
+            document.getElementById('groupModal').classList.add('show');
+        }
+
+        async function saveGroup() {
+            const id = document.getElementById('groupId').value;
+            const name = document.getElementById('groupName').value.trim();
+            if (!name) { toast('分组名称不能为空', 'error'); return; }
+            const data = { name, leader: document.getElementById('groupLeader').value, note: document.getElementById('groupNote').value };
+            try {
+                if (id) { const { error } = await supabase.from('groups').update(data).eq('id', id); if (error) throw error; toast('更新成功'); }
+                else { const { error } = await supabase.from('groups').insert(data); if (error) throw error; toast('添加成功'); }
+                closeModal('groupModal');
+                loadGroups();
+            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+        }
+
+        async function deleteGroup(id) {
+            if (!confirm('确定要删除吗？')) return;
+            try { const { error } = await supabase.from('groups').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadGroups(); } catch (e) { toast('删除失败', 'error'); }
+        }
+
+        // ============ Salary Config ============
+        async function loadSalaryConfigs() {
+            try {
+                const { data, error } = await supabase.from('salary_configs').select('*').order('created_at', { ascending: false });
+                if (error) throw error;
+                allSalaryConfigs = data || [];
+                renderSalaryConfigTable();
+            } catch (e) { console.error(e); allSalaryConfigs = []; renderSalaryConfigTable(); }
+        }
+
+        function renderSalaryConfigTable() {
+            const tbody = document.getElementById('salaryConfigTable');
+            if (!tbody) return;
+            if (allSalaryConfigs.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">暂无配置</td></tr>'; return; }
+            const roleMap = { teacher: '教师/编导', student: '学生' };
+            tbody.innerHTML = allSalaryConfigs.map(c => `<tr>
+                <td><span class="badge ${c.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${roleMap[c.role] || c.role}</span></td>
+                <td>¥${c.base_salary || 0}</td>
+                <td>¥${c.thousand_bonus || 0}/条</td>
+                <td>¥${c.ten_thousand_bonus || 0}/条</td>
+                <td>${c.note || '-'}</td>
+                <td><button class="btn btn-sm btn-secondary" onclick="editSalaryConfig(${c.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteSalaryConfig(${c.id})">删除</button></td>
+            </tr>`).join('');
+        }
+
+        function openSalaryConfigModal(id = null) {
+            document.getElementById('salaryConfigId').value = id || '';
+            document.getElementById('salaryConfigModalTitle').textContent = id ? '编辑配置' : '添加配置';
+            if (!id) { document.getElementById('salaryConfigRole').value = 'student'; document.getElementById('salaryConfigBase').value = '0'; document.getElementById('salaryConfigThousand').value = '0'; document.getElementById('salaryConfigTenThousand').value = '0'; document.getElementById('salaryConfigNote').value = ''; }
+            document.getElementById('salaryConfigModal').classList.add('show');
+        }
+
+        async function editSalaryConfig(id) {
+            const c = allSalaryConfigs.find(x => x.id == id);
+            if (!c) { toast('未找到该配置', 'error'); return; }
+            document.getElementById('salaryConfigId').value = id;
+            document.getElementById('salaryConfigModalTitle').textContent = '编辑配置';
+            document.getElementById('salaryConfigRole').value = c.role || 'student';
+            document.getElementById('salaryConfigBase').value = c.base_salary || 0;
+            document.getElementById('salaryConfigThousand').value = c.thousand_bonus || 0;
+            document.getElementById('salaryConfigTenThousand').value = c.ten_thousand_bonus || 0;
+            document.getElementById('salaryConfigNote').value = c.note || '';
+            document.getElementById('salaryConfigModal').classList.add('show');
+        }
+
+        async function saveSalaryConfig() {
+            const id = document.getElementById('salaryConfigId').value;
+            const data = { role: document.getElementById('salaryConfigRole').value, base_salary: parseFloat(document.getElementById('salaryConfigBase').value) || 0, thousand_bonus: parseFloat(document.getElementById('salaryConfigThousand').value) || 0, ten_thousand_bonus: parseFloat(document.getElementById('salaryConfigTenThousand').value) || 0, note: document.getElementById('salaryConfigNote').value };
+            try {
+                if (id) { const { error } = await supabase.from('salary_configs').update(data).eq('id', id); if (error) throw error; toast('更新成功'); }
+                else { const { error } = await supabase.from('salary_configs').insert(data); if (error) throw error; toast('添加成功'); }
+                closeModal('salaryConfigModal');
+                loadSalaryConfigs();
+            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+        }
+
+        async function deleteSalaryConfig(id) {
+            if (!confirm('确定要删除吗？')) return;
+            try { const { error } = await supabase.from('salary_configs').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadSalaryConfigs(); } catch (e) { toast('删除失败', 'error'); }
+        }
+
+        // ============ Salary ============
+        function initSalaryMonth() {
+            const select = document.getElementById('salaryMonth');
+            if (!select) return;
+            const now = new Date();
+            select.innerHTML = '';
+            for (let i = 0; i < 12; i++) {
+                const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const value = d.toISOString().slice(0, 7);
+                const label = d.getFullYear() + '年' + (d.getMonth() + 1) + '月';
+                select.innerHTML += `<option value="${value}" ${i === 0 ? 'selected' : ''}>${label}</option>`;
+            }
+        }
+
+        async function loadSalaryData() {
+            await loadSalaries();
+            await loadSalarySummary();
+        }
+
+        async function loadSalaries() {
+            try {
+                const month = document.getElementById('salaryMonth')?.value || new Date().toISOString().slice(0, 7);
+                const { data, error } = await supabase.from('salaries').select('*').eq('month', month).order('created_at', { ascending: false });
+                if (error) throw error;
+                allSalaries = data || [];
+                renderSalaryTable();
+            } catch (e) { console.error(e); allSalaries = []; renderSalaryTable(); }
+        }
+
+        function renderSalaryTable() {
+            const tbody = document.getElementById('salaryTable');
+            if (!tbody) return;
+            if (allSalaries.length === 0) { tbody.innerHTML = '<tr><td colspan="10" class="empty-state">暂无结算数据</td></tr>'; return; }
+            tbody.innerHTML = allSalaries.map(s => `<tr>
+                <td>${s.user_name || '-'}</td>
+                <td><span class="badge ${s.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${s.role === 'teacher' ? '编导' : '学生'}</span></td>
+                <td>${s.group_name || '-'}</td>
+                <td>${s.video_count || 0}</td>
+                <td>${s.thousand_count || 0}</td>
+                <td>${s.ten_thousand_count || 0}</td>
+                <td>¥${s.bonus || 0}</td>
+                <td><strong>¥${s.total || 0}</strong></td>
+                <td><span class="badge ${s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span></td>
+                <td><button class="btn btn-sm btn-secondary" onclick="markSalaryPaid(${s.id})">确认结算</button></td>
+            </tr>`).join('');
+        }
+
+        async function loadSalarySummary() {
+            const total = allSalaries.reduce((sum, s) => sum + (s.total || 0), 0);
+            const paid = allSalaries.filter(s => s.status === '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
+            const pending = allSalaries.filter(s => s.status !== '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
+            const deduction = allSalaries.reduce((sum, s) => sum + (s.deduction || 0), 0);
+            document.getElementById('salaryTotal').textContent = '¥' + total;
+            document.getElementById('salaryPaid').textContent = '¥' + paid;
+            document.getElementById('salaryPending').textContent = '¥' + pending;
+            document.getElementById('salaryDeduction').textContent = '¥' + deduction;
+        }
+
+        async function openSalaryModal() {
+            const month = document.getElementById('salaryMonth')?.value;
+            if (!month) { toast('请选择月份', 'error'); return; }
+            // 计算所有用户的薪资
+            for (const user of allUsers.filter(u => u.role !== 'admin')) {
+                const userVideos = allVideos.filter(v => v.publisher === (user.real_name || user.name) && v.created_at?.startsWith(month));
+                const thousandCount = userVideos.filter(v => v.likes >= 1000).length;
+                const tenThousandCount = userVideos.filter(v => v.likes >= 10000).length;
+                const config = allSalaryConfigs.find(c => c.role === user.role) || { base_salary: 0, thousand_bonus: 0, ten_thousand_bonus: 0 };
+                const bonus = thousandCount * (config.thousand_bonus || 0) + tenThousandCount * (config.ten_thousand_bonus || 0);
+                const total = (config.base_salary || 0) + bonus;
+                const data = { user_id: user.id, user_name: user.real_name || user.name, role: user.role, group_name: user.group_name, month, video_count: userVideos.length, thousand_count: thousandCount, ten_thousand_count: tenThousandCount, base_salary: config.base_salary || 0, bonus, total, status: '待结算' };
+                try {
+                    const existing = allSalaries.find(s => s.user_id === user.id && s.month === month);
+                    if (existing) {
+                        await supabase.from('salaries').update(data).eq('id', existing.id);
+                    } else {
+                        await supabase.from('salaries').insert(data);
+                    }
+                } catch (e) { console.error(e); }
+            }
+            toast('薪资已生成');
+            loadSalaries();
+            loadSalarySummary();
+        }
+
+        async function markSalaryPaid(id) {
+            try { const { error } = await supabase.from('salaries').update({ status: '已结算' }).eq('id', id); if (error) throw error; toast('已标记为结算'); loadSalaries(); loadSalarySummary(); } catch (e) { toast('操作失败', 'error'); }
+        }
+
+        // 获取视频的组别（用于筛选）
+        function getVideoGroupForFilter(v) {
+            // 1. 优先使用视频记录中直接设置的组别
+            if (v.group_name) return v.group_name;
+            // 2. 从人员表查找发布者对应的组别
+            const user = allUsers.find(u => (u.real_name === v.publisher || u.name === v.publisher) && u.group_name);
+            if (user) return user.group_name;
+            // 3. 从账号表查找组别
+            const account = allAccounts.find(a => a.account_name === v.account_name && a.group_name);
+            if (account) return account.group_name;
+            return null;
+        }
+
+        // 更新组别筛选器选项
+        function updateGroupFilterOptions() {
+            const select = document.getElementById('filterGroup');
+            if (!select) return;
+            
+            // 保存当前选中的值
+            const currentValue = select.value;
+            
+            // 从 users 和 accounts 表获取分组，并合并去重
+            const userGroups = allUsers.map(u => u.group_name).filter(Boolean);
+            const accountGroups = allAccounts.map(a => a.group_name).filter(Boolean);
+            const groups = [...new Set([...userGroups, ...accountGroups])].sort();
+            
+            // 更新选项
+            select.innerHTML = '<option value="">全部分组</option>' + 
+                groups.map(g => `<option value="${g}" ${g === currentValue ? 'selected' : ''}>${g}</option>`).join('');
+        }
+        
+        // ============ Dashboard ============
+        async function updateDashboard() {
+            // 更新组别筛选器选项
+            updateGroupFilterOptions();
+            
+            const videos = getFilteredVideos();
+            const group = document.getElementById('filterGroup')?.value;
+            // 根据角色和组别筛选老师和学生
+            const teachers = allUsers.filter(u => u.role === 'teacher' && canViewUser(u) && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && canViewUser(u) && (!group || u.group_name === group));
+            const thousandVideos = videos.filter(v => v.likes >= 1000);
+            const tenThousandVideos = videos.filter(v => v.likes >= 10000);
+
+            document.getElementById('statTeachers').textContent = teachers.length;
+            document.getElementById('statStudents').textContent = students.length;
+            document.getElementById('statAccounts').textContent = allAccounts.length;
+            document.getElementById('statVideos').textContent = videos.length;
+            document.getElementById('statThousand').textContent = thousandVideos.length;
+            document.getElementById('statTenThousand').textContent = tenThousandVideos.length;
+
+            renderTeacherGrid(teachers, videos, students);
+            
+            // 加载 Chart.js 后渲染图表
+            await loadChartJS();
+            destroyOldCharts();
+            
+            // 如果选择了组别，隐藏"发片趋势（按组别）"图表
+            const groupChartCard = document.querySelector('#groupChart')?.closest('.chart-card');
+            if (group && groupChartCard) {
+                groupChartCard.style.display = 'none';
+            } else {
+                if (groupChartCard) groupChartCard.style.display = 'block';
+                renderGroupChart(videos);
+            }
+            
+            renderTopLists(videos);
+            
+            // 如果 Chart 仍未定义，说明 CDN 加载失败，显示提示
+            if (typeof Chart === 'undefined') {
+                document.querySelectorAll('.chart-card').forEach(card => {
+                    const canvas = card.querySelector('canvas');
+                    if (canvas && !card.querySelector('.chart-error')) {
+                        card.innerHTML += '<div class="chart-error" style="color: var(--gray-500); font-size: 12px; margin-top: 8px;">图表库加载失败，请检查网络连接</div>';
+                    }
+                });
+            }
+        }
+
+        function renderTeacherGrid(teachers, videos, students) {
+            const grid = document.getElementById('teacherGrid');
+            if (!grid) return;
+            if (teachers.length === 0) { grid.innerHTML = '<div class="empty-state">暂无老师数据</div>'; return; }
+            grid.innerHTML = teachers.map(t => {
+                const tVideos = videos.filter(v => v.publisher === (t.real_name || t.name));
+                const tThousand = tVideos.filter(v => v.likes >= 1000).length;
+                const tTenThousand = tVideos.filter(v => v.likes >= 10000).length;
+                const tStudents = students.filter(s => s.group_name === t.group_name).length;
+                const rate = tVideos.length > 0 ? ((tThousand / tVideos.length) * 100).toFixed(1) : 0;
+                return `<div class="teacher-card">
+                    <div class="teacher-header">
+                        <span class="teacher-name">${t.real_name || t.name}</span>
+                        <span class="badge ${t.active ? 'badge-success' : 'badge-danger'}">${t.group_name || '未分组'}</span>
+                    </div>
+                    <div class="teacher-stats">
+                        <div class="teacher-stat"><div class="teacher-stat-value">${tVideos.length}</div><div class="teacher-stat-label">发片数</div></div>
+                        <div class="teacher-stat"><div class="teacher-stat-value">${tStudents}</div><div class="teacher-stat-label">学生数</div></div>
+                        <div class="teacher-stat"><div class="teacher-stat-value gold">${tThousand}</div><div class="teacher-stat-label">千赞数</div></div>
+                        <div class="teacher-stat"><div class="teacher-stat-value red">${tTenThousand}</div><div class="teacher-stat-label">万赞数</div></div>
+                    </div>
+                    <div style="margin-top:8px;font-size:12px;color:var(--gray-500)">千赞率: ${rate}%</div>
+                </div>`;
+            }).join('');
+        }
+
+        // 销毁旧的图表实例
+        function destroyOldCharts() {
+            Object.keys(chartInstances).forEach(key => {
+                if (chartInstances[key]) {
+                    chartInstances[key].destroy();
+                }
+            });
+            chartInstances = {};
+        }
+        
+        // ============ Chart Colors ============
+        const chartColors = {
+            primary: 'rgba(37, 99, 235, 0.8)',
+            success: 'rgba(16, 185, 129, 0.8)',
+            warning: 'rgba(245, 158, 11, 0.8)',
+            danger: 'rgba(239, 68, 68, 0.8)',
+            purple: 'rgba(139, 92, 246, 0.8)',
+            pink: 'rgba(236, 72, 153, 0.8)',
+            primaryBorder: 'rgb(37, 99, 235)',
+            successBorder: 'rgb(16, 185, 129)',
+            warningBorder: 'rgb(245, 158, 11)',
+            dangerBorder: 'rgb(239, 68, 68)',
+            purpleBorder: 'rgb(139, 92, 246)',
+            pinkBorder: 'rgb(236, 72, 153)',
+        };
+        
+        function renderGroupChart(videos) {
+            const chartCanvas = document.getElementById('groupChart');
+            if (!chartCanvas) return;
+            
+            // 如果 Chart 未加载，跳过
+            if (typeof Chart === 'undefined') return;
+            
+            // 从 users 和 accounts 两个表获取分组，并合并去重
+            const userGroups = allUsers.map(u => u.group_name).filter(Boolean);
+            const accountGroups = allAccounts.map(a => a.group_name).filter(Boolean);
+            const groups = [...new Set([...userGroups, ...accountGroups])];
+            
+            const groupData = groups.map(g => ({
+                name: g,
+                count: videos.filter(v => getVideoGroupForFilter(v) === g).length
+            }));
+            groupData.sort((a, b) => b.count - a.count);
+            
+            // 如果没有数据，显示提示
+            if (groupData.length === 0 || videos.length === 0) {
+                chartCanvas.style.display = 'none';
+                const parent = chartCanvas.parentElement;
+                if (!parent.querySelector('.empty-state')) {
+                    parent.innerHTML += '<div class="empty-state" style="padding: 40px;">暂无分组数据</div>';
+                }
+                return;
+            }
+            
+            chartCanvas.style.display = 'block';
+            
+            const colors = ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+            
+            if (chartInstances['group']) {
+                chartInstances['group'].destroy();
+            }
+            
+            chartInstances['group'] = new Chart(chartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: groupData.slice(0, 6).map(d => d.name),
+                    datasets: [{
+                        label: '发片数',
+                        data: groupData.slice(0, 6).map(d => d.count),
+                        backgroundColor: groupData.slice(0, 6).map((_, i) => colors[i % colors.length]),
+                        borderColor: groupData.slice(0, 6).map((_, i) => colors[i % colors.length].replace(')', '').replace('rgb', 'rgba').replace('#', '')),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTopLists(videos) {
+            // 千赞TOP5 - 柱状图
+            const topThousand = [...videos].filter(v => v.likes >= 1000).sort((a, b) => b.likes - a.likes).slice(0, 5);
+            const thousandCanvas = document.getElementById('topThousandChart');
+            if (thousandCanvas && topThousand.length > 0) {
+                if (chartInstances['thousand']) chartInstances['thousand'].destroy();
+                chartInstances['thousand'] = new Chart(thousandCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: topThousand.map(v => v.publisher || '-'),
+                        datasets: [{
+                            label: '点赞数',
+                            data: topThousand.map(v => v.likes),
+                            backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                            borderColor: 'rgb(245, 158, 11)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true } }
+                    }
+                });
+            } else if (thousandCanvas) {
+                thousandCanvas.parentElement.innerHTML = '<div class="empty-state" style="padding: 40px;">暂无千赞数据</div>';
+            }
+
+            // 万赞TOP5 - 柱状图
+            const topTenThousand = [...videos].filter(v => v.likes >= 10000).sort((a, b) => b.likes - a.likes).slice(0, 5);
+            const tenThousandCanvas = document.getElementById('topTenThousandChart');
+            if (tenThousandCanvas && topTenThousand.length > 0) {
+                if (chartInstances['tenThousand']) chartInstances['tenThousand'].destroy();
+                chartInstances['tenThousand'] = new Chart(tenThousandCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: topTenThousand.map(v => v.publisher || '-'),
+                        datasets: [{
+                            label: '点赞数',
+                            data: topTenThousand.map(v => v.likes),
+                            backgroundColor: 'rgba(139, 92, 246, 0.8)',
+                            borderColor: 'rgb(139, 92, 246)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true } }
+                    }
+                });
+            } else if (tenThousandCanvas) {
+                tenThousandCanvas.parentElement.innerHTML = '<div class="empty-state" style="padding: 40px;">暂无万赞数据</div>';
+            }
+
+            // 同学发片数排名 - 柱状图
+            const publishers = [...new Set(videos.map(v => v.publisher).filter(Boolean))];
+            const pubStats = publishers.map(p => ({
+                name: p,
+                count: videos.filter(v => v.publisher === p).length
+            })).sort((a, b) => b.count - a.count).slice(0, 5);
+            
+            const studentCanvas = document.getElementById('studentRankChart');
+            if (studentCanvas && pubStats.length > 0) {
+                if (chartInstances['student']) chartInstances['student'].destroy();
+                chartInstances['student'] = new Chart(studentCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: pubStats.map(p => p.name),
+                        datasets: [{
+                            label: '发片数',
+                            data: pubStats.map(p => p.count),
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderColor: 'rgb(16, 185, 129)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: { legend: { display: false } },
+                        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                    }
+                });
+            } else if (studentCanvas) {
+                studentCanvas.parentElement.innerHTML = '<div class="empty-state" style="padding: 40px;">暂无发片数据</div>';
+            }
+        }
+
+        // ============ Utilities ============
+        function formatDate(dateStr) {
+            if (!dateStr) return '-';
+            const d = new Date(dateStr);
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+
+        // ============ Export Preview ============
+        function loadExportPreview() {
+            const type = document.getElementById('exportType').value;
+            const startDate = document.getElementById('exportDateStart').value;
+            const endDate = document.getElementById('exportDateEnd').value;
+            
+            const previewCard = document.getElementById('exportPreviewCard');
+            const previewTable = document.getElementById('exportPreviewTable');
+            const previewCount = document.getElementById('exportPreviewCount');
+            
+            if (type !== 'videos') {
+                previewCard.style.display = 'none';
+                return;
+            }
+            
+            // 根据日期筛选视频
+            const filteredVideos = allVideos.filter(v => {
+                const date = v.created_at?.slice(0, 10);
+                if (startDate && date < startDate) return false;
+                if (endDate && date > endDate) return false;
+                return true;
+            });
+            
+            // 如果没有日期筛选条件且没有视频数据，隐藏预览
+            if (!startDate && !endDate && filteredVideos.length === 0) {
+                previewCard.style.display = 'none';
+                return;
+            }
+            
+            // 显示预览区域
+            previewCard.style.display = 'block';
+            previewCount.textContent = filteredVideos.length;
+            
+            // 渲染预览表格
+            if (filteredVideos.length === 0) {
+                previewTable.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#999;">暂无符合条件的视频数据</td></tr>';
+            } else {
+                previewTable.innerHTML = filteredVideos.slice(0, 50).map(v => `
+                    <tr>
+                        <td>${formatDate(v.created_at)}</td>
+                        <td>${v.platform || '-'}</td>
+                        <td>${v.account_name || '-'}</td>
+                        <td>${v.publisher || '-'}</td>
+                        <td>${v.views||0}/${v.likes||0}/${v.comments||0}</td>
+                        <td>${v.views_day3!=null ? v.views_day3+'/'+v.likes_day3+'/'+v.comments_day3 : '-'}</td>
+                        <td>${v.views_day7!=null ? v.views_day7+'/'+v.likes_day7+'/'+v.comments_day7 : '-'}</td>
+                        <td><span class="status-badge ${v.status === '已发布' ? 'published' : ''}">${v.status || '-'}</span></td>
+                    </tr>
+                `).join('');
+                
+                if (filteredVideos.length > 50) {
+                    previewTable.innerHTML += `<tr><td colspan="8" style="text-align:center;color:#999;">共 ${filteredVideos.length} 条数据，显示前50条...</td></tr>`;
+                }
+            }
+        }
+        
+        // ============ Export ============
+        function doExport() {
+            const type = document.getElementById('exportType').value;
+            let data, headers, filename;
+            if (type === 'videos') {
+                // 使用导出页面的日期筛选器，仅导出当前用户可见的数据
+                const startDate = document.getElementById('exportDateStart').value;
+                const endDate = document.getElementById('exportDateEnd').value;
+                data = getMyVideos().filter(v => {
+                    const date = v.created_at?.slice(0, 10);
+                    if (startDate && date < startDate) return false;
+                    if (endDate && date > endDate) return false;
+                    return true;
+                });
+                headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '评论(发布)', '播放(D3)', '点赞(D3)', '评论(D3)', '播放(D7)', '点赞(D7)', '评论(D7)', '状态'];
+                filename = '视频记录';
+            } else if (type === 'accounts') {
+                data = getMyAccounts();
+                headers = ['平台', '账号名', '负责人', '分组', '状态'];
+                filename = '账号列表';
+            } else if (type === 'users') {
+                data = getMyUsers();
+                headers = ['姓名', '用户名', '角色', '分组', '状态'];
+                filename = '人员名单';
+            } else if (type === 'salary') {
+                data = allSalaries;
+                headers = ['姓名', '角色', '分组', '发片数', '千赞数', '万赞数', '奖金', '实发', '状态'];
+                filename = '薪资结算';
+            }
+            exportToXLSX(data, headers, filename);
+        }
+
+        function exportVideos() {
+            const data = getMyVideos();
+            const headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '评论(发布)', '播放(D3)', '点赞(D3)', '评论(D3)', '播放(D7)', '点赞(D7)', '评论(D7)', '状态'];
+            exportToXLSX(data, headers, '视频记录');
+        }
+
+        function exportWeeklyReport() {
+            const now = new Date();
+            const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
+            const weekVideos = getMyVideos().filter(v => new Date(v.created_at) > weekAgo);
+            const report = [{ '报表类型': '周报', '日期范围': `${weekAgo.toLocaleDateString()} ~ ${now.toLocaleDateString()}`, '发片总数': weekVideos.length, '千赞数': weekVideos.filter(v => v.likes >= 1000).length, '万赞数': weekVideos.filter(v => v.likes >= 10000).length }];
+            exportToXLSX(report, Object.keys(report[0]), '周报');
+        }
+
+        function exportMonthlyReport() {
+            const now = new Date();
+            const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+            const monthVideos = getMyVideos().filter(v => new Date(v.created_at) >= monthStart);
+            const report = [{ '报表类型': '月报', '月份': `${now.getFullYear()}年${now.getMonth() + 1}月`, '发片总数': monthVideos.length, '千赞数': monthVideos.filter(v => v.likes >= 1000).length, '万赞数': monthVideos.filter(v => v.likes >= 10000).length }];
+            exportToXLSX(report, Object.keys(report[0]), '月报');
+        }
+
+        // 导出全部数据（多个工作表）
+        async function exportAllSheets() {
+            if (typeof XLSX === 'undefined') {
+                await loadSheetJS();
+            }
+            const wb = XLSX.utils.book_new();
+            
+            // 视频记录
+            const videoData = allVideos.map(v => ({
+                '时间': formatDate(v.created_at),
+                '平台': v.platform || '',
+                '账号': v.account_name || '',
+                '发布者': v.publisher || '',
+                '链接': v.video_link || '',
+                '播放': v.views || 0,
+                '点赞': v.likes || 0,
+                '评论': v.comments || 0,
+                '状态': v.status || ''
+            }));
+            const videoSheet = XLSX.utils.json_to_sheet(videoData);
+            XLSX.utils.book_append_sheet(wb, videoSheet, '视频记录');
+            
+            // 账号管理
+            const accountData = allAccounts.map(a => ({
+                '账号名': a.name || a.account_name || '',
+                '平台': a.platform || '',
+                '负责人': a.owner || '',
+                '分组': a.group_name || '',
+                '状态': a.active === false ? '停用' : '正常'
+            }));
+            const accountSheet = XLSX.utils.json_to_sheet(accountData);
+            XLSX.utils.book_append_sheet(wb, accountSheet, '账号管理');
+            
+            // 人员名单
+            const userData = allUsers.map(u => ({
+                '姓名': u.real_name || u.name || '',
+                '用户名': u.username || '',
+                '角色': u.role || '',
+                '分组': u.group_name || '',
+                '状态': u.active === false ? '停用' : '正常'
+            }));
+            const userSheet = XLSX.utils.json_to_sheet(userData);
+            XLSX.utils.book_append_sheet(wb, userSheet, '人员名单');
+            
+            // 薪资结算
+            const salaryData = allSalaries.map(s => ({
+                '姓名': s.user_name || '',
+                '角色': s.role || '',
+                '分组': s.group_name || '',
+                '月份': s.month || '',
+                '发片数': s.video_count || 0,
+                '千赞数': s.thousand_count || 0,
+                '万赞数': s.ten_thousand_count || 0,
+                '奖金': s.bonus || 0,
+                '实发': s.total || 0,
+                '状态': s.status || ''
+            }));
+            const salarySheet = XLSX.utils.json_to_sheet(salaryData);
+            XLSX.utils.book_append_sheet(wb, salarySheet, '薪资结算');
+            
+            XLSX.writeFile(wb, '全部数据_' + new Date().toISOString().slice(0, 10) + '.xlsx');
+            toast('导出成功！');
+        }
+
+        // 动态加载 SheetJS 库
+        async function loadSheetJS() {
+            return new Promise((resolve, reject) => {
+                if (typeof XLSX !== 'undefined') { resolve(); return; }
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
+                script.onload = resolve;
+                script.onerror = () => toast('加载Excel库失败，请检查网络', 'error');
+                document.head.appendChild(script);
+            });
+        }
+        
+        // 动态加载 Chart.js
+        let chartInstances = {};
+        async function loadChartJS() {
+            return new Promise((resolve) => {
+                if (typeof Chart !== 'undefined') { resolve(); return; }
+                const script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+                script.onload = () => resolve();
+                script.onerror = () => {
+                    toast('加载图表库失败，请检查网络', 'error');
+                    resolve(); // 即使失败也继续执行，避免卡住
+                };
+                document.head.appendChild(script);
+            });
+        }
+
+        // 导出为 xlsx 格式
+        async function exportToXLSX(data, headers, filename) {
+            if (!data || data.length === 0) { toast('暂无数据可导出', 'error'); return; }
+            if (typeof XLSX === 'undefined') {
+                await loadSheetJS();
+            }
+            
+            const rows = data.map(row => {
+                const obj = {};
+                headers.forEach(h => {
+                    obj[h] = getNestedValue(row, h);
+                });
+                return obj;
+            });
+            
+            const ws = XLSX.utils.json_to_sheet(rows);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, filename);
+            XLSX.writeFile(wb, filename + '_' + new Date().toISOString().slice(0, 10) + '.xlsx');
+            toast('导出成功！');
+        }
+
+        function getNestedValue(obj, key) {
+            const map = {
+                '时间': 'created_at', '平台': 'platform', '账号': 'account_name', '发布者': 'publisher', 
+                '组别': 'group_name', '链接': 'video_link', 
+                '播放(发布)': 'views', '点赞(发布)': 'likes', '评论(发布)': 'comments',
+                '播放(D3)': 'views_day3', '点赞(D3)': 'likes_day3', '评论(D3)': 'comments_day3',
+                '播放(D7)': 'views_day7', '点赞(D7)': 'likes_day7', '评论(D7)': 'comments_day7',
+                '状态': 'status', '账号名': 'account_name', '负责人': 'owner', '分组': 'group_name', 
+                '姓名': 'real_name', '用户名': 'username', '角色': 'role', '奖金': 'bonus', '实发': 'total',
+                '播放': 'views', '点赞': 'likes', '评论': 'comments'
+            };
+            const k = map[key] || key;
+            if (obj[k] === undefined || obj[k] === null) return '';
+            if (obj[k] === true) return '正常';
+            if (obj[k] === false) return '停用';
+            if (typeof obj[k] === 'object') return JSON.stringify(obj[k]);
+            return obj[k];
+        }
+
+        // ============ Init Tables ============
+        async function initTables() {
+            if (!confirm('这将创建/更新所有必要的数据库表。继续吗？')) return;
+            try {
+                const sqls = [
+                    `CREATE TABLE IF NOT EXISTS groups (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, leader TEXT, member_count INTEGER DEFAULT 0, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
+                    `CREATE TABLE IF NOT EXISTS salary_configs (id BIGSERIAL PRIMARY KEY, role TEXT NOT NULL, base_salary NUMERIC DEFAULT 0, thousand_bonus NUMERIC DEFAULT 0, ten_thousand_bonus NUMERIC DEFAULT 0, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
+                    `CREATE TABLE IF NOT EXISTS salaries (id BIGSERIAL PRIMARY KEY, user_id INTEGER, user_name TEXT, role TEXT, group_name TEXT, month TEXT, video_count INTEGER DEFAULT 0, thousand_count INTEGER DEFAULT 0, ten_thousand_count INTEGER DEFAULT 0, base_salary NUMERIC DEFAULT 0, bonus NUMERIC DEFAULT 0, deduction NUMERIC DEFAULT 0, total NUMERIC DEFAULT 0, status TEXT DEFAULT '待结算', created_at TIMESTAMPTZ DEFAULT NOW())`
+                ];
+                for (const sql of sqls) {
+                    try { await supabase.rpc('pgio', { query: sql }); } catch (e) { console.log('SQL执行:', e.message); }
+                }
+                // RLS
+                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`];
+                for (const r of rls) { try { await supabase.rpc('pgio', { query: r }); } catch (e) { console.log('RLS:', e.message); } }
+                toast('数据库初始化完成！', 'success');
+                loadAllData();
+            } catch (e) { toast('初始化遇到问题', 'error'); }
+        }
+
+        async function clearAllData() {
+            if (!confirm('确定要清空所有数据吗？')) return;
+            if (!confirm('再次确认：所有数据将被永久删除！')) return;
+            try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
+        }
+    </script>
+</body>
+</html>
