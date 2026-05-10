@@ -1116,26 +1116,46 @@
         }
 
         // 判断当前用户是否可以查看某条视频
+        // 获取当前用户的所有可能姓名
+        function getCurrentUserNames() {
+            if (!currentUser) return [];
+            const names = new Set();
+            if (currentUser.real_name) names.add(currentUser.real_name);
+            if (currentUser.username) names.add(currentUser.username);
+            return [...names];
+        }
+
+        // 获取某用户的所有可能姓名
+        function getUserAllNames(user) {
+            const names = new Set();
+            if (user.real_name) names.add(user.real_name);
+            if (user.name) names.add(user.name);
+            if (user.username) names.add(user.username);
+            return [...names];
+        }
+
         function canViewVideo(v) {
             if (isAdmin()) return true;
-            const myName = currentUser?.real_name;
+            const myNames = getCurrentUserNames();
             const group = getUserGroup();
             if (currentUser?.role === 'student') {
-                return v.publisher === myName;
+                return myNames.includes(v.publisher);
             }
             if (currentUser?.role === 'teacher') {
                 // 老师：看自己和所带学生的视频
-                if (v.publisher === myName) return true;
-                const myStudents = getMyStudents().map(s => s.real_name || s.name);
-                return myStudents.includes(v.publisher);
+                if (myNames.includes(v.publisher)) return true;
+                // 检查是否是你带的学生
+                const myStudents = getMyStudents();
+                return myStudents.some(s => getUserAllNames(s).includes(v.publisher));
             }
-            return v.publisher === myName;
+            return myNames.includes(v.publisher);
         }
 
         // 判断当前用户是否可以编辑某条视频
         function canEditVideo(v) {
             if (isAdmin()) return true;
-            return v.publisher === currentUser?.real_name;
+            const myNames = getCurrentUserNames();
+            return myNames.includes(v.publisher);
         }
 
         // 判断当前用户是否可以查看某个用户
@@ -2021,7 +2041,8 @@
             if (!month) { toast('请选择月份', 'error'); return; }
             // 计算所有用户的薪资
             for (const user of allUsers.filter(u => u.role !== 'admin')) {
-                const userVideos = allVideos.filter(v => v.publisher === (user.real_name || user.name) && v.created_at?.startsWith(month));
+                const userNames = getUserAllNames(user);
+                const userVideos = allVideos.filter(v => userNames.includes(v.publisher) && v.created_at?.startsWith(month));
                 const thousandCount = userVideos.filter(v => v.likes >= 1000).length;
                 const tenThousandCount = userVideos.filter(v => v.likes >= 10000).length;
                 const config = allSalaryConfigs.find(c => c.role === user.role) || { base_salary: 0, thousand_bonus: 0, ten_thousand_bonus: 0 };
@@ -2050,8 +2071,15 @@
         function getVideoGroupForFilter(v) {
             // 1. 优先使用视频记录中直接设置的组别
             if (v.group_name) return v.group_name;
-            // 2. 从人员表查找发布者对应的组别
-            const user = allUsers.find(u => (u.real_name === v.publisher || u.name === v.publisher) && u.group_name);
+            // 2. 从人员表查找发布者对应的组别（匹配所有可能的姓名）
+            const user = allUsers.find(u => {
+                if (!u.group_name) return false;
+                const names = new Set();
+                if (u.real_name) names.add(u.real_name);
+                if (u.name) names.add(u.name);
+                if (u.username) names.add(u.username);
+                return names.has(v.publisher) && u.group_name;
+            });
             if (user) return user.group_name;
             // 3. 从账号表查找组别
             const account = allAccounts.find(a => a.account_name === v.account_name && a.group_name);
@@ -2125,12 +2153,23 @@
             }
         }
 
+        // 获取老师的所有匹配姓名（real_name, name, 以及username）
+        function getTeacherNames(t) {
+            const names = new Set();
+            if (t.real_name) names.add(t.real_name);
+            if (t.name) names.add(t.name);
+            if (t.username) names.add(t.username);
+            return [...names];
+        }
+
         function renderTeacherGrid(teachers, videos, students) {
             const grid = document.getElementById('teacherGrid');
             if (!grid) return;
             if (teachers.length === 0) { grid.innerHTML = '<div class="empty-state">暂无老师数据</div>'; return; }
             grid.innerHTML = teachers.map(t => {
-                const tVideos = videos.filter(v => v.publisher === (t.real_name || t.name));
+                // 修复：匹配老师的所有可能姓名
+                const teacherNames = getTeacherNames(t);
+                const tVideos = videos.filter(v => teacherNames.includes(v.publisher));
                 const tThousand = tVideos.filter(v => v.likes >= 1000).length;
                 const tTenThousand = tVideos.filter(v => v.likes >= 10000).length;
                 const tStudents = students.filter(s => s.group_name === t.group_name).length;
