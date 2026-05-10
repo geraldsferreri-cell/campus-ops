@@ -2167,13 +2167,28 @@
             if (!grid) return;
             if (teachers.length === 0) { grid.innerHTML = '<div class="empty-state">暂无老师数据</div>'; return; }
             grid.innerHTML = teachers.map(t => {
-                // 修复：匹配老师的所有可能姓名
+                // 获取该老师组的所有学生
+                const groupStudents = students.filter(s => s.group_name === t.group_name);
+                const isGroupLeader = groupStudents.length > 0;
+                
+                // 获取老师的所有可能姓名
                 const teacherNames = getTeacherNames(t);
-                const tVideos = videos.filter(v => teacherNames.includes(v.publisher));
+                
+                // 如果是组长，统计整个组的视频（老师 + 所有组员）；否则只统计老师自己的
+                let tVideos;
+                if (isGroupLeader) {
+                    // 组长的发片数 = 老师自己 + 所有组员的视频
+                    const allMemberNames = [...teacherNames, ...groupStudents.map(s => s.real_name || s.name).filter(Boolean)];
+                    tVideos = videos.filter(v => allMemberNames.includes(v.publisher));
+                } else {
+                    tVideos = videos.filter(v => teacherNames.includes(v.publisher));
+                }
+                
                 const tThousand = tVideos.filter(v => v.likes >= 1000).length;
                 const tTenThousand = tVideos.filter(v => v.likes >= 10000).length;
-                const tStudents = students.filter(s => s.group_name === t.group_name).length;
-                const rate = tVideos.length > 0 ? ((tThousand / tVideos.length) * 100).toFixed(1) : 0;
+                const tStudents = groupStudents.length;
+                const thousandRate = tVideos.length > 0 ? ((tThousand / tVideos.length) * 100).toFixed(1) : 0;
+                const tenThousandRate = tVideos.length > 0 ? ((tTenThousand / tVideos.length) * 100).toFixed(1) : 0;
                 return `<div class="teacher-card">
                     <div class="teacher-header">
                         <span class="teacher-name">${t.real_name || t.name}</span>
@@ -2185,7 +2200,7 @@
                         <div class="teacher-stat"><div class="teacher-stat-value gold">${tThousand}</div><div class="teacher-stat-label">千赞数</div></div>
                         <div class="teacher-stat"><div class="teacher-stat-value red">${tTenThousand}</div><div class="teacher-stat-label">万赞数</div></div>
                     </div>
-                    <div style="margin-top:8px;font-size:12px;color:var(--gray-500)">千赞率: ${rate}%</div>
+                    <div style="margin-top:8px;font-size:12px;color:var(--gray-500)">千赞率: ${thousandRate}% | 万赞率: ${tenThousandRate}%</div>
                 </div>`;
             }).join('');
         }
