@@ -1854,8 +1854,9 @@
             document.getElementById('userModal').classList.add('show');
         }
 
-        async function saveUser() {
-                         const id = document.getElementById('userId').value;
+        
+          async function saveUser() {
+              const id = document.getElementById('userId').value;
               const realName = document.getElementById('userName').value.trim();
               const pwdInput = document.getElementById('userPassword').value;
               if (!realName) { toast('姓名不能为空', 'error'); return; }
@@ -1871,18 +1872,13 @@
                   } else {
                       if (!data.password) { data.password = '123456'; }
                       const { error } = await supabase.from('users').insert(data);
-                    if (error) throw error;
-                    toast('更新成功');
-                } else {
-                    const { error } = await supabase.from('users').insert(data);
-                    if (error) throw error;
-                    toast('添加成功');
-                }
-                closeModal('userModal');
-                loadUsers();
-            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
-        }
-
+                      if (error) throw error;
+                      toast('添加成功');
+                  }
+                  closeModal('userModal');
+                  loadUsers();
+              } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+          }
         async function deleteUser(id) {
             if (!confirm('确定要删除吗？')) return;
             try { const { error } = await supabase.from('users').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadUsers(); } catch (e) { toast('删除失败', 'error'); }
