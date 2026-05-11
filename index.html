@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -203,7 +204,7 @@
         .login-form-area { flex: 1; padding: 50px 55px; display: flex; flex-direction: column; justify-content: center; }
         .login-logo-area { text-align: center; margin-bottom: 40px; }
         .logo-wrapper { display: inline-block; margin-bottom: 16px; }
-        .logo-diamond-large { width: 80px; height: 80px; object-fit: contain; border-radius: 14px; border: 3px solid #333; filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.1)); }
+        .logo-diamond-large { width: 80px; height: 80px; filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.1)); }
         .login-title { font-size: 36px; font-weight: 800; color: #1e293b; font-family: 'Comic Sans MS', '楷体', cursive; margin: 8px 0 4px 0; }
         .login-subtitle { font-size: 14px; color: #94a3b8; letter-spacing: 3px; font-family: 'Comic Sans MS', cursive; margin: 0; }
         .login-form .form-group { margin-bottom: 26px; }
@@ -337,7 +338,17 @@
                 <div class="login-logo-area">
                     <!-- 大气的方片Logo -->
                     <div class="logo-wrapper">
-                        <img src="https://image.58sb.cn/file/img/opQAYOSI.jpg" alt="Company Logo" class="logo-diamond-large">
+                        <svg viewBox="0 0 100 100" class="logo-diamond-large">
+                            <defs>
+                                <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="20" y="20" width="60" height="60" fill="url(#diamondGrad)" stroke="#333" stroke-width="3" transform="rotate(45 50 50)"/>
+                            <circle cx="50" cy="50" r="8" fill="#fff"/>
+                            <circle cx="50" cy="50" r="4" fill="#333"/>
+                        </svg>
                     </div>
                     <h1 class="login-title">校园运营系统</h1>
                     <p class="login-subtitle">Campus Operations Platform</p>
@@ -401,11 +412,14 @@
                 <span class="nav-text">薪资结算</span>
             </div>
             <div class="nav-section">系统</div>
-                          <div class="nav-item" onclick="showPage('changePassword')">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10
-  0v4"/></svg>
-                  <span class="nav-text">修改密码</span>
-              </div>
+            <div class="nav-item" onclick="showPage('settings')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span class="nav-text">系统设置</span>
+            </div>
+            <div class="nav-item" onclick="showPage('password')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span class="nav-text">修改密码</span>
+            </div>
             <div class="nav-item" onclick="logout()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 <span class="nav-text">退出登录</span>
@@ -769,28 +783,34 @@
                     <button class="btn btn-danger" onclick="clearAllData()">清空所有数据</button>
                 </div>
             </div>
+
+            <!-- Password Page -->
+            <div id="page-password" class="page">
+                <div class="header"><h2>修改密码</h2></div>
+                <div class="card" style="max-width:500px">
+                    <div class="card-header"><span class="card-title">🔐 修改登录密码</span></div>
+                    <div id="passwordInfo" class="form-hint" style="margin-bottom:16px;color:var(--gray-600)"></div>
+                    <div class="form-group">
+                        <label class="form-label">当前密码</label>
+                        <input type="password" class="form-input" id="pwdCurrent" placeholder="请输入当前密码">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">新密码</label>
+                        <input type="password" class="form-input" id="pwdNew" placeholder="请输入新密码（至少6位）">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">确认新密码</label>
+                        <input type="password" class="form-input" id="pwdConfirm" placeholder="请再次输入新密码">
+                    </div>
+                    <div style="display:flex;gap:12px">
+                        <button class="btn btn-primary" onclick="changePassword()">确认修改</button>
+                        <button class="btn btn-secondary" onclick="resetPasswordForm()">重置</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-              <!-- Change Password Page -->
-              <div id="page-changePassword" class="page">
-                  <div class="header"><h2>修改密码</h2></div>
-                  <div class="card">
-                      <div class="card-header"><span class="card-title">🔒 设置新密码</span></div>
-                      <div class="form-group">
-                          <label class="form-label">旧密码</label>
-                          <input type="password" id="oldPassword" class="form-input" placeholder="请输入旧密码">
-                      </div>
-                      <div class="form-group">
-                          <label class="form-label">新密码</label>
-                          <input type="password" id="newPassword" class="form-input" placeholder="请输入新密码（至少6位）">
-                      </div>
-                      <div class="form-group">
-                          <label class="form-label">确认新密码</label>
-                          <input type="password" id="confirmPassword" class="form-input" placeholder="请再次输入新密码">
-                      </div>
-                      <button class="btn btn-primary" onclick="changePassword()">修改密码</button>
-                  </div>
-              </div>
+
     <!-- Video Modal -->
     <div id="videoModal" class="modal-overlay">
         <div class="modal">
@@ -1079,7 +1099,7 @@
                     user = users2 && users2[0];
                 }
                 
-                 if (user && p === (user.password || '123456')) {
+                if (user && p === '123456') {
                     const userName = user.real_name || user.name || u;
                     currentUser = { username: u, real_name: userName, role: user.role || 'student', id: user.id };
                     localStorage.setItem('campus_user', JSON.stringify(currentUser));
@@ -1214,36 +1234,62 @@
             return allUsers.filter(u => canViewUser(u));
         }
 
-          async function changePassword() {
-              const oldPwd = document.getElementById('oldPassword').value;
-              const newPwd = document.getElementById('newPassword').value;
-              const confirmPwd = document.getElementById('confirmPassword').value;
-              if (!oldPwd || !newPwd || !confirmPwd) { toast('请填写所有密码字段', 'error'); return; }
-              if (newPwd.length < 6) { toast('新密码至少需要6位', 'error'); return; }
-              if (newPwd !== confirmPwd) { toast('两次输入的新密码不一致', 'error'); return; }
-              try {
-                  const userName = currentUser.real_name || currentUser.username;
-                  const { data: users, error } = await supabase.from('users').select('*').eq('real_name', userName);
-                  if (error) throw error;
-                  let user = users && users[0];
-                  if (!user) {
-                      const { data: users2 } = await supabase.from('users').select('*').eq('name', userName);
-                      user = users2 && users2[0];
-                  }
-                  if (!user) { toast('用户信息未找到', 'error'); return; }
-                  if (currentUser.role === 'admin') {
-                      if (oldPwd !== 'admin123') { toast('旧密码错误', 'error'); return; }
-                  } else {
-                      if (oldPwd !== (user.password || '123456')) { toast('旧密码错误', 'error'); return; }
-                  }
-                  const { error: updateError } = await supabase.from('users').update({ password: newPwd }).eq('id', user.id);
-                  if (updateError) throw updateError;
-                  toast('密码修改成功！');
-                  document.getElementById('oldPassword').value = '';
-                  document.getElementById('newPassword').value = '';
-                  document.getElementById('confirmPassword').value = '';
-              } catch (e) { toast('修改失败: ' + e.message, 'error'); }
-          }
+        // ============ 修改密码 ============
+        function initPasswordPage() {
+            const info = document.getElementById('passwordInfo');
+            if (!info) return;
+            if (isAdmin()) {
+                info.textContent = '⚠️ 管理员账号不支持修改密码（使用固定密码 admin123）';
+            } else {
+                info.textContent = `当前用户：${currentUser?.real_name || currentUser?.username || '未知'}（默认密码：123456）`;
+            }
+            resetPasswordForm();
+        }
+
+        function resetPasswordForm() {
+            document.getElementById('pwdCurrent').value = '';
+            document.getElementById('pwdNew').value = '';
+            document.getElementById('pwdConfirm').value = '';
+        }
+
+        async function changePassword() {
+            if (isAdmin()) {
+                toast('管理员账号不支持修改密码', 'error');
+                return;
+            }
+            const currentPwd = document.getElementById('pwdCurrent').value;
+            const newPwd = document.getElementById('pwdNew').value;
+            const confirmPwd = document.getElementById('pwdConfirm').value;
+
+            if (!currentPwd) { toast('请输入当前密码', 'error'); return; }
+            if (!newPwd) { toast('请输入新密码', 'error'); return; }
+            if (newPwd.length < 6) { toast('新密码至少6位', 'error'); return; }
+            if (newPwd !== confirmPwd) { toast('两次输入的新密码不一致', 'error'); return; }
+
+            try {
+                // 验证当前密码（默认密码123456）
+                if (currentPwd !== '123456') {
+                    toast('当前密码错误', 'error');
+                    return;
+                }
+
+                // 更新数据库中的密码
+                const userId = currentUser?.id;
+                if (!userId) {
+                    toast('用户信息不完整，请重新登录', 'error');
+                    return;
+                }
+
+                const { data, error } = await supabase.from('users').update({ password: newPwd }).eq('id', userId);
+                if (error) throw error;
+
+                toast('密码修改成功！', 'success');
+                resetPasswordForm();
+            } catch (e) {
+                toast('修改失败: ' + e.message, 'error');
+            }
+        }
+
         function logout() {
             localStorage.removeItem('campus_user');
             location.reload();
@@ -1267,6 +1313,7 @@
             if (page === 'groups') loadGroups();
             if (page === 'salaryConfig') loadSalaryConfigs();
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
+            if (page === 'password') initPasswordPage();
         }
 
         // ============ Toast ============
@@ -1854,31 +1901,27 @@
             document.getElementById('userModal').classList.add('show');
         }
 
-        
-          async function saveUser() {
-              const id = document.getElementById('userId').value;
-              const realName = document.getElementById('userName').value.trim();
-              const pwdInput = document.getElementById('userPassword').value;
-              if (!realName) { toast('姓名不能为空', 'error'); return; }
-              const username = realName;
-              const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name:
-  document.getElementById('userGroup').value, active: true };
-              if (pwdInput) { data.password = pwdInput; }
-              try {
-                  if (id) {
-                      const { error } = await supabase.from('users').update(data).eq('id', id);
-                      if (error) throw error;
-                      toast('更新成功');
-                  } else {
-                      if (!data.password) { data.password = '123456'; }
-                      const { error } = await supabase.from('users').insert(data);
-                      if (error) throw error;
-                      toast('添加成功');
-                  }
-                  closeModal('userModal');
-                  loadUsers();
-              } catch (e) { toast('保存失败: ' + e.message, 'error'); }
-          }
+        async function saveUser() {
+            const id = document.getElementById('userId').value;
+            const realName = document.getElementById('userName').value.trim();
+            if (!realName) { toast('姓名不能为空', 'error'); return; }
+            const username = realName; // 用户名默认等于姓名
+            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, active: true, password: '123456' };
+            try {
+                if (id) {
+                    const { error } = await supabase.from('users').update(data).eq('id', id);
+                    if (error) throw error;
+                    toast('更新成功');
+                } else {
+                    const { error } = await supabase.from('users').insert(data);
+                    if (error) throw error;
+                    toast('添加成功');
+                }
+                closeModal('userModal');
+                loadUsers();
+            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+        }
+
         async function deleteUser(id) {
             if (!confirm('确定要删除吗？')) return;
             try { const { error } = await supabase.from('users').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadUsers(); } catch (e) { toast('删除失败', 'error'); }
