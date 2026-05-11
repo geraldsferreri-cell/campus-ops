@@ -401,6 +401,11 @@
                 <span class="nav-text">薪资结算</span>
             </div>
             <div class="nav-section">系统</div>
+                          <div class="nav-item" onclick="showPage('changePassword')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10
+  0v4"/></svg>
+                  <span class="nav-text">修改密码</span>
+              </div>
             <div class="nav-item" onclick="logout()">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 <span class="nav-text">退出登录</span>
@@ -766,7 +771,26 @@
             </div>
         </div>
     </div>
-
+              <!-- Change Password Page -->
+              <div id="page-changePassword" class="page">
+                  <div class="header"><h2>修改密码</h2></div>
+                  <div class="card">
+                      <div class="card-header"><span class="card-title">🔒 设置新密码</span></div>
+                      <div class="form-group">
+                          <label class="form-label">旧密码</label>
+                          <input type="password" id="oldPassword" class="form-input" placeholder="请输入旧密码">
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label">新密码</label>
+                          <input type="password" id="newPassword" class="form-input" placeholder="请输入新密码（至少6位）">
+                      </div>
+                      <div class="form-group">
+                          <label class="form-label">确认新密码</label>
+                          <input type="password" id="confirmPassword" class="form-input" placeholder="请再次输入新密码">
+                      </div>
+                      <button class="btn btn-primary" onclick="changePassword()">修改密码</button>
+                  </div>
+              </div>
     <!-- Video Modal -->
     <div id="videoModal" class="modal-overlay">
         <div class="modal">
@@ -1055,7 +1079,7 @@
                     user = users2 && users2[0];
                 }
                 
-                if (user && p === '123456') {
+                 if (user && p === (user.password || '123456')) {
                     const userName = user.real_name || user.name || u;
                     currentUser = { username: u, real_name: userName, role: user.role || 'student', id: user.id };
                     localStorage.setItem('campus_user', JSON.stringify(currentUser));
@@ -1190,6 +1214,36 @@
             return allUsers.filter(u => canViewUser(u));
         }
 
+          async function changePassword() {
+              const oldPwd = document.getElementById('oldPassword').value;
+              const newPwd = document.getElementById('newPassword').value;
+              const confirmPwd = document.getElementById('confirmPassword').value;
+              if (!oldPwd || !newPwd || !confirmPwd) { toast('请填写所有密码字段', 'error'); return; }
+              if (newPwd.length < 6) { toast('新密码至少需要6位', 'error'); return; }
+              if (newPwd !== confirmPwd) { toast('两次输入的新密码不一致', 'error'); return; }
+              try {
+                  const userName = currentUser.real_name || currentUser.username;
+                  const { data: users, error } = await supabase.from('users').select('*').eq('real_name', userName);
+                  if (error) throw error;
+                  let user = users && users[0];
+                  if (!user) {
+                      const { data: users2 } = await supabase.from('users').select('*').eq('name', userName);
+                      user = users2 && users2[0];
+                  }
+                  if (!user) { toast('用户信息未找到', 'error'); return; }
+                  if (currentUser.role === 'admin') {
+                      if (oldPwd !== 'admin123') { toast('旧密码错误', 'error'); return; }
+                  } else {
+                      if (oldPwd !== (user.password || '123456')) { toast('旧密码错误', 'error'); return; }
+                  }
+                  const { error: updateError } = await supabase.from('users').update({ password: newPwd }).eq('id', user.id);
+                  if (updateError) throw updateError;
+                  toast('密码修改成功！');
+                  document.getElementById('oldPassword').value = '';
+                  document.getElementById('newPassword').value = '';
+                  document.getElementById('confirmPassword').value = '';
+              } catch (e) { toast('修改失败: ' + e.message, 'error'); }
+          }
         function logout() {
             localStorage.removeItem('campus_user');
             location.reload();
@@ -1801,14 +1855,22 @@
         }
 
         async function saveUser() {
-            const id = document.getElementById('userId').value;
-            const realName = document.getElementById('userName').value.trim();
-            if (!realName) { toast('姓名不能为空', 'error'); return; }
-            const username = realName; // 用户名默认等于姓名
-            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, active: true, password: '123456' };
-            try {
-                if (id) {
-                    const { error } = await supabase.from('users').update(data).eq('id', id);
+                         const id = document.getElementById('userId').value;
+              const realName = document.getElementById('userName').value.trim();
+              const pwdInput = document.getElementById('userPassword').value;
+              if (!realName) { toast('姓名不能为空', 'error'); return; }
+              const username = realName;
+              const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name:
+  document.getElementById('userGroup').value, active: true };
+              if (pwdInput) { data.password = pwdInput; }
+              try {
+                  if (id) {
+                      const { error } = await supabase.from('users').update(data).eq('id', id);
+                      if (error) throw error;
+                      toast('更新成功');
+                  } else {
+                      if (!data.password) { data.password = '123456'; }
+                      const { error } = await supabase.from('users').insert(data);
                     if (error) throw error;
                     toast('更新成功');
                 } else {
