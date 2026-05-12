@@ -1182,7 +1182,14 @@
         function canEditVideo(v) {
             if (isAdmin()) return true;
             const myNames = getCurrentUserNames();
-            return myNames.includes(v.publisher);
+            // 自己发的可以编辑
+            if (myNames.includes(v.publisher)) return true;
+            // 老师可以编辑所带学生的视频
+            if (currentUser?.role === 'teacher') {
+                const myStudents = getMyStudents();
+                return myStudents.some(s => getUserAllNames(s).includes(v.publisher));
+            }
+            return false;
         }
 
         // 判断当前用户是否可以查看某个用户
