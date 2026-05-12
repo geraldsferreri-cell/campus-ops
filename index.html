@@ -573,7 +573,7 @@
                             <thead>
                                 <tr>
                                     <th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>组别</th><th>链接</th>
-                                    <th>第3天</th><th>第7天</th><th>数据达标</th><th>状态</th><th>操作</th>
+                                    <th>第3天</th><th>第7天</th><th>月中/末</th><th>数据达标</th><th>状态</th><th>操作</th>
                                 </tr>
                             </thead>
                             <tbody id="videoTable"></tbody>
@@ -657,7 +657,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>第3天</th><th>第7天</th><th>数据达标</th><th>状态</th></tr>
+                                <tr><th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>第3天</th><th>第7天</th><th>月中/末</th><th>数据达标</th><th>状态</th></tr>
                             </thead>
                             <tbody id="exportPreviewTable"></tbody>
                         </table>
@@ -858,21 +858,21 @@
                 <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsDay3" class="form-input" placeholder="0" min="0"></div>
                 <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesDay3" class="form-input" placeholder="0" min="0"></div>
             </div>
-            <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotDay3" class="form-input" accept="image/*"></div>
+            <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotDay3" class="form-input" accept="image/*" required></div>
             <!-- 第7天数据 -->
             <div class="form-section-title" style="margin-top:8px">📈 第7天数据 <span class="form-hint" id="day7Hint"></span></div>
             <div class="form-row">
                 <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsDay7" class="form-input" placeholder="0" min="0"></div>
                 <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesDay7" class="form-input" placeholder="0" min="0"></div>
             </div>
-            <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotDay7" class="form-input" accept="image/*"></div>
-            <!-- 数据达标（千赞/万赞）数据 -->
-            <div class="form-section-title" style="margin-top:8px">🏆 数据达标（千赞/万赞）</div>
+            <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotDay7" class="form-input" accept="image/*" required></div>
+            <!-- 月中/末达标数据 -->
+            <div class="form-section-title" style="margin-top:8px">🏆 月中/末达标数据</div>
             <div class="form-row">
-                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoPlay" class="form-input" placeholder="0" min="0"></div>
-                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLike" class="form-input" placeholder="0" min="0"></div>
+                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsMonthEnd" class="form-input" placeholder="0" min="0"></div>
+                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesMonthEnd" class="form-input" placeholder="0" min="0"></div>
             </div>
-            <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotFinal" class="form-input" accept="image/*"></div>
+            <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotMonthEnd" class="form-input" accept="image/*" required></div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('videoModal')">取消</button>
                 <button class="btn btn-primary" onclick="saveVideo()">保存</button>
@@ -1515,9 +1515,9 @@
             </div>`;
         }
 
-        // 计算数据达标状态（万赞优先，同视频只算一次）
+        // 计算数据达标状态（万赞优先，同链接只算一次）
         function getDataStandardStatus(v) {
-            const likes = [v.likes_day3, v.likes_day7, v.likes].filter(l => l != null && l !== '');
+            const likes = [v.likes_day3, v.likes_day7, v.likes_month_end, v.likes].filter(l => l != null && l !== '');
             // 检查是否有万赞（≥10000）
             const hasWanZan = likes.some(l => parseInt(l) >= 10000);
             // 检查是否有千赞（≥1000但<10000）
@@ -1555,6 +1555,7 @@
                     <td class="${reminder.needDay7 ? 'cell-reminder-day7' : ''}" title="${day7Date} (发布后第7天)">
                         ${formatStatsCell(v.views_day7, v.likes_day7, !day7Filled, '第7天')}
                     </td>
+                    <td>${formatStatsCell(v.views_month_end, v.likes_month_end, v.views_month_end == null, '月中/末')}</td>
                     <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                     <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
                     <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${v.id}')">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteVideo('${v.id}')">删除</button>` : '-'}</td>
@@ -1688,7 +1689,9 @@
             document.getElementById('videoViewsDay7').value = '';
             document.getElementById('videoLikesDay7').value = '';
             document.getElementById('videoScreenshotDay7').value = '';
-            document.getElementById('videoScreenshotFinal').value = '';
+            document.getElementById('videoViewsMonthEnd').value = '';
+            document.getElementById('videoLikesMonthEnd').value = '';
+            document.getElementById('videoScreenshotMonthEnd').value = '';
             document.getElementById('day3Hint').textContent = '';
             document.getElementById('day7Hint').textContent = '';
             
@@ -1698,7 +1701,6 @@
                 document.getElementById('videoLink').value = '';
                 document.getElementById('videoPlay').value = '';
                 document.getElementById('videoLike').value = '';
-                document.getElementById('videoScreenshotFinal').value = '';
                 // 学生添加时自动填入自己的姓名
                 if (!isAdmin() && currentUser?.real_name) {
                     document.getElementById('videoPublisher').value = currentUser.real_name;
@@ -1713,6 +1715,8 @@
                     document.getElementById('videoLikesDay3').value = video.likes_day3 ?? '';
                     document.getElementById('videoViewsDay7').value = video.views_day7 ?? '';
                     document.getElementById('videoLikesDay7').value = video.likes_day7 ?? '';
+                    document.getElementById('videoViewsMonthEnd').value = video.views_month_end ?? '';
+                    document.getElementById('videoLikesMonthEnd').value = video.likes_month_end ?? '';
                     
                     // 显示日期提示
                     if (video.created_at) {
@@ -1763,11 +1767,13 @@
             document.getElementById('videoPlay').value = v.views ?? '';
             document.getElementById('videoLike').value = v.likes ?? '';
             document.getElementById('videoPublisher').value = v.publisher || '';
-            // 第3天/第7天数据
+            // 第3天/第7天/月中末数据
             document.getElementById('videoViewsDay3').value = v.views_day3 ?? '';
             document.getElementById('videoLikesDay3').value = v.likes_day3 ?? '';
             document.getElementById('videoViewsDay7').value = v.views_day7 ?? '';
             document.getElementById('videoLikesDay7').value = v.likes_day7 ?? '';
+            document.getElementById('videoViewsMonthEnd').value = v.views_month_end ?? '';
+            document.getElementById('videoLikesMonthEnd').value = v.likes_month_end ?? '';
             document.getElementById('day3Hint').textContent = '';
             document.getElementById('day7Hint').textContent = '';
             if (v.created_at) {
@@ -1804,6 +1810,9 @@
                 // 第7天数据
                 views_day7: getVal('videoViewsDay7'),
                 likes_day7: getVal('videoLikesDay7'),
+                // 月中/末数据
+                views_month_end: getVal('videoViewsMonthEnd'),
+                likes_month_end: getVal('videoLikesMonthEnd'),
             };
             // 填写时自动记录时间
             if (data.views_day3 !== null && data.views_day3 !== undefined) data.stats_day3_at = now;
@@ -2728,7 +2737,7 @@
             
             // 渲染预览表格
             if (filteredVideos.length === 0) {
-                previewTable.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#999;">暂无符合条件的视频数据</td></tr>';
+                previewTable.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#999;">暂无符合条件的视频数据</td></tr>';
             } else {
                 previewTable.innerHTML = filteredVideos.slice(0, 50).map(v => {
                     const standardStatus = getDataStandardStatus(v);
@@ -2739,13 +2748,14 @@
                         <td>${v.publisher || '-'}</td>
                         <td>${v.views_day3!=null ? v.views_day3+' / '+v.likes_day3 : '-'}</td>
                         <td>${v.views_day7!=null ? v.views_day7+' / '+v.likes_day7 : '-'}</td>
+                        <td>${v.views_month_end!=null ? v.views_month_end+' / '+v.likes_month_end : '-'}</td>
                         <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                         <td><span class="status-badge ${v.status === '已发布' ? 'published' : ''}">${v.status || '-'}</span></td>
                     </tr>`;
                 }).join('');
                 
                 if (filteredVideos.length > 50) {
-                    previewTable.innerHTML += `<tr><td colspan="8" style="text-align:center;color:#999;">共 ${filteredVideos.length} 条数据，显示前50条...</td></tr>`;
+                    previewTable.innerHTML += `<tr><td colspan="9" style="text-align:center;color:#999;">共 ${filteredVideos.length} 条数据，显示前50条...</td></tr>`;
                 }
             }
         }
