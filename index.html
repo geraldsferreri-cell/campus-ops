@@ -1579,13 +1579,16 @@
                 const myNames = getCurrentUserNames();
                 const myVideos = allVideos.filter(v => myNames.includes(v.publisher));
                 const videoCount = myVideos.length;
-                // 使用统一的数据达标计算（同视频只算一次，万赞优先）
+                // 使用统一的数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
                 let tenThousandCount = 0;
+                const countedLinks = new Set(); // 按视频链接去重
                 myVideos.forEach(v => {
+                    const link = v.video_link || v.id; // 用链接或ID作为唯一标识
+                    if (countedLinks.has(link)) return; // 同一链接只算一次
                     const status = getDataStandardStatus(v);
-                    if (status.status === '万赞') tenThousandCount++;
-                    else if (status.status === '千赞') thousandCount++;
+                    if (status.status === '万赞') { tenThousandCount++; countedLinks.add(link); }
+                    else if (status.status === '千赞') { thousandCount++; countedLinks.add(link); }
                 });
                 
                 document.getElementById('myVideoCount').textContent = videoCount;
@@ -2245,14 +2248,17 @@
                 const studentVideos = allVideos.filter(v => studentNames.includes(v.publisher) && v.created_at?.startsWith(month));
                 groupVideoCount += studentVideos.length;
                 
-                // 计算每个学生的奖励（使用统一数据达标计算）
-                let thousandCount = 0;
-                let tenThousandCount = 0;
-                studentVideos.forEach(v => {
-                    const status = getDataStandardStatus(v);
-                    if (status.status === '万赞') tenThousandCount++;
-                    else if (status.status === '千赞') thousandCount++;
-                });
+                    // 计算每个学生的奖励（使用统一数据达标计算，按链接去重）
+                    let thousandCount = 0;
+                    let tenThousandCount = 0;
+                    const countedLinks = new Set();
+                    studentVideos.forEach(v => {
+                        const link = v.video_link || v.id;
+                        if (countedLinks.has(link)) return;
+                        const status = getDataStandardStatus(v);
+                        if (status.status === '万赞') { tenThousandCount++; countedLinks.add(link); }
+                        else if (status.status === '千赞') { thousandCount++; countedLinks.add(link); }
+                    });
                 const thousandBonus = thousandCount * 80;
                 const tenThousandBonus = tenThousandCount * 120;
                 totalStudentBonus += thousandBonus + tenThousandBonus;
@@ -2273,13 +2279,16 @@
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
                 const userVideos = allVideos.filter(v => userNames.includes(v.publisher) && v.created_at?.startsWith(month));
-                // 使用统一数据达标计算（同视频只算一次，万赞优先）
+                // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
                 let tenThousandCount = 0;
+                const countedLinks = new Set();
                 userVideos.forEach(v => {
+                    const link = v.video_link || v.id;
+                    if (countedLinks.has(link)) return;
                     const status = getDataStandardStatus(v);
-                    if (status.status === '万赞') tenThousandCount++;
-                    else if (status.status === '千赞') thousandCount++;
+                    if (status.status === '万赞') { tenThousandCount++; countedLinks.add(link); }
+                    else if (status.status === '千赞') { thousandCount++; countedLinks.add(link); }
                 });
                 const salaryInfo = calcStudentSalary(userVideos.length, thousandCount, tenThousandCount);
                 const data = { 
