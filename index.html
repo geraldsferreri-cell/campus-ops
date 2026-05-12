@@ -993,6 +993,13 @@
 
     <!-- Supabase SDK -->
     <script>
+        // 全局错误捕获：任何未处理错误都会弹出提示
+        window.onerror = function(msg, src, line, col, err) {
+            console.error('[GLOBAL ERROR]', msg, 'at line', line, col, err);
+            toast('系统错误: ' + msg + ' (行' + line + ')', 'error');
+            return true; // 不显示浏览器默认错误
+        };
+        
         let supabase = null;
         let currentUser = null;
         let allVideos = [];
@@ -1567,7 +1574,7 @@
                     <td>${formatStatsCell(v.views_month_end, v.likes_month_end, v.views_month_end == null, '月中/末')}</td>
                     <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                     <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
-                    <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${v.id}')">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteVideo('${v.id}')">删除</button>` : '-'}</td>
+                    <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${String(v.id).replace(/'/g,"\\'")}')">编辑</button><button class="btn btn-sm btn-danger" onclick="if(confirm('确认删除？'))deleteVideo('${String(v.id).replace(/'/g,"\\'")}')">删除</button>` : '-'}</td>
                 </tr>`;
             }).join('');
         }
@@ -1688,63 +1695,70 @@
         }
 
         function openVideoModal(id = null) {
-            document.getElementById('videoId').value = id || '';
-            document.getElementById('videoModalTitle').textContent = id ? '编辑视频记录' : '添加视频记录';
-            
-            // 清空第3天和第7天数据（file input 不能直接 .value=''，用 form.reset 代替）
-            document.getElementById('videoViewsDay3').value = '';
-            document.getElementById('videoLikesDay3').value = '';
-            const day3File = document.getElementById('videoScreenshotDay3'); if (day3File) day3File.value = '';
-            document.getElementById('videoViewsDay7').value = '';
-            document.getElementById('videoLikesDay7').value = '';
-            const day7File = document.getElementById('videoScreenshotDay7'); if (day7File) day7File.value = '';
-            document.getElementById('videoViewsMonthEnd').value = '';
-            document.getElementById('videoLikesMonthEnd').value = '';
-            const monthEndFile = document.getElementById('videoScreenshotMonthEnd'); if (monthEndFile) monthEndFile.value = '';
-            document.getElementById('day3Hint').textContent = '';
-            document.getElementById('day7Hint').textContent = '';
-            
-            if (!id) {
-                document.getElementById('videoTime').value = new Date().toISOString().slice(0, 16);
-                document.getElementById('videoPlatform').value = '抖音';
-                document.getElementById('videoLink').value = '';
-                document.getElementById('videoPlay').value = '';
-                document.getElementById('videoLike').value = '';
-                // 学生添加时自动填入自己的姓名
-                if (!isAdmin() && currentUser?.real_name) {
-                    document.getElementById('videoPublisher').value = currentUser.real_name;
+            try {
+                console.log('[DEBUG] openVideoModal called, id=', id);
+                const el = (id2) => document.getElementById(id2);
+                
+                el('videoId').value = id || '';
+                el('videoModalTitle').textContent = id ? '编辑视频记录' : '添加视频记录';
+                
+                // 清空第3天数据
+                const v3d = el('videoViewsDay3'); if (v3d) v3d.value = '';
+                const l3d = el('videoLikesDay3'); if (l3d) l3d.value = '';
+                const f3d = el('videoScreenshotDay3'); if (f3d) f3d.value = '';
+                // 清空第7天数据
+                const v7d = el('videoViewsDay7'); if (v7d) v7d.value = '';
+                const l7d = el('videoLikesDay7'); if (l7d) l7d.value = '';
+                const f7d = el('videoScreenshotDay7'); if (f7d) f7d.value = '';
+                // 清空月终数据
+                const vme = el('videoViewsMonthEnd'); if (vme) vme.value = '';
+                const lme = el('videoLikesMonthEnd'); if (lme) lme.value = '';
+                const fme = el('videoScreenshotMonthEnd'); if (fme) fme.value = '';
+                // 清空提示
+                const d3h = el('day3Hint'); if (d3h) d3h.textContent = '';
+                const d7h = el('day7Hint'); if (d7h) d7h.textContent = '';
+                
+                if (!id) {
+                    el('videoTime').value = new Date().toISOString().slice(0, 16);
+                    el('videoPlatform').value = '抖音';
+                    el('videoLink').value = '';
+                    el('videoPlay').value = '';
+                    el('videoLike').value = '';
+                    if (!isAdmin() && currentUser?.real_name) {
+                        el('videoPublisher').value = currentUser.real_name;
+                    } else {
+                        el('videoPublisher').value = '';
+                    }
                 } else {
-                    document.getElementById('videoPublisher').value = '';
-                }
-            } else {
-                // 编辑时：填充第3天和第7天数据，并显示提示
-                const video = allVideos.find(v => v.id === id);
-                if (video) {
-                    document.getElementById('videoViewsDay3').value = video.views_day3 ?? '';
-                    document.getElementById('videoLikesDay3').value = video.likes_day3 ?? '';
-                    document.getElementById('videoViewsDay7').value = video.views_day7 ?? '';
-                    document.getElementById('videoLikesDay7').value = video.likes_day7 ?? '';
-                    document.getElementById('videoViewsMonthEnd').value = video.views_month_end ?? '';
-                    document.getElementById('videoLikesMonthEnd').value = video.likes_month_end ?? '';
-                    
-                    // 显示日期提示
-                    if (video.created_at) {
-                        const day3Date = getDayDate(video.created_at, 3);
-                        const day7Date = getDayDate(video.created_at, 7);
-                        const today = new Date();
-                        today.setHours(0, 0, 0, 0);
-                        if (today >= day3Date) {
-                            document.getElementById('day3Hint').textContent = video.views_day3 !== null && video.views_day3 !== undefined ? '✓ 已填写' : '⚠️ 待填写';
-                        }
-                        if (today >= day7Date) {
-                            document.getElementById('day7Hint').textContent = video.views_day7 !== null && video.views_day7 !== undefined ? '✓ 已填写' : '⚠️ 待填写';
+                    const video = allVideos.find(v => v.id === id);
+                    if (video) {
+                        el('videoViewsDay3').value = video.views_day3 ?? '';
+                        el('videoLikesDay3').value = video.likes_day3 ?? '';
+                        el('videoViewsDay7').value = video.views_day7 ?? '';
+                        el('videoLikesDay7').value = video.likes_day7 ?? '';
+                        el('videoViewsMonthEnd').value = video.views_month_end ?? '';
+                        el('videoLikesMonthEnd').value = video.likes_month_end ?? '';
+                        if (video.created_at) {
+                            const today = new Date(); today.setHours(0,0,0,0);
+                            const day3Date = getDayDate(video.created_at, 3);
+                            const day7Date = getDayDate(video.created_at, 7);
+                            if (today >= day3Date) {
+                                el('day3Hint').textContent = (video.views_day3 !== null && video.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+                            }
+                            if (today >= day7Date) {
+                                el('day7Hint').textContent = (video.views_day7 !== null && video.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+                            }
                         }
                     }
                 }
+                updateVideoAccountSelect();
+                updateVideoGroupSelect();
+                el('videoModal').classList.add('show');
+                console.log('[DEBUG] modal shown successfully');
+            } catch(e) {
+                console.error('[ERROR] openVideoModal failed:', e);
+                toast('打开弹窗失败: ' + e.message, 'error');
             }
-            updateVideoAccountSelect();
-            updateVideoGroupSelect();
-            document.getElementById('videoModal').classList.add('show');
         }
 
         function updateVideoAccountSelect() {
@@ -1763,46 +1777,51 @@
         }
 
         async function editVideo(id) {
-            // 优先从本地缓存找，找不到则直接从数据库查
-            let v = allVideos.find(x => x.id == id);
-            if (!v) {
-                try {
-                    const { data } = await supabase.from('videos').select('*').eq('id', id).single();
-                    v = data;
-                } catch(e) { console.error(e); }
+            try {
+                console.log('[DEBUG] editVideo called, id=', id);
+                let v = allVideos.find(x => x.id == id);
+                if (!v) {
+                    try {
+                        const { data } = await supabase.from('videos').select('*').eq('id', id).single();
+                        v = data;
+                    } catch(e) { console.error(e); }
+                }
+                if (!v) { toast('未找到该记录', 'error'); return; }
+                const el = (eid) => document.getElementById(eid);
+                el('videoId').value = id;
+                el('videoModalTitle').textContent = '编辑视频记录';
+                el('videoPlatform').value = v.platform || '抖音';
+                updateVideoAccountSelect();
+                el('videoAccount').value = v.account_name || '';
+                el('videoTime').value = v.created_at ? new Date(v.created_at).toISOString().slice(0, 16) : '';
+                el('videoStatus').value = v.status || '待发布';
+                el('videoLink').value = v.video_link || '';
+                el('videoPlay').value = v.views ?? '';
+                el('videoLike').value = v.likes ?? '';
+                el('videoPublisher').value = v.publisher || '';
+                el('videoViewsDay3').value = v.views_day3 ?? '';
+                el('videoLikesDay3').value = v.likes_day3 ?? '';
+                el('videoViewsDay7').value = v.views_day7 ?? '';
+                el('videoLikesDay7').value = v.likes_day7 ?? '';
+                el('videoViewsMonthEnd').value = v.views_month_end ?? '';
+                el('videoLikesMonthEnd').value = v.likes_month_end ?? '';
+                el('day3Hint').textContent = '';
+                el('day7Hint').textContent = '';
+                if (v.created_at) {
+                    const today = new Date(); today.setHours(0,0,0,0);
+                    const day3Date = getDayDate(v.created_at, 3);
+                    const day7Date = getDayDate(v.created_at, 7);
+                    if (today >= day3Date) el('day3Hint').textContent = (v.views_day3 !== null && v.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+                    if (today >= day7Date) el('day7Hint').textContent = (v.views_day7 !== null && v.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+                }
+                updateVideoGroupSelect();
+                el('videoGroup').value = v.group_name || '';
+                el('videoModal').classList.add('show');
+                console.log('[DEBUG] editVideo modal shown successfully');
+            } catch(e) {
+                console.error('[ERROR] editVideo failed:', e);
+                toast('打开编辑失败: ' + e.message, 'error');
             }
-            if (!v) { toast('未找到该记录', 'error'); return; }
-            document.getElementById('videoId').value = id;
-            document.getElementById('videoModalTitle').textContent = '编辑视频记录';
-            document.getElementById('videoPlatform').value = v.platform || '抖音';
-            updateVideoAccountSelect();
-            document.getElementById('videoAccount').value = v.account_name || '';
-            document.getElementById('videoTime').value = v.created_at ? new Date(v.created_at).toISOString().slice(0, 16) : '';
-            document.getElementById('videoStatus').value = v.status || '待发布';
-            document.getElementById('videoLink').value = v.video_link || '';
-            document.getElementById('videoPlay').value = v.views ?? '';
-            document.getElementById('videoLike').value = v.likes ?? '';
-            document.getElementById('videoPublisher').value = v.publisher || '';
-            // 第3天/第7天/月中末数据
-            document.getElementById('videoViewsDay3').value = v.views_day3 ?? '';
-            document.getElementById('videoLikesDay3').value = v.likes_day3 ?? '';
-            document.getElementById('videoViewsDay7').value = v.views_day7 ?? '';
-            document.getElementById('videoLikesDay7').value = v.likes_day7 ?? '';
-            document.getElementById('videoViewsMonthEnd').value = v.views_month_end ?? '';
-            document.getElementById('videoLikesMonthEnd').value = v.likes_month_end ?? '';
-            document.getElementById('day3Hint').textContent = '';
-            document.getElementById('day7Hint').textContent = '';
-            if (v.created_at) {
-                const today = new Date(); today.setHours(0,0,0,0);
-                const day3Date = getDayDate(v.created_at, 3);
-                const day7Date = getDayDate(v.created_at, 7);
-                if (today >= day3Date) document.getElementById('day3Hint').textContent = (v.views_day3 !== null && v.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
-                if (today >= day7Date) document.getElementById('day7Hint').textContent = (v.views_day7 !== null && v.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
-            }
-            // 加载组别选项并选中
-            updateVideoGroupSelect();
-            document.getElementById('videoGroup').value = v.group_name || '';
-            document.getElementById('videoModal').classList.add('show');
         }
 
         async function saveVideo() {
