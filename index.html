@@ -1699,8 +1699,8 @@
                 console.log('[DEBUG] openVideoModal called, id=', id);
                 const el = (id2) => document.getElementById(id2);
                 
-                el('videoId').value = id || '';
-                el('videoModalTitle').textContent = id ? '编辑视频记录' : '添加视频记录';
+                const vid = el('videoId'); if (vid) vid.value = id || '';
+                const vtitle = el('videoModalTitle'); if (vtitle) vtitle.textContent = id ? '编辑视频记录' : '添加视频记录';
                 
                 // 清空第3天数据
                 const v3d = el('videoViewsDay3'); if (v3d) v3d.value = '';
@@ -1719,16 +1719,20 @@
                 const d7h = el('day7Hint'); if (d7h) d7h.textContent = '';
                 
                 if (!id) {
-                    el('videoTime').value = new Date().toISOString().slice(0, 16);
-                    el('videoPlatform').value = '抖音';
-                    el('videoLink').value = '';
-                    el('videoPlay').value = '';
-                    el('videoLike').value = '';
-                    if (!isAdmin() && currentUser?.real_name) {
-                        el('videoPublisher').value = currentUser.real_name;
-                    } else {
-                        el('videoPublisher').value = '';
+                    const vt = el('videoTime'); if (vt) vt.value = new Date().toISOString().slice(0, 16);
+                    const vp = el('videoPlatform'); if (vp) vp.value = '抖音';
+                    const vs = el('videoStatus'); if (vs) vs.value = '待发布';
+                    const vl = el('videoLink'); if (vl) vl.value = '';
+                    const vpub = el('videoPublisher'); 
+                    if (vpub) {
+                        if (!isAdmin() && currentUser && currentUser.real_name) {
+                            vpub.value = currentUser.real_name;
+                        } else {
+                            vpub.value = '';
+                        }
                     }
+                    const va = el('videoAccount'); if (va) va.value = '';
+                    const vg = el('videoGroup'); if (vg) vg.value = '';
                 } else {
                     const video = allVideos.find(v => v.id === id);
                     if (video) {
@@ -1763,11 +1767,13 @@
 
         function updateVideoAccountSelect() {
             const select = document.getElementById('videoAccount');
+            if (!select) return;
             select.innerHTML = allAccounts.map(a => `<option value="${a.account_name}">${a.platform} - ${a.account_name}</option>`).join('');
         }
         
         function updateVideoGroupSelect() {
             const select = document.getElementById('videoGroup');
+            if (!select) return;
             // 从 users 和 accounts 合并去重的组别
             const userGroups = allUsers.map(u => u.group_name).filter(Boolean);
             const accountGroups = allAccounts.map(a => a.group_name).filter(Boolean);
@@ -1788,34 +1794,32 @@
                 }
                 if (!v) { toast('未找到该记录', 'error'); return; }
                 const el = (eid) => document.getElementById(eid);
-                el('videoId').value = id;
-                el('videoModalTitle').textContent = '编辑视频记录';
-                el('videoPlatform').value = v.platform || '抖音';
+                const e_vid = el('videoId'); if (e_vid) e_vid.value = id;
+                const e_title = el('videoModalTitle'); if (e_title) e_title.textContent = '编辑视频记录';
+                const e_plat = el('videoPlatform'); if (e_plat) e_plat.value = v.platform || '抖音';
                 updateVideoAccountSelect();
-                el('videoAccount').value = v.account_name || '';
-                el('videoTime').value = v.created_at ? new Date(v.created_at).toISOString().slice(0, 16) : '';
-                el('videoStatus').value = v.status || '待发布';
-                el('videoLink').value = v.video_link || '';
-                el('videoPlay').value = v.views ?? '';
-                el('videoLike').value = v.likes ?? '';
-                el('videoPublisher').value = v.publisher || '';
-                el('videoViewsDay3').value = v.views_day3 ?? '';
-                el('videoLikesDay3').value = v.likes_day3 ?? '';
-                el('videoViewsDay7').value = v.views_day7 ?? '';
-                el('videoLikesDay7').value = v.likes_day7 ?? '';
-                el('videoViewsMonthEnd').value = v.views_month_end ?? '';
-                el('videoLikesMonthEnd').value = v.likes_month_end ?? '';
-                el('day3Hint').textContent = '';
-                el('day7Hint').textContent = '';
+                const e_acct = el('videoAccount'); if (e_acct) e_acct.value = v.account_name || '';
+                const e_time = el('videoTime'); if (e_time) e_time.value = v.created_at ? new Date(v.created_at).toISOString().slice(0, 16) : '';
+                const e_status = el('videoStatus'); if (e_status) e_status.value = v.status || '待发布';
+                const e_link = el('videoLink'); if (e_link) e_link.value = v.video_link || '';
+                const e_pub = el('videoPublisher'); if (e_pub) e_pub.value = v.publisher || '';
+                const e_v3 = el('videoViewsDay3'); if (e_v3) e_v3.value = v.views_day3 ?? '';
+                const e_l3 = el('videoLikesDay3'); if (e_l3) e_l3.value = v.likes_day3 ?? '';
+                const e_v7 = el('videoViewsDay7'); if (e_v7) e_v7.value = v.views_day7 ?? '';
+                const e_l7 = el('videoLikesDay7'); if (e_l7) e_l7.value = v.likes_day7 ?? '';
+                const e_vme = el('videoViewsMonthEnd'); if (e_vme) e_vme.value = v.views_month_end ?? '';
+                const e_lme = el('videoLikesMonthEnd'); if (e_lme) e_lme.value = v.likes_month_end ?? '';
+                const e_d3 = el('day3Hint'); if (e_d3) e_d3.textContent = '';
+                const e_d7 = el('day7Hint'); if (e_d7) e_d7.textContent = '';
                 if (v.created_at) {
                     const today = new Date(); today.setHours(0,0,0,0);
                     const day3Date = getDayDate(v.created_at, 3);
                     const day7Date = getDayDate(v.created_at, 7);
-                    if (today >= day3Date) el('day3Hint').textContent = (v.views_day3 !== null && v.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
-                    if (today >= day7Date) el('day7Hint').textContent = (v.views_day7 !== null && v.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
+                    if (today >= day3Date) { const e_d3h = el('day3Hint'); if (e_d3h) e_d3h.textContent = (v.views_day3 !== null && v.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写'; }
+                    if (today >= day7Date) { const e_d7h = el('day7Hint'); if (e_d7h) e_d7h.textContent = (v.views_day7 !== null && v.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写'; }
                 }
                 updateVideoGroupSelect();
-                el('videoGroup').value = v.group_name || '';
+                const e_grp = el('videoGroup'); if (e_grp) e_grp.value = v.group_name || '';
                 el('videoModal').classList.add('show');
                 console.log('[DEBUG] editVideo modal shown successfully');
             } catch(e) {
@@ -1825,20 +1829,26 @@
         }
 
         async function saveVideo() {
-            const id = document.getElementById('videoId').value;
+            const getEl = (id) => document.getElementById(id);
+            const id = getEl('videoId') ? getEl('videoId').value : '';
             const now = new Date().toISOString();
-            const getVal = (id) => parseInt(document.getElementById(id).value) || null;
+            const getVal = (id) => {
+                const el = getEl(id);
+                return el ? parseInt(el.value) || null : null;
+            };
+            const getText = (id) => {
+                const el = getEl(id);
+                return el ? el.value : '';
+            };
             
             const data = {
-                platform: document.getElementById('videoPlatform').value,
-                account_name: document.getElementById('videoAccount').value,
-                status: document.getElementById('videoStatus').value,
-                video_link: document.getElementById('videoLink').value,
-                views: getVal('videoPlay'),
-                likes: getVal('videoLike'),
-                publisher: document.getElementById('videoPublisher').value,
-                group_name: document.getElementById('videoGroup').value,
-                created_at: document.getElementById('videoTime').value || now,
+                platform: getText('videoPlatform'),
+                account_name: getText('videoAccount'),
+                status: getText('videoStatus'),
+                video_link: getText('videoLink'),
+                publisher: getText('videoPublisher'),
+                group_name: getText('videoGroup'),
+                created_at: getText('videoTime') || now,
                 // 第3天数据
                 views_day3: getVal('videoViewsDay3'),
                 likes_day3: getVal('videoLikesDay3'),
