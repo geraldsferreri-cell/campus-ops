@@ -1539,7 +1539,7 @@
         function renderVideoTable() {
             const tbody = document.getElementById('videoTable');
             if (!tbody) return;
-            if (allVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无数据</td></tr>'; return; }
+            if (allVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; return; }
             tbody.innerHTML = allVideos.map(v => {
                 const statusClass = v.status === '爆款' ? 'badge-danger' : v.status === '已发布' ? 'badge-success' : v.status === '失败' ? 'badge-warning' : 'badge-purple';
                 const canEdit = canEditVideo(v);
@@ -1691,16 +1691,16 @@
             document.getElementById('videoId').value = id || '';
             document.getElementById('videoModalTitle').textContent = id ? '编辑视频记录' : '添加视频记录';
             
-            // 清空第3天和第7天数据
+            // 清空第3天和第7天数据（file input 不能直接 .value=''，用 form.reset 代替）
             document.getElementById('videoViewsDay3').value = '';
             document.getElementById('videoLikesDay3').value = '';
-            document.getElementById('videoScreenshotDay3').value = '';
+            const day3File = document.getElementById('videoScreenshotDay3'); if (day3File) day3File.value = '';
             document.getElementById('videoViewsDay7').value = '';
             document.getElementById('videoLikesDay7').value = '';
-            document.getElementById('videoScreenshotDay7').value = '';
+            const day7File = document.getElementById('videoScreenshotDay7'); if (day7File) day7File.value = '';
             document.getElementById('videoViewsMonthEnd').value = '';
             document.getElementById('videoLikesMonthEnd').value = '';
-            document.getElementById('videoScreenshotMonthEnd').value = '';
+            const monthEndFile = document.getElementById('videoScreenshotMonthEnd'); if (monthEndFile) monthEndFile.value = '';
             document.getElementById('day3Hint').textContent = '';
             document.getElementById('day7Hint').textContent = '';
             
