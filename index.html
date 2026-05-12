@@ -850,8 +850,7 @@
                     <option value="">-- 请选择组别 --</option>
                 </select>
             </div>
-            <!-- 发布时数据 -->
-                        <!-- 视频数据跟踪 -->
+            <!-- 视频数据跟踪 -->
             <div class="form-section-title">📊 视频数据跟踪</div>
             <!-- 第3天数据 -->
             <div class="form-section-title" style="margin-top:8px">📈 第3天数据 <span class="form-hint" id="day3Hint"></span></div>
@@ -874,26 +873,6 @@
                 <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLike" class="form-input" placeholder="0" min="0"></div>
             </div>
             <div class="form-group"><label class="form-label">上传数据截图</label><input type="file" id="videoScreenshotFinal" class="form-input" accept="image/*"></div>
-
-            <div class="form-row">
-                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoPlay" class="form-input" placeholder="0" min="0"></div>
-                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLike" class="form-input" placeholder="0" min="0"></div>
-            </div>
-            <div class="form-group"><label class="form-label">评论数</label><input type="number" id="videoComment" class="form-input" placeholder="0" min="0"></div>
-            <!-- 第3天数据 -->
-            <div class="form-section-title">📈 第3天数据 <span class="form-hint" id="day3Hint"></span></div>
-            <div class="form-row">
-                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsDay3" class="form-input" placeholder="0" min="0"></div>
-                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesDay3" class="form-input" placeholder="0" min="0"></div>
-            </div>
-            <div class="form-group"><label class="form-label">评论数</label><input type="number" id="videoCommentsDay3" class="form-input" placeholder="0" min="0"></div>
-            <!-- 第7天数据 -->
-            <div class="form-section-title">📈 第7天数据 <span class="form-hint" id="day7Hint"></span></div>
-            <div class="form-row">
-                <div class="form-group"><label class="form-label">播放量</label><input type="number" id="videoViewsDay7" class="form-input" placeholder="0" min="0"></div>
-                <div class="form-group"><label class="form-label">点赞数</label><input type="number" id="videoLikesDay7" class="form-input" placeholder="0" min="0"></div>
-            </div>
-            <div class="form-group"><label class="form-label">评论数</label><input type="number" id="videoCommentsDay7" class="form-input" placeholder="0" min="0"></div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('videoModal')">取消</button>
                 <button class="btn btn-primary" onclick="saveVideo()">保存</button>
@@ -1525,7 +1504,7 @@
             return { needDay3, needDay7 };
         }
 
-                // 格式化统计数据显示（播放量+点赞数）
+        // 格式化统计数据显示（播放量+点赞数）
         function formatStatsCell(views, likes, isEmpty, fillStatus) {
             if (isEmpty) {
                 return `<span class="stats-pending" title="${fillStatus}">待填写</span>`;
@@ -1535,7 +1514,6 @@
                 <span class="stat-item">赞:${likes || 0}</span>
             </div>`;
         }
-
 
         function renderVideoTable() {
             const tbody = document.getElementById('videoTable');
@@ -1558,14 +1536,13 @@
                     <td>${v.publisher || '-'}</td>
                     <td>${v.group_name || '-'}</td>
                     <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" class="link">查看</a>` : '-'}</td>
-                                        <td>${formatStatsCell(v.views, v.likes, false, '')}</td>
+                    <td>${formatStatsCell(v.views, v.likes, false, '')}</td>
                     <td class="${reminder.needDay3 ? 'cell-reminder' : ''}" title="${day3Date} (发布后第3天)">
                         ${formatStatsCell(v.views_day3, v.likes_day3, !day3Filled, '第3天')}
                     </td>
                     <td class="${reminder.needDay7 ? 'cell-reminder-day7' : ''}" title="${day7Date} (发布后第7天)">
                         ${formatStatsCell(v.views_day7, v.likes_day7, !day7Filled, '第7天')}
                     </td>
-
                     <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
                     <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${v.id}')">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteVideo('${v.id}')">删除</button>` : '-'}</td>
                 </tr>`;
@@ -1579,7 +1556,7 @@
             select.innerHTML = '<option value="">全部老师</option>' + teachers.map(t => `<option value="${t.real_name || t.name}">${t.real_name || t.name}</option>`).join('');
         }
 
-                function updateStudentVideoStats() {
+        function updateStudentVideoStats() {
             const studentStats = document.getElementById('studentVideoStats');
             if (!studentStats) return;
             
@@ -1591,7 +1568,6 @@
                 const videoCount = myVideos.length;
                 const thousandCount = myVideos.filter(v => (v.likes || 0) >= 1000).length;
                 const tenThousandCount = myVideos.filter(v => (v.likes || 0) >= 10000).length;
-
                 
                 document.getElementById('myVideoCount').textContent = videoCount;
                 document.getElementById('myThousandLike').textContent = thousandCount;
@@ -1686,10 +1662,11 @@
             // 清空第3天和第7天数据
             document.getElementById('videoViewsDay3').value = '';
             document.getElementById('videoLikesDay3').value = '';
-            document.getElementById('videoCommentsDay3').value = '';
+            document.getElementById('videoScreenshotDay3').value = '';
             document.getElementById('videoViewsDay7').value = '';
             document.getElementById('videoLikesDay7').value = '';
-            document.getElementById('videoCommentsDay7').value = '';
+            document.getElementById('videoScreenshotDay7').value = '';
+            document.getElementById('videoScreenshotFinal').value = '';
             document.getElementById('day3Hint').textContent = '';
             document.getElementById('day7Hint').textContent = '';
             
@@ -1699,25 +1676,21 @@
                 document.getElementById('videoLink').value = '';
                 document.getElementById('videoPlay').value = '';
                 document.getElementById('videoLike').value = '';
-                document.getElementById('videoComment').value = '';
+                document.getElementById('videoScreenshotFinal').value = '';
                 // 学生添加时自动填入自己的姓名
                 if (!isAdmin() && currentUser?.real_name) {
                     document.getElementById('videoPublisher').value = currentUser.real_name;
                 } else {
-                
+                    document.getElementById('videoPublisher').value = '';
                 }
             } else {
                 // 编辑时：填充第3天和第7天数据，并显示提示
                 const video = allVideos.find(v => v.id === id);
                 if (video) {
-                                document.getElementById('videoViewsDay3').value = '';
-            document.getElementById('videoLikesDay3').value = '';
-            document.getElementById('videoScreenshotDay3').value = '';
-            document.getElementById('videoViewsDay7').value = '';
-            document.getElementById('videoLikesDay7').value = '';
-            document.getElementById('videoScreenshotDay7').value = '';
-            document.getElementById('videoScreenshotFinal').value = '';
-
+                    document.getElementById('videoViewsDay3').value = video.views_day3 ?? '';
+                    document.getElementById('videoLikesDay3').value = video.likes_day3 ?? '';
+                    document.getElementById('videoViewsDay7').value = video.views_day7 ?? '';
+                    document.getElementById('videoLikesDay7').value = video.likes_day7 ?? '';
                     
                     // 显示日期提示
                     if (video.created_at) {
@@ -1767,14 +1740,12 @@
             document.getElementById('videoLink').value = v.video_link || '';
             document.getElementById('videoPlay').value = v.views ?? '';
             document.getElementById('videoLike').value = v.likes ?? '';
-                        document.getElementById('videoPublisher').value = v.publisher || '';
+            document.getElementById('videoPublisher').value = v.publisher || '';
             // 第3天/第7天数据
             document.getElementById('videoViewsDay3').value = v.views_day3 ?? '';
             document.getElementById('videoLikesDay3').value = v.likes_day3 ?? '';
             document.getElementById('videoViewsDay7').value = v.views_day7 ?? '';
             document.getElementById('videoLikesDay7').value = v.likes_day7 ?? '';
-
-
             document.getElementById('day3Hint').textContent = '';
             document.getElementById('day7Hint').textContent = '';
             if (v.created_at) {
@@ -1799,7 +1770,7 @@
                 platform: document.getElementById('videoPlatform').value,
                 account_name: document.getElementById('videoAccount').value,
                 status: document.getElementById('videoStatus').value,
-                                video_link: document.getElementById('videoLink').value,
+                video_link: document.getElementById('videoLink').value,
                 views: getVal('videoPlay'),
                 likes: getVal('videoLike'),
                 publisher: document.getElementById('videoPublisher').value,
@@ -1812,7 +1783,6 @@
                 views_day7: getVal('videoViewsDay7'),
                 likes_day7: getVal('videoLikesDay7'),
             };
-
             // 填写时自动记录时间
             if (data.views_day3 !== null && data.views_day3 !== undefined) data.stats_day3_at = now;
             if (data.views_day7 !== null && data.views_day7 !== undefined) data.stats_day7_at = now;
@@ -2727,9 +2697,9 @@
                         <td>${v.platform || '-'}</td>
                         <td>${v.account_name || '-'}</td>
                         <td>${v.publisher || '-'}</td>
-                        <td>${v.views||0}/${v.likes||0}/${v.comments||0}</td>
-                        <td>${v.views_day3!=null ? v.views_day3+'/'+v.likes_day3+'/'+v.comments_day3 : '-'}</td>
-                        <td>${v.views_day7!=null ? v.views_day7+'/'+v.likes_day7+'/'+v.comments_day7 : '-'}</td>
+                        <td>${v.views||0} / ${v.likes||0}</td>
+                        <td>${v.views_day3!=null ? v.views_day3+' / '+v.likes_day3 : '-'}</td>
+                        <td>${v.views_day7!=null ? v.views_day7+' / '+v.likes_day7 : '-'}</td>
                         <td><span class="status-badge ${v.status === '已发布' ? 'published' : ''}">${v.status || '-'}</span></td>
                     </tr>
                 `).join('');
@@ -2754,7 +2724,7 @@
                     if (endDate && date > endDate) return false;
                     return true;
                 });
-                headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '评论(发布)', '播放(D3)', '点赞(D3)', '评论(D3)', '播放(D7)', '点赞(D7)', '评论(D7)', '状态'];
+                headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '播放(D3)', '点赞(D3)', '播放(D7)', '点赞(D7)', '状态'];
                 filename = '视频记录';
             } else if (type === 'accounts') {
                 data = getMyAccounts();
@@ -2766,8 +2736,7 @@
                 filename = '人员名单';
             } else if (type === 'salary') {
                 data = allSalaries;
-                                headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '播放(D3)', '点赞(D3)', '播放(D7)', '点赞(D7)', '状态'];
-
+                headers = ['姓名', '角色', '分组', '发片数', '千赞数', '万赞数', '奖金', '实发', '状态'];
                 filename = '薪资结算';
             }
             exportToXLSX(data, headers, filename);
@@ -2775,8 +2744,7 @@
 
         function exportVideos() {
             const data = getMyVideos();
-                        const headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '播放(D3)', '点赞(D3)', '播放(D7)', '点赞(D7)', '状态'];
-
+            const headers = ['时间', '平台', '账号', '发布者', '组别', '链接', '播放(发布)', '点赞(发布)', '播放(D3)', '点赞(D3)', '播放(D7)', '点赞(D7)', '状态'];
             exportToXLSX(data, headers, '视频记录');
         }
 
@@ -2810,10 +2778,9 @@
                 '账号': v.account_name || '',
                 '发布者': v.publisher || '',
                 '链接': v.video_link || '',
-                                '播放': v.views || 0,
+                '播放': v.views || 0,
                 '点赞': v.likes || 0,
                 '状态': v.status || ''
-
             }));
             const videoSheet = XLSX.utils.json_to_sheet(videoData);
             XLSX.utils.book_append_sheet(wb, videoSheet, '视频记录');
@@ -2911,7 +2878,7 @@
         }
 
         function getNestedValue(obj, key) {
-                        const map = {
+            const map = {
                 '时间': 'created_at', '平台': 'platform', '账号': 'account_name', '发布者': 'publisher', 
                 '组别': 'group_name', '链接': 'video_link', 
                 '播放(发布)': 'views', '点赞(发布)': 'likes',
@@ -2921,7 +2888,6 @@
                 '姓名': 'real_name', '用户名': 'username', '角色': 'role', '奖金': 'bonus', '实发': 'total',
                 '播放': 'views', '点赞': 'likes'
             };
-
             const k = map[key] || key;
             if (obj[k] === undefined || obj[k] === null) return '';
             if (obj[k] === true) return '正常';
