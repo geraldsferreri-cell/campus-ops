@@ -1555,16 +1555,19 @@
             select.innerHTML = '<option value="">全部老师</option>' + teachers.map(t => `<option value="${t.real_name || t.name}">${t.real_name || t.name}</option>`).join('');
         }
 
-        function updateStudentVideoStats() {
+                function updateStudentVideoStats() {
             const studentStats = document.getElementById('studentVideoStats');
             if (!studentStats) return;
             
             if (!isAdmin()) {
                 studentStats.style.display = 'block';
-                const myVideos = allVideos;
+                // 只获取当前学生的视频（按发布者匹配）
+                const myNames = getCurrentUserNames();
+                const myVideos = allVideos.filter(v => myNames.includes(v.publisher));
                 const videoCount = myVideos.length;
                 const thousandCount = myVideos.filter(v => (v.likes || 0) >= 1000).length;
                 const tenThousandCount = myVideos.filter(v => (v.likes || 0) >= 10000).length;
+
                 
                 document.getElementById('myVideoCount').textContent = videoCount;
                 document.getElementById('myThousandLike').textContent = thousandCount;
