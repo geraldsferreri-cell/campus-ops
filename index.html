@@ -483,7 +483,7 @@
                 <!-- Charts -->
                 <div class="charts-grid">
                     <div class="chart-card" style="grid-column: span 2;">
-                        <div class="chart-title">📊 发片趋势（按组别）</div>
+                        <div class="chart-title">📊 发片统计（按组别）</div>
                         <canvas id="groupChart" style="max-height: 250px;"></canvas>
                     </div>
                     <div class="chart-card">
@@ -731,7 +731,7 @@
                         <div class="salary-card-value" id="salaryPending">¥0</div>
                     </div>
                     <div class="salary-card red">
-                        <div class="salary-card-label">未达标扣款</div>
+                        <div class="salary-card-label">老师未达标</div>
                         <div class="salary-card-value" id="salaryDeduction">¥0</div>
                     </div>
                 </div>
@@ -739,7 +739,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>姓名</th><th>角色</th><th>分组</th><th>发片数</th><th>千赞数</th><th>万赞数</th><th>奖金</th><th>实发</th><th>状态</th><th>操作</th></tr>
+                                <tr><th>姓名</th><th>角色</th><th>分组</th><th>发片数</th><th>千赞数</th><th>万赞数</th><th>底薪</th><th>奖金</th><th>实发</th><th>状态</th><th>操作</th></tr>
                             </thead>
                             <tbody id="salaryTable"></tbody>
                         </table>
@@ -2086,19 +2086,24 @@
         function renderSalaryTable() {
             const tbody = document.getElementById('salaryTable');
             if (!tbody) return;
-            if (allSalaries.length === 0) { tbody.innerHTML = '<tr><td colspan="10" class="empty-state">暂无结算数据</td></tr>'; return; }
-            tbody.innerHTML = allSalaries.map(s => `<tr>
+            if (allSalaries.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无结算数据</td></tr>'; return; }
+            tbody.innerHTML = allSalaries.map(s => {
+                const isTeacher = s.role === 'teacher';
+                const deduction = s.deduction || 0;
+                return `<tr>
                 <td>${s.user_name || '-'}</td>
-                <td><span class="badge ${s.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${s.role === 'teacher' ? '编导' : '学生'}</span></td>
+                <td><span class="badge ${isTeacher ? 'badge-success' : 'badge-warning'}">${isTeacher ? '老师' : '学生'}</span></td>
                 <td>${s.group_name || '-'}</td>
                 <td>${s.video_count || 0}</td>
                 <td>${s.thousand_count || 0}</td>
                 <td>${s.ten_thousand_count || 0}</td>
-                <td>¥${s.bonus || 0}</td>
+                <td>¥${s.base_salary || 0}</td>
+                <td>¥${s.bonus || 0}${isTeacher && deduction > 0 ? '<br><small style="color:var(--gray-400)">需达标12条</small>' : ''}</td>
                 <td><strong>¥${s.total || 0}</strong></td>
                 <td><span class="badge ${s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span></td>
                 <td><button class="btn btn-sm btn-secondary" onclick="markSalaryPaid(${s.id})">确认结算</button></td>
-            </tr>`).join('');
+            </tr>`;
+            }).join('');
         }
 
         async function loadSalarySummary() {
@@ -2112,21 +2117,95 @@
             document.getElementById('salaryDeduction').textContent = '¥' + deduction;
         }
 
+        // 计算学生的薪资
+        function calcStudentSalary(videoCount, thousandCount, tenThousandCount) {
+            // 分级标准
+            let unitPrice;
+            if (videoCount <= 2) {
+                unitPrice = 20;
+            } else if (videoCount <= 5) {
+                unitPrice = 25;
+            } else {
+                unitPrice = 30;
+            }
+            // 底薪 = 单价 × 发片条数
+            const baseSalary = unitPrice * videoCount;
+            // 千赞奖金：80元/条
+            const thousandBonus = thousandCount * 80;
+            // 万赞奖金：120元/条
+            const tenThousandBonus = tenThousandCount * 120;
+            // 总薪资 = 底薪 + 奖金
+            return {
+                unitPrice,
+                baseSalary,
+                thousandBonus,
+                tenThousandBonus,
+                total: baseSalary + thousandBonus + tenThousandBonus
+            };
+        }
+
+        // 计算老师的带教奖金
+        function calcTeacherBonus(groupName, month) {
+            if (!groupName) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
+            
+            // 获取该组的所有学生
+            const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
+            if (groupStudents.length === 0) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
+            
+            // 计算小组内所有学生的发片总数
+            let groupVideoCount = 0;
+            let totalStudentBonus = 0;
+            
+            for (const student of groupStudents) {
+                const studentNames = getUserAllNames(student);
+                const studentVideos = allVideos.filter(v => studentNames.includes(v.publisher) && v.created_at?.startsWith(month));
+                groupVideoCount += studentVideos.length;
+                
+                // 计算每个学生的奖励（不含底薪）
+                const thousandCount = studentVideos.filter(v => v.likes >= 1000).length;
+                const tenThousandCount = studentVideos.filter(v => v.likes >= 10000).length;
+                const thousandBonus = thousandCount * 80;
+                const tenThousandBonus = tenThousandCount * 120;
+                totalStudentBonus += thousandBonus + tenThousandBonus;
+            }
+            
+            // 在小组内所有账号发够12条视频的前提下，老师奖金 = 学生奖励总和 × 50%
+            const qualified = groupVideoCount >= 12;
+            const total = qualified ? Math.round(totalStudentBonus * 0.5) : 0;
+            
+            return { total, studentBonus: totalStudentBonus, qualified, groupVideoCount };
+        }
+
         async function openSalaryModal() {
             const month = document.getElementById('salaryMonth')?.value;
             if (!month) { toast('请选择月份', 'error'); return; }
-            // 计算所有用户的薪资
-            for (const user of allUsers.filter(u => u.role !== 'admin')) {
-                const userNames = getUserAllNames(user);
+            
+            // 先计算所有学生的薪资（底薪+奖金）
+            for (const student of allUsers.filter(u => u.role === 'student')) {
+                const userNames = getUserAllNames(student);
                 const userVideos = allVideos.filter(v => userNames.includes(v.publisher) && v.created_at?.startsWith(month));
                 const thousandCount = userVideos.filter(v => v.likes >= 1000).length;
                 const tenThousandCount = userVideos.filter(v => v.likes >= 10000).length;
-                const config = allSalaryConfigs.find(c => c.role === user.role) || { base_salary: 0, thousand_bonus: 0, ten_thousand_bonus: 0 };
-                const bonus = thousandCount * (config.thousand_bonus || 0) + tenThousandCount * (config.ten_thousand_bonus || 0);
-                const total = (config.base_salary || 0) + bonus;
-                const data = { user_id: user.id, user_name: user.real_name || user.name, role: user.role, group_name: user.group_name, month, video_count: userVideos.length, thousand_count: thousandCount, ten_thousand_count: tenThousandCount, base_salary: config.base_salary || 0, bonus, total, status: '待结算' };
+                const salaryInfo = calcStudentSalary(userVideos.length, thousandCount, tenThousandCount);
+                const data = { 
+                    user_id: student.id, 
+                    user_name: student.real_name || student.name, 
+                    role: 'student', 
+                    group_name: student.group_name, 
+                    month, 
+                    video_count: userVideos.length, 
+                    thousand_count: thousandCount, 
+                    ten_thousand_count: tenThousandCount, 
+                    unit_price: salaryInfo.unitPrice,
+                    base_salary: salaryInfo.baseSalary, 
+                    thousand_bonus: salaryInfo.thousandBonus,
+                    ten_thousand_bonus: salaryInfo.tenThousandBonus,
+                    bonus: salaryInfo.thousandBonus + salaryInfo.tenThousandBonus,
+                    total: salaryInfo.total, 
+                    status: '待结算' 
+                };
                 try {
-                    const existing = allSalaries.find(s => s.user_id === user.id && s.month === month);
+                    const existing = allSalaries.find(s => s.user_id === student.id && s.month === month);
                     if (existing) {
                         await supabase.from('salaries').update(data).eq('id', existing.id);
                     } else {
@@ -2134,6 +2213,44 @@
                     }
                 } catch (e) { console.error(e); }
             }
+            
+            // 再计算老师的带教奖金
+            // 获取所有老师（role === 'teacher' 或有分组且带学生的）
+            const groups = [...new Set(allUsers.filter(u => u.group_name).map(u => u.group_name))];
+            for (const groupName of groups) {
+                // 找到该组的负责人（老师）
+                const teacher = allUsers.find(u => u.role === 'teacher' && u.group_name === groupName);
+                if (!teacher) continue;
+                
+                const teacherBonusInfo = calcTeacherBonus(groupName, month);
+                const data = { 
+                    user_id: teacher.id, 
+                    user_name: teacher.real_name || teacher.name, 
+                    role: 'teacher', 
+                    group_name: groupName, 
+                    month, 
+                    video_count: teacherBonusInfo.groupVideoCount,
+                    thousand_count: 0, 
+                    ten_thousand_count: 0, 
+                    unit_price: 0,
+                    base_salary: 0, 
+                    thousand_bonus: 0,
+                    ten_thousand_bonus: 0,
+                    bonus: teacherBonusInfo.total,
+                    total: teacherBonusInfo.total, 
+                    deduction: teacherBonusInfo.qualified ? 0 : teacherBonusInfo.studentBonus,
+                    status: '待结算' 
+                };
+                try {
+                    const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month);
+                    if (existing) {
+                        await supabase.from('salaries').update(data).eq('id', existing.id);
+                    } else {
+                        await supabase.from('salaries').insert(data);
+                    }
+                } catch (e) { console.error(e); }
+            }
+            
             toast('薪资已生成');
             loadSalaries();
             loadSalarySummary();
