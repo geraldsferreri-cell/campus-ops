@@ -539,6 +539,12 @@
                             <div class="stat-value" id="myTenThousandLike">0</div>
                         </div>
                     </div>
+                    <!-- 我的薪资计算 -->
+                    <div id="mySalaryCard" class="card" style="margin-top:12px;display:none">
+                        <div class="card-header"><span class="card-title">💰 我的薪资计算</span></div>
+                        <div id="mySalaryDetail" style="font-size:14px;line-height:2;"></div>
+                        <div id="mySalaryResult" style="margin-top:12px;padding:12px;background:linear-gradient(135deg,var(--primary),#60a5fa);color:#fff;border-radius:8px;font-size:18px;font-weight:700;"></div>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="filter-bar admin-only">
@@ -1556,9 +1562,16 @@
             if (!isAdmin()) {
                 studentStats.style.display = 'block';
                 const myVideos = allVideos;
-                document.getElementById('myVideoCount').textContent = myVideos.length;
-                document.getElementById('myThousandLike').textContent = myVideos.filter(v => (v.likes || 0) >= 1000).length;
-                document.getElementById('myTenThousandLike').textContent = myVideos.filter(v => (v.likes || 0) >= 10000).length;
+                const videoCount = myVideos.length;
+                const thousandCount = myVideos.filter(v => (v.likes || 0) >= 1000).length;
+                const tenThousandCount = myVideos.filter(v => (v.likes || 0) >= 10000).length;
+                
+                document.getElementById('myVideoCount').textContent = videoCount;
+                document.getElementById('myThousandLike').textContent = thousandCount;
+                document.getElementById('myTenThousandLike').textContent = tenThousandCount;
+                
+                // 计算薪资并展示
+                updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount);
                 
                 // 更新待填写数据提醒
                 const reminderBar = document.getElementById('statsReminder');
@@ -1581,6 +1594,62 @@
             } else {
                 studentStats.style.display = 'none';
             }
+        }
+
+        // 更新我的薪资展示
+        function updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount) {
+            const salaryCard = document.getElementById('mySalaryCard');
+            const salaryDetail = document.getElementById('mySalaryDetail');
+            const salaryResult = document.getElementById('mySalaryResult');
+            if (!salaryCard || !salaryDetail || !salaryResult) return;
+            
+            // 学生角色才显示薪资
+            if (currentUser?.role === 'teacher') {
+                salaryCard.style.display = 'none';
+                return;
+            }
+            salaryCard.style.display = 'block';
+            
+            // 计算底薪
+            let unitPrice, baseSalary;
+            if (videoCount <= 2) {
+                unitPrice = 20;
+            } else if (videoCount <= 5) {
+                unitPrice = 25;
+            } else {
+                unitPrice = 30;
+            }
+            baseSalary = unitPrice * videoCount;
+            
+            // 计算奖金
+            const thousandBonus = thousandCount * 80;
+            const tenThousandBonus = tenThousandCount * 120;
+            const totalBonus = thousandBonus + tenThousandBonus;
+            const total = baseSalary + totalBonus;
+            
+            // 显示计算步骤
+            let detailHTML = '';
+            detailHTML += `<div style="margin-bottom:8px"><b>📊 底薪计算：</b></div>`;
+            detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
+            if (videoCount <= 2) {
+                detailHTML += `发片数 ${videoCount} 条（0-2条档）→ 单价 20元/条<br>`;
+            } else if (videoCount <= 5) {
+                detailHTML += `发片数 ${videoCount} 条（3-5条档）→ 单价 25元/条<br>`;
+            } else {
+                detailHTML += `发片数 ${videoCount} 条（>5条档）→ 单价 30元/条<br>`;
+            }
+            detailHTML += `底薪 = ${unitPrice} × ${videoCount} = <b>${baseSalary}元</b>`;
+            detailHTML += `</div>`;
+            
+            detailHTML += `<div style="margin-top:12px;margin-bottom:8px"><b>🏆 奖金计算：</b></div>`;
+            detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
+            detailHTML += `千赞数 ${thousandCount} 条 × 80元 = ${thousandBonus}元<br>`;
+            detailHTML += `万赞数 ${tenThousandCount} 条 × 120元 = ${tenThousandBonus}元<br>`;
+            detailHTML += `奖金合计 = <b>${totalBonus}元</b>`;
+            detailHTML += `</div>`;
+            
+            salaryDetail.innerHTML = detailHTML;
+            salaryResult.innerHTML = `💰 本月预计薪资：<span style="font-size:24px">¥${total}</span>　（底薪¥${baseSalary} + 奖金¥${totalBonus}）`;
         }
 
         function openVideoModal(id = null) {
