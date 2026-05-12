@@ -1187,7 +1187,10 @@
             // 老师可以编辑所带学生的视频
             if (currentUser?.role === 'teacher') {
                 const myStudents = getMyStudents();
-                return myStudents.some(s => getUserAllNames(s).includes(v.publisher));
+                const result = myStudents.some(s => getUserAllNames(s).includes(v.publisher));
+                // 临时调试弹窗
+                alert(`[调试]\n角色: teacher\n我的组: ${getUserGroup()}\n我带的学生: ${myStudents.map(s => s.real_name)}\n视频发布者: ${v.publisher}\n是否匹配: ${result}`);
+                return result;
             }
             return false;
         }
@@ -1383,7 +1386,9 @@
 
         // ============ Load All Data ============
         async function loadAllData() {
-            await Promise.all([loadVideos(), loadAccounts(), loadUsers(), loadGroups(), loadSalaryConfigs(), loadSalaries()]);
+            // 先加载用户，再并行加载其他数据
+            await loadUsers();
+            await Promise.all([loadVideos(), loadAccounts(), loadGroups(), loadSalaryConfigs(), loadSalaries()]);
             // 加载完成后刷新导出预览
             loadExportPreview();
         }
