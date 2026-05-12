@@ -573,7 +573,7 @@
                             <thead>
                                 <tr>
                                     <th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>组别</th><th>链接</th>
-                                    <th>发布时</th><th>第3天</th><th>第7天</th><th>状态</th><th>操作</th>
+                                    <th>第3天</th><th>第7天</th><th>数据达标</th><th>状态</th><th>操作</th>
                                 </tr>
                             </thead>
                             <tbody id="videoTable"></tbody>
@@ -657,7 +657,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>发布时播/赞/评</th><th>第3天</th><th>第7天</th><th>状态</th></tr>
+                                <tr><th>时间</th><th>平台</th><th>账号</th><th>发布者</th><th>第3天</th><th>第7天</th><th>数据达标</th><th>状态</th></tr>
                             </thead>
                             <tbody id="exportPreviewTable"></tbody>
                         </table>
@@ -1515,6 +1515,18 @@
             </div>`;
         }
 
+        // 计算数据达标状态（万赞优先，同视频只算一次）
+        function getDataStandardStatus(v) {
+            const likes = [v.likes_day3, v.likes_day7, v.likes].filter(l => l != null && l !== '');
+            // 检查是否有万赞（≥10000）
+            const hasWanZan = likes.some(l => parseInt(l) >= 10000);
+            // 检查是否有千赞（≥1000但<10000）
+            const hasQianZan = likes.some(l => parseInt(l) >= 1000 && parseInt(l) < 10000);
+            if (hasWanZan) return { status: '万赞', class: 'badge-danger', style: 'background:#ef4444;color:#fff' };
+            if (hasQianZan) return { status: '千赞', class: 'badge-warning', style: 'background:#f59e0b;color:#fff' };
+            return { status: '-', class: '', style: '' };
+        }
+
         function renderVideoTable() {
             const tbody = document.getElementById('videoTable');
             if (!tbody) return;
@@ -1528,6 +1540,7 @@
                 const day7Filled = isDayNFilled(v, 7);
                 const day3Date = publishDate ? getDayDate(publishDate, 3).toLocaleDateString('zh-CN', {month:'numeric',day:'numeric'}) : '-';
                 const day7Date = publishDate ? getDayDate(publishDate, 7).toLocaleDateString('zh-CN', {month:'numeric',day:'numeric'}) : '-';
+                const standardStatus = getDataStandardStatus(v);
                 
                 return `<tr class="${reminder.needDay3 || reminder.needDay7 ? 'row-reminder' : ''}">
                     <td>${v.created_at ? new Date(v.created_at).toLocaleDateString('zh-CN') : '-'}</td>
@@ -1536,13 +1549,13 @@
                     <td>${v.publisher || '-'}</td>
                     <td>${v.group_name || '-'}</td>
                     <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" class="link">查看</a>` : '-'}</td>
-                    <td>${formatStatsCell(v.views, v.likes, false, '')}</td>
                     <td class="${reminder.needDay3 ? 'cell-reminder' : ''}" title="${day3Date} (发布后第3天)">
                         ${formatStatsCell(v.views_day3, v.likes_day3, !day3Filled, '第3天')}
                     </td>
                     <td class="${reminder.needDay7 ? 'cell-reminder-day7' : ''}" title="${day7Date} (发布后第7天)">
                         ${formatStatsCell(v.views_day7, v.likes_day7, !day7Filled, '第7天')}
                     </td>
+                    <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                     <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
                     <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${v.id}')">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteVideo('${v.id}')">删除</button>` : '-'}</td>
                 </tr>`;
@@ -1566,8 +1579,14 @@
                 const myNames = getCurrentUserNames();
                 const myVideos = allVideos.filter(v => myNames.includes(v.publisher));
                 const videoCount = myVideos.length;
-                const thousandCount = myVideos.filter(v => (v.likes || 0) >= 1000).length;
-                const tenThousandCount = myVideos.filter(v => (v.likes || 0) >= 10000).length;
+                // 使用统一的数据达标计算（同视频只算一次，万赞优先）
+                let thousandCount = 0;
+                let tenThousandCount = 0;
+                myVideos.forEach(v => {
+                    const status = getDataStandardStatus(v);
+                    if (status.status === '万赞') tenThousandCount++;
+                    else if (status.status === '千赞') thousandCount++;
+                });
                 
                 document.getElementById('myVideoCount').textContent = videoCount;
                 document.getElementById('myThousandLike').textContent = thousandCount;
@@ -2226,9 +2245,14 @@
                 const studentVideos = allVideos.filter(v => studentNames.includes(v.publisher) && v.created_at?.startsWith(month));
                 groupVideoCount += studentVideos.length;
                 
-                // 计算每个学生的奖励（不含底薪）
-                const thousandCount = studentVideos.filter(v => v.likes >= 1000).length;
-                const tenThousandCount = studentVideos.filter(v => v.likes >= 10000).length;
+                // 计算每个学生的奖励（使用统一数据达标计算）
+                let thousandCount = 0;
+                let tenThousandCount = 0;
+                studentVideos.forEach(v => {
+                    const status = getDataStandardStatus(v);
+                    if (status.status === '万赞') tenThousandCount++;
+                    else if (status.status === '千赞') thousandCount++;
+                });
                 const thousandBonus = thousandCount * 80;
                 const tenThousandBonus = tenThousandCount * 120;
                 totalStudentBonus += thousandBonus + tenThousandBonus;
@@ -2249,8 +2273,14 @@
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
                 const userVideos = allVideos.filter(v => userNames.includes(v.publisher) && v.created_at?.startsWith(month));
-                const thousandCount = userVideos.filter(v => v.likes >= 1000).length;
-                const tenThousandCount = userVideos.filter(v => v.likes >= 10000).length;
+                // 使用统一数据达标计算（同视频只算一次，万赞优先）
+                let thousandCount = 0;
+                let tenThousandCount = 0;
+                userVideos.forEach(v => {
+                    const status = getDataStandardStatus(v);
+                    if (status.status === '万赞') tenThousandCount++;
+                    else if (status.status === '千赞') thousandCount++;
+                });
                 const salaryInfo = calcStudentSalary(userVideos.length, thousandCount, tenThousandCount);
                 const data = { 
                     user_id: student.id, 
@@ -2691,18 +2721,19 @@
             if (filteredVideos.length === 0) {
                 previewTable.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#999;">暂无符合条件的视频数据</td></tr>';
             } else {
-                previewTable.innerHTML = filteredVideos.slice(0, 50).map(v => `
-                    <tr>
+                previewTable.innerHTML = filteredVideos.slice(0, 50).map(v => {
+                    const standardStatus = getDataStandardStatus(v);
+                    return `<tr>
                         <td>${formatDate(v.created_at)}</td>
                         <td>${v.platform || '-'}</td>
                         <td>${v.account_name || '-'}</td>
                         <td>${v.publisher || '-'}</td>
-                        <td>${v.views||0} / ${v.likes||0}</td>
                         <td>${v.views_day3!=null ? v.views_day3+' / '+v.likes_day3 : '-'}</td>
                         <td>${v.views_day7!=null ? v.views_day7+' / '+v.likes_day7 : '-'}</td>
+                        <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                         <td><span class="status-badge ${v.status === '已发布' ? 'published' : ''}">${v.status || '-'}</span></td>
-                    </tr>
-                `).join('');
+                    </tr>`;
+                }).join('');
                 
                 if (filteredVideos.length > 50) {
                     previewTable.innerHTML += `<tr><td colspan="8" style="text-align:center;color:#999;">共 ${filteredVideos.length} 条数据，显示前50条...</td></tr>`;
