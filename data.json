@@ -1,0 +1,230 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "$2a$10$Ijaq0cnQSiSuJ4AmMTQtVem3ZgB2crjiF.0Exa.OAraluW.VHzi2m",
+      "realName": "系统管理员",
+      "role": "admin",
+      "phone": "",
+      "school": "",
+      "groupId": null,
+      "active": true,
+      "createdAt": "2026-04-29T03:35:15.004Z"
+    },
+    {
+      "id": 2,
+      "username": "王宇",
+      "password": "$2a$10$cWzIKW2yjGs8hSauhIRqOeyZlE.uVKEgq2PHkQSRH1i5e.by8tf4K",
+      "realName": "王宇",
+      "role": "team_leader",
+      "phone": "",
+      "school": "",
+      "groupId": 1,
+      "active": true,
+      "createdAt": "2026-04-29T05:06:07.461Z"
+    },
+    {
+      "id": 3,
+      "username": "曲姝洁",
+      "password": "$2a$10$oplyBKF8jaZHJyewp5qHzOj4GoySuq9ths5Q5JI4PNO/1HlxXUJEe",
+      "realName": "曲姝洁",
+      "role": "mojjnfmn",
+      "phone": "",
+      "school": "",
+      "groupId": 3,
+      "active": true,
+      "createdAt": "2026-04-29T05:06:36.669Z"
+    },
+    {
+      "id": 4,
+      "username": "栗帆",
+      "password": "$2a$10$ZbIxvT8nZt9/ebfDGPYS8.ULFcqCGLCMIhEKJN7aJEiNsqZIZSU5.",
+      "realName": "栗帆",
+      "role": "team_leader",
+      "phone": "",
+      "school": "",
+      "groupId": 2,
+      "active": true,
+      "createdAt": "2026-04-29T05:07:11.008Z"
+    },
+    {
+      "id": 5,
+      "username": "松洋",
+      "password": "$2a$10$UZLN8vbHBpX4qh9vX77ImeTMusuMhzt.SBhmfcuM6EZbBY2OJf4re",
+      "realName": "松洋",
+      "role": "mojjnfmn",
+      "phone": "",
+      "school": "",
+      "groupId": 4,
+      "active": true,
+      "createdAt": "2026-04-29T05:08:25.165Z"
+    },
+    {
+      "id": 101,
+      "username": "student1",
+      "password": "123456",
+      "realName": "张小明",
+      "role": "student",
+      "phone": "",
+      "school": "",
+      "groupId": 1,
+      "active": true,
+      "createdAt": "2026-04-29T06:00:00.000Z"
+    },
+    {
+      "id": 102,
+      "username": "student2",
+      "password": "123456",
+      "realName": "李小红",
+      "role": "student",
+      "phone": "",
+      "school": "",
+      "groupId": 1,
+      "active": true,
+      "createdAt": "2026-04-29T06:00:00.000Z"
+    },
+    {
+      "id": 103,
+      "username": "student3",
+      "password": "123456",
+      "realName": "王大力",
+      "role": "student",
+      "phone": "",
+      "school": "",
+      "groupId": 2,
+      "active": true,
+      "createdAt": "2026-04-29T06:00:00.000Z"
+    },
+    {
+      "id": 104,
+      "username": "student4",
+      "password": "123456",
+      "realName": "赵晓丽",
+      "role": "student",
+      "phone": "",
+      "school": "",
+      "groupId": 3,
+      "active": true,
+      "createdAt": "2026-04-29T06:00:00.000Z"
+    },
+    {
+      "id": 105,
+      "username": "student5",
+      "password": "123456",
+      "realName": "孙伟",
+      "role": "student",
+      "phone": "",
+      "school": "",
+      "groupId": 4,
+      "active": true,
+      "createdAt": "2026-04-29T06:00:00.000Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "又又组",
+      "teacherId": null
+    },
+    {
+      "id": 2,
+      "name": "栗帆组",
+      "teacherId": null
+    },
+    {
+      "id": 3,
+      "name": "姝洁组",
+      "teacherId": null
+    },
+    {
+      "id": 4,
+      "name": "松洋组",
+      "teacherId": null
+    }
+  ],
+  "accounts": [
+    { "id": 1, "platform": "xiaohongshu", "type": "时尚资讯", "name": "校园时尚风向标", "uid": "xhs001", "url": "", "groupId": 1, "groupName": "又又组", "assignedTo": 2, "status": "使用中", "createdAt": "2026-04-29T03:00:00.000Z" },
+    { "id": 2, "platform": "xiaohongshu", "type": "营销资讯", "name": "校园营销情报站", "uid": "xhs002", "url": "", "groupId": 1, "groupName": "又又组", "assignedTo": 3, "status": "使用中", "createdAt": "2026-04-29T03:00:00.000Z" },
+    { "id": 3, "platform": "douyin", "type": "广告资讯", "name": "创意广告空间", "uid": "dy001", "url": "", "groupId": 2, "groupName": "栗帆组", "assignedTo": 4, "status": "使用中", "createdAt": "2026-04-29T03:00:00.000Z" },
+    { "id": 4, "platform": "douyin", "type": "科技资讯", "name": "科技校园", "uid": "dy002", "url": "", "groupId": 4, "groupName": "松洋组", "assignedTo": 5, "status": "使用中", "createdAt": "2026-04-29T03:00:00.000Z" },
+    { "id": 5, "platform": "bilibili", "type": "时尚资讯", "name": "B站时尚频道", "uid": "bili001", "url": "", "groupId": 3, "groupName": "姝洁组", "assignedTo": null, "status": "未分配", "createdAt": "2026-04-29T03:00:00.000Z" },
+    { "id": 6, "platform": "weishi", "type": "营销资讯", "name": "视频号营销号", "uid": "ws001", "url": "", "groupId": null, "groupName": "", "assignedTo": null, "status": "未分配", "createdAt": "2026-04-29T03:00:00.000Z" }
+  ],
+  "posts": [],
+  "salaryConfigs": {
+    "student": {
+      "base": 0,
+      "views": 0.001,
+      "likes": 0.01,
+      "posts": 5,
+      "bonuses": {}
+    },
+    "teacher_director": {
+      "base": 0,
+      "postBonus": 0,
+      "views": 0,
+      "likes": 0,
+      "studentBonus": 50,
+      "bonuses": {}
+    },
+    "teacher_editor": {
+      "base": 0,
+      "postBonus": 0,
+      "views": 0,
+      "likes": 0,
+      "studentBonus": 30,
+      "bonuses": {}
+    }
+  },
+  "salaryRecords": [],
+  "roles": [
+    {
+      "id": "admin",
+      "name": "超级管理员",
+      "desc": "系统管理员，拥有全部权限"
+    },
+    {
+      "id": "teacher_director",
+      "name": "编导",
+      "desc": "负责内容策划与指导"
+    },
+    {
+      "id": "teacher_editor",
+      "name": "剪辑",
+      "desc": "负责视频剪辑指导"
+    },
+    {
+      "id": "student",
+      "name": "学生",
+      "desc": "内容创作者"
+    },
+    {
+      "id": "mojjnfmn",
+      "name": "组长",
+      "desc": "各小组组长"
+    }
+  ],
+  "platforms": [
+    {
+      "id": "xiaohongshu",
+      "name": "小红书",
+      "color": "#ff2442"
+    },
+    {
+      "id": "douyin",
+      "name": "抖音",
+      "color": "#00f2ea"
+    },
+    {
+      "id": "weishi",
+      "name": "视频号",
+      "color": "#07c160"
+    },
+    {
+      "id": "bilibili",
+      "name": "B站",
+      "color": "#00a1d6"
+    }
+  ]
+}
