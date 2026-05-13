@@ -2507,10 +2507,17 @@
             const month = document.getElementById('salaryMonth')?.value;
             if (!month) { toast('请选择月份', 'error'); return; }
             
+            // 先重新加载现有薪资记录，避免重复
+            await loadSalaries();
+            
             // 先计算所有学生的薪资（底薪+奖金）
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
-                const userVideos = allVideos.filter(v => userNames.includes(v.publisher) && v.created_at?.startsWith(month));
+                // 匹配视频：publisher 在 userNames 中，且日期匹配
+                const userVideos = allVideos.filter(v => {
+                    const videoDate = v.post_date || v.created_at;
+                    return userNames.includes(v.publisher) && videoDate?.startsWith(month);
+                });
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
                 let tenThousandCount = 0;
@@ -2541,20 +2548,19 @@
                     status: '待结算' 
                 };
                 try {
-                    const existing = allSalaries.find(s => s.user_id === student.id && s.month === month);
+                    // 使用 user_id + month + role 作为唯一标识查找
+                    const existing = allSalaries.find(s => s.user_id === student.id && s.month === month && s.role === 'student');
                     if (existing) {
                         await supabase.from('salaries').update(data).eq('id', existing.id);
                     } else {
                         await supabase.from('salaries').insert(data);
                     }
-                } catch (e) { console.error(e); }
+                } catch (e) { console.error('保存学生薪资失败:', e); }
             }
             
             // 再计算老师的带教奖金
-            // 获取所有老师（role === 'teacher' 或有分组且带学生的）
             const groups = [...new Set(allUsers.filter(u => u.group_name).map(u => u.group_name))];
             for (const groupName of groups) {
-                // 找到该组的负责人（老师）
                 const teacher = allUsers.find(u => u.role === 'teacher' && u.group_name === groupName);
                 if (!teacher) continue;
                 
@@ -2578,13 +2584,13 @@
                     status: '待结算' 
                 };
                 try {
-                    const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month);
+                    const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month && s.role === 'teacher');
                     if (existing) {
                         await supabase.from('salaries').update(data).eq('id', existing.id);
                     } else {
                         await supabase.from('salaries').insert(data);
                     }
-                } catch (e) { console.error(e); }
+                } catch (e) { console.error('保存老师薪资失败:', e); }
             }
             
             toast('薪资已生成');
