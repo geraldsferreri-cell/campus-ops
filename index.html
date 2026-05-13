@@ -717,10 +717,13 @@
             <div id="page-salary" class="page">
                 <div class="header">
                     <h2>薪资结算</h2>
-                    <div>
+                    <div style="display:flex;gap:8px;align-items:center;">
                         <select id="salaryMonth" class="form-input" style="width:150px" onchange="loadSalaryData()">
                         </select>
-                        <button class="btn btn-primary" onclick="openSalaryModal()">➕ 结算</button>
+                        <select id="salaryNameFilter" class="form-input" style="width:140px" onchange="filterSalaryTable()">
+                            <option value="">全部人员</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="openSalaryModal()">➕ 生成薪资</button>
                     </div>
                 </div>
                 <div class="salary-summary">
@@ -1002,6 +1005,22 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('salaryConfigModal')">取消</button>
                 <button class="btn btn-primary" onclick="saveSalaryConfig()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Salary Detail Modal -->
+    <div id="salaryDetailModal" class="modal-overlay">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <span class="modal-title" id="salaryDetailTitle">薪资明细</span>
+                <button class="modal-close" onclick="closeModal('salaryDetailModal')">&times;</button>
+            </div>
+            <div id="salaryDetailContent" style="padding:16px;">
+                <!-- 动态填充 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('salaryDetailModal')">关闭</button>
             </div>
         </div>
     </div>
@@ -2320,19 +2339,40 @@
                 const { data, error } = await supabase.from('salaries').select('*').eq('month', month).order('created_at', { ascending: false });
                 if (error) throw error;
                 allSalaries = data || [];
+                updateSalaryNameFilter();
                 renderSalaryTable();
             } catch (e) { console.error(e); allSalaries = []; renderSalaryTable(); }
+        }
+
+        // 更新姓名筛选下拉框选项
+        function updateSalaryNameFilter() {
+            const select = document.getElementById('salaryNameFilter');
+            if (!select) return;
+            const currentValue = select.value;
+            const names = [...new Set(allSalaries.map(s => s.user_name).filter(Boolean))].sort();
+            select.innerHTML = '<option value="">全部人员</option>' + names.map(n => `<option value="${n}">${n}</option>`).join('');
+            select.value = currentValue;
+        }
+
+        // 筛选薪资表格
+        function filterSalaryTable() {
+            renderSalaryTable();
         }
 
         function renderSalaryTable() {
             const tbody = document.getElementById('salaryTable');
             if (!tbody) return;
-            if (allSalaries.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无结算数据</td></tr>'; return; }
-            tbody.innerHTML = allSalaries.map(s => {
+            const nameFilter = document.getElementById('salaryNameFilter')?.value || '';
+            let filtered = allSalaries;
+            if (nameFilter) {
+                filtered = allSalaries.filter(s => s.user_name === nameFilter);
+            }
+            if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无结算数据</td></tr>'; return; }
+            tbody.innerHTML = filtered.map(s => {
                 const isTeacher = s.role === 'teacher';
                 const deduction = s.deduction || 0;
-                return `<tr>
-                <td>${s.user_name || '-'}</td>
+                return `<tr style="cursor:pointer;" onclick="showSalaryDetail(${s.id})">
+                <td><a href="javascript:void(0)" style="color:var(--primary);text-decoration:none;" onclick="event.stopPropagation();showSalaryDetail(${s.id})">${s.user_name || '-'}</a></td>
                 <td><span class="badge ${isTeacher ? 'badge-success' : 'badge-warning'}">${isTeacher ? '老师' : '学生'}</span></td>
                 <td>${s.group_name || '-'}</td>
                 <td>${s.video_count || 0}</td>
@@ -2342,7 +2382,7 @@
                 <td>¥${s.bonus || 0}${isTeacher && deduction > 0 ? '<br><small style="color:var(--gray-400)">需达标12条</small>' : ''}</td>
                 <td><strong>¥${s.total || 0}</strong></td>
                 <td><span class="badge ${s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span></td>
-                <td><button class="btn btn-sm btn-secondary" onclick="markSalaryPaid(${s.id})">确认结算</button></td>
+                <td><button class="btn btn-sm ${s.status === '已结算' ? 'btn-success' : 'btn-secondary'}" onclick="event.stopPropagation();markSalaryPaid(${s.id})" ${s.status === '已结算' ? 'disabled' : ''}>${s.status === '已结算' ? '已结算' : '确认结算'}</button></td>
             </tr>`;
             }).join('');
         }
@@ -2554,6 +2594,65 @@
 
         async function markSalaryPaid(id) {
             try { const { error } = await supabase.from('salaries').update({ status: '已结算' }).eq('id', id); if (error) throw error; toast('已标记为结算'); loadSalaries(); loadSalarySummary(); } catch (e) { toast('操作失败', 'error'); }
+        }
+
+        // 显示薪资明细弹窗
+        function showSalaryDetail(id) {
+            const s = allSalaries.find(x => x.id == id);
+            if (!s) return;
+            const isTeacher = s.role === 'teacher';
+            const month = document.getElementById('salaryMonth')?.value || '';
+            
+            let html = '';
+            if (isTeacher) {
+                // 老师明细
+                const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === s.group_name);
+                html += `<div style="margin-bottom:16px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>姓名</span><b>${s.user_name}</b></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>角色</span><span class="badge badge-success">老师</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>分组</span><span>${s.group_name || '-'}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>月份</span><span>${month}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>小组发片总数</span><span>${s.video_count || 0} 条</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>达标状态</span><span style="color:${s.deduction > 0 ? 'var(--danger)' : 'var(--success)'}">${s.deduction > 0 ? '未达标（需≥12条）' : '已达标'}</span></div>
+                </div>`;
+                html += `<div style="background:var(--gray-50);padding:12px;border-radius:8px;margin-bottom:16px;">
+                    <div style="font-weight:600;margin-bottom:8px;">带教奖金计算</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>学生奖金总和</span><span>¥${s.deduction > 0 ? (s.deduction + s.bonus) : s.bonus}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>带教比例</span><span>${s.deduction > 0 ? '0%' : '50%'}</span></div>
+                    <div style="border-top:1px solid var(--gray-200);margin:8px 0;padding-top:8px;display:flex;justify-content:space-between;"><span>带教奖金</span><b>¥${s.bonus || 0}</b></div>
+                </div>`;
+                if (s.deduction > 0) {
+                    html += `<div style="color:var(--danger);font-size:13px;">* 小组发片未满12条，带教奖金为0</div>`;
+                }
+            } else {
+                // 学生明细
+                const config = getSalaryConfig('student');
+                const qualifiedCount = (s.thousand_count || 0) + (s.ten_thousand_count || 0);
+                html += `<div style="margin-bottom:16px;">
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>姓名</span><b>${s.user_name}</b></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>角色</span><span class="badge badge-warning">学生</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>分组</span><span>${s.group_name || '-'}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>月份</span><span>${month}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>发片数量</span><span>${s.video_count || 0} 条</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>达标数量</span><span>${qualifiedCount} 条（千赞${s.thousand_count || 0} + 万赞${s.ten_thousand_count || 0}）</span></div>
+                </div>`;
+                html += `<div style="background:var(--gray-50);padding:12px;border-radius:8px;margin-bottom:16px;">
+                    <div style="font-weight:600;margin-bottom:8px;">薪资明细</div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>适用档位</span><span>${s.unit_price || 20}元/条</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>底薪</span><span>${s.video_count || 0}条 × ${s.unit_price || 20}元 = ¥${s.base_salary || 0}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>千赞奖金</span><span>${s.thousand_count || 0}条 × ¥${config.thousand_bonus || 80} = ¥${s.thousand_bonus || 0}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>万赞奖金</span><span>${s.ten_thousand_count || 0}条 × ¥${config.ten_thousand_bonus || 120} = ¥${s.ten_thousand_bonus || 0}</span></div>
+                    <div style="border-top:1px solid var(--gray-200);margin:8px 0;padding-top:8px;display:flex;justify-content:space-between;"><span>实发合计</span><b style="font-size:18px;color:var(--primary)">¥${s.total || 0}</b></div>
+                </div>`;
+                html += `<div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span>状态</span>
+                    <span class="badge ${s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span>
+                </div>`;
+            }
+            
+            document.getElementById('salaryDetailTitle').textContent = `${s.user_name} - ${month}薪资明细`;
+            document.getElementById('salaryDetailContent').innerHTML = html;
+            document.getElementById('salaryDetailModal').classList.add('show');
         }
 
         // 获取视频的组别（用于筛选）
