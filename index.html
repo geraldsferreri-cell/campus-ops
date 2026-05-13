@@ -705,7 +705,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>角色</th><th>底薪</th><th>千赞奖金</th><th>万赞奖金</th><th>备注</th><th>操作</th></tr>
+                                <tr><th>角色</th><th>阶梯底薪</th><th>千赞奖金</th><th>万赞奖金</th><th>备注</th><th>操作</th></tr>
                             </thead>
                             <tbody id="salaryConfigTable"></tbody>
                         </table>
@@ -974,14 +974,24 @@
                 </select>
             </div>
             <div id="studentConfigFields">
+                <div style="background:var(--gray-50);padding:12px;border-radius:8px;margin-bottom:12px;">
+                    <div style="font-weight:600;margin-bottom:8px;">阶梯底薪（按达标数量自动匹配档位）</div>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">第1档: 达标</label><input type="number" id="tier1Min" class="form-input" value="0" style="width:50px" disabled>~<input type="number" id="tier1Max" class="form-input" value="2" style="width:50px">条 单价<input type="number" id="tier1Salary" class="form-input" value="20" style="width:60px">元/条</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">第2档: 达标</label><input type="number" id="tier2Min" class="form-input" value="3" style="width:50px" disabled>~<input type="number" id="tier2Max" class="form-input" value="5" style="width:50px">条 单价<input type="number" id="tier2Salary" class="form-input" value="25" style="width:60px">元/条</div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label class="form-label">第3档: 达标</label><input type="number" id="tier3Min" class="form-input" value="6" style="width:50px" disabled"><span style="color:var(--gray-400)">条以上</span> 单价<input type="number" id="tier3Salary" class="form-input" value="30" style="width:60px">元/条</div>
+                    </div>
+                    <small style="color:var(--gray-500)">* 达标数量=千赞+万赞总数，根据档位自动匹配底薪单价</small>
+                </div>
                 <div class="form-row">
-                    <div class="form-group"><label class="form-label">单价(元/条)</label><input type="number" id="salaryConfigBase" class="form-input" value="20"></div>
                     <div class="form-group"><label class="form-label">千赞奖金(每条)</label><input type="number" id="salaryConfigThousand" class="form-input" value="80"></div>
-                </div>
-                <div class="form-row">
                     <div class="form-group"><label class="form-label">万赞奖金(每条)</label><input type="number" id="salaryConfigTenThousand" class="form-input" value="120"></div>
-                    <div class="form-group"><label class="form-label">备注</label><input type="text" id="salaryConfigNote" class="form-input"></div>
                 </div>
+                <div class="form-group"><label class="form-label">备注</label><input type="text" id="salaryConfigNote" class="form-input"></div>
             </div>
             <div id="teacherConfigFields" style="display:none">
                 <div class="form-row">
@@ -2155,18 +2165,33 @@
         function renderSalaryConfigTable() {
             const tbody = document.getElementById('salaryConfigTable');
             if (!tbody) return;
-            if (allSalaryConfigs.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">暂无配置</td></tr>'; return; }
+            if (allSalaryConfigs.length === 0) { tbody.innerHTML = '<tr><td colspan="7" class="empty-state">暂无配置</td></tr>'; return; }
             const roleMap = { teacher: '教师/编导', student: '学生' };
             tbody.innerHTML = allSalaryConfigs.map(c => {
                 const isTeacher = c.role === 'teacher';
-                return `<tr>
-                <td><span class="badge ${isTeacher ? 'badge-success' : 'badge-warning'}">${roleMap[c.role] || c.role}</span></td>
-                <td>${isTeacher ? '-' : '¥' + (c.base_salary || 0)}</td>
-                <td>${isTeacher ? '-' : '¥' + (c.thousand_bonus || 0) + '/条'}</td>
-                <td>${isTeacher ? (c.ten_thousand_bonus || 50) + '%' : '¥' + (c.ten_thousand_bonus || 0) + '/条'}</td>
-                <td>${c.note || '-'}</td>
-                <td><button class="btn btn-sm btn-secondary" onclick="editSalaryConfig(${c.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteSalaryConfig(${c.id})">删除</button></td>
-            </tr>`;
+                if (isTeacher) {
+                    return `<tr>
+                    <td><span class="badge badge-success">${roleMap[c.role]}</span></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>${(c.ten_thousand_bonus || 50)}%</td>
+                    <td>${c.note || '-'}</td>
+                    <td><button class="btn btn-sm btn-secondary" onclick="editSalaryConfig(${c.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteSalaryConfig(${c.id})">删除</button></td>
+                </tr>`;
+                } else {
+                    // 学生配置：显示阶梯底薪
+                    const tier1 = `${c.tier1_min}-${c.tier1_max}条:${c.tier1_salary || 20}元`;
+                    const tier2 = `${c.tier2_min}-${c.tier2_max}条:${c.tier2_salary || 25}元`;
+                    const tier3 = `${c.tier3_min || 6}条以上:${c.tier3_salary || 30}元`;
+                    return `<tr>
+                    <td><span class="badge badge-warning">${roleMap[c.role]}</span></td>
+                    <td><small>${tier1}<br>${tier2}<br>${tier3}</small></td>
+                    <td>¥${c.thousand_bonus || 80}/条</td>
+                    <td>¥${c.ten_thousand_bonus || 120}/条</td>
+                    <td>${c.note || '-'}</td>
+                    <td><button class="btn btn-sm btn-secondary" onclick="editSalaryConfig(${c.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteSalaryConfig(${c.id})">删除</button></td>
+                </tr>`;
+                }
             }).join('');
         }
 
@@ -2184,9 +2209,17 @@
             document.getElementById('salaryConfigRole').value = 'student';
             updateSalaryConfigFields();
             if (!id) { 
-                document.getElementById('salaryConfigBase').value = '20'; 
-                document.getElementById('salaryConfigThousand').value = '80'; 
-                document.getElementById('salaryConfigTenThousand').value = '120'; 
+                // 默认阶梯底薪配置
+                document.getElementById('tier1Min').value = '0';
+                document.getElementById('tier1Max').value = '2';
+                document.getElementById('tier1Salary').value = '20';
+                document.getElementById('tier2Min').value = '3';
+                document.getElementById('tier2Max').value = '5';
+                document.getElementById('tier2Salary').value = '25';
+                document.getElementById('tier3Min').value = '6';
+                document.getElementById('tier3Salary').value = '30';
+                document.getElementById('salaryConfigThousand').value = '80';
+                document.getElementById('salaryConfigTenThousand').value = '120';
                 document.getElementById('salaryConfigNote').value = '';
                 document.getElementById('salaryConfigRatio').value = '50';
                 document.getElementById('salaryConfigNoteTeacher').value = '';
@@ -2202,7 +2235,15 @@
             document.getElementById('salaryConfigRole').value = c.role || 'student';
             updateSalaryConfigFields();
             if (c.role === 'student') {
-                document.getElementById('salaryConfigBase').value = c.base_salary || 20;
+                // 阶梯底薪配置
+                document.getElementById('tier1Min').value = c.tier1_min ?? 0;
+                document.getElementById('tier1Max').value = c.tier1_max ?? 2;
+                document.getElementById('tier1Salary').value = c.tier1_salary ?? 20;
+                document.getElementById('tier2Min').value = c.tier2_min ?? 3;
+                document.getElementById('tier2Max').value = c.tier2_max ?? 5;
+                document.getElementById('tier2Salary').value = c.tier2_salary ?? 25;
+                document.getElementById('tier3Min').value = c.tier3_min ?? 6;
+                document.getElementById('tier3Salary').value = c.tier3_salary ?? 30;
                 document.getElementById('salaryConfigThousand').value = c.thousand_bonus || 80;
                 document.getElementById('salaryConfigTenThousand').value = c.ten_thousand_bonus || 120;
                 document.getElementById('salaryConfigNote').value = c.note || '';
@@ -2219,13 +2260,23 @@
             let data = { role: role };
             
             if (role === 'student') {
-                data.base_salary = parseFloat(document.getElementById('salaryConfigBase').value) || 20;
+                // 阶梯底薪配置
+                data.tier1_min = parseInt(document.getElementById('tier1Min').value) || 0;
+                data.tier1_max = parseInt(document.getElementById('tier1Max').value) || 2;
+                data.tier1_salary = parseFloat(document.getElementById('tier1Salary').value) || 20;
+                data.tier2_min = parseInt(document.getElementById('tier2Min').value) || 3;
+                data.tier2_max = parseInt(document.getElementById('tier2Max').value) || 5;
+                data.tier2_salary = parseFloat(document.getElementById('tier2Salary').value) || 25;
+                data.tier3_min = parseInt(document.getElementById('tier3Min').value) || 6;
+                data.tier3_salary = parseFloat(document.getElementById('tier3Salary').value) || 30;
                 data.thousand_bonus = parseFloat(document.getElementById('salaryConfigThousand').value) || 80;
                 data.ten_thousand_bonus = parseFloat(document.getElementById('salaryConfigTenThousand').value) || 120;
                 data.note = document.getElementById('salaryConfigNote').value;
             } else {
                 // 老师配置：ten_thousand_bonus 字段存放带教比例
-                data.base_salary = 0;
+                data.tier1_salary = 0;
+                data.tier2_salary = 0;
+                data.tier3_salary = 0;
                 data.thousand_bonus = 0;
                 data.ten_thousand_bonus = parseFloat(document.getElementById('salaryConfigRatio').value) || 50;
                 data.note = document.getElementById('salaryConfigNoteTeacher').value;
@@ -2320,20 +2371,32 @@
             };
         }
 
-        // 计算学生的薪资（从配置读取）
+        // 计算学生的薪资（从配置读取阶梯底薪）
         function calcStudentSalary(videoCount, thousandCount, tenThousandCount) {
             const config = getSalaryConfig('student');
             // 达标视频数量（千赞+万赞）
             const qualifiedCount = thousandCount + tenThousandCount;
-            // 阶梯单价标准：根据达标数量决定单价
+            
+            // 从配置读取阶梯底薪参数
+            const tier1Min = config.tier1_min ?? 0;
+            const tier1Max = config.tier1_max ?? 2;
+            const tier1Salary = config.tier1_salary ?? 20;
+            const tier2Min = config.tier2_min ?? 3;
+            const tier2Max = config.tier2_max ?? 5;
+            const tier2Salary = config.tier2_salary ?? 25;
+            const tier3Min = config.tier3_min ?? 6;
+            const tier3Salary = config.tier3_salary ?? 30;
+            
+            // 根据达标数量匹配档位
             let unitPrice;
-            if (qualifiedCount <= 2) {
-                unitPrice = 20;  // 0-2条达标：20元/条
-            } else if (qualifiedCount <= 5) {
-                unitPrice = 25;  // 3-5条达标：25元/条
+            if (qualifiedCount >= tier3Min) {
+                unitPrice = tier3Salary;  // 第3档
+            } else if (qualifiedCount >= tier2Min && qualifiedCount <= tier2Max) {
+                unitPrice = tier2Salary;  // 第2档
             } else {
-                unitPrice = 30;  // >5条达标：30元/条
+                unitPrice = tier1Salary;  // 第1档
             }
+            
             // 底薪 = 阶梯单价 × 发片条数
             const baseSalary = unitPrice * videoCount;
             // 千赞奖金：从配置读取
@@ -2344,6 +2407,9 @@
             return {
                 unitPrice,
                 qualifiedCount,
+                tier1Salary,
+                tier2Salary,
+                tier3Salary,
                 baseSalary,
                 thousandBonus,
                 tenThousandBonus,
@@ -3069,7 +3135,7 @@
             try {
                 const sqls = [
                     `CREATE TABLE IF NOT EXISTS groups (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, leader TEXT, member_count INTEGER DEFAULT 0, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
-                    `CREATE TABLE IF NOT EXISTS salary_configs (id BIGSERIAL PRIMARY KEY, role TEXT NOT NULL, base_salary NUMERIC DEFAULT 0, thousand_bonus NUMERIC DEFAULT 0, ten_thousand_bonus NUMERIC DEFAULT 0, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
+                    `CREATE TABLE IF NOT EXISTS salary_configs (id BIGSERIAL PRIMARY KEY, role TEXT NOT NULL, thousand_bonus NUMERIC DEFAULT 0, ten_thousand_bonus NUMERIC DEFAULT 0, tier1_min INTEGER DEFAULT 0, tier1_max INTEGER DEFAULT 2, tier1_salary NUMERIC DEFAULT 20, tier2_min INTEGER DEFAULT 3, tier2_max INTEGER DEFAULT 5, tier2_salary NUMERIC DEFAULT 25, tier3_min INTEGER DEFAULT 6, tier3_salary NUMERIC DEFAULT 30, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
                     `CREATE TABLE IF NOT EXISTS salaries (id BIGSERIAL PRIMARY KEY, user_id INTEGER, user_name TEXT, role TEXT, group_name TEXT, month TEXT, video_count INTEGER DEFAULT 0, thousand_count INTEGER DEFAULT 0, ten_thousand_count INTEGER DEFAULT 0, base_salary NUMERIC DEFAULT 0, bonus NUMERIC DEFAULT 0, deduction NUMERIC DEFAULT 0, total NUMERIC DEFAULT 0, status TEXT DEFAULT '待结算', created_at TIMESTAMPTZ DEFAULT NOW())`
                 ];
                 for (const sql of sqls) {
