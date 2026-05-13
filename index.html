@@ -1689,20 +1689,31 @@
             }
             salaryCard.style.display = 'block';
             
-            // 计算底薪
-            let unitPrice, baseSalary;
-            if (videoCount <= 2) {
-                unitPrice = 20;
-            } else if (videoCount <= 5) {
-                unitPrice = 25;
-            } else {
-                unitPrice = 30;
-            }
-            baseSalary = unitPrice * videoCount;
+            // 计算底薪（从配置读取阶梯参数）
+            const config = getSalaryConfig('student');
+            const qualifiedCount = thousandCount + tenThousandCount;
+            const tier1Min = config.tier1_min ?? 0;
+            const tier1Max = config.tier1_max ?? 2;
+            const tier1Salary = config.tier1_salary ?? 20;
+            const tier2Min = config.tier2_min ?? 3;
+            const tier2Max = config.tier2_max ?? 5;
+            const tier2Salary = config.tier2_salary ?? 25;
+            const tier3Min = config.tier3_min ?? 6;
+            const tier3Salary = config.tier3_salary ?? 30;
             
-            // 计算奖金
-            const thousandBonus = thousandCount * 80;
-            const tenThousandBonus = tenThousandCount * 120;
+            let unitPrice;
+            if (qualifiedCount >= tier3Min) {
+                unitPrice = tier3Salary;
+            } else if (qualifiedCount >= tier2Min && qualifiedCount <= tier2Max) {
+                unitPrice = tier2Salary;
+            } else {
+                unitPrice = tier1Salary;
+            }
+            const baseSalary = unitPrice * videoCount;
+            
+            // 计算奖金（从配置读取）
+            const thousandBonus = thousandCount * (config.thousand_bonus || 80);
+            const tenThousandBonus = tenThousandCount * (config.ten_thousand_bonus || 120);
             const totalBonus = thousandBonus + tenThousandBonus;
             const total = baseSalary + totalBonus;
             
@@ -1878,12 +1889,24 @@
                 return el ? el.value : '';
             };
             
+            const videoLink = getText('videoLink');
+            const publisher = getText('videoPublisher');
+            
+            // 新增时检测重复链接
+            if (!id && videoLink) {
+                const existing = allVideos.find(v => v.video_link === videoLink && v.publisher === publisher);
+                if (existing) {
+                    toast('该链接已存在（发布者：' + publisher + '）', 'error');
+                    return;
+                }
+            }
+            
             const data = {
                 platform: getText('videoPlatform'),
                 account_name: getText('videoAccount'),
                 status: getText('videoStatus'),
-                video_link: getText('videoLink'),
-                publisher: getText('videoPublisher'),
+                video_link: videoLink,
+                publisher: publisher,
                 group_name: getText('videoGroup'),
                 created_at: getText('videoTime') || now,
                 // 第3天数据
@@ -2474,7 +2497,20 @@
             
             for (const student of groupStudents) {
                 const studentNames = getUserAllNames(student);
-                const studentVideos = allVideos.filter(v => studentNames.includes(v.publisher) && v.created_at?.startsWith(month));
+                const studentVideos = allVideos.filter(v => {
+                    let videoDate = v.post_date || v.created_at || '';
+                    if (videoDate.includes('/')) {
+                        const parts = videoDate.split('/');
+                        if (parts.length >= 2) {
+                            const year = parts[0];
+                            const mon = parts[1].padStart(2, '0');
+                            videoDate = `${year}-${mon}`;
+                        }
+                    } else if (videoDate.length >= 7) {
+                        videoDate = videoDate.substring(0, 7);
+                    }
+                    return studentNames.includes(v.publisher) && videoDate === month;
+                });
                 groupVideoCount += studentVideos.length;
                 
                     // 计算每个学生的奖励（使用统一数据达标计算，按链接去重）
@@ -2513,10 +2549,21 @@
             // 先计算所有学生的薪资（底薪+奖金）
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
-                // 匹配视频：publisher 在 userNames 中，且日期匹配
+                // 匹配视频：publisher 在 userNames 中，且日期匹配（支持 2026/5/12 和 2026-05-12 格式）
                 const userVideos = allVideos.filter(v => {
-                    const videoDate = v.post_date || v.created_at;
-                    return userNames.includes(v.publisher) && videoDate?.startsWith(month);
+                    let videoDate = v.post_date || v.created_at || '';
+                    // 统一转换为 YYYY-MM 格式进行匹配
+                    if (videoDate.includes('/')) {
+                        const parts = videoDate.split('/');
+                        if (parts.length >= 2) {
+                            const year = parts[0];
+                            const mon = parts[1].padStart(2, '0');
+                            videoDate = `${year}-${mon}`;
+                        }
+                    } else if (videoDate.length >= 7) {
+                        videoDate = videoDate.substring(0, 7);
+                    }
+                    return userNames.includes(v.publisher) && videoDate === month;
                 });
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
