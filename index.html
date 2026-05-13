@@ -1205,6 +1205,24 @@
             return [...names];
         }
 
+        // 获取视频的发布月份（YYYY-MM）
+        function getVideoMonth(v) {
+            let dateStr = v.post_date || v.created_at || '';
+            if (!dateStr) return '';
+            // 处理 2026/5/12 格式
+            if (dateStr.includes('/')) {
+                const parts = dateStr.split('/');
+                if (parts.length >= 2) {
+                    return `${parts[0]}-${parts[1].padStart(2, '0')}`;
+                }
+            }
+            // 处理 ISO 格式 2026-05-12T10:30:00Z
+            if (dateStr.length >= 7) {
+                return dateStr.substring(0, 7);
+            }
+            return '';
+        }
+
         function canViewVideo(v) {
             if (isAdmin()) return true;
             const myNames = getCurrentUserNames();
@@ -2498,18 +2516,8 @@
             for (const student of groupStudents) {
                 const studentNames = getUserAllNames(student);
                 const studentVideos = allVideos.filter(v => {
-                    let videoDate = v.post_date || v.created_at || '';
-                    if (videoDate.includes('/')) {
-                        const parts = videoDate.split('/');
-                        if (parts.length >= 2) {
-                            const year = parts[0];
-                            const mon = parts[1].padStart(2, '0');
-                            videoDate = `${year}-${mon}`;
-                        }
-                    } else if (videoDate.length >= 7) {
-                        videoDate = videoDate.substring(0, 7);
-                    }
-                    return studentNames.includes(v.publisher) && videoDate === month;
+                    const videoMonth = getVideoMonth(v);
+                    return studentNames.includes(v.publisher) && videoMonth === month;
                 });
                 groupVideoCount += studentVideos.length;
                 
@@ -2540,31 +2548,28 @@
         }
 
         async function openSalaryModal() {
+            console.log('>>> openSalaryModal 被调用');
             const month = document.getElementById('salaryMonth')?.value;
+            console.log('>>> 选择的月份:', month);
             if (!month) { toast('请选择月份', 'error'); return; }
             
             // 先重新加载现有薪资记录，避免重复
+            console.log('>>> 开始 loadSalaries');
             await loadSalaries();
+            console.log('>>> loadSalaries 完成, allSalaries:', allSalaries.length);
             
             // 先计算所有学生的薪资（底薪+奖金）
+            console.log('生成薪资 - 月份:', month, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length, 'allUsers:', allUsers.length);
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
-                // 匹配视频：publisher 在 userNames 中，且日期匹配（支持 2026/5/12 和 2026-05-12 格式）
+                // 匹配视频：publisher 在 userNames 中，且日期匹配
                 const userVideos = allVideos.filter(v => {
-                    let videoDate = v.post_date || v.created_at || '';
-                    // 统一转换为 YYYY-MM 格式进行匹配
-                    if (videoDate.includes('/')) {
-                        const parts = videoDate.split('/');
-                        if (parts.length >= 2) {
-                            const year = parts[0];
-                            const mon = parts[1].padStart(2, '0');
-                            videoDate = `${year}-${mon}`;
-                        }
-                    } else if (videoDate.length >= 7) {
-                        videoDate = videoDate.substring(0, 7);
-                    }
-                    return userNames.includes(v.publisher) && videoDate === month;
+                    const videoMonth = getVideoMonth(v);
+                    const match = userNames.includes(v.publisher) && videoMonth === month;
+                    if (match) console.log('匹配视频:', v.publisher, '月份:', videoMonth, '链接:', v.video_link);
+                    return match;
                 });
+                console.log('学生:', student.real_name || student.name, '别名:', userNames, '匹配视频数:', userVideos.length);
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
                 let tenThousandCount = 0;
@@ -2607,6 +2612,7 @@
             
             // 再计算老师的带教奖金
             const groups = [...new Set(allUsers.filter(u => u.group_name).map(u => u.group_name))];
+            console.log('>>> 开始计算老师奖金, 小组数:', groups.length);
             for (const groupName of groups) {
                 const teacher = allUsers.find(u => u.role === 'teacher' && u.group_name === groupName);
                 if (!teacher) continue;
@@ -2640,6 +2646,7 @@
                 } catch (e) { console.error('保存老师薪资失败:', e); }
             }
             
+            console.log('>>> 薪资生成完成，准备刷新表格');
             toast('薪资已生成');
             loadSalaries();
             loadSalarySummary();
