@@ -2323,9 +2323,18 @@
         // 计算学生的薪资（从配置读取）
         function calcStudentSalary(videoCount, thousandCount, tenThousandCount) {
             const config = getSalaryConfig('student');
-            // 分级标准：根据底薪配置决定单价（底薪表示每条的基础单价）
-            const unitPrice = config.base_salary || 20;
-            // 底薪 = 单价 × 发片条数
+            // 达标视频数量（千赞+万赞）
+            const qualifiedCount = thousandCount + tenThousandCount;
+            // 阶梯单价标准：根据达标数量决定单价
+            let unitPrice;
+            if (qualifiedCount <= 2) {
+                unitPrice = 20;  // 0-2条达标：20元/条
+            } else if (qualifiedCount <= 5) {
+                unitPrice = 25;  // 3-5条达标：25元/条
+            } else {
+                unitPrice = 30;  // >5条达标：30元/条
+            }
+            // 底薪 = 阶梯单价 × 发片条数
             const baseSalary = unitPrice * videoCount;
             // 千赞奖金：从配置读取
             const thousandBonus = thousandCount * (config.thousand_bonus || 80);
@@ -2334,6 +2343,7 @@
             // 总薪资 = 底薪 + 奖金
             return {
                 unitPrice,
+                qualifiedCount,
                 baseSalary,
                 thousandBonus,
                 tenThousandBonus,
