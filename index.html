@@ -2560,13 +2560,20 @@
             
             // 先计算所有学生的薪资（底薪+奖金）
             console.log('生成薪资 - 月份:', month, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length, 'allUsers:', allUsers.length);
+            // 打印所有视频的 publisher 和日期，用于排查
+            console.log('=== 所有视频的 publisher 和月份 ===');
+            allVideos.forEach(v => console.log('视频:', v.publisher, '月份:', getVideoMonth(v), '链接:', v.video_link?.substring(0, 30)));
+            console.log('===================================');
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
                 // 匹配视频：publisher 在 userNames 中，且日期匹配
                 const userVideos = allVideos.filter(v => {
                     const videoMonth = getVideoMonth(v);
-                    const match = userNames.includes(v.publisher) && videoMonth === month;
-                    if (match) console.log('匹配视频:', v.publisher, '月份:', videoMonth, '链接:', v.video_link);
+                    const nameMatch = userNames.includes(v.publisher);
+                    const monthMatch = videoMonth === month;
+                    if (nameMatch) console.log('名字匹配:', v.publisher, '月份:', videoMonth, '月份匹配:', monthMatch);
+                    const match = nameMatch && monthMatch;
+                    if (match) console.log('✅ 匹配视频:', v.publisher, '月份:', videoMonth, '链接:', v.video_link);
                     return match;
                 });
                 console.log('学生:', student.real_name || student.name, '别名:', userNames, '匹配视频数:', userVideos.length);
