@@ -968,18 +968,26 @@
             <input type="hidden" id="salaryConfigId">
             <div class="form-group">
                 <label class="form-label">角色</label>
-                <select id="salaryConfigRole" class="form-input">
-                    <option value="teacher">教师/编导</option>
+                <select id="salaryConfigRole" class="form-input" onchange="updateSalaryConfigFields()">
                     <option value="student">学生</option>
+                    <option value="teacher">教师/编导</option>
                 </select>
             </div>
-            <div class="form-row">
-                <div class="form-group"><label class="form-label">底薪</label><input type="number" id="salaryConfigBase" class="form-input" value="0"></div>
-                <div class="form-group"><label class="form-label">千赞奖金(每条)</label><input type="number" id="salaryConfigThousand" class="form-input" value="0"></div>
+            <div id="studentConfigFields">
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">单价(元/条)</label><input type="number" id="salaryConfigBase" class="form-input" value="20"></div>
+                    <div class="form-group"><label class="form-label">千赞奖金(每条)</label><input type="number" id="salaryConfigThousand" class="form-input" value="80"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">万赞奖金(每条)</label><input type="number" id="salaryConfigTenThousand" class="form-input" value="120"></div>
+                    <div class="form-group"><label class="form-label">备注</label><input type="text" id="salaryConfigNote" class="form-input"></div>
+                </div>
             </div>
-            <div class="form-row">
-                <div class="form-group"><label class="form-label">万赞奖金(每条)</label><input type="number" id="salaryConfigTenThousand" class="form-input" value="0"></div>
-                <div class="form-group"><label class="form-label">备注</label><input type="text" id="salaryConfigNote" class="form-input"></div>
+            <div id="teacherConfigFields" style="display:none">
+                <div class="form-row">
+                    <div class="form-group"><label class="form-label">带教比例(%)</label><input type="number" id="salaryConfigRatio" class="form-input" value="50" min="0" max="100"><small style="color:var(--gray-500)">学生奖金的百分比</small></div>
+                </div>
+                <div class="form-group"><label class="form-label">备注</label><input type="text" id="salaryConfigNoteTeacher" class="form-input"></div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('salaryConfigModal')">取消</button>
@@ -2149,20 +2157,40 @@
             if (!tbody) return;
             if (allSalaryConfigs.length === 0) { tbody.innerHTML = '<tr><td colspan="6" class="empty-state">暂无配置</td></tr>'; return; }
             const roleMap = { teacher: '教师/编导', student: '学生' };
-            tbody.innerHTML = allSalaryConfigs.map(c => `<tr>
-                <td><span class="badge ${c.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${roleMap[c.role] || c.role}</span></td>
-                <td>¥${c.base_salary || 0}</td>
-                <td>¥${c.thousand_bonus || 0}/条</td>
-                <td>¥${c.ten_thousand_bonus || 0}/条</td>
+            tbody.innerHTML = allSalaryConfigs.map(c => {
+                const isTeacher = c.role === 'teacher';
+                return `<tr>
+                <td><span class="badge ${isTeacher ? 'badge-success' : 'badge-warning'}">${roleMap[c.role] || c.role}</span></td>
+                <td>${isTeacher ? '-' : '¥' + (c.base_salary || 0)}</td>
+                <td>${isTeacher ? '-' : '¥' + (c.thousand_bonus || 0) + '/条'}</td>
+                <td>${isTeacher ? (c.ten_thousand_bonus || 50) + '%' : '¥' + (c.ten_thousand_bonus || 0) + '/条'}</td>
                 <td>${c.note || '-'}</td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editSalaryConfig(${c.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteSalaryConfig(${c.id})">删除</button></td>
-            </tr>`).join('');
+            </tr>`;
+            }).join('');
+        }
+
+        function updateSalaryConfigFields() {
+            const role = document.getElementById('salaryConfigRole').value;
+            const studentFields = document.getElementById('studentConfigFields');
+            const teacherFields = document.getElementById('teacherConfigFields');
+            if (studentFields) studentFields.style.display = role === 'student' ? 'block' : 'none';
+            if (teacherFields) teacherFields.style.display = role === 'teacher' ? 'block' : 'none';
         }
 
         function openSalaryConfigModal(id = null) {
             document.getElementById('salaryConfigId').value = id || '';
             document.getElementById('salaryConfigModalTitle').textContent = id ? '编辑配置' : '添加配置';
-            if (!id) { document.getElementById('salaryConfigRole').value = 'student'; document.getElementById('salaryConfigBase').value = '0'; document.getElementById('salaryConfigThousand').value = '0'; document.getElementById('salaryConfigTenThousand').value = '0'; document.getElementById('salaryConfigNote').value = ''; }
+            document.getElementById('salaryConfigRole').value = 'student';
+            updateSalaryConfigFields();
+            if (!id) { 
+                document.getElementById('salaryConfigBase').value = '20'; 
+                document.getElementById('salaryConfigThousand').value = '80'; 
+                document.getElementById('salaryConfigTenThousand').value = '120'; 
+                document.getElementById('salaryConfigNote').value = '';
+                document.getElementById('salaryConfigRatio').value = '50';
+                document.getElementById('salaryConfigNoteTeacher').value = '';
+            }
             document.getElementById('salaryConfigModal').classList.add('show');
         }
 
@@ -2172,16 +2200,37 @@
             document.getElementById('salaryConfigId').value = id;
             document.getElementById('salaryConfigModalTitle').textContent = '编辑配置';
             document.getElementById('salaryConfigRole').value = c.role || 'student';
-            document.getElementById('salaryConfigBase').value = c.base_salary || 0;
-            document.getElementById('salaryConfigThousand').value = c.thousand_bonus || 0;
-            document.getElementById('salaryConfigTenThousand').value = c.ten_thousand_bonus || 0;
-            document.getElementById('salaryConfigNote').value = c.note || '';
+            updateSalaryConfigFields();
+            if (c.role === 'student') {
+                document.getElementById('salaryConfigBase').value = c.base_salary || 20;
+                document.getElementById('salaryConfigThousand').value = c.thousand_bonus || 80;
+                document.getElementById('salaryConfigTenThousand').value = c.ten_thousand_bonus || 120;
+                document.getElementById('salaryConfigNote').value = c.note || '';
+            } else {
+                document.getElementById('salaryConfigRatio').value = c.ten_thousand_bonus || 50;
+                document.getElementById('salaryConfigNoteTeacher').value = c.note || '';
+            }
             document.getElementById('salaryConfigModal').classList.add('show');
         }
 
         async function saveSalaryConfig() {
             const id = document.getElementById('salaryConfigId').value;
-            const data = { role: document.getElementById('salaryConfigRole').value, base_salary: parseFloat(document.getElementById('salaryConfigBase').value) || 0, thousand_bonus: parseFloat(document.getElementById('salaryConfigThousand').value) || 0, ten_thousand_bonus: parseFloat(document.getElementById('salaryConfigTenThousand').value) || 0, note: document.getElementById('salaryConfigNote').value };
+            const role = document.getElementById('salaryConfigRole').value;
+            let data = { role: role };
+            
+            if (role === 'student') {
+                data.base_salary = parseFloat(document.getElementById('salaryConfigBase').value) || 20;
+                data.thousand_bonus = parseFloat(document.getElementById('salaryConfigThousand').value) || 80;
+                data.ten_thousand_bonus = parseFloat(document.getElementById('salaryConfigTenThousand').value) || 120;
+                data.note = document.getElementById('salaryConfigNote').value;
+            } else {
+                // 老师配置：ten_thousand_bonus 字段存放带教比例
+                data.base_salary = 0;
+                data.thousand_bonus = 0;
+                data.ten_thousand_bonus = parseFloat(document.getElementById('salaryConfigRatio').value) || 50;
+                data.note = document.getElementById('salaryConfigNoteTeacher').value;
+            }
+            
             try {
                 if (id) { const { error } = await supabase.from('salary_configs').update(data).eq('id', id); if (error) throw error; toast('更新成功'); }
                 else { const { error } = await supabase.from('salary_configs').insert(data); if (error) throw error; toast('添加成功'); }
@@ -2258,23 +2307,30 @@
             document.getElementById('salaryDeduction').textContent = '¥' + deduction;
         }
 
-        // 计算学生的薪资
+        // 获取薪资配置（根据角色）
+        function getSalaryConfig(role) {
+            const config = allSalaryConfigs.find(c => c.role === role);
+            if (config) return config;
+            // 默认配置
+            return {
+                base_salary: role === 'student' ? 0 : 0,
+                thousand_bonus: 80,
+                ten_thousand_bonus: 120,
+                note: ''
+            };
+        }
+
+        // 计算学生的薪资（从配置读取）
         function calcStudentSalary(videoCount, thousandCount, tenThousandCount) {
-            // 分级标准
-            let unitPrice;
-            if (videoCount <= 2) {
-                unitPrice = 20;
-            } else if (videoCount <= 5) {
-                unitPrice = 25;
-            } else {
-                unitPrice = 30;
-            }
+            const config = getSalaryConfig('student');
+            // 分级标准：根据底薪配置决定单价（底薪表示每条的基础单价）
+            const unitPrice = config.base_salary || 20;
             // 底薪 = 单价 × 发片条数
             const baseSalary = unitPrice * videoCount;
-            // 千赞奖金：80元/条
-            const thousandBonus = thousandCount * 80;
-            // 万赞奖金：120元/条
-            const tenThousandBonus = tenThousandCount * 120;
+            // 千赞奖金：从配置读取
+            const thousandBonus = thousandCount * (config.thousand_bonus || 80);
+            // 万赞奖金：从配置读取
+            const tenThousandBonus = tenThousandCount * (config.ten_thousand_bonus || 120);
             // 总薪资 = 底薪 + 奖金
             return {
                 unitPrice,
@@ -2285,9 +2341,12 @@
             };
         }
 
-        // 计算老师的带教奖金
+        // 计算老师的带教奖金（从配置读取）
         function calcTeacherBonus(groupName, month) {
             if (!groupName) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
+            
+            const teacherConfig = getSalaryConfig('teacher');
+            const teacherRatio = teacherConfig.ten_thousand_bonus || 50; // 默认50%，存放在ten_thousand_bonus字段
             
             // 获取该组的所有学生
             const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
@@ -2313,14 +2372,17 @@
                         if (status.status === '万赞') { tenThousandCount++; countedLinks.add(link); }
                         else if (status.status === '千赞') { thousandCount++; countedLinks.add(link); }
                     });
-                const thousandBonus = thousandCount * 80;
-                const tenThousandBonus = tenThousandCount * 120;
+                // 从配置读取学生的奖金标准
+                const studentConfig = getSalaryConfig('student');
+                const thousandBonus = thousandCount * (studentConfig.thousand_bonus || 80);
+                const tenThousandBonus = tenThousandCount * (studentConfig.ten_thousand_bonus || 120);
                 totalStudentBonus += thousandBonus + tenThousandBonus;
             }
             
-            // 在小组内所有账号发够12条视频的前提下，老师奖金 = 学生奖励总和 × 50%
+            // 在小组内所有账号发够12条视频的前提下，老师奖金 = 学生奖励总和 × 配置的比例
             const qualified = groupVideoCount >= 12;
-            const total = qualified ? Math.round(totalStudentBonus * 0.5) : 0;
+            const ratio = qualified ? teacherRatio / 100 : 0;
+            const total = qualified ? Math.round(totalStudentBonus * ratio) : 0;
             
             return { total, studentBonus: totalStudentBonus, qualified, groupVideoCount };
         }
