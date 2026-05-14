@@ -1641,7 +1641,7 @@
                     <td>${v.account_name || '-'}</td>
                     <td>${v.publisher || '-'}</td>
                     <td>${v.group_name || '-'}</td>
-                    <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" class="link">查看</a>` : '-'}</td>
+                    <td>${v.video_link ? '<a href="' + v.video_link + '" target="_blank" class="link">查看</a>' : '-'}</td>
                     <td class="${reminder.needDay3 ? 'cell-reminder' : ''}" title="${day3Date} (发布后第3天)">
                         ${formatStatsCell(v.views_day3, v.likes_day3, !day3Filled, '第3天')}
                     </td>
@@ -1651,7 +1651,7 @@
                     <td>${formatStatsCell(v.views_month_end, v.likes_month_end, v.views_month_end == null, '月中/末')}</td>
                     <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                     <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
-                    <td>${canEdit ? `<button class="btn btn-sm btn-secondary" onclick="editVideo('${String(v.id).replace(/'/g,"\\'")}')">编辑</button><button class="btn btn-sm btn-danger" onclick="if(confirm('确认删除？'))deleteVideo('${String(v.id).replace(/'/g,"\\'")}')">删除</button>` : '-'}</td>
+                    <td>${canEdit ? '<button class="btn btn-sm btn-secondary" onclick="editVideo(\'' + String(v.id).replace(/'/g,"\\'") + '\')">编辑</button><button class="btn btn-sm btn-danger" onclick="if(confirm(\'确认删除？\'))deleteVideo(\'' + String(v.id).replace(/'/g,"\\'") + '\')">删除</button>' : '-'}</td>
                 </tr>`;
             }).join('');
         }
@@ -2253,7 +2253,7 @@
             let html = `<tr style="background:#f0f4ff;font-weight:600;">
                 <td colspan="5" style="padding:8px 12px;">
                     📁 ${groupInfo?.name || filterValue} — ${students.length} 名学生
-                    <span style="color:#888;font-weight:normal">（负责人：${groupInfo?.leader || '-'）</span>
+                    <span style="color:#888;font-weight:normal">（负责人：${groupInfo?.leader || '-'}</span>
                 </td>
             </tr>`;
             html += `<tr style="background:#f8fafc;color:#666;font-size:12px;">
