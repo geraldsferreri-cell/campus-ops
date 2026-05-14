@@ -1231,6 +1231,14 @@
             }
             return '';
         }
+        
+        // 调试：打印视频日期字段的原始值
+        function debugVideoDates() {
+            console.log('=== 调试视频日期 ===');
+            allVideos.forEach((v, i) => {
+                console.log(`视频${i}: post_date=${v.post_date}, created_at=${v.created_at}, publisher=${v.publisher}`);
+            });
+        }
 
         function canViewVideo(v) {
             if (isAdmin()) return true;
@@ -2630,11 +2638,12 @@
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
                 // 匹配视频：publisher 在 userNames 中，且日期匹配
+                const targetMonth = String(month).trim();
                 const userVideos = allVideos.filter(v => {
-                    const videoMonth = getVideoMonth(v);
+                    const videoMonth = String(getVideoMonth(v) || '').trim();
                     const nameMatch = userNames.includes(v.publisher);
-                    const monthMatch = videoMonth === month;
-                    if (nameMatch) console.log('名字匹配:', v.publisher, '月份:', videoMonth, '月份匹配:', monthMatch);
+                    const monthMatch = videoMonth === targetMonth;
+                    if (nameMatch) console.log('名字匹配:', v.publisher, '视频月份:[', videoMonth, '] 目标月份:[', targetMonth, '] 月份匹配:', monthMatch);
                     const match = nameMatch && monthMatch;
                     if (match) console.log('✅ 匹配视频:', v.publisher, '月份:', videoMonth, '链接:', v.video_link);
                     return match;
