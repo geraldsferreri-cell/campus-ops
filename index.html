@@ -678,7 +678,12 @@
             <div id="page-groups" class="page">
                 <div class="header">
                     <h2>编导分组</h2>
-                    <button class="btn btn-primary" onclick="openGroupModal()">➕ 添加分组</button>
+                    <div style="display:flex;gap:8px;align-items:center;">
+                        <select id="groupFilter" class="form-input" style="width:140px" onchange="renderGroupTable()">
+                            <option value="">全部分组</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="openGroupModal()">➕ 添加分组</button>
+                    </div>
                 </div>
                 <div class="card">
                     <div class="table-wrapper">
@@ -1389,7 +1394,7 @@
             if (page === 'videos') loadVideos();
             if (page === 'accounts') loadAccounts();
             if (page === 'users') loadUsers();
-            if (page === 'groups') loadGroups();
+            if (page === 'groups') { loadUsers(); loadGroups(); }
             if (page === 'salaryConfig') loadSalaryConfigs();
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
             if (page === 'password') initPasswordPage();
@@ -2206,14 +2211,37 @@
         function renderGroupTable() {
             const tbody = document.getElementById('groupTable');
             if (!tbody) return;
-            if (allGroups.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无分组</td></tr>'; return; }
-            tbody.innerHTML = allGroups.map(g => `<tr>
+            
+            // 更新筛选下拉框选项
+            const filterSelect = document.getElementById('groupFilter');
+            if (filterSelect && filterSelect.options.length <= 1) {
+                const currentVal = filterSelect.value;
+                filterSelect.innerHTML = '<option value="">全部分组</option>';
+                allGroups.forEach(g => {
+                    filterSelect.innerHTML += `<option value="${g.name}">${g.name}</option>`;
+                });
+                filterSelect.value = currentVal;
+            }
+            
+            const filterValue = document.getElementById('groupFilter')?.value || '';
+            let displayGroups = allGroups;
+            if (filterValue) {
+                displayGroups = allGroups.filter(g => g.name === filterValue);
+            }
+            
+            if (displayGroups.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无分组</td></tr>'; return; }
+            
+            tbody.innerHTML = displayGroups.map(g => {
+                // 实时从 allUsers 统计该分组下的学生数量
+                const memberCount = allUsers.filter(u => u.group_name === g.name && u.role === 'student').length;
+                return `<tr>
                 <td>${g.name || '-'}</td>
                 <td>${g.leader || '-'}</td>
-                <td>${g.member_count || 0}</td>
+                <td>${memberCount}</td>
                 <td>${g.note || '-'}</td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editGroup(${g.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteGroup(${g.id})">删除</button></td>
-            </tr>`).join('');
+            </tr>`;
+            }).join('');
         }
 
         function updateGroupLeaderSelect() {
