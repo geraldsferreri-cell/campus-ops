@@ -463,7 +463,8 @@ function getFangpianMonthsInRange(startDate, endDate) {
 function filterPostsByDateRange(posts, startDate, endDate) {
   if (!startDate || !endDate) return posts;
   return posts.filter(p => {
-    const date = (p.createdAt || '').slice(0, 10);
+    // 优先用 createdAt，其次用 postDate，最后用 updatedAt
+    const date = (p.createdAt || p.postDate || p.updatedAt || '').slice(0, 10);
     return date >= startDate && date <= endDate;
   });
 }
@@ -952,9 +953,9 @@ wb.save(sys.argv[2])
 // 老师专属看板
 // ═══════════════════════════════════════════════════════════════
 function renderTeacherDashboard() {
-  // 获取当前老师所带的学生（确保 groupId 类型匹配）
-  const myGroupId = currentUser.groupId ? Number(currentUser.groupId) : null;
-  const myStudents = DB.users.filter(u => u.role === 'student' && u.groupId === myGroupId);
+  // 获取当前老师所带的学生（groupId 用 String() 统一类型避免比较失败）
+  const myGroupId = currentUser.groupId;
+  const myStudents = DB.users.filter(u => u.role === 'student' && String(u.groupId) === String(myGroupId));
 
   // 获取所有学生的视频数据，按方片月过滤
   const myPosts = filterPostsByDateRange(
@@ -966,6 +967,15 @@ function renderTeacherDashboard() {
   const totalPosts = myPosts.length; // 总发片数
   const thousandLikePosts = myPosts.filter(p => (p.likes || 0) >= 1000).length; // 千赞视频数
   const tenThousandLikePosts = myPosts.filter(p => (p.likes || 0) >= 10000).length; // 万赞视频数
+
+  // 计算老师带教奖金（当前方片月）
+  const now = new Date();
+  const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const teacherSalary = calcSalary(currentUser, currentYearMonth);
+  const cfg = DB.salaryConfigs[currentUser.role] || {};
+  const studentBonus = parseFloat(teacherSalary.stuBonus || 0);
+  const qualified = totalPosts >= 12;
+  const teacherBonus = qualified ? Math.round(studentBonus * 0.5) : 0;
 
   // 计算爆款率
   const thousandRate = totalPosts > 0 ? ((thousandLikePosts / totalPosts) * 100).toFixed(1) : '0.0';
@@ -1032,6 +1042,31 @@ function renderTeacherDashboard() {
     </div>
 
     ${myStudents.length > 0 ? `
+    <div class="card">
+      <div class="card-title">💰 老师带教奖金计算</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+        <div style="background:#f9fafb;padding:16px;border-radius:8px">
+          <div style="font-size:13px;color:var(--gray);margin-bottom:4px">学生奖金总和（千赞×80 + 万赞×120）</div>
+          <div style="font-size:24px;font-weight:700;color:var(--dark)">¥${teacherSalary.stuBonus || 0}</div>
+        </div>
+        <div style="background:#f9fafb;padding:16px;border-radius:8px">
+          <div style="font-size:13px;color:var(--gray);margin-bottom:4px">达标条件</div>
+          <div style="font-size:16px;font-weight:600;color:${qualified ? 'var(--success)' : 'var(--red)'}">${qualified ? '✅ 组内发片 ≥ 12条' : '❌ 组内发片不足12条'}</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">当前：${totalPosts} 条</div>
+        </div>
+      </div>
+      <div style="background:linear-gradient(135deg,var(--primary),#ff6b6b);color:#fff;padding:16px;border-radius:10px;text-align:center;font-size:15px">
+        💰 本月预计带教奖金：<span style="font-size:28px;font-weight:700">¥${teacherBonus}</span>
+        <div style="font-size:12px;opacity:0.85;margin-top:4px">带教奖金 = 学生奖金总和 × 50%</div>
+      </div>
+      <div style="margin-top:12px;font-size:13px;color:var(--gray)">
+        <b>计算说明：</b>先统计组内所有学生视频的千赞（≥1000且&lt;10000点赞）和万赞（≥10000点赞），
+        千赞按 ¥80/条、万赞按 ¥120/条计算学生奖金；
+        再将所有学生奖金求和 × 50% = 老师带教奖金。
+        前提条件：组内发片总数 ≥ 12 条。
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-title">👨‍🎓 学生明细（筛选范围内）</div>
       <div class="table-wrap">
@@ -2668,7 +2703,7 @@ async function saveSalaryConfig() {
 function calcSalary(user, yearMonth) {
   const cfg = DB.salaryConfigs[user.role] || {};
   if (user.role==='student') {
-    const posts = DB.posts.filter(p=>p.studentId===user.id&&(p.postDate||'').startsWith(yearMonth));
+    const posts = DB.posts.filter(p=>p.userId===user.id&&(p.postDate||'').startsWith(yearMonth));
     const thousandLikeCount = posts.filter(p=>(p.likes||0)>=1000&&(p.likes||0)<10000).length;
     const tenThousandLikeCount = posts.filter(p=>(p.likes||0)>=10000).length;
     const milestoneCount = thousandLikeCount + tenThousandLikeCount;
@@ -2679,10 +2714,10 @@ function calcSalary(user, yearMonth) {
     const total = base + bonus;
     return { base, bonus:bonus.toFixed(2), total:total.toFixed(2), postCount:posts.length, thousandLikeCount, tenThousandLikeCount, milestoneCount, baseRule:baseRule.amount, totalViews:posts.reduce((s,p)=>s+(p.views||0),0), totalLikes:posts.reduce((s,p)=>s+(p.likes||0),0) };
   } else if (['teacher_director','teacher_editor','team_leader'].includes(user.role)) {
-    const stuCount = DB.users.filter(u=>u.groupId===user.groupId&&u.role==='student').length;
+    const stuCount = DB.users.filter(u=>String(u.groupId)===String(user.groupId)&&u.role==='student').length;
     // 计算小组内所有学生的千/万赞奖金总和
-    const stuBonus = DB.users.filter(u=>u.groupId===user.groupId&&u.role==='student').reduce((sum, stu) => {
-      const stuPosts = DB.posts.filter(p=>p.studentId===stu.id&&(p.postDate||'').startsWith(yearMonth));
+    const stuBonus = DB.users.filter(u=>String(u.groupId)===String(user.groupId)&&u.role==='student').reduce((sum, stu) => {
+      const stuPosts = DB.posts.filter(p=>p.userId===stu.id&&(p.postDate||'').startsWith(yearMonth));
       const thousandLikeCount = stuPosts.filter(p=>(p.likes||0)>=1000&&(p.likes||0)<10000).length;
       const tenThousandLikeCount = stuPosts.filter(p=>(p.likes||0)>=10000).length;
       const stuThousandBonus = thousandLikeCount*(cfg.thousandLikeBonus||80);
