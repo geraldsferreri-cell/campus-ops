@@ -2224,24 +2224,49 @@
             }
             
             const filterValue = document.getElementById('groupFilter')?.value || '';
-            let displayGroups = allGroups;
-            if (filterValue) {
-                displayGroups = allGroups.filter(g => g.name === filterValue);
+            
+            // 全部分组视图：显示分组列表和成员数
+            if (!filterValue) {
+                if (allGroups.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无分组</td></tr>'; return; }
+                tbody.innerHTML = allGroups.map(g => {
+                    const memberCount = allUsers.filter(u => u.group_name === g.name && u.role === 'student').length;
+                    return `<tr>
+                    <td>${g.name || '-'}</td>
+                    <td>${g.leader || '-'}</td>
+                    <td>${memberCount}</td>
+                    <td>${g.note || '-'}</td>
+                    <td><button class="btn btn-sm btn-secondary" onclick="editGroup(${g.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteGroup(${g.id})">删除</button></td>
+                </tr>`;
+                }).join('');
+                return;
             }
             
-            if (displayGroups.length === 0) { tbody.innerHTML = '<tr><td colspan="5" class="empty-state">暂无分组</td></tr>'; return; }
+            // 筛选了具体分组：显示该组所有学生姓名列表
+            const groupInfo = allGroups.find(g => g.name === filterValue);
+            const students = allUsers.filter(u => u.group_name === filterValue && u.role === 'student');
             
-            tbody.innerHTML = displayGroups.map(g => {
-                // 实时从 allUsers 统计该分组下的学生数量
-                const memberCount = allUsers.filter(u => u.group_name === g.name && u.role === 'student').length;
-                return `<tr>
-                <td>${g.name || '-'}</td>
-                <td>${g.leader || '-'}</td>
-                <td>${memberCount}</td>
-                <td>${g.note || '-'}</td>
-                <td><button class="btn btn-sm btn-secondary" onclick="editGroup(${g.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteGroup(${g.id})">删除</button></td>
+            if (students.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="empty-state">「${filterValue}」暂无学生</td></tr>`;
+                return;
+            }
+            
+            let html = `<tr style="background:#f0f4ff;font-weight:600;">
+                <td colspan="5" style="padding:8px 12px;">
+                    📁 ${groupInfo?.name || filterValue} — ${students.length} 名学生
+                    <span style="color:#888;font-weight:normal">（负责人：${groupInfo?.leader || '-'）</span>
+                </td>
             </tr>`;
-            }).join('');
+            html += `<tr style="background:#f8fafc;color:#666;font-size:12px;">
+                <td>姓名</td><td>用户名</td><td>分组</td><td>状态</td><td>操作</td>
+            </tr>`;
+            html += students.map(s => `<tr>
+                <td>${s.real_name || s.name || '-'}</td>
+                <td>${s.username || '-'}</td>
+                <td>${s.group_name || '-'}</td>
+                <td><span class="badge ${s.active ? 'badge-success' : 'badge-danger'}">${s.active ? '正常' : '停用'}</span></td>
+                <td><button class="btn btn-sm btn-secondary" onclick="editUser(${s.id})">编辑</button></td>
+            </tr>`).join('');
+            tbody.innerHTML = html;
         }
 
         function updateGroupLeaderSelect() {
