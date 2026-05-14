@@ -1216,8 +1216,17 @@
                     return `${parts[0]}-${parts[1].padStart(2, '0')}`;
                 }
             }
-            // 处理 ISO 格式 2026-05-12T10:30:00Z
+            // 处理 ISO 格式 2026-05-12T10:30:00Z（转本地时区避免跨月问题）
             if (dateStr.length >= 7) {
+                // 如果是完整ISO格式，转为本地日期再提取月份
+                if (dateStr.includes('T')) {
+                    const d = new Date(dateStr);
+                    if (!isNaN(d.getTime())) {
+                        const y = d.getFullYear();
+                        const m = String(d.getMonth() + 1).padStart(2, '0');
+                        return `${y}-${m}`;
+                    }
+                }
                 return dateStr.substring(0, 7);
             }
             return '';
@@ -2596,6 +2605,16 @@
             const month = document.getElementById('salaryMonth')?.value;
             console.log('>>> 选择的月份:', month);
             if (!month) { toast('请选择月份', 'error'); return; }
+            
+            // 确保视频和用户数据已加载
+            if (allVideos.length === 0) {
+                console.log('>>> 视频数据为空，重新加载');
+                await loadVideos();
+            }
+            if (allUsers.length === 0) {
+                console.log('>>> 用户数据为空，重新加载');
+                await loadUsers();
+            }
             
             // 先重新加载现有薪资记录，避免重复
             console.log('>>> 开始 loadSalaries');
