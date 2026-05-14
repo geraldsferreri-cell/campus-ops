@@ -1647,9 +1647,17 @@
             
             if (!isAdmin()) {
                 studentStats.style.display = 'block';
-                // 只获取当前学生的视频（按发布者匹配）
-                const myNames = getCurrentUserNames();
-                const myVideos = allVideos.filter(v => myNames.includes(v.publisher));
+                // 老师：统计所带学生的视频；学生：只统计自己的视频
+                let myVideos;
+                if (currentUser?.role === 'teacher') {
+                    const myStudents = getMyStudents();
+                    const studentNames = new Set();
+                    myStudents.forEach(s => getUserAllNames(s).forEach(n => studentNames.add(n)));
+                    myVideos = allVideos.filter(v => studentNames.has(v.publisher));
+                } else {
+                    const myNames = getCurrentUserNames();
+                    myVideos = allVideos.filter(v => myNames.includes(v.publisher));
+                }
                 const videoCount = myVideos.length;
                 // 使用统一的数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
@@ -1666,6 +1674,15 @@
                 document.getElementById('myVideoCount').textContent = videoCount;
                 document.getElementById('myThousandLike').textContent = thousandCount;
                 document.getElementById('myTenThousandLike').textContent = tenThousandCount;
+                
+                // 老师视角：更新卡片标签为"组内"前缀
+                const isTeacher = currentUser?.role === 'teacher';
+                const labels = studentStats.querySelectorAll('.stat-label');
+                if (labels.length >= 3) {
+                    labels[0].textContent = isTeacher ? '组内发片数' : '我的发片数';
+                    labels[1].textContent = isTeacher ? '组内千赞数' : '我的千赞数';
+                    labels[2].textContent = isTeacher ? '组内万赞数' : '我的万赞数';
+                }
                 
                 // 计算薪资并展示
                 updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount);
@@ -1700,64 +1717,91 @@
             const salaryResult = document.getElementById('mySalaryResult');
             if (!salaryCard || !salaryDetail || !salaryResult) return;
             
-            // 学生角色才显示薪资
-            if (currentUser?.role === 'teacher') {
-                salaryCard.style.display = 'none';
-                return;
-            }
+            const isTeacher = currentUser?.role === 'teacher';
             salaryCard.style.display = 'block';
             
-            // 计算底薪（从配置读取阶梯参数）
-            const config = getSalaryConfig('student');
-            const qualifiedCount = thousandCount + tenThousandCount;
-            const tier1Min = config.tier1_min ?? 0;
-            const tier1Max = config.tier1_max ?? 2;
-            const tier1Salary = config.tier1_salary ?? 20;
-            const tier2Min = config.tier2_min ?? 3;
-            const tier2Max = config.tier2_max ?? 5;
-            const tier2Salary = config.tier2_salary ?? 25;
-            const tier3Min = config.tier3_min ?? 6;
-            const tier3Salary = config.tier3_salary ?? 30;
-            
-            let unitPrice;
-            if (qualifiedCount >= tier3Min) {
-                unitPrice = tier3Salary;
-            } else if (qualifiedCount >= tier2Min && qualifiedCount <= tier2Max) {
-                unitPrice = tier2Salary;
+            if (isTeacher) {
+                // 老师：显示带教奖金
+                const group = getUserGroup();
+                const now = new Date();
+                const month = now.toISOString().slice(0, 7); // 当前月份 YYYY-MM
+                const bonusInfo = calcTeacherBonus(group, month);
+                
+                let detailHTML = '';
+                detailHTML += `<div style="margin-bottom:8px"><b>📊 组内数据：</b></div>`;
+                detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
+                detailHTML += `组内发片总数：${bonusInfo.groupVideoCount} 条<br>`;
+                detailHTML += `学生奖金总和：¥${bonusInfo.studentBonus}<br>`;
+                detailHTML += `达标条件：组内发片 ≥ 12 条 → ${bonusInfo.qualified ? '<span style="color:var(--success)">✅ 已达标</span>' : '<span style="color:var(--danger)">❌ 未达标</span>'}`;
+                detailHTML += `</div>`;
+                
+                detailHTML += `<div style="margin-top:12px;margin-bottom:8px"><b>🏆 带教奖金计算：</b></div>`;
+                detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
+                detailHTML += `带教奖金 = 学生奖金总和 × 带教比例<br>`;
+                if (bonusInfo.qualified) {
+                    detailHTML += `= ¥${bonusInfo.studentBonus} × ${(getSalaryConfig('teacher').ten_thousand_bonus || 50)}% = <b>¥${bonusInfo.total}</b>`;
+                } else {
+                    detailHTML += `组内发片未达12条，暂不带教奖金`;
+                }
+                detailHTML += `</div>`;
+                
+                salaryDetail.innerHTML = detailHTML;
+                if (bonusInfo.qualified) {
+                    salaryResult.innerHTML = `💰 本月预计带教奖金：<span style="font-size:24px">¥${bonusInfo.total}</span>`;
+                } else {
+                    salaryResult.innerHTML = `💰 本月预计带教奖金：<span style="font-size:24px">¥0</span>　（组内发片未达12条）`;
+                }
             } else {
-                unitPrice = tier1Salary;
+                // 学生：显示底薪+奖金
+                const config = getSalaryConfig('student');
+                const qualifiedCount = thousandCount + tenThousandCount;
+                const tier1Min = config.tier1_min ?? 0;
+                const tier1Max = config.tier1_max ?? 2;
+                const tier1Salary = config.tier1_salary ?? 20;
+                const tier2Min = config.tier2_min ?? 3;
+                const tier2Max = config.tier2_max ?? 5;
+                const tier2Salary = config.tier2_salary ?? 25;
+                const tier3Min = config.tier3_min ?? 6;
+                const tier3Salary = config.tier3_salary ?? 30;
+                
+                let unitPrice;
+                if (qualifiedCount >= tier3Min) {
+                    unitPrice = tier3Salary;
+                } else if (qualifiedCount >= tier2Min && qualifiedCount <= tier2Max) {
+                    unitPrice = tier2Salary;
+                } else {
+                    unitPrice = tier1Salary;
+                }
+                const baseSalary = unitPrice * videoCount;
+                
+                const thousandBonus = thousandCount * (config.thousand_bonus || 80);
+                const tenThousandBonus = tenThousandCount * (config.ten_thousand_bonus || 120);
+                const totalBonus = thousandBonus + tenThousandBonus;
+                const total = baseSalary + totalBonus;
+                
+                let detailHTML = '';
+                detailHTML += `<div style="margin-bottom:8px"><b>📊 底薪计算：</b></div>`;
+                detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
+                if (videoCount <= 2) {
+                    detailHTML += `发片数 ${videoCount} 条（0-2条档）→ 单价 20元/条<br>`;
+                } else if (videoCount <= 5) {
+                    detailHTML += `发片数 ${videoCount} 条（3-5条档）→ 单价 25元/条<br>`;
+                } else {
+                    detailHTML += `发片数 ${videoCount} 条（>5条档）→ 单价 30元/条<br>`;
+                }
+                detailHTML += `底薪 = ${unitPrice} × ${videoCount} = <b>${baseSalary}元</b>`;
+                detailHTML += `</div>`;
+                
+                detailHTML += `<div style="margin-top:12px;margin-bottom:8px"><b>🏆 奖金计算：</b></div>`;
+                detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
+                detailHTML += `千赞数 ${thousandCount} 条 × 80元 = ${thousandBonus}元<br>`;
+                detailHTML += `万赞数 ${tenThousandCount} 条 × 120元 = ${tenThousandBonus}元<br>`;
+                detailHTML += `奖金合计 = <b>${totalBonus}元</b>`;
+                detailHTML += `</div>`;
+                
+                salaryDetail.innerHTML = detailHTML;
+                salaryResult.innerHTML = `💰 本月预计薪资：<span style="font-size:24px">¥${total}</span>　（底薪¥${baseSalary} + 奖金¥${totalBonus}）`;
             }
-            const baseSalary = unitPrice * videoCount;
-            
-            // 计算奖金（从配置读取）
-            const thousandBonus = thousandCount * (config.thousand_bonus || 80);
-            const tenThousandBonus = tenThousandCount * (config.ten_thousand_bonus || 120);
-            const totalBonus = thousandBonus + tenThousandBonus;
-            const total = baseSalary + totalBonus;
-            
-            // 显示计算步骤
-            let detailHTML = '';
-            detailHTML += `<div style="margin-bottom:8px"><b>📊 底薪计算：</b></div>`;
-            detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
-            if (videoCount <= 2) {
-                detailHTML += `发片数 ${videoCount} 条（0-2条档）→ 单价 20元/条<br>`;
-            } else if (videoCount <= 5) {
-                detailHTML += `发片数 ${videoCount} 条（3-5条档）→ 单价 25元/条<br>`;
-            } else {
-                detailHTML += `发片数 ${videoCount} 条（>5条档）→ 单价 30元/条<br>`;
-            }
-            detailHTML += `底薪 = ${unitPrice} × ${videoCount} = <b>${baseSalary}元</b>`;
-            detailHTML += `</div>`;
-            
-            detailHTML += `<div style="margin-top:12px;margin-bottom:8px"><b>🏆 奖金计算：</b></div>`;
-            detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
-            detailHTML += `千赞数 ${thousandCount} 条 × 80元 = ${thousandBonus}元<br>`;
-            detailHTML += `万赞数 ${tenThousandCount} 条 × 120元 = ${tenThousandBonus}元<br>`;
-            detailHTML += `奖金合计 = <b>${totalBonus}元</b>`;
-            detailHTML += `</div>`;
-            
-            salaryDetail.innerHTML = detailHTML;
-            salaryResult.innerHTML = `💰 本月预计薪资：<span style="font-size:24px">¥${total}</span>　（底薪¥${baseSalary} + 奖金¥${totalBonus}）`;
         }
 
         function openVideoModal(id = null) {
