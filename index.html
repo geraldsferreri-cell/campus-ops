@@ -1554,6 +1554,17 @@
             onVideoFilterChange();
         }
 
+        // 从UTC时间戳提取本地日期（YYYY-MM-DD），避免时区偏移导致日期错位
+        function getLocalDateStr(dateStr) {
+            if (!dateStr) return '';
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return '';
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${y}-${m}-${day}`;
+        }
+
         // 计算视频发布后第N天的日期（修复时区问题：使用本地时间解析）
         function getDayDate(publishDate, dayN) {
             if (!publishDate) return null;
@@ -1585,7 +1596,7 @@
 
         // 获取提醒状态：是否需要填写第3天或第7天数据
         function getStatsReminder(v) {
-            const publishDate = v.created_at?.slice(0, 10);
+            const publishDate = getLocalDateStr(v.created_at);
             const now = new Date();
             now.setHours(0, 0, 0, 0);
             
@@ -1634,7 +1645,7 @@
                 const statusClass = v.status === '爆款' ? 'badge-danger' : v.status === '已发布' ? 'badge-success' : v.status === '失败' ? 'badge-warning' : 'badge-purple';
                 const canEdit = canEditVideo(v);
                 const reminder = getStatsReminder(v);
-                const publishDate = v.created_at?.slice(0, 10);
+                const publishDate = getLocalDateStr(v.created_at);
                 const day3Filled = isDayNFilled(v, 3);
                 const day7Filled = isDayNFilled(v, 7);
                 const day3Date = publishDate ? getDayDate(publishDate, 3).toLocaleDateString('zh-CN', {month:'numeric',day:'numeric'}) : '-';
