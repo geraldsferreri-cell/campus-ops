@@ -1557,8 +1557,10 @@
         // 计算视频发布后第N天的日期（修复时区问题：使用本地时间解析）
         function getDayDate(publishDate, dayN) {
             if (!publishDate) return null;
-            // 解析 YYYY-MM-DD 为本地时间午夜（避免UTC偏移问题）
-            const parts = publishDate.split('-').map(Number);
+            // 只取前10位（YYYY-MM-DD），兼容含时分秒的格式
+            const dateStr = String(publishDate).slice(0, 10);
+            const parts = dateStr.split('-').map(Number);
+            if (parts.length < 3 || isNaN(parts[0])) return null;
             const d = new Date(parts[0], parts[1] - 1, parts[2]);
             d.setDate(d.getDate() + dayN);
             return d;
@@ -1568,6 +1570,7 @@
         function shouldFillDayN(publishDate, dayN) {
             if (!publishDate) return false;
             const dayDate = getDayDate(publishDate, dayN);
+            if (!dayDate) return false;
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             return today >= dayDate;
@@ -1598,8 +1601,11 @@
         }
 
         // 格式化统计数据显示（播放量+点赞数）
-        function formatStatsCell(views, likes, isEmpty, fillStatus) {
+        // isEmpty: 数据未填写; isTimeReached: 是否已到填写时间
+        function formatStatsCell(views, likes, isEmpty, fillStatus, isTimeReached) {
             if (isEmpty) {
+                // 未到时间：显示 '-'，到了时间才显示 '待填写'
+                if (!isTimeReached) return `<span style="color:#bbb">-</span>`;
                 return `<span class="stats-pending" title="${fillStatus}">待填写</span>`;
             }
             return `<div class="stats-cell">
@@ -1643,12 +1649,12 @@
                     <td>${v.group_name || '-'}</td>
                     <td>${v.video_link ? '<a href="' + v.video_link + '" target="_blank" class="link">查看</a>' : '-'}</td>
                     <td class="${reminder.needDay3 ? 'cell-reminder' : ''}" title="${day3Date} (发布后第3天)">
-                        ${formatStatsCell(v.views_day3, v.likes_day3, !day3Filled, '第3天')}
+                        ${formatStatsCell(v.views_day3, v.likes_day3, !day3Filled, '第3天', shouldFillDayN(publishDate, 3))}
                     </td>
                     <td class="${reminder.needDay7 ? 'cell-reminder-day7' : ''}" title="${day7Date} (发布后第7天)">
-                        ${formatStatsCell(v.views_day7, v.likes_day7, !day7Filled, '第7天')}
+                        ${formatStatsCell(v.views_day7, v.likes_day7, !day7Filled, '第7天', shouldFillDayN(publishDate, 7))}
                     </td>
-                    <td>${formatStatsCell(v.views_month_end, v.likes_month_end, v.views_month_end == null, '月中/末')}</td>
+                    <td>${formatStatsCell(v.views_month_end, v.likes_month_end, v.views_month_end == null, '月中/末', true)}</td>
                     <td><span class="badge" style="${standardStatus.style}">${standardStatus.status}</span></td>
                     <td><span class="badge ${statusClass}">${v.status || '待发布'}</span></td>
                     <td>${canEdit ? '<button class="btn btn-sm btn-secondary" onclick="editVideo(\'' + String(v.id).replace(/'/g,"\\'") + '\')">编辑</button><button class="btn btn-sm btn-danger" onclick="if(confirm(\'确认删除？\'))deleteVideo(\'' + String(v.id).replace(/'/g,"\\'") + '\')">删除</button>' : '-'}</td>
