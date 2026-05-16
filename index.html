@@ -1565,6 +1565,27 @@
             return `${y}-${m}-${day}`;
         }
 
+        // UTC ISO字符串 → datetime-local value（本地时间格式 YYYY-MM-DDTHH:MM）
+        function utcToLocalDateTime(utcStr) {
+            if (!utcStr) return '';
+            const d = new Date(utcStr);
+            if (isNaN(d.getTime())) return '';
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            const h = String(d.getHours()).padStart(2, '0');
+            const min = String(d.getMinutes()).padStart(2, '0');
+            return `${y}-${m}-${day}T${h}:${min}`;
+        }
+
+        // datetime-local value（本地时间）→ UTC ISO字符串
+        function localDateTimeToUtc(localStr) {
+            if (!localStr) return null;
+            const d = new Date(localStr);
+            if (isNaN(d.getTime())) return null;
+            return d.toISOString();
+        }
+
         // 计算视频发布后第N天的日期（修复时区问题：使用本地时间解析）
         function getDayDate(publishDate, dayN) {
             if (!publishDate) return null;
@@ -1653,7 +1674,7 @@
                 const standardStatus = getDataStandardStatus(v);
                 
                 return `<tr class="${reminder.needDay3 || reminder.needDay7 ? 'row-reminder' : ''}">
-                    <td>${v.created_at ? new Date(v.created_at).toLocaleDateString('zh-CN') : '-'}</td>
+                    <td>${v.created_at ? getLocalDateStr(v.created_at) : '-'}</td>
                     <td>${v.platform || '-'}</td>
                     <td>${v.account_name || '-'}</td>
                     <td>${v.publisher || '-'}</td>
@@ -1948,7 +1969,7 @@
                 const e_plat = el('videoPlatform'); if (e_plat) e_plat.value = v.platform || '抖音';
                 updateVideoAccountSelect();
                 const e_acct = el('videoAccount'); if (e_acct) e_acct.value = v.account_name || '';
-                const e_time = el('videoTime'); if (e_time) e_time.value = v.created_at ? new Date(v.created_at).toISOString().slice(0, 16) : '';
+                const e_time = el('videoTime'); if (e_time) e_time.value = v.created_at ? utcToLocalDateTime(v.created_at) : '';
                 const e_status = el('videoStatus'); if (e_status) e_status.value = v.status || '待发布';
                 const e_link = el('videoLink'); if (e_link) e_link.value = v.video_link || '';
                 const e_pub = el('videoPublisher'); if (e_pub) e_pub.value = v.publisher || '';
@@ -2009,7 +2030,7 @@
                 video_link: videoLink,
                 publisher: publisher,
                 group_name: getText('videoGroup'),
-                created_at: getText('videoTime') || now,
+                created_at: localDateTimeToUtc(getText('videoTime')) || now,
                 // 第3天数据
                 views_day3: getVal('videoViewsDay3'),
                 likes_day3: getVal('videoLikesDay3'),
