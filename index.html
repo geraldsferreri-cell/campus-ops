@@ -491,9 +491,11 @@
                         <div class="chart-title">🏆 千赞TOP5</div>
                         <canvas id="topThousandChart" style="max-height: 250px;"></canvas>
                     </div>
-                    <div class="chart-card">
+                    <div class="chart-card" id="studentRankCard" style="grid-row: span 2;">
                         <div class="chart-title">👨‍🎓 同学发片数排名</div>
-                        <canvas id="studentRankChart" style="max-height: 250px;"></canvas>
+                        <div id="studentRankContainer" style="overflow-y: auto; max-height: 500px;">
+                            <canvas id="studentRankChart"></canvas>
+                        </div>
                     </div>
                     <div class="chart-card" style="grid-column: span 2;">
                         <div class="chart-title">⭐ 万赞TOP5</div>
@@ -3206,6 +3208,10 @@
             const studentCanvas = document.getElementById('studentRankChart');
             if (studentCanvas && pubStats.length > 0) {
                 if (chartInstances['student']) chartInstances['student'].destroy();
+                // 动态计算 canvas 高度：每个条形约 26px + 顶部底部 padding
+                const barHeight = 26;
+                const totalHeight = Math.max(200, pubStats.length * barHeight + 40);
+                studentCanvas.style.height = totalHeight + 'px';
                 chartInstances['student'] = new Chart(studentCanvas, {
                     type: 'bar',
                     data: {
@@ -3215,7 +3221,9 @@
                             data: pubStats.map(p => p.count),
                             backgroundColor: pubStats.map(p => p.count > 0 ? 'rgba(16, 185, 129, 0.8)' : 'rgba(200, 200, 200, 0.3)'),
                             borderColor: pubStats.map(p => p.count > 0 ? 'rgb(16, 185, 129)' : 'rgb(200, 200, 200)'),
-                            borderWidth: 1
+                            borderWidth: 1,
+                            barThickness: 20,
+                            categoryPercentage: 0.9
                         }]
                     },
                     options: {
@@ -3223,26 +3231,33 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                            legend: { display: false }
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: (ctx) => `发片数: ${ctx.raw}`
+                                }
+                            }
                         },
-                        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
+                        scales: {
+                            x: { beginAtZero: true, ticks: { stepSize: 1, font: { size: 11 } } },
+                            y: { ticks: { font: { size: 13 } }, grid: { display: false } }
+                        }
                     },
                     plugins: [{
                         id: 'barLabels',
                         afterDatasetsDraw(chart) {
                             const { ctx } = chart;
                             ctx.save();
-                            ctx.font = 'bold 13px sans-serif';
+                            ctx.font = 'bold 12px sans-serif';
                             ctx.textBaseline = 'middle';
                             chart.data.datasets.forEach((dataset, i) => {
                                 const meta = chart.getDatasetMeta(i);
                                 meta.data.forEach((bar, index) => {
                                     const value = dataset.data[index];
-                                    // 显示数字：发片>0用白色在条内，发片=0用灰色在条右侧
                                     if (value > 0) {
                                         ctx.fillStyle = '#fff';
                                         ctx.textAlign = 'right';
-                                        ctx.fillText(value, bar.x - 8, bar.y + bar.height / 2);
+                                        ctx.fillText(value, bar.x - 6, bar.y + bar.height / 2);
                                     } else {
                                         ctx.fillStyle = '#999';
                                         ctx.textAlign = 'left';
