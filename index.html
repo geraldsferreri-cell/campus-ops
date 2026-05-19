@@ -423,9 +423,9 @@
                 <!-- Date Filter -->
                 <div class="filter-bar">
                     <span style="font-size:13px;color:var(--gray-500)">📅 日期筛选：</span>
-                    <input type="date" id="filterDateStart">
+                    <input type="date" id="dashboardDateStart">
                     <span>至</span>
-                    <input type="date" id="filterDateEnd">
+                    <input type="date" id="dashboardDateEnd">
                     <button class="btn btn-sm btn-primary" onclick="queryDashboard()">🔍 查询</button>
                     <button class="btn btn-sm btn-secondary" onclick="setDateRange('today')">今天</button>
                     <button class="btn btn-sm btn-secondary" onclick="setDateRange('week')">本周</button>
@@ -508,9 +508,9 @@
                     <h2>视频记录</h2>
                     <div>
                         <span class="filter-label">📅 日期筛选：</span>
-                        <input type="date" id="filterDateStart" class="form-input" style="width:140px;">
+                        <input type="date" id="videoDateStart" class="form-input" style="width:140px;">
                         <span>至</span>
-                        <input type="date" id="filterDateEnd" class="form-input" style="width:140px;">
+                        <input type="date" id="videoDateEnd" class="form-input" style="width:140px;">
                         <button class="btn btn-sm btn-primary" onclick="queryVideos()">🔍 查询</button>
                         <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('today')">今天</button>
                         <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('week')">本周</button>
@@ -1417,9 +1417,15 @@
         // ============ Date Filters ============
         function initDateFilters() {
             const today = new Date();
-            document.getElementById('filterDateEnd').value = today.toISOString().slice(0, 10);
             const weekAgo = new Date(today - 7 * 24 * 60 * 60 * 1000);
-            document.getElementById('filterDateStart').value = weekAgo.toISOString().slice(0, 10);
+            const todayStr = today.toISOString().slice(0, 10);
+            const weekAgoStr = weekAgo.toISOString().slice(0, 10);
+            // 数据看板
+            document.getElementById('dashboardDateStart').value = weekAgoStr;
+            document.getElementById('dashboardDateEnd').value = todayStr;
+            // 视频记录
+            document.getElementById('videoDateStart').value = weekAgoStr;
+            document.getElementById('videoDateEnd').value = todayStr;
         }
 
         function setDateRange(type) {
@@ -1439,13 +1445,11 @@
                 end = today.toISOString().slice(0, 10);
             }
             // 设置数据看板的日期筛选器
-            document.getElementById('filterDateStart').value = start;
-            document.getElementById('filterDateEnd').value = end;
+            document.getElementById('dashboardDateStart').value = start;
+            document.getElementById('dashboardDateEnd').value = end;
             // 同时设置视频记录页面的日期筛选器（保持联动）
-            const videoStartInput = document.getElementById('page-videos').querySelector('#filterDateStart');
-            const videoEndInput = document.getElementById('page-videos').querySelector('#filterDateEnd');
-            if (videoStartInput) videoStartInput.value = start;
-            if (videoEndInput) videoEndInput.value = end;
+            document.getElementById('videoDateStart').value = start;
+            document.getElementById('videoDateEnd').value = end;
             // 不再自动刷新，需点击"查询"按钮
         }
 
@@ -1455,8 +1459,8 @@
         }
 
         function getFilteredVideos() {
-            const start = document.getElementById('filterDateStart').value;
-            const end = document.getElementById('filterDateEnd').value;
+            const start = document.getElementById('dashboardDateStart').value;
+            const end = document.getElementById('dashboardDateEnd').value;
             const group = document.getElementById('filterGroup')?.value;
             return allVideos.filter(v => {
                 const date = v.created_at?.slice(0, 10);
@@ -1487,8 +1491,8 @@
                 const platform = document.getElementById('filterPlatform')?.value;
                 const status = document.getElementById('filterStatus')?.value;
                 const keyword = document.getElementById('searchKeyword')?.value.trim();
-                const dateStart = document.getElementById('filterDateStart')?.value;
-                const dateEnd = document.getElementById('filterDateEnd')?.value;
+                const dateStart = document.getElementById('videoDateStart')?.value;
+                const dateEnd = document.getElementById('videoDateEnd')?.value;
                 
                 if (platform) query = query.eq('platform', platform);
                 if (status) query = query.eq('status', status);
@@ -1528,13 +1532,13 @@
         
         // 同步视频记录的日期筛选到数据看板
         function syncDateFilterToDashboard() {
-            const videoStart = document.getElementById('filterDateStart')?.value;
-            const videoEnd = document.getElementById('filterDateEnd')?.value;
-            if (document.getElementById('filterDateStart')) {
-                document.getElementById('filterDateStart').value = videoStart || '';
+            const videoStart = document.getElementById('videoDateStart')?.value;
+            const videoEnd = document.getElementById('videoDateEnd')?.value;
+            if (document.getElementById('dashboardDateStart')) {
+                document.getElementById('dashboardDateStart').value = videoStart || '';
             }
-            if (document.getElementById('filterDateEnd')) {
-                document.getElementById('filterDateEnd').value = videoEnd || '';
+            if (document.getElementById('dashboardDateEnd')) {
+                document.getElementById('dashboardDateEnd').value = videoEnd || '';
             }
         }
         
@@ -1555,8 +1559,8 @@
                 end = today.toISOString().slice(0, 10);
             }
             // 同时设置视频记录页面和数据看板页面的日期筛选器
-            document.getElementById('filterDateStart').value = start;
-            document.getElementById('filterDateEnd').value = end;
+            document.getElementById('videoDateStart').value = start;
+            document.getElementById('videoDateEnd').value = end;
             // 不再自动刷新，需点击"查询"按钮
         }
 
