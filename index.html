@@ -3178,7 +3178,7 @@
             }
 
             // 同学发片数排名 - 柱状图（基于所有学生名单统计，包含发片数为0的同学）
-            const allStudents = allUsers.filter(u => u.role === 'student');
+            const allStudents = allUsers.filter(u => u.role === 'student' && (u.real_name || u.name || u.username));
             const pubStats = allStudents.map(student => {
                 const names = getUserAllNames(student);
                 const count = videos.filter(v => v.publisher && names.some(n => n === v.publisher)).length;
