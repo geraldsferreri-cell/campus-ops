@@ -3182,8 +3182,8 @@
             const pubStats = publishers.map(p => ({
                 name: p,
                 count: videos.filter(v => v.publisher === p).length
-            })).sort((a, b) => b.count - a.count).slice(0, 5);
-            
+            })).sort((a, b) => b.count - a.count);
+
             const studentCanvas = document.getElementById('studentRankChart');
             if (studentCanvas && pubStats.length > 0) {
                 if (chartInstances['student']) chartInstances['student'].destroy();
@@ -3202,10 +3202,42 @@
                     options: {
                         indexAxis: 'y',
                         responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: { legend: { display: false } },
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            // 自定义插件：在条形上显示数字
+                            datalabels: {
+                                display: true,
+                                color: '#fff',
+                                font: { weight: 'bold', size: 14 },
+                                formatter: (value) => value
+                            }
+                        },
                         scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
-                    }
+                    },
+                    plugins: [{
+                        id: 'barLabels',
+                        afterDatasetsDraw(chart) {
+                            const { ctx } = chart;
+                            ctx.save();
+                            ctx.font = 'bold 13px sans-serif';
+                            ctx.fillStyle = '#fff';
+                            ctx.textBaseline = 'middle';
+                            chart.data.datasets.forEach((dataset, i) => {
+                                const meta = chart.getDatasetMeta(i);
+                                meta.data.forEach((bar, index) => {
+                                    const value = dataset.data[index];
+                                    if (value > 0) {
+                                        const x = bar.x - 8;
+                                        const y = bar.y + bar.height / 2;
+                                        ctx.textAlign = 'right';
+                                        ctx.fillText(value, x, y);
+                                    }
+                                });
+                            });
+                            ctx.restore();
+                        }
+                    }]
                 });
             } else if (studentCanvas) {
                 studentCanvas.parentElement.innerHTML = '<div class="empty-state" style="padding: 40px;">暂无发片数据</div>';
