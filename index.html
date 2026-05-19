@@ -423,15 +423,16 @@
                 <!-- Date Filter -->
                 <div class="filter-bar">
                     <span style="font-size:13px;color:var(--gray-500)">📅 日期筛选：</span>
-                    <input type="date" id="filterDateStart" onchange="updateDashboard()">
+                    <input type="date" id="filterDateStart">
                     <span>至</span>
-                    <input type="date" id="filterDateEnd" onchange="updateDashboard()">
+                    <input type="date" id="filterDateEnd">
+                    <button class="btn btn-sm btn-primary" onclick="queryDashboard()">🔍 查询</button>
                     <button class="btn btn-sm btn-secondary" onclick="setDateRange('today')">今天</button>
                     <button class="btn btn-sm btn-secondary" onclick="setDateRange('week')">本周</button>
                     <button class="btn btn-sm btn-secondary" onclick="setDateRange('month')">本月</button>
                     <button class="btn btn-sm btn-secondary" onclick="setDateRange('all')">全部</button>
                     <span style="margin-left:12px;font-size:13px;color:var(--gray-500)">👥 组别筛选：</span>
-                    <select id="filterGroup" class="form-input" style="width:140px;padding:4px 8px;" onchange="updateDashboard()">
+                    <select id="filterGroup" class="form-input" style="width:140px;padding:4px 8px;">
                         <option value="">全部分组</option>
                     </select>
                 </div>
@@ -507,9 +508,10 @@
                     <h2>视频记录</h2>
                     <div>
                         <span class="filter-label">📅 日期筛选：</span>
-                        <input type="date" id="filterDateStart" class="form-input" style="width:140px;" onchange="onVideoFilterChange()">
+                        <input type="date" id="filterDateStart" class="form-input" style="width:140px;">
                         <span>至</span>
-                        <input type="date" id="filterDateEnd" class="form-input" style="width:140px;" onchange="onVideoFilterChange()">
+                        <input type="date" id="filterDateEnd" class="form-input" style="width:140px;">
+                        <button class="btn btn-sm btn-primary" onclick="queryVideos()">🔍 查询</button>
                         <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('today')">今天</button>
                         <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('week')">本周</button>
                         <button class="btn btn-sm btn-secondary" onclick="setVideoDateRange('month')">本月</button>
@@ -1444,7 +1446,11 @@
             const videoEndInput = document.getElementById('page-videos').querySelector('#filterDateEnd');
             if (videoStartInput) videoStartInput.value = start;
             if (videoEndInput) videoEndInput.value = end;
-            // 刷新数据看板
+            // 不再自动刷新，需点击"查询"按钮
+        }
+
+        // 数据看板：点击查询按钮时刷新
+        function queryDashboard() {
             updateDashboard();
         }
 
@@ -1551,6 +1557,11 @@
             // 同时设置视频记录页面和数据看板页面的日期筛选器
             document.getElementById('filterDateStart').value = start;
             document.getElementById('filterDateEnd').value = end;
+            // 不再自动刷新，需点击"查询"按钮
+        }
+
+        // 视频记录：点击查询按钮时刷新
+        function queryVideos() {
             onVideoFilterChange();
         }
 
