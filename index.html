@@ -726,13 +726,16 @@
             <div id="page-salary" class="page">
                 <div class="header">
                     <h2>薪资结算</h2>
-                    <div style="display:flex;gap:8px;align-items:center;">
-                        <select id="salaryMonth" class="form-input" style="width:150px" onchange="loadSalaryData()">
+                    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                        <select id="salaryMonth" class="form-input" style="width:150px" onchange="onSalaryMonthChange()">
                         </select>
+                        <input type="date" id="salaryDateStart" class="form-input" style="width:140px;" placeholder="开始日期">
+                        <span style="font-size:13px;color:var(--gray-500);">至</span>
+                        <input type="date" id="salaryDateEnd" class="form-input" style="width:140px;" placeholder="结束日期">
                         <select id="salaryNameFilter" class="form-input" style="width:140px" onchange="filterSalaryTable()">
                             <option value="">全部人员</option>
                         </select>
-                        <button class="btn btn-primary" onclick="openSalaryModal()">➕ 生成薪资</button>
+                        <button class="btn btn-primary" onclick="querySalary()">🔍 查询</button>
                     </div>
                 </div>
                 <div class="salary-summary">
@@ -1419,14 +1422,17 @@
         // ============ Date Filters ============
         function initDateFilters() {
             const today = new Date();
-            const weekAgo = new Date(today - 7 * 24 * 60 * 60 * 1000);
-            const todayStr = today.toISOString().slice(0, 10);
-            const weekAgoStr = weekAgo.toISOString().slice(0, 10);
-            // 数据看板
-            document.getElementById('dashboardDateStart').value = weekAgoStr;
+            const day = today.getDay();
+            const offset = day === 0 ? 6 : day - 1;
+            const weekStart = new Date(today);
+            weekStart.setDate(weekStart.getDate() - offset);
+            const todayStr = formatLocalDate(today);
+            const weekStartStr = formatLocalDate(weekStart);
+            // 数据看板：默认本周（独立，不与视频记录联动）
+            document.getElementById('dashboardDateStart').value = weekStartStr;
             document.getElementById('dashboardDateEnd').value = todayStr;
-            // 视频记录
-            document.getElementById('videoDateStart').value = weekAgoStr;
+            // 视频记录：默认本周（独立，不与数据看板联动）
+            document.getElementById('videoDateStart').value = weekStartStr;
             document.getElementById('videoDateEnd').value = todayStr;
         }
 
@@ -1434,24 +1440,24 @@
             const today = new Date();
             let start = '', end = '';
             if (type === 'today') {
-                start = today.toISOString().slice(0, 10);
+                start = formatLocalDate(today);
                 end = start;
             } else if (type === 'week') {
+                // 本周一到现在（中国习惯：周一为每周第一天）
+                const day = today.getDay();
+                const offset = day === 0 ? 6 : day - 1;
                 const d = new Date(today);
-                d.setDate(d.getDate() - d.getDay());
-                start = d.toISOString().slice(0, 10);
-                end = today.toISOString().slice(0, 10);
+                d.setDate(d.getDate() - offset);
+                start = formatLocalDate(d);
+                end = formatLocalDate(today);
             } else if (type === 'month') {
                 const d = new Date(today.getFullYear(), today.getMonth(), 1);
-                start = d.toISOString().slice(0, 10);
-                end = today.toISOString().slice(0, 10);
+                start = formatLocalDate(d);
+                end = formatLocalDate(today);
             }
-            // 设置数据看板的日期筛选器
+            // 仅设置数据看板的日期筛选器
             document.getElementById('dashboardDateStart').value = start;
             document.getElementById('dashboardDateEnd').value = end;
-            // 同时设置视频记录页面的日期筛选器（保持联动）
-            document.getElementById('videoDateStart').value = start;
-            document.getElementById('videoDateEnd').value = end;
             // 不再自动刷新，需点击"查询"按钮
         }
 
@@ -1465,7 +1471,7 @@
             const end = document.getElementById('dashboardDateEnd').value;
             const group = document.getElementById('filterGroup')?.value;
             return allVideos.filter(v => {
-                const date = v.created_at?.slice(0, 10);
+                const date = getLocalDateStr(v.created_at);
                 if (start && date < start) return false;
                 if (end && date > end) return false;
                 // 组别筛选
@@ -1489,32 +1495,23 @@
         // ============ Videos ============
         async function loadVideos() {
             try {
+                // 始终从数据库加载全量视频，不附加任何日期条件
                 let query = supabase.from('videos').select('*').order('created_at', { ascending: false });
                 const platform = document.getElementById('filterPlatform')?.value;
                 const status = document.getElementById('filterStatus')?.value;
                 const keyword = document.getElementById('searchKeyword')?.value.trim();
-                const dateStart = document.getElementById('videoDateStart')?.value;
-                const dateEnd = document.getElementById('videoDateEnd')?.value;
-                
+
                 if (platform) query = query.eq('platform', platform);
                 if (status) query = query.eq('status', status);
                 if (keyword) query = query.or(`account_name.ilike.%${keyword}%,publisher.ilike.%${keyword}%`);
-                
+
                 const { data, error } = await query;
                 if (error) throw error;
-                let filteredVideos = data || [];
-                
-                // 日期筛选（客户端筛选）
-                if (dateStart) {
-                    filteredVideos = filteredVideos.filter(v => v.created_at?.slice(0, 10) >= dateStart);
-                }
-                if (dateEnd) {
-                    filteredVideos = filteredVideos.filter(v => v.created_at?.slice(0, 10) <= dateEnd);
-                }
-                
-                // 根据角色过滤可见视频
-                allVideos = filteredVideos.filter(v => canViewVideo(v));
-                
+
+                // allVideos 始终保存全量数据，供数据看板和视频记录页各自独立过滤
+                allVideos = (data || []).filter(v => canViewVideo(v));
+
+                // 渲染视频记录表格（内部会按视频记录页日期范围过滤）
                 renderVideoTable();
                 updateTeacherSelect();
                 updateStudentVideoStats();
@@ -1524,43 +1521,29 @@
         // 视频记录日期筛选变化时调用
         function onVideoFilterChange() {
             loadVideos();
-            // 同时更新数据看板的日期筛选器（保持同步）
-            syncDateFilterToDashboard();
-            // 如果当前在数据看板页面，也更新看板数据
-            if (document.getElementById('page-dashboard')?.classList.contains('active')) {
-                updateDashboard();
-            }
         }
-        
-        // 同步视频记录的日期筛选到数据看板
-        function syncDateFilterToDashboard() {
-            const videoStart = document.getElementById('videoDateStart')?.value;
-            const videoEnd = document.getElementById('videoDateEnd')?.value;
-            if (document.getElementById('dashboardDateStart')) {
-                document.getElementById('dashboardDateStart').value = videoStart || '';
-            }
-            if (document.getElementById('dashboardDateEnd')) {
-                document.getElementById('dashboardDateEnd').value = videoEnd || '';
-            }
-        }
-        
+
         // 设置视频记录的日期范围
         function setVideoDateRange(range) {
             const today = new Date();
             let start = '', end = '';
             if (range === 'today') {
-                start = today.toISOString().slice(0, 10);
+                start = formatLocalDate(today);
                 end = start;
             } else if (range === 'week') {
-                const weekAgo = new Date(today - 7 * 24 * 60 * 60 * 1000);
-                start = weekAgo.toISOString().slice(0, 10);
-                end = today.toISOString().slice(0, 10);
+                // 本周一到现在（中国习惯：周一为每周第一天）
+                const day = today.getDay();
+                const offset = day === 0 ? 6 : day - 1;
+                const d = new Date(today);
+                d.setDate(d.getDate() - offset);
+                start = formatLocalDate(d);
+                end = formatLocalDate(today);
             } else if (range === 'month') {
                 const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-                start = monthStart.toISOString().slice(0, 10);
-                end = today.toISOString().slice(0, 10);
+                start = formatLocalDate(monthStart);
+                end = formatLocalDate(today);
             }
-            // 同时设置视频记录页面和数据看板页面的日期筛选器
+            // 仅设置视频记录页面的日期筛选器
             document.getElementById('videoDateStart').value = start;
             document.getElementById('videoDateEnd').value = end;
             // 不再自动刷新，需点击"查询"按钮
@@ -1569,6 +1552,14 @@
         // 视频记录：点击查询按钮时刷新
         function queryVideos() {
             onVideoFilterChange();
+        }
+
+        // 将 Date 对象格式化为本地日期 YYYY-MM-DD（避免 toISOString 的 UTC 偏移问题）
+        function formatLocalDate(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
         }
 
         // 从UTC时间戳提取本地日期（YYYY-MM-DD），避免时区偏移导致日期错位
@@ -1679,7 +1670,20 @@
             const tbody = document.getElementById('videoTable');
             if (!tbody) return;
             if (allVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; return; }
-            tbody.innerHTML = allVideos.map(v => {
+
+            // 视频记录页：从 allVideos 中按日期范围独立过滤（不影响数据看板）
+            const dateStart = document.getElementById('videoDateStart')?.value;
+            const dateEnd = document.getElementById('videoDateEnd')?.value;
+            let filteredVideos = allVideos;
+            if (dateStart) {
+                filteredVideos = filteredVideos.filter(v => getLocalDateStr(v.created_at) >= dateStart);
+            }
+            if (dateEnd) {
+                filteredVideos = filteredVideos.filter(v => getLocalDateStr(v.created_at) <= dateEnd);
+            }
+
+            if (filteredVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; return; }
+            tbody.innerHTML = filteredVideos.map(v => {
                 const statusClass = v.status === '爆款' ? 'badge-danger' : v.status === '已发布' ? 'badge-success' : v.status === '失败' ? 'badge-warning' : 'badge-purple';
                 const canEdit = canEditVideo(v);
                 const reminder = getStatsReminder(v);
@@ -2541,6 +2545,20 @@
                 const label = `${y}年${m}月`;
                 select.innerHTML += `<option value="${value}" ${i === 0 ? 'selected' : ''}>${label}</option>`;
             }
+            // 初始化日期范围
+            onSalaryMonthChange();
+        }
+
+        function onSalaryMonthChange() {
+            const month = document.getElementById('salaryMonth')?.value;
+            if (!month) return;
+            const [y, m] = month.split('-').map(Number);
+            const start = new Date(y, m - 1, 1);
+            const end = new Date(y, m, 0); // 该月最后一天
+            const startEl = document.getElementById('salaryDateStart');
+            const endEl = document.getElementById('salaryDateEnd');
+            if (startEl) startEl.value = formatLocalDate(start);
+            if (endEl) endEl.value = formatLocalDate(end);
         }
 
         async function loadSalaryData() {
@@ -2673,25 +2691,34 @@
         }
 
         // 计算老师的带教奖金（从配置读取）
-        function calcTeacherBonus(groupName, month) {
+        function calcTeacherBonus(groupName, month, dateStart, dateEnd) {
             if (!groupName) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
-            
+
             const teacherConfig = getSalaryConfig('teacher');
             const teacherRatio = teacherConfig.ten_thousand_bonus || 50; // 默认50%，存放在ten_thousand_bonus字段
-            
+
             // 获取该组的所有学生
             const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
             if (groupStudents.length === 0) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
-            
+
             // 计算小组内所有学生的发片总数
             let groupVideoCount = 0;
             let totalStudentBonus = 0;
-            
+
             for (const student of groupStudents) {
                 const studentNames = getUserAllNames(student);
                 const studentVideos = allVideos.filter(v => {
-                    const videoMonth = getVideoMonth(v);
-                    return studentNames.includes(v.publisher) && videoMonth === month;
+                    const nameMatch = studentNames.includes(v.publisher);
+                    if (!nameMatch) return false;
+                    // 优先按日期范围过滤，否则按月份
+                    if (dateStart || dateEnd) {
+                        const videoDate = getLocalDateStr(v.created_at);
+                        const dateMatch = (!dateStart || videoDate >= dateStart) && (!dateEnd || videoDate <= dateEnd);
+                        return dateMatch;
+                    } else {
+                        const videoMonth = getVideoMonth(v);
+                        return videoMonth === month;
+                    }
                 });
                 groupVideoCount += studentVideos.length;
                 
@@ -2721,12 +2748,14 @@
             return { total, studentBonus: totalStudentBonus, qualified, groupVideoCount };
         }
 
-        async function openSalaryModal() {
-            console.log('>>> openSalaryModal 被调用');
+        async function querySalary() {
+            console.log('>>> querySalary 被调用');
             const month = document.getElementById('salaryMonth')?.value;
-            console.log('>>> 选择的月份:', month);
+            const dateStart = document.getElementById('salaryDateStart')?.value || '';
+            const dateEnd = document.getElementById('salaryDateEnd')?.value || '';
+            console.log('>>> 选择的月份:', month, '日期范围:', dateStart, '至', dateEnd);
             if (!month) { toast('请选择月份', 'error'); return; }
-            
+
             // 确保视频和用户数据已加载
             if (allVideos.length === 0) {
                 console.log('>>> 视频数据为空，重新加载');
@@ -2736,32 +2765,31 @@
                 console.log('>>> 用户数据为空，重新加载');
                 await loadUsers();
             }
-            
+
             // 先重新加载现有薪资记录，避免重复
             console.log('>>> 开始 loadSalaries');
             await loadSalaries();
             console.log('>>> loadSalaries 完成, allSalaries:', allSalaries.length);
-            
+
             // 先计算所有学生的薪资（底薪+奖金）
-            console.log('生成薪资 - 月份:', month, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length, 'allUsers:', allUsers.length);
-            // 打印所有视频的 publisher 和日期，用于排查
-            console.log('=== 所有视频的 publisher 和月份 ===');
-            allVideos.forEach(v => console.log('视频:', v.publisher, '月份:', getVideoMonth(v), '链接:', v.video_link?.substring(0, 30)));
-            console.log('===================================');
+            console.log('查询薪资 - 月份:', month, '日期范围:', dateStart, '至', dateEnd, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length);
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
                 // 匹配视频：publisher 在 userNames 中，且日期匹配
                 const targetMonth = String(month).trim();
                 const userVideos = allVideos.filter(v => {
-                    const videoMonth = String(getVideoMonth(v) || '').trim();
                     const nameMatch = userNames.includes(v.publisher);
-                    const monthMatch = videoMonth === targetMonth;
-                    if (nameMatch) console.log('名字匹配:', v.publisher, '视频月份:[', videoMonth, '] 目标月份:[', targetMonth, '] 月份匹配:', monthMatch);
-                    const match = nameMatch && monthMatch;
-                    if (match) console.log('✅ 匹配视频:', v.publisher, '月份:', videoMonth, '链接:', v.video_link);
-                    return match;
+                    if (!nameMatch) return false;
+                    // 优先按日期范围过滤，否则按月份
+                    if (dateStart || dateEnd) {
+                        const videoDate = getLocalDateStr(v.created_at);
+                        const dateMatch = (!dateStart || videoDate >= dateStart) && (!dateEnd || videoDate <= dateEnd);
+                        return dateMatch;
+                    } else {
+                        const videoMonth = String(getVideoMonth(v) || '').trim();
+                        return videoMonth === targetMonth;
+                    }
                 });
-                console.log('学生:', student.real_name || student.name, '别名:', userNames, '匹配视频数:', userVideos.length);
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
                 let tenThousandCount = 0;
@@ -2774,22 +2802,22 @@
                     else if (status.status === '千赞') { thousandCount++; countedLinks.add(link); }
                 });
                 const salaryInfo = calcStudentSalary(userVideos.length, thousandCount, tenThousandCount);
-                const data = { 
-                    user_id: student.id, 
-                    user_name: student.real_name || student.name, 
-                    role: 'student', 
-                    group_name: student.group_name, 
-                    month, 
-                    video_count: userVideos.length, 
-                    thousand_count: thousandCount, 
-                    ten_thousand_count: tenThousandCount, 
+                const data = {
+                    user_id: student.id,
+                    user_name: student.real_name || student.name,
+                    role: 'student',
+                    group_name: student.group_name,
+                    month,
+                    video_count: userVideos.length,
+                    thousand_count: thousandCount,
+                    ten_thousand_count: tenThousandCount,
                     unit_price: salaryInfo.unitPrice,
-                    base_salary: salaryInfo.baseSalary, 
+                    base_salary: salaryInfo.baseSalary,
                     thousand_bonus: salaryInfo.thousandBonus,
                     ten_thousand_bonus: salaryInfo.tenThousandBonus,
                     bonus: salaryInfo.thousandBonus + salaryInfo.tenThousandBonus,
-                    total: salaryInfo.total, 
-                    status: '待结算' 
+                    total: salaryInfo.total,
+                    status: '待结算'
                 };
                 try {
                     // 使用 user_id + month + role 作为唯一标识查找
@@ -2801,32 +2829,32 @@
                     }
                 } catch (e) { console.error('保存学生薪资失败:', e); }
             }
-            
+
             // 再计算老师的带教奖金
             const groups = [...new Set(allUsers.filter(u => u.group_name).map(u => u.group_name))];
             console.log('>>> 开始计算老师奖金, 小组数:', groups.length);
             for (const groupName of groups) {
                 const teacher = allUsers.find(u => u.role === 'teacher' && u.group_name === groupName);
                 if (!teacher) continue;
-                
-                const teacherBonusInfo = calcTeacherBonus(groupName, month);
-                const data = { 
-                    user_id: teacher.id, 
-                    user_name: teacher.real_name || teacher.name, 
-                    role: 'teacher', 
-                    group_name: groupName, 
-                    month, 
+
+                const teacherBonusInfo = calcTeacherBonus(groupName, month, dateStart, dateEnd);
+                const data = {
+                    user_id: teacher.id,
+                    user_name: teacher.real_name || teacher.name,
+                    role: 'teacher',
+                    group_name: groupName,
+                    month,
                     video_count: teacherBonusInfo.groupVideoCount,
-                    thousand_count: 0, 
-                    ten_thousand_count: 0, 
+                    thousand_count: 0,
+                    ten_thousand_count: 0,
                     unit_price: 0,
-                    base_salary: 0, 
+                    base_salary: 0,
                     thousand_bonus: 0,
                     ten_thousand_bonus: 0,
                     bonus: teacherBonusInfo.total,
-                    total: teacherBonusInfo.total, 
+                    total: teacherBonusInfo.total,
                     deduction: teacherBonusInfo.qualified ? 0 : teacherBonusInfo.studentBonus,
-                    status: '待结算' 
+                    status: '待结算'
                 };
                 try {
                     const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month && s.role === 'teacher');
@@ -2837,9 +2865,9 @@
                     }
                 } catch (e) { console.error('保存老师薪资失败:', e); }
             }
-            
-            console.log('>>> 薪资生成完成，准备刷新表格');
-            toast('薪资已生成');
+
+            console.log('>>> 薪资查询完成，准备刷新表格');
+            toast('薪资查询完成');
             loadSalaries();
             loadSalarySummary();
         }
