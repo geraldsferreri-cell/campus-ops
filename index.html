@@ -161,6 +161,12 @@
         .filter-bar { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
         .filter-bar select, .filter-bar input { padding: 8px 12px; border: 1px solid var(--gray-300); border-radius: 6px; font-size: 14px; }
         .filter-bar input { min-width: 150px; }
+        .pagination-bar { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 16px; flex-wrap: wrap; }
+        .pagination-bar .page-info { color: var(--gray-600); font-size: 13px; margin-right: 8px; }
+        .pagination-bar .page-btn { padding: 6px 12px; border: 1px solid var(--gray-300); background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--gray-700); }
+        .pagination-bar .page-btn:hover { background: var(--gray-100); }
+        .pagination-bar .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .pagination-bar .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
         .badge-success { background: #d1fae5; color: #065f46; }
         .badge-warning { background: #fef3c7; color: #92400e; }
@@ -317,6 +323,44 @@
             .teacher-grid { grid-template-columns: 1fr; }
             .salary-summary { grid-template-columns: repeat(2, 1fr); }
         }
+        /* ── 资讯热点页 ── */
+        .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+        .news-date { font-size: 13px; color: var(--gray-500); }
+        .news-tabs { display: flex; gap: 2px; border-bottom: 2px solid var(--gray-200); margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .news-tabs::-webkit-scrollbar { display: none; }
+        .news-tab { padding: 10px 18px; cursor: pointer; font-size: 14px; color: var(--gray-500); border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.2s; }
+        .news-tab:hover { color: var(--primary); }
+        .news-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+        .news-card { background: #fff; border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); transition: all 0.2s; border: 1px solid transparent; cursor: pointer; }
+        .news-card:hover { box-shadow: var(--shadow-lg); border-color: var(--primary); transform: translateY(-2px); }
+        .news-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+        .news-card-title { font-size: 15px; font-weight: 600; color: var(--gray-900); line-height: 1.5; flex: 1; }
+        .news-card-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+        .news-card-summary { font-size: 13px; color: var(--gray-500); line-height: 1.7; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .news-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray-400); }
+        .news-card-source { display: flex; align-items: center; gap: 4px; }
+        .news-card-time { font-size: 12px; }
+        .news-empty { text-align: center; padding: 60px 20px; color: var(--gray-400); }
+        .news-empty-icon { font-size: 48px; margin-bottom: 12px; }
+        /* 视频卡片 */
+        .news-card-video { grid-column: span 2; display: flex; flex-direction: column; }
+        .news-video-thumb { height: 220px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.2s; }
+        .news-video-thumb:hover { transform: scale(1.02); }
+        .news-video-thumb-bg { position: absolute; inset: 0; opacity: 0.15; background-size: cover; background-position: center; }
+        .news-video-play { width: 68px; height: 68px; border-radius: 50%; background: rgba(255,255,255,0.95); display: flex; align-items: center; justify-content: center; font-size: 30px; color: #333; box-shadow: 0 6px 24px rgba(0,0,0,0.25); transition: all 0.25s; z-index: 1; }
+        .news-card-video:hover .news-video-play { transform: scale(1.12); box-shadow: 0 8px 32px rgba(0,0,0,0.35); }
+        .news-video-duration { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 3px 8px; border-radius: 4px; font-size: 11px; z-index: 1; }
+        .news-video-platform { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 11px; z-index: 1; display: flex; align-items: center; gap: 4px; }
+        .news-card-video .news-card-header { margin-bottom: 6px; }
+        .news-card-video .news-card-summary { -webkit-line-clamp: 2; }
+        @media (max-width: 768px) {
+            .news-grid { grid-template-columns: 1fr; }
+            .news-tab { padding: 10px 14px; font-size: 13px; }
+            .news-card-video { grid-column: span 1; }
+            .news-video-thumb { height: 180px; }
+            .news-video-play { width: 52px; height: 52px; font-size: 24px; }
+        }
     </style>
 </head>
 <body>
@@ -399,6 +443,11 @@
             <div class="nav-item admin-only" onclick="showPage('salary')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
                 <span class="nav-text">薪资结算</span>
+            </div>
+            <div class="nav-section">📡 资讯</div>
+            <div class="nav-item" onclick="showPage('news')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <span class="nav-text">资讯热点</span>
             </div>
             <div class="nav-section">系统</div>
             <div class="nav-item" onclick="showPage('password')">
@@ -579,6 +628,8 @@
                             <tbody id="videoTable"></tbody>
                         </table>
                     </div>
+                    <!-- 分页控件 -->
+                    <div class="pagination-bar" id="videoPagination" style="display:none;"></div>
                 </div>
             </div>
 
@@ -761,6 +812,7 @@
                             <tbody id="salaryTable"></tbody>
                         </table>
                     </div>
+                    <div class="pagination-bar" id="salaryPagination" style="display:none;"></div>
                 </div>
             </div>
 
@@ -809,6 +861,16 @@
                         <button class="btn btn-secondary" onclick="resetPasswordForm()">重置</button>
                     </div>
                 </div>
+            </div>
+
+            <!-- News Page -->
+            <div id="page-news" class="page">
+                <div class="news-header">
+                    <h2>📡 资讯热点</h2>
+                    <span class="news-date" id="newsDate"></span>
+                </div>
+                <div class="news-tabs" id="newsTabs"></div>
+                <div id="newsContent"></div>
             </div>
         </div>
     </div>
@@ -1052,6 +1114,10 @@
         let allUsers = [];
         let allGroups = [];
         let allSalaryConfigs = [];
+        let videoPage = 1;
+        const VIDEO_PER_PAGE = 10;
+        let salaryPage = 1;
+        const SALARY_PER_PAGE = 10;
         let allSalaries = [];
 
         (async function init() {
@@ -1401,6 +1467,7 @@
             if (page === 'salaryConfig') loadSalaryConfigs();
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
             if (page === 'password') initPasswordPage();
+            if (page === 'news') renderNews();
         }
 
         // ============ Toast ============
@@ -1491,32 +1558,27 @@
         // ============ Videos ============
         async function loadVideos() {
             try {
-                // 始终从数据库加载全量视频，不附加任何日期条件
+                // 始终从数据库加载全量视频，不附加任何筛选条件
+                // 平台/状态/关键词/日期等筛选全部在 renderVideoTable() 客户端过滤
+                // 这样 allVideos 始终是完整数据集，数据看板和视频记录页完全独立
                 let query = supabase.from('videos').select('*').order('created_at', { ascending: false });
-                const platform = document.getElementById('filterPlatform')?.value;
-                const status = document.getElementById('filterStatus')?.value;
-                const keyword = document.getElementById('searchKeyword')?.value.trim();
-
-                if (platform) query = query.eq('platform', platform);
-                if (status) query = query.eq('status', status);
-                if (keyword) query = query.or(`account_name.ilike.%${keyword}%,publisher.ilike.%${keyword}%`);
-
                 const { data, error } = await query;
                 if (error) throw error;
 
-                // allVideos 始终保存全量数据，供数据看板和视频记录页各自独立过滤
                 allVideos = (data || []).filter(v => canViewVideo(v));
 
-                // 渲染视频记录表格（内部会按视频记录页日期范围过滤）
+                // 渲染视频记录表格（内部会按视频记录页的所有筛选条件过滤）
+                videoPage = 1;
                 renderVideoTable();
                 updateTeacherSelect();
                 updateStudentVideoStats();
             } catch (e) { console.error(e); toast('加载视频失败', 'error'); }
         }
         
-        // 视频记录日期筛选变化时调用
+        // 视频记录筛选条件变化时，只需重新渲染表格（无需重新从DB加载）
         function onVideoFilterChange() {
-            loadVideos();
+            videoPage = 1;
+            renderVideoTable();
         }
 
         // 设置视频记录的日期范围
@@ -1667,10 +1729,12 @@
             if (!tbody) return;
             if (allVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; return; }
 
-            // 视频记录页：从 allVideos 中按日期范围独立过滤（不影响数据看板）
+            // 视频记录页：从 allVideos 全量数据中按所有筛选条件独立过滤（不影响数据看板）
+            let filteredVideos = allVideos;
+
+            // 日期范围过滤
             const dateStart = document.getElementById('videoDateStart')?.value;
             const dateEnd = document.getElementById('videoDateEnd')?.value;
-            let filteredVideos = allVideos;
             if (dateStart) {
                 filteredVideos = filteredVideos.filter(v => getLocalDateStr(v.created_at) >= dateStart);
             }
@@ -1678,8 +1742,39 @@
                 filteredVideos = filteredVideos.filter(v => getLocalDateStr(v.created_at) <= dateEnd);
             }
 
-            if (filteredVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; return; }
-            tbody.innerHTML = filteredVideos.map(v => {
+            // 平台过滤
+            const platform = document.getElementById('filterPlatform')?.value;
+            if (platform) {
+                filteredVideos = filteredVideos.filter(v => v.platform === platform);
+            }
+
+            // 状态过滤
+            const status = document.getElementById('filterStatus')?.value;
+            if (status) {
+                filteredVideos = filteredVideos.filter(v => v.status === status);
+            }
+
+            // 关键词搜索
+            const keyword = document.getElementById('searchKeyword')?.value.trim();
+            if (keyword) {
+                const kw = keyword.toLowerCase();
+                filteredVideos = filteredVideos.filter(v =>
+                    (v.account_name || '').toLowerCase().includes(kw) ||
+                    (v.publisher || '').toLowerCase().includes(kw)
+                );
+            }
+
+            if (filteredVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; renderVideoPagination(0, 0); return; }
+
+            // 分页计算
+            const total = filteredVideos.length;
+            const totalPages = Math.ceil(total / VIDEO_PER_PAGE);
+            if (videoPage > totalPages) videoPage = totalPages;
+            if (videoPage < 1) videoPage = 1;
+            const startIdx = (videoPage - 1) * VIDEO_PER_PAGE;
+            const pageVideos = filteredVideos.slice(startIdx, startIdx + VIDEO_PER_PAGE);
+
+            tbody.innerHTML = pageVideos.map(v => {
                 const statusClass = v.status === '爆款' ? 'badge-danger' : v.status === '已发布' ? 'badge-success' : v.status === '失败' ? 'badge-warning' : 'badge-purple';
                 const canEdit = canEditVideo(v);
                 const reminder = getStatsReminder(v);
@@ -1709,6 +1804,36 @@
                     <td>${canEdit ? '<button class="btn btn-sm btn-secondary" onclick="editVideo(\'' + String(v.id).replace(/'/g,"\\'") + '\')">编辑</button><button class="btn btn-sm btn-danger" onclick="if(confirm(\'确认删除？\'))deleteVideo(\'' + String(v.id).replace(/'/g,"\\'") + '\')">删除</button>' : '-'}</td>
                 </tr>`;
             }).join('');
+
+            // 渲染分页控件
+            renderVideoPagination(total, totalPages);
+        }
+
+        function renderVideoPagination(total, totalPages) {
+            const container = document.getElementById('videoPagination');
+            if (!container) return;
+            if (totalPages <= 1) { container.style.display = 'none'; return; }
+
+            let html = `<span class="page-info">共 ${total} 条，第 ${videoPage}/${totalPages} 页</span>`;
+            html += `<button class="page-btn" onclick="goVideoPage(${videoPage - 1})" ${videoPage === 1 ? 'disabled' : ''}>上一页</button>`;
+
+            // 显示页码按钮（最多显示5个）
+            let startPage = Math.max(1, videoPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === videoPage ? 'active' : ''}" onclick="goVideoPage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn" onclick="goVideoPage(${videoPage + 1})" ${videoPage === totalPages ? 'disabled' : ''}>下一页</button>`;
+            container.innerHTML = html;
+            container.style.display = 'flex';
+        }
+
+        function goVideoPage(page) {
+            videoPage = page;
+            renderVideoTable();
         }
 
         function updateTeacherSelect() {
@@ -2559,7 +2684,6 @@
 
         async function loadSalaryData() {
             await loadSalaries();
-            await loadSalarySummary();
         }
 
         async function loadSalaries() {
@@ -2585,19 +2709,37 @@
 
         // 筛选薪资表格
         function filterSalaryTable() {
+            salaryPage = 1;
             renderSalaryTable();
         }
 
-        function renderSalaryTable() {
-            const tbody = document.getElementById('salaryTable');
-            if (!tbody) return;
+        function getFilteredSalaries() {
             const nameFilter = document.getElementById('salaryNameFilter')?.value || '';
             let filtered = allSalaries;
             if (nameFilter) {
                 filtered = allSalaries.filter(s => s.user_name === nameFilter);
             }
-            if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无结算数据</td></tr>'; return; }
-            tbody.innerHTML = filtered.map(s => {
+            return filtered;
+        }
+
+        function renderSalaryTable() {
+            const tbody = document.getElementById('salaryTable');
+            if (!tbody) return;
+            const filtered = getFilteredSalaries();
+            if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无结算数据</td></tr>'; renderSalaryPagination(0, 0); return; }
+
+            // 先更新顶部统计卡片（与表格同一个人筛选条件）
+            loadSalarySummary(filtered);
+
+            // 分页计算
+            const total = filtered.length;
+            const totalPages = Math.ceil(total / SALARY_PER_PAGE);
+            if (salaryPage > totalPages) salaryPage = totalPages;
+            if (salaryPage < 1) salaryPage = 1;
+            const startIdx = (salaryPage - 1) * SALARY_PER_PAGE;
+            const pageSalaries = filtered.slice(startIdx, startIdx + SALARY_PER_PAGE);
+
+            tbody.innerHTML = pageSalaries.map(s => {
                 const isTeacher = s.role === 'teacher';
                 const deduction = s.deduction || 0;
                 return `<tr style="cursor:pointer;" onclick="showSalaryDetail(${s.id})">
@@ -2614,13 +2756,43 @@
                 <td><button class="btn btn-sm ${s.status === '已结算' ? 'btn-success' : 'btn-secondary'}" onclick="event.stopPropagation();markSalaryPaid(${s.id})" ${s.status === '已结算' ? 'disabled' : ''}>${s.status === '已结算' ? '已结算' : '确认结算'}</button></td>
             </tr>`;
             }).join('');
+
+            // 渲染分页控件
+            renderSalaryPagination(total, totalPages);
         }
 
-        async function loadSalarySummary() {
-            const total = allSalaries.reduce((sum, s) => sum + (s.total || 0), 0);
-            const paid = allSalaries.filter(s => s.status === '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
-            const pending = allSalaries.filter(s => s.status !== '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
-            const deduction = allSalaries.reduce((sum, s) => sum + (s.deduction || 0), 0);
+        function renderSalaryPagination(total, totalPages) {
+            const container = document.getElementById('salaryPagination');
+            if (!container) return;
+            if (totalPages <= 1) { container.style.display = 'none'; return; }
+
+            let html = `<span class="page-info">共 ${total} 条，第 ${salaryPage}/${totalPages} 页</span>`;
+            html += `<button class="page-btn" onclick="goSalaryPage(${salaryPage - 1})" ${salaryPage === 1 ? 'disabled' : ''}>上一页</button>`;
+
+            let startPage = Math.max(1, salaryPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+            if (endPage - startPage < 4) startPage = Math.max(1, endPage - 4);
+
+            for (let i = startPage; i <= endPage; i++) {
+                html += `<button class="page-btn ${i === salaryPage ? 'active' : ''}" onclick="goSalaryPage(${i})">${i}</button>`;
+            }
+
+            html += `<button class="page-btn" onclick="goSalaryPage(${salaryPage + 1})" ${salaryPage === totalPages ? 'disabled' : ''}>下一页</button>`;
+            container.innerHTML = html;
+            container.style.display = 'flex';
+        }
+
+        function goSalaryPage(page) {
+            salaryPage = page;
+            renderSalaryTable();
+        }
+
+        async function loadSalarySummary(filteredData) {
+            const data = filteredData || allSalaries;
+            const total = data.reduce((sum, s) => sum + (s.total || 0), 0);
+            const paid = data.filter(s => s.status === '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
+            const pending = data.filter(s => s.status !== '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
+            const deduction = data.reduce((sum, s) => sum + (s.deduction || 0), 0);
             document.getElementById('salaryTotal').textContent = '¥' + total;
             document.getElementById('salaryPaid').textContent = '¥' + paid;
             document.getElementById('salaryPending').textContent = '¥' + pending;
@@ -2864,12 +3036,12 @@
 
             console.log('>>> 薪资查询完成，准备刷新表格');
             toast('薪资查询完成');
+            salaryPage = 1;
             loadSalaries();
-            loadSalarySummary();
         }
 
         async function markSalaryPaid(id) {
-            try { const { error } = await supabase.from('salaries').update({ status: '已结算' }).eq('id', id); if (error) throw error; toast('已标记为结算'); loadSalaries(); loadSalarySummary(); } catch (e) { toast('操作失败', 'error'); }
+            try { const { error } = await supabase.from('salaries').update({ status: '已结算' }).eq('id', id); if (error) throw error; toast('已标记为结算'); loadSalaries(); } catch (e) { toast('操作失败', 'error'); }
         }
 
         // 显示薪资明细弹窗
@@ -3573,6 +3745,154 @@
             if (!confirm('确定要清空所有数据吗？')) return;
             if (!confirm('再次确认：所有数据将被永久删除！')) return;
             try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
+        }
+
+        // ============ 资讯热点模块 ============
+        // 【此数据由自动化Agent每日10:00自动更新】
+        const NEWS_DATA = {
+    date: "2026-05-29",
+    categories: [
+        { id: "tech", name: "🤖 科技", color: "#3b82f6", items: [
+            { title: "荣耀600系列新品发布会全程回放", summary: "荣耀600系列旗舰发布，搭载自研影像芯片C3，AI全场景智慧影像系统全面升级", source: "B站", url: "https://live.pconline.com.cn/", time: "5/28", isVideo: true, videoUrl: "https://live.pconline.com.cn/", videoPlatform: "bilibili", videoDuration: "1:45:20" },
+            { title: "华为发布半导体\"韬（τ）定律\"演讲", summary: "华为董事何庭波在2026国际电路与系统研讨会发表演讲，提出半导体全新发展定律", source: "B站", url: "https://www.bilibili.com/video/BV1eqG86kEnb", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1eqG86kEnb", videoPlatform: "bilibili", videoDuration: "35:20" },
+            { title: "比亚迪璇玑A3全球首发", summary: "国产首款自研4nm车规智驾芯片问世，比亚迪全球总部智能化战略发布会", source: "快科技", url: "https://news.mydrivers.com/tag/xinpian.htm", time: "5/28" },
+            { title: "骁龙开启2026影像创作者之旅", summary: "携手中国国家地理共拓移动影像新边界，2026世界智能产业博览会在天津召开", source: "新华网", url: "https://www.xinhuanet.com/tech/kjkx/index.html", time: "5/28" },
+            { title: "全新一代问界M9正式上市", summary: "以技术创新赋能高端出行，华为智选车旗舰SUV全面升级", source: "新华网", url: "https://www.xinhuanet.com/tech/kjkx/index.html", time: "5/28" },
+            { title: "美股科技七姐妹齐创新高", summary: "微软涨3.5%领涨，美光科技市值首破1万亿美元，科技股全面走强", source: "新浪财经", url: "https://finance.sina.com.cn/headline/2026-05-29/doc-inhzpfxw8112169.shtml", time: "5/29" },
+            { title: "蔚来ES9正式上市开启交付", summary: "整车购买49.8万元起，5月28日开启交付，高端纯电SUV市场再添猛将", source: "新浪科技", url: "https://tech.sina.com.cn/roll/", time: "5/28" }
+        ] },
+        { id: "ai", name: "🧠 AI", color: "#8b5cf6", items: [
+            { title: "Google I/O 2026 发布会全程回顾", summary: "Gemini 3.5 Flash发布、Antigravity 2.0重构、Search智能体Agent化，AI全面进击", source: "B站", url: "https://www.bilibili.com/video/BV1GiGq64Epc/", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1GiGq64Epc/", videoPlatform: "bilibili", videoDuration: "1:30:00" },
+            { title: "谷歌Gemini Omni全能模型发布演示", summary: "可一句话让AI修改视频，Gemini App月活用户超9亿，搜索框迎25年最大改版", source: "B站", url: "https://www.bilibili.com/video/BV1GiGq64Epc/", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1GiGq64Epc/", videoPlatform: "bilibili", videoDuration: "15:30" },
+            { title: "2026世界智能产业博览会在天津开幕", summary: "以\"智行天下 能动未来\"为主题，推动AI技术突破、场景落地与生态构建", source: "中国日报", url: "https://cn.chinadaily.com.cn/a/202605/28/WS6a184468a310942cc49aee00.html", time: "5/28" },
+            { title: "AI智能体落地按下加速键", summary: "支付宝AI支付累计完成3亿笔，支持95%通用智能体框架，发布Token Pay服务", source: "新浪财经", url: "https://finance.sina.com.cn/jjxw/2026-05-28/doc-inhzknaz1394551.shtml", time: "5/28" },
+            { title: "PilotDeck开源智能体操作系统发布", summary: "引入动态隔离、白盒化机制，AI Agent自主化与可验证性成为今日焦点", source: "AI内参", url: "https://www.neican.ai/morningnews/2026-05-29-ai-2026-05-29-/", time: "5/29" },
+            { title: "国产AI编程冲上全球第二", summary: "实测五大模型，谁才是真正的编码之王？国产模型在编程领域全面逼近国际一线", source: "网易科技", url: "https://tech.163.com/internet", time: "5/28" },
+            { title: "微软将于下周发布新编码模型", summary: "报道称微软即将发布全新AI编码模型，科技巨头编程工具竞争白热化", source: "华尔街见闻", url: "https://news.qq.com/rain/a/20260529A02QCV00", time: "5/29" }
+        ] },
+        { id: "sports", name: "⚽ 体育", color: "#10b981", items: [
+            { title: "NBA西决G5 马刺vs雷霆 全场集锦", summary: "雷霆127-114拿下天王山，大比分3-2领先马刺，SGA狂砍42分", source: "央视体育", url: "https://sports.cctv.com/2026/05/27/VIDEYX4LgiEmuMbWFsuD5gY2260527.shtml", time: "5/28", isVideo: true, videoUrl: "https://sports.cctv.com/2026/05/27/VIDEYX4LgiEmuMbWFsuD5gY2260527.shtml", videoPlatform: "cctv", videoDuration: "12:30" },
+            { title: "NBA西决G6 雷霆vs马刺前瞻", summary: "雷霆3-2领先有望主场晋级，马刺背水一战能否拖入抢七", source: "腾讯视频", url: "https://v.qq.com/x/cover/mzc002005d8rsi9/b4102c2nrsn.html", time: "5/29", isVideo: true, videoUrl: "https://v.qq.com/x/cover/mzc002005d8rsi9/b4102c2nrsn.html", videoPlatform: "other", videoDuration: "3:20" },
+            { title: "尼克斯4-0横扫骑士 时隔27年重返总决赛", summary: "东部决赛4-0横扫，尼克斯季后赛11连胜，总决赛6月4日开打", source: "搜狐", url: "https://www.sohu.com/a/1028066770_121611646", time: "5/27" },
+            { title: "美加墨世界杯倒计时13天", summary: "6月11日开幕，48队104场比赛史上最大规模，巴西公布26人名单", source: "央视体育", url: "https://sports.cctv.com/", time: "5/29" },
+            { title: "巴萨超8000万欧签下纽卡边锋戈登", summary: "西甲豪门重磅引援，戈登个人集锦火爆全网，转会窗开启即引爆市场", source: "直播吧", url: "https://www.zhibo8.cc/", time: "5/28" },
+            { title: "世界杯倒计时 各队陆续公布大名单", summary: "距离开幕仅剩两周，32强陆续公布最终26人大名单", source: "FIFA中文网", url: "https://cup-worldcup.com.cn/", time: "5/29" },
+            { title: "西甲25/26赛季二十大神扑盘点", summary: "爱奇艺体育精选赛季最佳扑救，门将高光时刻合集", source: "爱奇艺体育", url: "https://sports.iqiyi.com/", time: "5/28" }
+        ] },
+        { id: "fashion-show", name: "👗 秀场", color: "#ec4899", items: [
+            { title: "LV 2027早春纽约大秀 全程回放", summary: "Nicolas Ghesquière在弗里克收藏馆办秀，波普艺术融合，连接巴黎与纽约", source: "B站", url: "https://www.bilibili.com/video/BV1eqG86kEnb", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1eqG86kEnb", videoPlatform: "bilibili", videoDuration: "18:30" },
+            { title: "LV 2027早春大秀抖音现场直击", summary: "LV全球品牌代言人黑西装湿发背头亮相纽约曼哈顿上东区，帅气优雅", source: "抖音", url: "https://www.douyin.com/video/7642225912843790833", time: "5/28", isVideo: true, videoUrl: "https://www.douyin.com/video/7642225912843790833", videoPlatform: "douyin", videoDuration: "2:15" },
+            { title: "Dior罗马早春大秀圆满落幕", summary: "Dior在罗马举办2026早春时装秀，致敬意大利文艺复兴，创意总监获全场喝彩", source: "环球网", url: "https://fashion.huanqiu.com/article/4L48ncgQ61L", time: "5/28" },
+            { title: "LVMH 8.5亿\"清仓\"Marc Jacobs", summary: "法国奢侈品巨头出售旗下标志性品牌，Snapshot相机包二手400块都没人要", source: "百家号", url: "https://baijiahao.baidu.com/s?id=1866299614826366382", time: "5/26" },
+            { title: "VOGUE秀场直击 2026春夏系列汇总", summary: "四大时装周完整秀场图集上线，Chanel、Gucci、Prada等品牌全收录", source: "VOGUE中国", url: "https://www.vogue.com.cn/shows/", time: "5/28" },
+            { title: "2026中国国际时装周日程公布", summary: "从秀场到生意场，中国国际时装周如何成为交易引擎？DPARK ODM展报名开启", source: "中国时装周", url: "https://www.chinafashionweek.org.cn/", time: "5/28" },
+            { title: "奢侈品三巨头中国有起色但不多", summary: "欧睿预计2026年中国个人奢侈品增8%，2027年才能恢复顶峰", source: "界面新闻", url: "https://m.jiemian.com/article/14264248.html", time: "5/26" }
+        ] },
+        { id: "fashion", name: "💎 时尚", color: "#f59e0b", items: [
+            { title: "2026春夏五大爆款单品深度解读", summary: "质感胸针、超大墨镜、尖头鞋、腰线艺术、风衣外套五大单品精准捕捉时代潮流", source: "B站", url: "https://www.bilibili.com/video/BV1eqG86kEnb", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1eqG86kEnb", videoPlatform: "bilibili", videoDuration: "12:30" },
+            { title: "抖音2026春夏趋势大秀回顾", summary: "抖音趋势榜正式亮相，\"时尚新生·在此刻发生\"主题大秀汇聚全网时尚创作者", source: "抖音", url: "https://www.douyin.com/search/2026%E6%97%B6%E5%B0%9A%E7%A9%BF%E6%90%AD%E6%B5%81%E8%A1%8C%E8%B6%8B%E5%8A%BF", time: "5/28", isVideo: true, videoUrl: "https://www.douyin.com/search/2026%E6%97%B6%E5%B0%9A%E7%A9%BF%E6%90%AD%E6%B5%81%E8%A1%8C%E6%B6%8B%E5%8A%BF", videoPlatform: "douyin", videoDuration: "45:00" },
+            { title: "Chanel登顶Lyst 2026年Q1品牌热度榜", summary: "全球时尚趋势平台Lyst发布Q1品牌热度指数，Chanel超越LV登顶", source: "网易", url: "https://www.163.com/dy/article/KS1I44KU0518D3S4.html", time: "5/26" },
+            { title: "2026春夏巴黎时装周趋势全解", summary: "76场大秀36场静态展收官，香奈儿迪奥路易威登创意新章", source: "今日头条", url: "https://www.toutiao.com/article/7620381565297771043/", time: "5/26" },
+            { title: "5月流行趋势：情绪外化设计崛起", summary: "非直观色彩搭配与混搭风格崛起，时尚防晒服成高增长品类", source: "Accio", url: "https://zh.accio.com/business/%E6%B5%81%E8%A1%8C%E8%B6%8B%E5%8A%BF%E6%9C%8D%E8%A3%855%E6%9C%88", time: "5/26" },
+            { title: "2026春夏女装十大趋势", summary: "柔和性感、Offduty松弛感、空气感叠穿成主流，极简主义回归", source: "Luxury Watcher", url: "https://www.luxurywatcher.com/zh-Hans/article/35274", time: "5/26" },
+            { title: "时尚新闻网 全球时尚动态每日更新", summary: "上海及全球时尚产业最新动态，设计师品牌资讯、明星穿搭解析", source: "时尚新闻网", url: "https://shishangnews.com/", time: "5/29" }
+        ] },
+        { id: "variety", name: "📺 综艺", color: "#ef4444", items: [
+            { title: "歌手2026 首期Live全程", summary: "九位首发歌手齐豫窦靖童惊艳献唱，新赛制Live直播引爆全网热搜", source: "B站", url: "https://www.bilibili.com/video/BV1LbGq6wEM7/", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1LbGq6wEM7/", videoPlatform: "bilibili", videoDuration: "25:40" },
+            { title: "五十公里桃花坞6 第3期正片", summary: "周涛/袁咏仪/萧敬腾/徐志胜重庆山城烟火气，每周四周五双更", source: "腾讯视频", url: "https://v.qq.com/x/cover/mzc00200c24ypkp/c4101asxe03.html", time: "5/28", isVideo: true, videoUrl: "https://v.qq.com/x/cover/mzc00200c24ypkp/c4101asxe03.html", videoPlatform: "other", videoDuration: "90:00" },
+            { title: "歌手2026第二期本周五开唱", summary: "首轮淘汰赛即将上演，齐豫窦靖童谁将率先晋级？", source: "芒果TV", url: "https://www.mgtv.com/h/867929.html", time: "5/29" },
+            { title: "桃花坞6播放量破3亿", summary: "腾讯视频预约量突破150万，城市烟火主题获观众好评", source: "新浪娱乐", url: "https://ent.sina.cn/2026-05-16/detail-inhyassp4472886.d.html", time: "5/28" },
+            { title: "《哈哈哈哈哈》第6季热播", summary: "爱奇艺王牌综艺持续霸榜，张雨绮戚薇加盟笑点密集", source: "爱奇艺", url: "https://www.iqiyi.com/zongyi/", time: "5/28" },
+            { title: "《种地吧》第4季口碑持续发酵", summary: "真实农耕体验引领慢综艺浪潮，豆瓣评分再创新高", source: "爱奇艺", url: "https://www.iqiyi.com/zongyi/", time: "5/28" },
+            { title: "夺金2026创业真人秀热播", summary: "夺金大巴深入企业高校园区，路演转化为真实创业场景", source: "芒果TV", url: "https://www.mgtv.com/h/829335.html", time: "5/28" }
+        ] },
+        { id: "film", name: "🎬 影视", color: "#6366f1", items: [
+            { title: "《怪物史瑞克5》首曝预告片", summary: "梦工场动画时隔16年回归，赞达亚配音史瑞克女儿，2026年圣诞档上映", source: "B站", url: "https://www.bilibili.com/video/BV1bpqJBfEpS/", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1bpqJBfEpS/", videoPlatform: "bilibili", videoDuration: "2:30" },
+            { title: "《寒战1994》粤语预告片", summary: "梁乐民执导前传，吴彦祖刘俊谦吴慷仁三大男神集结，警队权斗暗流涌动", source: "B站", url: "https://www.bilibili.com/video/BV1RmXqB8Euf/", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1RmXqB8Euf/", videoPlatform: "bilibili", videoDuration: "1:45" },
+            { title: "2026年度电影总票房突破151亿元", summary: "截至5月24日年度票房达151亿，多部动画迎六一档期", source: "中国电影报", url: "https://chinafilmnews.cn/", time: "5/27" },
+            { title: "《给阿嬷的情书》密钥延期至6月30日", summary: "上映25天累计10.75亿，升至年度票房第四，社交媒体热度持续发酵", source: "百家号", url: "https://baijiahao.baidu.com/s?id=1866166197692173115", time: "5/27" },
+            { title: "《森中有林》改档至5月23日上映", summary: "悬疑题材新片调整档期，五一档后集中发力", source: "百度百科", url: "https://baike.baidu.com/item/2026%E5%B9%B4%E4%BA%94%E4%B8%80%E6%A1%A3/67522925", time: "5/26" },
+            { title: "5月第四周中美新片观察", summary: "520档期依旧能打但节日红利越来越短，观众正在重新决定什么电影值得看", source: "百家号", url: "https://baijiahao.baidu.com/s?id=1865815303482181019", time: "5/26" },
+            { title: "第二届夏衍电影编剧周在杭州启幕", summary: "5月25日至29日举办，推动中国电影编剧事业发展", source: "中国电影报", url: "https://chinafilmnews.cn/", time: "5/27" }
+        ] },
+        { id: "kpop", name: "🇰🇷 韩娱", color: "#14b8a6", items: [
+            { title: "ITZY 《Motto》 MV完整版", summary: "JYP王牌女团5.18回归！MV稳坐YouTube全球趋势第1，旋律超燃舞台炸裂", source: "B站", url: "https://www.bilibili.com/video/BV1WYLw6pEuJ/", time: "5/28", isVideo: true, videoUrl: "https://www.bilibili.com/video/BV1WYLw6pEuJ/", videoPlatform: "bilibili", videoDuration: "3:42" },
+            { title: "BABYMONSTER回归曲《CHOOM》MV", summary: "YG新女团回归主打曲，嘻哈风格感染力十足，音乐与舞蹈深度融合", source: "B站", url: "https://space.bilibili.com/3493127232948989", time: "5/28", isVideo: true, videoUrl: "https://space.bilibili.com/3493127232948989", videoPlatform: "bilibili", videoDuration: "3:30" },
+            { title: "2026年5月K-Pop回归大战白热化", summary: "BABYMONSTER、NMIXX、aespa集体5月回归，最强女团大战全面爆发", source: "Beauty321", url: "https://www.beauty321.com/post/72058", time: "5/26" },
+            { title: "BTS ARIRANG全球巡演进行中", summary: "防弹少年团纪念回归\"BTS THE CITY ARIRANG\"5-6月在首尔等地火热举办", source: "韩联社中文", url: "https://cn.yna.co.kr/view/ACK20260423001100881", time: "5/28" },
+            { title: "金秀贤案件大反转全面复出", summary: "警方证实全部证据系伪造，造谣者被逮捕，迪士尼600亿新剧解封", source: "搜狐韩娱", url: "https://www.sohu.com/a/1026592516_121720037", time: "5/26" },
+            { title: "车银优偷税案最新进展", summary: "韩国国税厅公布艺人偷税TOP5，车银优断层第一，面临5年以上刑期", source: "腾讯新闻", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_58169f5b88c90052", time: "5/26" },
+            { title: "2026 Kpop演唱会夏季巡演启幕", summary: "BTS、aespa、IVE等热门团体扎堆开启暑期巡演，演出市场竞争白热化", source: "17音乐", url: "https://17yinyue.com/concert/2026-kpop-concerts-guide-global", time: "5/28" }
+        ] }
+    ]
+};
+
+        let currentNewsTab = "tech";
+
+        function renderNews() {
+            // 显示日期
+            document.getElementById("newsDate").textContent = "📅 " + NEWS_DATA.date;
+            // 渲染Tab
+            const tabsEl = document.getElementById("newsTabs");
+            tabsEl.innerHTML = NEWS_DATA.categories.map(c =>
+                `<div class="news-tab${c.id === currentNewsTab ? ' active' : ''}" onclick="switchNewsTab('${c.id}')">${c.name} <span style="font-size:11px;opacity:0.7;margin-left:4px;">${c.items.length}</span></div>`
+            ).join("");
+            // 渲染当前分类内容
+            renderNewsContent();
+        }
+
+        function switchNewsTab(id) {
+            currentNewsTab = id;
+            document.querySelectorAll(".news-tab").forEach(t => t.classList.remove("active"));
+            const target = document.querySelector(`.news-tab[onclick="switchNewsTab('${id}')"]`);
+            if (target) target.classList.add("active");
+            renderNewsContent();
+        }
+
+        function renderNewsContent() {
+            const cat = NEWS_DATA.categories.find(c => c.id === currentNewsTab);
+            const contentEl = document.getElementById("newsContent");
+            if (!cat || cat.items.length === 0) {
+                contentEl.innerHTML = `<div class="news-empty"><div class="news-empty-icon">📭</div><div>暂无资讯，等待每日 10:00 自动更新...</div></div>`;
+                return;
+            }
+            const platformIcons = { bilibili: "🎬 B站", youtube: "▶️ YouTube", cctv: "📺 央视", douyin: "🎵 抖音", other: "📹 视频" };
+            contentEl.innerHTML = `<div class="news-grid">${cat.items.map(item => {
+                if (item.isVideo) {
+                    const pIcon = platformIcons[item.videoPlatform] || platformIcons.other;
+                    const thumbStyle = item.thumbnail ? `background-image:url(${item.thumbnail})` : "";
+                    return `
+                <div class="news-card news-card-video" onclick="window.open('${item.videoUrl || item.url || "#"}', '_blank')">
+                    <div class="news-video-thumb" style="background:linear-gradient(135deg, ${cat.color}20, ${cat.color}40)">
+                        ${thumbStyle ? `<div class="news-video-thumb-bg" style="${thumbStyle}"></div>` : ""}
+                        <span class="news-video-platform">${pIcon}</span>
+                        ${item.videoDuration ? `<span class="news-video-duration">${item.videoDuration}</span>` : ""}
+                        <div class="news-video-play">▶</div>
+                    </div>
+                    <div class="news-card-header">
+                        <div class="news-card-title">${item.title}</div>
+                        <span class="news-card-badge" style="background:${cat.color}15;color:${cat.color}">${cat.name}</span>
+                    </div>
+                    <div class="news-card-summary">${item.summary}</div>
+                    <div class="news-card-footer">
+                        <span class="news-card-source">${pIcon} ${item.source}</span>
+                        ${item.time ? `<span class="news-card-time">${item.time}</span>` : ""}
+                    </div>
+                </div>`;
+                }
+                return `
+                <div class="news-card" onclick="window.open('${item.url || "#"}', '_blank')">
+                    <div class="news-card-header">
+                        <div class="news-card-title">${item.title}</div>
+                        <span class="news-card-badge" style="background:${cat.color}15;color:${cat.color}">${cat.name}</span>
+                    </div>
+                    <div class="news-card-summary">${item.summary}</div>
+                    <div class="news-card-footer">
+                        <span class="news-card-source">📰 ${item.source}</span>
+                        ${item.time ? `<span class="news-card-time">${item.time}</span>` : ""}
+                    </div>
+                </div>`;
+            }).join("")}</div>`;
         }
     </script>
 </body>
