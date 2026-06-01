@@ -386,17 +386,39 @@
         .topics-marquee-container {
             overflow: hidden;
             position: relative;
+            height: 140px;
             mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
             -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
         }
         .topics-marquee-track {
             display: flex;
             gap: 16px;
-            animation: marqueeScroll 40s linear infinite;
             width: max-content;
+            position: absolute;
+            left: 0;
+        }
+        .topics-marquee-track.track-1 {
+            top: 8px;
+            animation: marqueeScrollL1 35s linear infinite;
+        }
+        .topics-marquee-track.track-2 {
+            top: 52px;
+            animation: marqueeScrollR2 45s linear infinite;
+        }
+        .topics-marquee-track.track-3 {
+            top: 96px;
+            animation: marqueeScrollL3 40s linear infinite;
         }
         .topics-marquee-track:hover { animation-play-state: paused; }
-        @keyframes marqueeScroll {
+        @keyframes marqueeScrollL1 {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes marqueeScrollR2 {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes marqueeScrollL3 {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
@@ -405,15 +427,16 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.15);
             border-radius: 100px;
-            padding: 10px 20px;
+            padding: 8px 16px;
             color: #fff;
-            font-size: 14px;
+            font-size: 13px;
             white-space: nowrap;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            user-select: none;
         }
         .topic-bubble:hover {
             background: rgba(255,255,255,0.25);
@@ -421,6 +444,21 @@
         }
         .topic-bubble .topic-author { color: rgba(255,255,255,0.5); font-size: 11px; }
         .topic-bubble .topic-dot { width: 6px; height: 6px; border-radius: 50%; background: #22d3ee; }
+        .topic-bubble-adopt {
+            background: rgba(16,185,129,0.3);
+            border: 1px solid rgba(16,185,129,0.5);
+            border-radius: 50%;
+            width: 22px; height: 22px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 4px;
+        }
+        .topic-bubble-adopt:hover {
+            background: rgba(16,185,129,0.6);
+            transform: scale(1.2);
+        }
 
         .topics-grid {
             display: grid;
@@ -1026,9 +1064,11 @@
 
                 <!-- Marquee Section -->
                 <div class="topics-marquee-section">
-                    <div class="topics-marquee-title">✨ 选题飘带 · 仅显示最近3天</div>
+                    <div class="topics-marquee-title">✨ 选题弹幕 · 仅显示最近3天 · 点击跳转视频 · 点 👍 采纳</div>
                     <div class="topics-marquee-container" id="topicsMarquee">
-                        <div class="topics-marquee-track" id="topicsMarqueeTrack"></div>
+                        <div class="topics-marquee-track track-1" id="topicsMarqueeTrack1"></div>
+                        <div class="topics-marquee-track track-2" id="topicsMarqueeTrack2"></div>
+                        <div class="topics-marquee-track track-3" id="topicsMarqueeTrack3"></div>
                     </div>
                 </div>
 
@@ -1042,21 +1082,38 @@
                         <div id="topicsLeaderboard"></div>
                     </div>
 
-                    <!-- My Topics -->
-                    <div class="card topics-my">
+                    <!-- Right Panel: My Topics (admin) / Update Topics (non-admin) -->
+                    <div class="card topics-my" id="topicsRightCard">
                         <div class="card-header">
-                            <div class="card-title">📋 我的选题</div>
-                            <span class="topics-subtitle">我提交的所有选题</span>
+                            <div class="card-title" id="topicsRightTitle">📋 我的选题</div>
+                            <span class="topics-subtitle" id="topicsRightSub">我提交的所有选题</span>
                         </div>
-                        <div id="topicsMyList"></div>
+                        <div id="topicsRightContent">
+                            <div id="topicsUploadForm" style="display:none;">
+                                <div style="background:var(--gray-100);border-radius:10px;padding:16px;margin-bottom:16px;">
+                                    <div style="font-weight:600;margin-bottom:12px;font-size:14px;">📤 上传新选题</div>
+                                    <div class="form-group" style="margin-bottom:10px;">
+                                        <input type="date" id="uploadTopicDate" class="form-input" style="font-size:13px;padding:8px 12px;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:10px;">
+                                        <input type="text" id="uploadTopicTitle" class="form-input" placeholder="选题名称" style="font-size:13px;padding:8px 12px;">
+                                    </div>
+                                    <div class="form-group" style="margin-bottom:10px;">
+                                        <input type="url" id="uploadTopicUrl" class="form-input" placeholder="对标视频链接 https://..." style="font-size:13px;padding:8px 12px;">
+                                    </div>
+                                    <button class="btn btn-primary" onclick="submitUploadTopic()" style="width:100%;font-size:13px;padding:8px;">✅ 确认上传</button>
+                                </div>
+                            </div>
+                            <div id="topicsMyList"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- All Topics Table -->
-                <div class="card">
+                <!-- All Topics Table - admin only -->
+                <div class="card" id="topicsAllCard">
                     <div class="card-header">
                         <div class="card-title">📑 全部选题</div>
-                        <span class="topics-subtitle">点击选题跳转视频 · 点击采纳为他人增加奖励</span>
+                        <span class="topics-subtitle">点击选题跳转视频 · 点击 👍 为他人增加奖励</span>
                     </div>
                     <div class="table-wrapper">
                         <table id="topicsAllTable">
@@ -4141,23 +4198,40 @@
 
         function renderTopics() {
             const recent = getRecentTopics();
-            // Marquee
-            const track = document.getElementById('topicsMarqueeTrack');
-            if (recent.length === 0) {
-                track.innerHTML = '<div class="topic-bubble"><span>暂无近期选题，快来提交第一个吧！</span></div>';
-            } else {
-                const bubbles = recent.map(t =>
-                    `<div class="topic-bubble" onclick="window.open('${t.url}', '_blank')">
-                        <span class="topic-dot"></span>
-                        <span>${t.title}</span>
-                        <span class="topic-author">@${t.author}</span>
-                    </div>`
-                ).join('');
-                // 复制一份实现无缝滚动
-                track.innerHTML = bubbles + bubbles;
-            }
+            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            const isAdminUser = isAdmin();
 
-            // Leaderboard
+            // ========== Marquee: 3-row danmu ==========
+            const makeBubble = (t, direction) => {
+                const isSelf = t.author === currentUserName;
+                const alreadyAdopted = t.adoptedBy.includes(currentUserName);
+                const adoptTitle = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己(无奖励)' : '👍 采纳，奖励作者¥5');
+                return `<div class="topic-bubble">
+                    <span class="topic-dot"></span>
+                    <span onclick="window.open('${t.url}', '_blank')" style="cursor:pointer;">${t.title}</span>
+                    <span class="topic-author">@${t.author}</span>
+                    <span class="topic-bubble-adopt" onclick="event.stopPropagation();adoptTopic('${t.id}')" title="${adoptTitle}">👍</span>
+                </div>`;
+            };
+
+            const distributeToTracks = (items, trackCount) => {
+                const tracks = [[], [], []];
+                items.forEach((item, i) => tracks[i % trackCount].push(item));
+                return tracks;
+            };
+
+            const tracks = distributeToTracks(recent, 3);
+            [1, 2, 3].forEach((n, idx) => {
+                const el = document.getElementById('topicsMarqueeTrack' + n);
+                if (tracks[idx].length === 0) {
+                    el.innerHTML = '<div class="topic-bubble"><span>暂无近期选题</span></div>';
+                } else {
+                    const bubbles = tracks[idx].map(t => makeBubble(t)).join('');
+                    el.innerHTML = bubbles + bubbles + bubbles;
+                }
+            });
+
+            // ========== Leaderboard ==========
             const authorStats = {};
             TOPIC_DATA.forEach(t => {
                 if (!authorStats[t.author]) authorStats[t.author] = { adoptedCount: 0, reward: 0 };
@@ -4183,12 +4257,32 @@
                 }).join('');
             }
 
-            // My Topics
-            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
-            const myTopics = TOPIC_DATA.filter(t => t.author === currentUserName);
+            // ========== Right Panel: admin=我的选题, non-admin=更新选题 ==========
+            const rightTitle = document.getElementById('topicsRightTitle');
+            const rightSub = document.getElementById('topicsRightSub');
+            const uploadForm = document.getElementById('topicsUploadForm');
             const myEl = document.getElementById('topicsMyList');
+            const allCard = document.getElementById('topicsAllCard');
+
+            if (isAdminUser) {
+                // Admin view
+                rightTitle.textContent = '📋 我的选题';
+                rightSub.textContent = '我提交的所有选题';
+                uploadForm.style.display = 'none';
+                allCard.style.display = '';
+            } else {
+                // Non-admin view
+                rightTitle.textContent = '📤 更新选题';
+                rightSub.textContent = '上传你的选题idea';
+                uploadForm.style.display = '';
+                allCard.style.display = 'none';
+                // Init date picker
+                document.getElementById('uploadTopicDate').value = formatLocalDate(new Date());
+            }
+
+            const myTopics = TOPIC_DATA.filter(t => t.author === currentUserName);
             if (myTopics.length === 0) {
-                myEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:40px 0;">你还没有提交过选题</div>';
+                myEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:20px 0;">还没有提交过选题</div>';
             } else {
                 myEl.innerHTML = myTopics.map(t => `<div class="my-topic-item">
                     <div class="my-topic-title">${t.title}</div>
@@ -4196,32 +4290,34 @@
                 </div>`).join('');
             }
 
-            // All Topics Table
-            const tbody = document.getElementById('topicsAllBody');
-            if (TOPIC_DATA.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:40px;">暂无选题</td></tr>';
-            } else {
-                tbody.innerHTML = TOPIC_DATA.map(t => {
-                    const isExpired = isTopicExpired(t.createdAt);
-                    const isSelf = t.author === currentUserName;
-                    const alreadyAdopted = t.adoptedBy.includes(currentUserName);
-                    const btnClass = isSelf ? 'btn-adopt self-adopt' : 'btn-adopt';
-                    const btnText = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己' : '采纳');
-                    const btnDisabled = alreadyAdopted ? 'disabled' : '';
-                    const reward = t.adoptedCount * 5;
-                    return `<tr>
-                        <td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:500;">${t.title}</a></td>
-                        <td>${t.author}</td>
-                        <td>${t.createdAt}${isExpired ? ' <span style="color:var(--gray-300);">(已过期)</span>' : ''}</td>
-                        <td>${t.adoptedCount}</td>
-                        <td>¥${reward}</td>
-                        <td>
-                            <button class="${btnClass}" onclick="adoptTopic('${t.id}')" ${btnDisabled}>
-                                ${btnText}
-                            </button>
-                        </td>
-                    </tr>`;
-                }).join('');
+            // ========== All Topics Table (admin only) ==========
+            if (isAdminUser) {
+                const tbody = document.getElementById('topicsAllBody');
+                if (TOPIC_DATA.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:40px;">暂无选题</td></tr>';
+                } else {
+                    tbody.innerHTML = TOPIC_DATA.map(t => {
+                        const isExpired = isTopicExpired(t.createdAt);
+                        const isSelf = t.author === currentUserName;
+                        const alreadyAdopted = t.adoptedBy.includes(currentUserName);
+                        const btnClass = isSelf ? 'btn-adopt self-adopt' : 'btn-adopt';
+                        const btnText = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己' : '👍 采纳');
+                        const btnDisabled = alreadyAdopted ? 'disabled' : '';
+                        const reward = t.adoptedCount * 5;
+                        return `<tr>
+                            <td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:500;">${t.title}</a></td>
+                            <td>${t.author}</td>
+                            <td>${t.createdAt}${isExpired ? ' <span style="color:var(--gray-300);">(已过期)</span>' : ''}</td>
+                            <td>${t.adoptedCount}</td>
+                            <td>¥${reward}</td>
+                            <td>
+                                <button class="${btnClass}" onclick="adoptTopic('${t.id}')" ${btnDisabled}>
+                                    ${btnText}
+                                </button>
+                            </td>
+                        </tr>`;
+                    }).join('');
+                }
             }
         }
 
@@ -4253,6 +4349,33 @@
             TOPIC_DATA.unshift(newTopic);
             toast('选题提交成功！🎉');
             closeModal('topicModal');
+            renderTopics();
+        }
+
+        function submitUploadTopic() {
+            const date = document.getElementById('uploadTopicDate').value;
+            const title = document.getElementById('uploadTopicTitle').value.trim();
+            const url = document.getElementById('uploadTopicUrl').value.trim();
+            const author = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            if (!author) { toast('请先登录', 'error'); return; }
+            if (!date) { toast('请选择日期', 'error'); return; }
+            if (!title) { toast('请输入选题名称', 'error'); return; }
+            if (!url) { toast('请输入对标视频链接', 'error'); return; }
+            if (!url.startsWith('http')) { toast('链接格式不正确，请以 http:// 或 https:// 开头', 'error'); return; }
+
+            const newTopic = {
+                id: 't' + Date.now(),
+                title: title,
+                author: author,
+                url: url,
+                createdAt: date,
+                adoptedCount: 0,
+                adoptedBy: []
+            };
+            TOPIC_DATA.unshift(newTopic);
+            toast('选题上传成功！🎉');
+            document.getElementById('uploadTopicTitle').value = '';
+            document.getElementById('uploadTopicUrl').value = '';
             renderTopics();
         }
 
