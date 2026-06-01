@@ -4129,6 +4129,21 @@
             { id: "t5", title: "食堂美食探店系列", author: "小丽", url: "https://www.douyin.com/video/901234", createdAt: "2026-06-01", adoptedCount: 1, adoptedBy: ["小明"] }
         ];
 
+        // 独立奖励记录：与选题生命周期解耦，删除选题不影响已发放奖励
+        const ADOPTION_REWARDS = [
+            { id: "r1", topicId: "t1", topicTitle: "大学生毕业租房避坑指南", author: "小明", adopter: "小红", amount: 5, createdAt: "2026-05-30" },
+            { id: "r2", topicId: "t1", topicTitle: "大学生毕业租房避坑指南", author: "小明", adopter: "小刚", amount: 5, createdAt: "2026-05-30" },
+            { id: "r3", topicId: "t1", topicTitle: "大学生毕业租房避坑指南", author: "小明", adopter: "小丽", amount: 5, createdAt: "2026-05-31" },
+            { id: "r4", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小明", amount: 5, createdAt: "2026-05-31" },
+            { id: "r5", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小红", amount: 5, createdAt: "2026-05-31" },
+            { id: "r6", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小刚", amount: 5, createdAt: "2026-05-31" },
+            { id: "r7", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小华", amount: 5, createdAt: "2026-05-31" },
+            { id: "r8", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小李", amount: 5, createdAt: "2026-06-01" },
+            { id: "r9", topicId: "t3", topicTitle: "校园恋爱短剧爆款公式", author: "小红", adopter: "小明", amount: 5, createdAt: "2026-05-31" },
+            { id: "r10", topicId: "t3", topicTitle: "校园恋爱短剧爆款公式", author: "小红", adopter: "小刚", amount: 5, createdAt: "2026-06-01" },
+            { id: "r11", topicId: "t5", topicTitle: "食堂美食探店系列", author: "小丽", adopter: "小明", amount: 5, createdAt: "2026-06-01" }
+        ];
+
         let currentNewsTab = "tech";
 
         function renderNews() {
@@ -4245,11 +4260,12 @@
             });
 
             // ========== Leaderboard ==========
+            // 基于独立奖励记录计算达人榜（删除选题不影响已发放奖励）
             const authorStats = {};
-            TOPIC_DATA.forEach(t => {
-                if (!authorStats[t.author]) authorStats[t.author] = { adoptedCount: 0, reward: 0 };
-                authorStats[t.author].adoptedCount += t.adoptedCount;
-                authorStats[t.author].reward += t.adoptedCount * 5;
+            ADOPTION_REWARDS.forEach(r => {
+                if (!authorStats[r.author]) authorStats[r.author] = { adoptedCount: 0, reward: 0 };
+                authorStats[r.author].adoptedCount++;
+                authorStats[r.author].reward += r.amount;
             });
             const sortedAuthors = Object.entries(authorStats).sort((a, b) => b[1].adoptedCount - a[1].adoptedCount);
             const lbEl = document.getElementById('topicsLeaderboard');
@@ -4319,7 +4335,8 @@
                         const btnClass = isSelf ? 'btn-adopt self-adopt' : 'btn-adopt';
                         const btnText = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己' : '👍 采纳');
                         const btnDisabled = alreadyAdopted ? 'disabled' : '';
-                        const reward = t.adoptedCount * 5;
+                        // 累计奖励基于独立奖励记录计算（删除选题不影响已发放奖励）
+                        const reward = ADOPTION_REWARDS.filter(r => r.topicId === t.id).reduce((sum, r) => sum + r.amount, 0);
                         return `<tr>
                             <td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:500;">${t.title}</a></td>
                             <td>${t.author}</td>
@@ -4410,6 +4427,16 @@
             if (isSelf) {
                 toast('采纳了自己的选题（无奖励）✅');
             } else {
+                // 写入独立奖励记录，与选题生命周期解耦
+                ADOPTION_REWARDS.push({
+                    id: 'r' + Date.now(),
+                    topicId: topic.id,
+                    topicTitle: topic.title,
+                    author: topic.author,
+                    adopter: currentUserName,
+                    amount: 5,
+                    createdAt: formatLocalDate(new Date())
+                });
                 toast(`采纳成功！${topic.author} 获得 ¥5 奖励 🎉`);
             }
             renderTopics();
