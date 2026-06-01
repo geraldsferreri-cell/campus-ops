@@ -361,6 +361,143 @@
             .news-video-thumb { height: 180px; }
             .news-video-play { width: 52px; height: 52px; font-size: 24px; }
         }
+
+        /* ============ Topics Page ============ */
+        .topics-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+        .topics-header h2 { font-size: 24px; font-weight: 600; }
+        .topics-subtitle { font-size: 12px; color: var(--gray-500); }
+
+        .topics-marquee-section {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            border-radius: 16px;
+            padding: 20px 0;
+            margin-bottom: 24px;
+            overflow: hidden;
+            position: relative;
+        }
+        .topics-marquee-title {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .topics-marquee-container {
+            overflow: hidden;
+            position: relative;
+            mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 5%, black 95%, transparent);
+        }
+        .topics-marquee-track {
+            display: flex;
+            gap: 16px;
+            animation: marqueeScroll 40s linear infinite;
+            width: max-content;
+        }
+        .topics-marquee-track:hover { animation-play-state: paused; }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .topic-bubble {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 100px;
+            padding: 10px 20px;
+            color: #fff;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .topic-bubble:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.05);
+        }
+        .topic-bubble .topic-author { color: rgba(255,255,255,0.5); font-size: 11px; }
+        .topic-bubble .topic-dot { width: 6px; height: 6px; border-radius: 50%; background: #22d3ee; }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .topics-leaderboard, .topics-my { min-height: 300px; }
+
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .leaderboard-item:last-child { border-bottom: none; }
+        .leaderboard-rank {
+            width: 28px; height: 28px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+        }
+        .leaderboard-rank.gold { background: linear-gradient(135deg, #fcd34d, #f59e0b); color: #fff; }
+        .leaderboard-rank.silver { background: linear-gradient(135deg, #e5e7eb, #9ca3af); color: #fff; }
+        .leaderboard-rank.bronze { background: linear-gradient(135deg, #fed7aa, #f97316); color: #fff; }
+        .leaderboard-rank.normal { background: var(--gray-100); color: var(--gray-500); }
+        .leaderboard-info { flex: 1; }
+        .leaderboard-name { font-weight: 600; font-size: 14px; }
+        .leaderboard-stats { font-size: 12px; color: var(--gray-500); }
+        .leaderboard-amount { font-size: 16px; font-weight: 700; color: var(--success); }
+
+        .my-topic-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .my-topic-item:last-child { border-bottom: none; }
+        .my-topic-title { flex: 1; font-size: 14px; }
+        .my-topic-adopted { font-size: 12px; color: var(--success); font-weight: 600; }
+        .my-topic-pending { font-size: 12px; color: var(--gray-500); }
+
+        .btn-adopt {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-adopt:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
+        .btn-adopt:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .btn-adopt.self-adopt {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        }
+        .btn-adopt.self-adopt:hover { box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+
+        .adopted-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: rgba(16,185,129,0.1);
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 100px;
+        }
     </style>
 </head>
 <body>
@@ -448,6 +585,10 @@
             <div class="nav-item" onclick="showPage('news')">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 <span class="nav-text">资讯热点</span>
+            </div>
+            <div class="nav-item" onclick="showPage('topics')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                <span class="nav-text">近期选题</span>
             </div>
             <div class="nav-section">系统</div>
             <div class="nav-item" onclick="showPage('password')">
@@ -872,6 +1013,68 @@
                 <div class="news-tabs" id="newsTabs"></div>
                 <div id="newsContent"></div>
             </div>
+
+            <!-- Topics Page -->
+            <div id="page-topics" class="page">
+                <div class="topics-header">
+                    <h2>🎯 近期选题</h2>
+                    <button class="btn btn-primary" onclick="openTopicModal()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                        提交选题
+                    </button>
+                </div>
+
+                <!-- Marquee Section -->
+                <div class="topics-marquee-section">
+                    <div class="topics-marquee-title">✨ 选题飘带 · 仅显示最近3天</div>
+                    <div class="topics-marquee-container" id="topicsMarquee">
+                        <div class="topics-marquee-track" id="topicsMarqueeTrack"></div>
+                    </div>
+                </div>
+
+                <div class="topics-grid">
+                    <!-- Leaderboard -->
+                    <div class="card topics-leaderboard">
+                        <div class="card-header">
+                            <div class="card-title">🏆 选题达人榜</div>
+                            <span class="topics-subtitle">按被采纳次数排名</span>
+                        </div>
+                        <div id="topicsLeaderboard"></div>
+                    </div>
+
+                    <!-- My Topics -->
+                    <div class="card topics-my">
+                        <div class="card-header">
+                            <div class="card-title">📋 我的选题</div>
+                            <span class="topics-subtitle">我提交的所有选题</span>
+                        </div>
+                        <div id="topicsMyList"></div>
+                    </div>
+                </div>
+
+                <!-- All Topics Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">📑 全部选题</div>
+                        <span class="topics-subtitle">点击选题跳转视频 · 点击采纳为他人增加奖励</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="topicsAllTable">
+                            <thead>
+                                <tr>
+                                    <th>选题名称</th>
+                                    <th>提交人</th>
+                                    <th>提交时间</th>
+                                    <th>被采纳次数</th>
+                                    <th>累计奖励</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody id="topicsAllBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1091,6 +1294,35 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('salaryDetailModal')">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic Submit Modal -->
+    <div id="topicModal" class="modal-overlay">
+        <div class="modal" style="max-width:520px;">
+            <div class="modal-header">
+                <span class="modal-title">🎯 提交选题</span>
+                <button class="modal-close" onclick="closeModal('topicModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label">你的名字 *</label>
+                    <input type="text" id="topicAuthor" class="form-input" placeholder="请输入你的名字" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">选题名称 *</label>
+                    <input type="text" id="topicTitle" class="form-input" placeholder="例如：大学生毕业租房避坑指南" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">对标视频链接 *</label>
+                    <input type="url" id="topicUrl" class="form-input" placeholder="https://..." required>
+                    <div style="font-size:12px;color:var(--gray-500);margin-top:4px;">输入对标视频的完整链接，提交后点击选题可直接跳转观看</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('topicModal')">取消</button>
+                <button class="btn btn-primary" onclick="submitTopic()">提交选题</button>
             </div>
         </div>
     </div>
@@ -1468,6 +1700,7 @@
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
             if (page === 'password') initPasswordPage();
             if (page === 'news') renderNews();
+            if (page === 'topics') renderTopics();
         }
 
         // ============ Toast ============
@@ -3817,6 +4050,15 @@
     ]
 };
 
+        // ============ 近期选题数据 ============
+        const TOPIC_DATA = [
+            { id: "t1", title: "大学生毕业租房避坑指南", author: "小明", url: "https://www.douyin.com/video/123456", createdAt: "2026-05-30", adoptedCount: 3, adoptedBy: ["小红", "小刚", "小丽"] },
+            { id: "t2", title: "AI工具让剪辑效率提升10倍", author: "李老师", url: "https://www.bilibili.com/video/BV1xxxx", createdAt: "2026-05-31", adoptedCount: 5, adoptedBy: ["小明", "小红", "小刚", "小华", "小李"] },
+            { id: "t3", title: "校园恋爱短剧爆款公式", author: "小红", url: "https://www.douyin.com/video/789012", createdAt: "2026-05-31", adoptedCount: 2, adoptedBy: ["小明", "小刚"] },
+            { id: "t4", title: "期末周高效复习vlog", author: "小刚", url: "https://www.xiaohongshu.com/video/345678", createdAt: "2026-06-01", adoptedCount: 0, adoptedBy: [] },
+            { id: "t5", title: "食堂美食探店系列", author: "小丽", url: "https://www.douyin.com/video/901234", createdAt: "2026-06-01", adoptedCount: 1, adoptedBy: ["小明"] }
+        ];
+
         let currentNewsTab = "tech";
 
         function renderNews() {
@@ -3883,6 +4125,154 @@
                     </div>
                 </div>`;
             }).join("")}</div>`;
+        }
+
+        // ============ Topics Functions ============
+        function isTopicExpired(createdAt) {
+            const d = new Date(createdAt);
+            const now = new Date();
+            const diffDays = (now - d) / (1000 * 60 * 60 * 24);
+            return diffDays > 3;
+        }
+
+        function getRecentTopics() {
+            return TOPIC_DATA.filter(t => !isTopicExpired(t.createdAt)).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        }
+
+        function renderTopics() {
+            const recent = getRecentTopics();
+            // Marquee
+            const track = document.getElementById('topicsMarqueeTrack');
+            if (recent.length === 0) {
+                track.innerHTML = '<div class="topic-bubble"><span>暂无近期选题，快来提交第一个吧！</span></div>';
+            } else {
+                const bubbles = recent.map(t =>
+                    `<div class="topic-bubble" onclick="window.open('${t.url}', '_blank')">
+                        <span class="topic-dot"></span>
+                        <span>${t.title}</span>
+                        <span class="topic-author">@${t.author}</span>
+                    </div>`
+                ).join('');
+                // 复制一份实现无缝滚动
+                track.innerHTML = bubbles + bubbles;
+            }
+
+            // Leaderboard
+            const authorStats = {};
+            TOPIC_DATA.forEach(t => {
+                if (!authorStats[t.author]) authorStats[t.author] = { adoptedCount: 0, reward: 0 };
+                authorStats[t.author].adoptedCount += t.adoptedCount;
+                authorStats[t.author].reward += t.adoptedCount * 5;
+            });
+            const sortedAuthors = Object.entries(authorStats).sort((a, b) => b[1].adoptedCount - a[1].adoptedCount);
+            const lbEl = document.getElementById('topicsLeaderboard');
+            if (sortedAuthors.length === 0) {
+                lbEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:40px 0;">暂无数据</div>';
+            } else {
+                lbEl.innerHTML = sortedAuthors.map(([name, stats], i) => {
+                    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'normal';
+                    const medal = i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : '';
+                    return `<div class="leaderboard-item">
+                        <div class="leaderboard-rank ${rankClass}">${medal || (i + 1)}</div>
+                        <div class="leaderboard-info">
+                            <div class="leaderboard-name">${name}</div>
+                            <div class="leaderboard-stats">被采纳 ${stats.adoptedCount} 次</div>
+                        </div>
+                        <div class="leaderboard-amount">¥${stats.reward}</div>
+                    </div>`;
+                }).join('');
+            }
+
+            // My Topics
+            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            const myTopics = TOPIC_DATA.filter(t => t.author === currentUserName);
+            const myEl = document.getElementById('topicsMyList');
+            if (myTopics.length === 0) {
+                myEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:40px 0;">你还没有提交过选题</div>';
+            } else {
+                myEl.innerHTML = myTopics.map(t => `<div class="my-topic-item">
+                    <div class="my-topic-title">${t.title}</div>
+                    ${t.adoptedCount > 0 ? `<span class="my-topic-adopted">✅ 被采纳 ${t.adoptedCount} 次</span>` : '<span class="my-topic-pending">⏳ 暂未被采纳</span>'}
+                </div>`).join('');
+            }
+
+            // All Topics Table
+            const tbody = document.getElementById('topicsAllBody');
+            if (TOPIC_DATA.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:40px;">暂无选题</td></tr>';
+            } else {
+                tbody.innerHTML = TOPIC_DATA.map(t => {
+                    const isExpired = isTopicExpired(t.createdAt);
+                    const isSelf = t.author === currentUserName;
+                    const alreadyAdopted = t.adoptedBy.includes(currentUserName);
+                    const btnClass = isSelf ? 'btn-adopt self-adopt' : 'btn-adopt';
+                    const btnText = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己' : '采纳');
+                    const btnDisabled = alreadyAdopted ? 'disabled' : '';
+                    const reward = t.adoptedCount * 5;
+                    return `<tr>
+                        <td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:500;">${t.title}</a></td>
+                        <td>${t.author}</td>
+                        <td>${t.createdAt}${isExpired ? ' <span style="color:var(--gray-300);">(已过期)</span>' : ''}</td>
+                        <td>${t.adoptedCount}</td>
+                        <td>¥${reward}</td>
+                        <td>
+                            <button class="${btnClass}" onclick="adoptTopic('${t.id}')" ${btnDisabled}>
+                                ${btnText}
+                            </button>
+                        </td>
+                    </tr>`;
+                }).join('');
+            }
+        }
+
+        function openTopicModal() {
+            document.getElementById('topicAuthor').value = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            document.getElementById('topicTitle').value = '';
+            document.getElementById('topicUrl').value = '';
+            document.getElementById('topicModal').classList.add('show');
+        }
+
+        function submitTopic() {
+            const author = document.getElementById('topicAuthor').value.trim();
+            const title = document.getElementById('topicTitle').value.trim();
+            const url = document.getElementById('topicUrl').value.trim();
+            if (!author) { toast('请输入你的名字', 'error'); return; }
+            if (!title) { toast('请输入选题名称', 'error'); return; }
+            if (!url) { toast('请输入对标视频链接', 'error'); return; }
+            if (!url.startsWith('http')) { toast('链接格式不正确，请以 http:// 或 https:// 开头', 'error'); return; }
+
+            const newTopic = {
+                id: 't' + Date.now(),
+                title: title,
+                author: author,
+                url: url,
+                createdAt: formatLocalDate(new Date()),
+                adoptedCount: 0,
+                adoptedBy: []
+            };
+            TOPIC_DATA.unshift(newTopic);
+            toast('选题提交成功！🎉');
+            closeModal('topicModal');
+            renderTopics();
+        }
+
+        function adoptTopic(topicId) {
+            const topic = TOPIC_DATA.find(t => t.id === topicId);
+            if (!topic) return;
+            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '访客';
+            if (topic.adoptedBy.includes(currentUserName)) {
+                toast('你已经采纳过这个选题了', 'error');
+                return;
+            }
+            topic.adoptedBy.push(currentUserName);
+            topic.adoptedCount++;
+            const isSelf = topic.author === currentUserName;
+            if (isSelf) {
+                toast('采纳了自己的选题（无奖励）✅');
+            } else {
+                toast(`采纳成功！${topic.author} 获得 ¥5 奖励 🎉`);
+            }
+            renderTopics();
         }
     </script>
 </body>
