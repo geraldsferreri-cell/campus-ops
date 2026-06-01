@@ -4144,6 +4144,35 @@
             { id: "r11", topicId: "t5", topicTitle: "食堂美食探店系列", author: "小丽", adopter: "小明", amount: 5, createdAt: "2026-06-01" }
         ];
 
+        // 从 localStorage 加载持久化数据（刷新不丢失）
+        (function loadTopicData() {
+            try {
+                const savedTopics = localStorage.getItem('campus_topics_data');
+                const savedRewards = localStorage.getItem('campus_topics_rewards');
+                if (savedTopics) {
+                    const parsed = JSON.parse(savedTopics);
+                    TOPIC_DATA.length = 0;
+                    parsed.forEach(t => TOPIC_DATA.push(t));
+                }
+                if (savedRewards) {
+                    const parsed = JSON.parse(savedRewards);
+                    ADOPTION_REWARDS.length = 0;
+                    parsed.forEach(r => ADOPTION_REWARDS.push(r));
+                }
+            } catch (e) {
+                console.error('加载选题数据失败:', e);
+            }
+        })();
+
+        function saveTopicData() {
+            try {
+                localStorage.setItem('campus_topics_data', JSON.stringify(TOPIC_DATA));
+                localStorage.setItem('campus_topics_rewards', JSON.stringify(ADOPTION_REWARDS));
+            } catch (e) {
+                console.error('保存选题数据失败:', e);
+            }
+        }
+
         let currentNewsTab = "tech";
 
         function renderNews() {
@@ -4381,6 +4410,7 @@
                 adoptedBy: []
             };
             TOPIC_DATA.unshift(newTopic);
+            saveTopicData();
             toast('选题提交成功！🎉');
             closeModal('topicModal');
             renderTopics();
@@ -4407,6 +4437,7 @@
                 adoptedBy: []
             };
             TOPIC_DATA.unshift(newTopic);
+            saveTopicData();
             toast('选题上传成功！🎉');
             document.getElementById('uploadTopicTitle').value = '';
             document.getElementById('uploadTopicUrl').value = '';
@@ -4439,6 +4470,7 @@
                 });
                 toast(`采纳成功！${topic.author} 获得 ¥5 奖励 🎉`);
             }
+            saveTopicData();
             renderTopics();
         }
 
@@ -4455,6 +4487,7 @@
             const idx = TOPIC_DATA.findIndex(t => t.id === topicId);
             if (idx > -1) {
                 TOPIC_DATA.splice(idx, 1);
+                saveTopicData();
                 toast('选题已删除');
                 renderTopics();
             }
