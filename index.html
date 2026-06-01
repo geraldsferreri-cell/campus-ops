@@ -536,6 +536,19 @@
             padding: 4px 10px;
             border-radius: 100px;
         }
+        .btn-delete-topic {
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.2s;
+            padding: 2px 4px;
+        }
+        .btn-delete-topic:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
     </style>
 </head>
 <body>
@@ -4286,7 +4299,10 @@
             } else {
                 myEl.innerHTML = myTopics.map(t => `<div class="my-topic-item">
                     <div class="my-topic-title">${t.title}</div>
-                    ${t.adoptedCount > 0 ? `<span class="my-topic-adopted">✅ 被采纳 ${t.adoptedCount} 次</span>` : '<span class="my-topic-pending">⏳ 暂未被采纳</span>'}
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        ${t.adoptedCount > 0 ? `<span class="my-topic-adopted">✅ 被采纳 ${t.adoptedCount} 次</span>` : '<span class="my-topic-pending">⏳ 暂未被采纳</span>'}
+                        <button class="btn-delete-topic" onclick="deleteTopic('${t.id}')" title="删除此选题">🗑️</button>
+                    </div>
                 </div>`).join('');
             }
 
@@ -4314,6 +4330,7 @@
                                 <button class="${btnClass}" onclick="adoptTopic('${t.id}')" ${btnDisabled}>
                                     ${btnText}
                                 </button>
+                                ${isSelf ? `<button class="btn-delete-topic" onclick="deleteTopic('${t.id}')" title="删除此选题">🗑️</button>` : ''}
                             </td>
                         </tr>`;
                     }).join('');
@@ -4396,6 +4413,24 @@
                 toast(`采纳成功！${topic.author} 获得 ¥5 奖励 🎉`);
             }
             renderTopics();
+        }
+
+        function deleteTopic(topicId) {
+            const topic = TOPIC_DATA.find(t => t.id === topicId);
+            if (!topic) return;
+            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            const canDelete = topic.author === currentUserName || isAdmin();
+            if (!canDelete) {
+                toast('只能删除自己提交的选题', 'error');
+                return;
+            }
+            if (!confirm('确定要删除选题「' + topic.title + '」吗？\n删除后不可恢复。')) return;
+            const idx = TOPIC_DATA.findIndex(t => t.id === topicId);
+            if (idx > -1) {
+                TOPIC_DATA.splice(idx, 1);
+                toast('选题已删除');
+                renderTopics();
+            }
         }
     </script>
 </body>
