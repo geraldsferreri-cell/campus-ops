@@ -1126,7 +1126,7 @@
                 <div class="card" id="topicsAllCard">
                     <div class="card-header">
                         <div class="card-title">📑 全部选题</div>
-                        <span class="topics-subtitle">点击选题跳转视频 · 点击 👍 为他人增加奖励</span>
+                        <span class="topics-subtitle">点击选题跳转视频 · 点击详情查看采纳人列表</span>
                     </div>
                     <div class="table-wrapper">
                         <table id="topicsAllTable">
@@ -1136,7 +1136,6 @@
                                     <th>提交人</th>
                                     <th>提交时间</th>
                                     <th>被采纳次数</th>
-                                    <th>累计奖励</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -1393,6 +1392,22 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('topicModal')">取消</button>
                 <button class="btn btn-primary" onclick="submitTopic()">提交选题</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Topic Detail Modal (admin) -->
+    <div id="topicDetailModal" class="modal-overlay">
+        <div class="modal" style="max-width:480px;">
+            <div class="modal-header">
+                <span class="modal-title" id="topicDetailTitle">📋 选题详情</span>
+                <button class="modal-close" onclick="closeModal('topicDetailModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="topicDetailContent">
+                <!-- 动态填充 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('topicDetailModal')">关闭</button>
             </div>
         </div>
     </div>
@@ -4129,35 +4144,14 @@
             { id: "t5", title: "食堂美食探店系列", author: "小丽", url: "https://www.douyin.com/video/901234", createdAt: "2026-06-01", adoptedCount: 1, adoptedBy: ["小明"] }
         ];
 
-        // 独立奖励记录：与选题生命周期解耦，删除选题不影响已发放奖励
-        const ADOPTION_REWARDS = [
-            { id: "r1", topicId: "t1", topicTitle: "大学生毕业租房避坑指南", author: "小明", adopter: "小红", amount: 5, createdAt: "2026-05-30" },
-            { id: "r2", topicId: "t1", topicTitle: "大学生毕业租房避坑指南", author: "小明", adopter: "小刚", amount: 5, createdAt: "2026-05-30" },
-            { id: "r3", topicId: "t1", topicTitle: "大学生毕业租房避坑指南", author: "小明", adopter: "小丽", amount: 5, createdAt: "2026-05-31" },
-            { id: "r4", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小明", amount: 5, createdAt: "2026-05-31" },
-            { id: "r5", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小红", amount: 5, createdAt: "2026-05-31" },
-            { id: "r6", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小刚", amount: 5, createdAt: "2026-05-31" },
-            { id: "r7", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小华", amount: 5, createdAt: "2026-05-31" },
-            { id: "r8", topicId: "t2", topicTitle: "AI工具让剪辑效率提升10倍", author: "李老师", adopter: "小李", amount: 5, createdAt: "2026-06-01" },
-            { id: "r9", topicId: "t3", topicTitle: "校园恋爱短剧爆款公式", author: "小红", adopter: "小明", amount: 5, createdAt: "2026-05-31" },
-            { id: "r10", topicId: "t3", topicTitle: "校园恋爱短剧爆款公式", author: "小红", adopter: "小刚", amount: 5, createdAt: "2026-06-01" },
-            { id: "r11", topicId: "t5", topicTitle: "食堂美食探店系列", author: "小丽", adopter: "小明", amount: 5, createdAt: "2026-06-01" }
-        ];
-
         // 从 localStorage 加载持久化数据（刷新不丢失）
         (function loadTopicData() {
             try {
                 const savedTopics = localStorage.getItem('campus_topics_data');
-                const savedRewards = localStorage.getItem('campus_topics_rewards');
                 if (savedTopics) {
                     const parsed = JSON.parse(savedTopics);
                     TOPIC_DATA.length = 0;
                     parsed.forEach(t => TOPIC_DATA.push(t));
-                }
-                if (savedRewards) {
-                    const parsed = JSON.parse(savedRewards);
-                    ADOPTION_REWARDS.length = 0;
-                    parsed.forEach(r => ADOPTION_REWARDS.push(r));
                 }
             } catch (e) {
                 console.error('加载选题数据失败:', e);
@@ -4167,7 +4161,6 @@
         function saveTopicData() {
             try {
                 localStorage.setItem('campus_topics_data', JSON.stringify(TOPIC_DATA));
-                localStorage.setItem('campus_topics_rewards', JSON.stringify(ADOPTION_REWARDS));
             } catch (e) {
                 console.error('保存选题数据失败:', e);
             }
@@ -4262,7 +4255,7 @@
             const makeBubble = (t, direction) => {
                 const isSelf = t.author === currentUserName;
                 const alreadyAdopted = t.adoptedBy.includes(currentUserName);
-                const adoptTitle = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己(无奖励)' : '👍 采纳，奖励作者¥5');
+                const adoptTitle = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己' : '👍 采纳');
                 return `<div class="topic-bubble">
                     <span class="topic-dot"></span>
                     <span onclick="window.open('${t.url}', '_blank')" style="cursor:pointer;">${t.title}</span>
@@ -4289,12 +4282,13 @@
             });
 
             // ========== Leaderboard ==========
-            // 基于独立奖励记录计算达人榜（删除选题不影响已发放奖励）
+            // 达人榜：基于 TOPIC_DATA 统计被采纳次数（无奖励机制）
             const authorStats = {};
-            ADOPTION_REWARDS.forEach(r => {
-                if (!authorStats[r.author]) authorStats[r.author] = { adoptedCount: 0, reward: 0 };
-                authorStats[r.author].adoptedCount++;
-                authorStats[r.author].reward += r.amount;
+            TOPIC_DATA.forEach(t => {
+                if (t.adoptedCount > 0) {
+                    if (!authorStats[t.author]) authorStats[t.author] = { adoptedCount: 0 };
+                    authorStats[t.author].adoptedCount += t.adoptedCount;
+                }
             });
             const sortedAuthors = Object.entries(authorStats).sort((a, b) => b[1].adoptedCount - a[1].adoptedCount);
             const lbEl = document.getElementById('topicsLeaderboard');
@@ -4310,7 +4304,6 @@
                             <div class="leaderboard-name">${name}</div>
                             <div class="leaderboard-stats">被采纳 ${stats.adoptedCount} 次</div>
                         </div>
-                        <div class="leaderboard-amount">¥${stats.reward}</div>
                     </div>`;
                 }).join('');
             }
@@ -4355,33 +4348,62 @@
             if (isAdminUser) {
                 const tbody = document.getElementById('topicsAllBody');
                 if (TOPIC_DATA.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--gray-500);padding:40px;">暂无选题</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--gray-500);padding:40px;">暂无选题</td></tr>';
                 } else {
                     tbody.innerHTML = TOPIC_DATA.map(t => {
                         const isExpired = isTopicExpired(t.createdAt);
                         const isSelf = t.author === currentUserName;
-                        const alreadyAdopted = t.adoptedBy.includes(currentUserName);
-                        const btnClass = isSelf ? 'btn-adopt self-adopt' : 'btn-adopt';
-                        const btnText = alreadyAdopted ? '已采纳' : (isSelf ? '采纳自己' : '👍 采纳');
-                        const btnDisabled = alreadyAdopted ? 'disabled' : '';
-                        // 累计奖励基于独立奖励记录计算（删除选题不影响已发放奖励）
-                        const reward = ADOPTION_REWARDS.filter(r => r.topicId === t.id).reduce((sum, r) => sum + r.amount, 0);
                         return `<tr>
                             <td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:500;">${t.title}</a></td>
                             <td>${t.author}</td>
                             <td>${t.createdAt}${isExpired ? ' <span style="color:var(--gray-300);">(已过期)</span>' : ''}</td>
                             <td>${t.adoptedCount}</td>
-                            <td>¥${reward}</td>
                             <td>
-                                <button class="${btnClass}" onclick="adoptTopic('${t.id}')" ${btnDisabled}>
-                                    ${btnText}
-                                </button>
+                                <button class="btn btn-secondary" onclick="openTopicDetail('${t.id}')" style="font-size:12px;padding:5px 12px;">📋 详情</button>
                                 ${isSelf ? `<button class="btn-delete-topic" onclick="deleteTopic('${t.id}')" title="删除此选题">🗑️</button>` : ''}
                             </td>
                         </tr>`;
                     }).join('');
                 }
             }
+        }
+
+        function openTopicDetail(topicId) {
+            const topic = TOPIC_DATA.find(t => t.id === topicId);
+            if (!topic) return;
+            document.getElementById('topicDetailTitle').textContent = '📋 选题详情：' + topic.title;
+            let html = `
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px;">提交人</div>
+                    <div style="font-weight:600;">${topic.author}</div>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px;">提交时间</div>
+                    <div>${topic.createdAt}</div>
+                </div>
+                <div style="margin-bottom:16px;">
+                    <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px;">对标视频</div>
+                    <a href="${topic.url}" target="_blank" style="color:var(--primary);word-break:break-all;">${topic.url}</a>
+                </div>
+                <div style="margin-bottom:8px;">
+                    <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px;">被采纳次数</div>
+                    <div style="font-size:20px;font-weight:700;color:var(--success);">${topic.adoptedCount} 次</div>
+                </div>
+            `;
+            if (topic.adoptedBy.length > 0) {
+                html += `
+                    <div style="margin-top:16px;border-top:1px solid var(--gray-200);padding-top:16px;">
+                        <div style="font-size:13px;color:var(--gray-500);margin-bottom:12px;">采纳人列表（${topic.adoptedBy.length}人）</div>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                            ${topic.adoptedBy.map(name => `<span style="background:var(--gray-100);padding:4px 12px;border-radius:100px;font-size:13px;">👤 ${name}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                html += `<div style="margin-top:16px;color:var(--gray-500);font-size:13px;">暂无人采纳</div>`;
+            }
+            document.getElementById('topicDetailContent').innerHTML = html;
+            document.getElementById('topicDetailModal').classList.add('show');
         }
 
         function openTopicModal() {
@@ -4456,19 +4478,9 @@
             topic.adoptedCount++;
             const isSelf = topic.author === currentUserName;
             if (isSelf) {
-                toast('采纳了自己的选题（无奖励）✅');
+                toast('采纳了自己的选题 ✅');
             } else {
-                // 写入独立奖励记录，与选题生命周期解耦
-                ADOPTION_REWARDS.push({
-                    id: 'r' + Date.now(),
-                    topicId: topic.id,
-                    topicTitle: topic.title,
-                    author: topic.author,
-                    adopter: currentUserName,
-                    amount: 5,
-                    createdAt: formatLocalDate(new Date())
-                });
-                toast(`采纳成功！${topic.author} 获得 ¥5 奖励 🎉`);
+                toast(`采纳成功！感谢支持 🎉`);
             }
             saveTopicData();
             renderTopics();
