@@ -489,13 +489,6 @@
         .leaderboard-name { font-weight: 600; font-size: 14px; }
         .leaderboard-stats { font-size: 12px; color: var(--gray-500); }
         .leaderboard-amount { font-size: 16px; font-weight: 700; color: var(--success); }
-        .lb-week-tab {
-            padding: 4px 12px; border-radius: 100px; font-size: 12px; cursor: pointer;
-            border: 1px solid var(--gray-200); background: var(--gray-100); color: var(--gray-600);
-            transition: all 0.2s; white-space: nowrap;
-        }
-        .lb-week-tab:hover { border-color: var(--primary); color: var(--primary); }
-        .lb-week-tab.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
 
         .my-topic-item {
             display: flex;
@@ -1099,10 +1092,13 @@
                             <div class="card-title">🏆 选题达人榜</div>
                             <span class="topics-subtitle" id="lbSubtitle">按积分排名</span>
                         </div>
-                        <!-- 周筛选器 -->
-                        <div id="lbWeekFilter" style="display:flex;align-items:center;gap:8px;padding:0 0 12px 0;flex-wrap:wrap;">
-                            <span style="font-size:12px;color:var(--gray-500);white-space:nowrap;">统计周期：</span>
-                            <div id="lbWeekTabs" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+                        <!-- 日期筛选器 -->
+                        <div id="lbDateFilter" style="display:flex;align-items:center;gap:8px;padding:0 0 12px 0;flex-wrap:wrap;">
+                            <span style="font-size:12px;color:var(--gray-500);white-space:nowrap;">日期范围：</span>
+                            <input type="date" id="lbDateFrom" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);" onchange="renderLeaderboard()">
+                            <span style="font-size:12px;color:var(--gray-400);">至</span>
+                            <input type="date" id="lbDateTo" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);" onchange="renderLeaderboard()">
+                            <button onclick="clearLbFilter()" style="font-size:12px;padding:4px 10px;border:1px solid var(--gray-200);border-radius:6px;background:var(--gray-100);color:var(--gray-500);cursor:pointer;">清除</button>
                         </div>
                         <div id="topicsLeaderboard"></div>
                     </div>
@@ -4505,95 +4501,26 @@
             }
         }
 
-        // ============ Leaderboard: 周筛选 ============
-        // 当前选中周key，'all' 表示全部累计，否则为 'YYYY-Www' 格式
-        let currentLbWeek = 'current';
-
-        // 获取某日期所在的 ISO 周 key：'YYYY-Www'
-        function getWeekKey(dateStr) {
-            const d = new Date(dateStr);
-            if (isNaN(d)) return null;
-            // ISO 周：周一为第一天
-            const jan4 = new Date(d.getFullYear(), 0, 4);
-            const dayOfYear = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
-            const weekNum = Math.ceil((dayOfYear + jan4.getDay()) / 7);
-            // 更稳健的 ISO 周算法
-            const thursday = new Date(d);
-            thursday.setDate(d.getDate() - ((d.getDay() + 6) % 7) + 3); // 本周四
-            const yearStart = new Date(thursday.getFullYear(), 0, 1);
-            const wk = Math.ceil(((thursday - yearStart) / 86400000 + 1) / 7);
-            return `${thursday.getFullYear()}-W${String(wk).padStart(2, '0')}`;
-        }
-
-        // 获取周key对应的显示标签：'本周' / '上周' / '5月26日 ~ 6月1日'
-        function getWeekLabel(wkey) {
-            const current = getWeekKey(formatLocalDate(new Date()));
-            if (wkey === 'all') return '全部累计';
-            if (wkey === current) return '本周';
-            // 计算上周
-            const prevDate = new Date();
-            prevDate.setDate(prevDate.getDate() - 7);
-            if (wkey === getWeekKey(formatLocalDate(prevDate))) return '上周';
-            // 其他：显示该周一到周日的日期范围
-            const [yr, wn] = wkey.split('-W').map(Number);
-            // 找该ISO周的周一
-            const jan4 = new Date(yr, 0, 4);
-            const mon = new Date(jan4);
-            mon.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + (wn - 1) * 7);
-            const sun = new Date(mon);
-            sun.setDate(mon.getDate() + 6);
-            const fmt = d => `${d.getMonth() + 1}月${d.getDate()}日`;
-            return `${fmt(mon)}~${fmt(sun)}`;
-        }
-
-        // 生成最近 N 周的 week key 列表（从当前周往前推）
-        function getRecentWeekKeys(n) {
-            const keys = [];
-            const d = new Date();
-            for (let i = 0; i < n; i++) {
-                const dd = new Date(d);
-                dd.setDate(d.getDate() - i * 7);
-                const k = getWeekKey(formatLocalDate(dd));
-                if (!keys.includes(k)) keys.push(k);
-            }
-            return keys;
-        }
-
-        // 渲染达人榜（含周筛选 Tab）
+        // ============ Leaderboard: 日期范围筛选 ============
         function renderLeaderboard() {
-            // 1. 收集 TOPIC_DATA 中所有出现过的周
-            const allWeeks = [];
-            TOPIC_DATA.forEach(t => {
-                const k = getWeekKey(t.createdAt);
-                if (k && !allWeeks.includes(k)) allWeeks.push(k);
-            });
-            // 与最近6周合并，去重，按时间倒序
-            const recentWks = getRecentWeekKeys(6);
-            const mergedWeeks = [...new Set([...recentWks, ...allWeeks])].sort((a, b) => b.localeCompare(a));
+            const fromVal = document.getElementById('lbDateFrom') ? document.getElementById('lbDateFrom').value : '';
+            const toVal = document.getElementById('lbDateTo') ? document.getElementById('lbDateTo').value : '';
 
-            // 2. 如果 currentLbWeek === 'current'，初始化为当前周
-            if (currentLbWeek === 'current') {
-                currentLbWeek = mergedWeeks[0] || 'all';
+            // 更新副标题
+            const subtitleEl = document.getElementById('lbSubtitle');
+            if (subtitleEl) {
+                if (fromVal || toVal) {
+                    subtitleEl.textContent = `${fromVal || '起始'} 至 ${toVal || '今天'} 积分`;
+                } else {
+                    subtitleEl.textContent = '全部累计积分';
+                }
             }
 
-            // 3. 渲染 Tab 列表：全部累计 + 各周
-            const tabsEl = document.getElementById('lbWeekTabs');
-            const allOptions = ['all', ...mergedWeeks];
-            tabsEl.innerHTML = allOptions.map(k => {
-                const active = k === currentLbWeek ? ' active' : '';
-                return `<div class="lb-week-tab${active}" onclick="switchLbWeek('${k}')">${getWeekLabel(k)}</div>`;
-            }).join('');
-
-            // 4. 更新副标题
-            const subtitleEl = document.getElementById('lbSubtitle');
-            if (subtitleEl) subtitleEl.textContent = currentLbWeek === 'all' ? '全部累计积分' : `${getWeekLabel(currentLbWeek)}积分`;
-
-            // 5. 按筛选条件统计积分
+            // 按日期范围统计积分
             const authorStats = {};
             TOPIC_DATA.forEach(t => {
-                const tWeek = getWeekKey(t.createdAt);
-                // 全部累计：所有数据；指定周：只统计该周发布的选题
-                if (currentLbWeek !== 'all' && tWeek !== currentLbWeek) return;
+                if (fromVal && t.createdAt < fromVal) return;
+                if (toVal && t.createdAt > toVal) return;
                 const pts = t.points || t.adoptedCount || 0;
                 if (pts > 0) {
                     if (!authorStats[t.author]) authorStats[t.author] = { points: 0 };
@@ -4602,10 +4529,10 @@
             });
             const sortedAuthors = Object.entries(authorStats).sort((a, b) => b[1].points - a[1].points);
 
-            // 6. 渲染排行榜列表
+            // 渲染排行榜列表
             const lbEl = document.getElementById('topicsLeaderboard');
             if (sortedAuthors.length === 0) {
-                lbEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:40px 0;">本周暂无积分数据</div>';
+                lbEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:40px 0;">暂无积分数据</div>';
             } else {
                 lbEl.innerHTML = sortedAuthors.map(([name, stats], i) => {
                     const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : 'normal';
@@ -4621,8 +4548,11 @@
             }
         }
 
-        function switchLbWeek(weekKey) {
-            currentLbWeek = weekKey;
+        function clearLbFilter() {
+            const f = document.getElementById('lbDateFrom');
+            const t = document.getElementById('lbDateTo');
+            if (f) f.value = '';
+            if (t) t.value = '';
             renderLeaderboard();
         }
     </script>
