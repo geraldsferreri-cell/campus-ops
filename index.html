@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Nova Star 暗黑琥珀色系 */
-            --bg: #080808;
-            --bg-elevated: #111111;
-            --bg-card: #111111;
+            /* Nova Star 暗紫琥珀色系 — 紫底配金 accent */
+            --bg: #0d0b14;
+            --bg-elevated: #141120;
+            --bg-card: #141120;
             --cream: #f0e6d8;
             --cream-muted: rgba(240,230,216,.45);
             --amber: #c8956c;
@@ -28,19 +28,19 @@
             --success: #8fa88b;
             --warning: #d4a574;
             --danger: #c06050;
-            --purple: #9b8aab;
+            --purple: #b8a4d6;
             --pink: #c88090;
             --text-primary: var(--cream);
             --text-secondary: rgba(240,230,216,.6);
             --text-tertiary: rgba(240,230,216,.3);
-            --gray-100: #1a1a1a;
-            --gray-200: #252525;
-            --gray-300: #333333;
-            --gray-500: #777777;
-            --gray-700: #bbbbbb;
+            --gray-100: #1b1829;
+            --gray-200: #262338;
+            --gray-300: #363350;
+            --gray-500: #7a7590;
+            --gray-700: #b5adcc;
             --gray-900: #f0e6d8;
-            --bg-main: #080808;
-            --bg-card-hover: #1a1a1a;
+            --bg-main: #0d0b14;
+            --bg-card-hover: #1b1829;
             --serif: 'Instrument Serif', 'Noto Serif SC', Georgia, serif;
             --sans: 'Syne', 'Noto Serif SC', system-ui, sans-serif;
             --serif-cn: 'Noto Serif SC', 'Instrument Serif', Georgia, serif;
@@ -74,7 +74,7 @@
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
             padding: 1rem 2.5rem;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(8,8,8,.85); backdrop-filter: blur(20px);
+            background: rgba(13,11,20,.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(200,149,108,.1);
             mix-blend-mode: normal; transition: background .3s ease;
         }
@@ -194,7 +194,7 @@
         }
         .brand-hero-visual {
             position: relative; aspect-ratio: 1;
-            background: linear-gradient(135deg, #151210, #0d0b09);
+            background: linear-gradient(135deg, #1a1624, #100e1a);
             border: 1px solid rgba(200,149,108,.08);
             display: flex; align-items: center; justify-content: center;
             overflow: hidden;
@@ -216,7 +216,7 @@
         .brand-hero-visual-badge {
             position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; z-index: 2;
             padding: 1.2rem; border: 1px solid rgba(200,149,108,.12);
-            background: rgba(8,8,8,.65); backdrop-filter: blur(20px);
+            background: rgba(13,11,20,.65); backdrop-filter: blur(20px);
         }
         .brand-hero-visual-badge p {
             font-family: var(--serif); font-size: .95rem; font-style: italic;
@@ -425,7 +425,7 @@
         .pagination-bar .page-info { color: #ffffff; font-size: 13px; margin-right: 8px; text-shadow: -1px -1px 0 rgba(0,0,0,.85), 1px -1px 0 rgba(0,0,0,.85), -1px 1px 0 rgba(0,0,0,.85), 1px 1px 0 rgba(0,0,0,.85); }
         .pagination-bar .page-btn { padding: 6px 12px; border: 1px solid var(--gray-300); background: var(--bg-card); border-radius: 6px; cursor: pointer; font-size: 13px; color: var(--gray-700); }
         .pagination-bar .page-btn:hover { background: rgba(212,175,55,0.1); border-color: var(--gold); }
-        .pagination-bar .page-btn.active { background: var(--gold-gradient); color: #0a0a0a; border-color: var(--gold); font-weight: 700; }
+        .pagination-bar .page-btn.active { background: var(--gold-gradient); color: #0d0b14; border-color: var(--gold); font-weight: 700; }
         .pagination-bar .page-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500; }
         .badge-success { background: rgba(46,204,113,0.15); color: #2ecc71; }
@@ -476,7 +476,7 @@
         /* 左侧IP形象 */
         .login-illustration {
             flex: 0 0 380px;
-            background: linear-gradient(135deg, #0d0b09, #080808);
+            background: linear-gradient(135deg, #13101e, #0d0b14);
             display: flex; align-items: center; justify-content: center;
             padding: 3rem; border-right: 1px solid rgba(200,149,108,.1);
             overflow: hidden; position: relative;
@@ -748,7 +748,7 @@
         /* Rank list */
         .rank-list { display: flex; flex-direction: column; gap: 8px; }
         .rank-item { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: var(--gray-100); border-radius: 8px; }
-        .rank-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--gold); color: #0a0a0a; }
+        .rank-num { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: var(--gold); color: #0d0b14; }
         .rank-num.top1 { background: #F0D060; }
         .rank-num.top2 { background: #C9C9C9; color: #333; }
         .rank-num.top3 { background: #CD7F32; }
@@ -761,7 +761,7 @@
         .tab.active { color: var(--gold); border-bottom-color: var(--gold); font-weight: 600; }
         /* Salary */
         .salary-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
-        .salary-card { background: linear-gradient(135deg, #1a1a1a 0%, #222 100%); color: var(--gold-light); padding: 1.25rem; border: 2px solid rgba(200,149,108,.15); transition: all .3s ease; }
+        .salary-card { background: linear-gradient(135deg, #1b1829 0%, #25223a 100%); color: var(--gold-light); padding: 1.25rem; border: 2px solid rgba(200,149,108,.15); transition: all .3s ease; }
         .salary-card:hover { border-color: rgba(200,149,108,.3); box-shadow: 0 4px 16px rgba(200,149,108,.08); }
         .salary-card.green { border-left: 4px solid var(--success); }
         .salary-card.orange { border-left: 4px solid var(--warning); }
@@ -955,7 +955,7 @@
         .news-video-thumb { height: 220px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.2s; background: var(--gray-100); }
         .news-video-thumb:hover { transform: scale(1.02); }
         .news-video-thumb-bg { position: absolute; inset: 0; opacity: 0.15; background-size: cover; background-position: center; }
-        .news-video-play { width: 68px; height: 68px; border-radius: 50%; background: rgba(212,175,55,0.9); display: flex; align-items: center; justify-content: center; font-size: 30px; color: #0a0a0a; box-shadow: 0 6px 24px rgba(0,0,0,0.4); transition: all 0.25s; z-index: 1; }
+        .news-video-play { width: 68px; height: 68px; border-radius: 50%; background: rgba(212,175,55,0.9); display: flex; align-items: center; justify-content: center; font-size: 30px; color: #0d0b14; box-shadow: 0 6px 24px rgba(0,0,0,0.4); transition: all 0.25s; z-index: 1; }
         .news-card-video:hover .news-video-play { transform: scale(1.12); box-shadow: 0 8px 32px rgba(212,175,55,0.3); }
         .news-video-duration { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); color: var(--gold-light); padding: 3px 8px; border-radius: 4px; font-size: 11px; z-index: 1; }
         .news-video-platform { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: var(--gold); padding: 2px 8px; border-radius: 4px; font-size: 11px; z-index: 1; display: flex; align-items: center; gap: 4px; }
@@ -975,7 +975,7 @@
         .topics-subtitle { font-size: 12px; color: #ffffff; text-shadow: -1px -1px 0 rgba(0,0,0,.85), 1px -1px 0 rgba(0,0,0,.85), -1px 1px 0 rgba(0,0,0,.85), 1px 1px 0 rgba(0,0,0,.85); }
 
         .topics-marquee-section {
-            background: linear-gradient(135deg, #111111 0%, #1a1a1a 50%, #111111 100%);
+            background: linear-gradient(135deg, #141120 0%, #1b1829 50%, #141120 100%);
             border-radius: 16px;
             padding: 20px 0;
             margin-bottom: 24px;
@@ -1091,7 +1091,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 12px; font-weight: 700;
         }
-        .leaderboard-rank.gold { background: linear-gradient(135deg, #F0D060, #D4AF37); color: #0a0a0a; }
+        .leaderboard-rank.gold { background: linear-gradient(135deg, #F0D060, #D4AF37); color: #0d0b14; }
         .leaderboard-rank.silver { background: linear-gradient(135deg, #C9C9C9, #9CA3AF); color: #333; }
         .leaderboard-rank.bronze { background: linear-gradient(135deg, #FED7AA, #CD7F32); color: #fff; }
         .leaderboard-rank.normal { background: var(--gray-200); color: var(--gray-500); }
@@ -1114,7 +1114,7 @@
 
         .btn-adopt {
             background: var(--gold-gradient);
-            color: #0a0a0a;
+            color: #0d0b14;
             border: none;
             border-radius: 6px;
             padding: 6px 14px;
@@ -1477,7 +1477,7 @@
                     <div id="mySalaryCard" class="card" style="margin-top:12px;display:none">
                         <div class="card-header"><span class="card-title">💰 我的薪资计算</span></div>
                         <div id="mySalaryDetail" style="font-size:14px;line-height:2;"></div>
-                        <div id="mySalaryResult" style="margin-top:12px;padding:12px;background:var(--gold-gradient);color:#0a0a0a;border-radius:8px;font-size:18px;font-weight:700;"></div>
+                        <div id="mySalaryResult" style="margin-top:12px;padding:12px;background:var(--gold-gradient);color:#0d0b14;border-radius:8px;font-size:18px;font-weight:700;"></div>
                     </div>
                 </div>
                 <div class="card">
@@ -1791,7 +1791,7 @@
                             <input type="date" id="lbDateFrom" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);">
                             <span style="font-size:12px;color:#ffffff;text-shadow:-1px -1px 0 rgba(0,0,0,.85),1px -1px 0 rgba(0,0,0,.85),-1px 1px 0 rgba(0,0,0,.85),1px 1px 0 rgba(0,0,0,.85);">至</span>
                             <input type="date" id="lbDateTo" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);">
-                            <button onclick="renderLeaderboard()" style="font-size:12px;padding:4px 10px;border:1px solid var(--gold);border-radius:6px;background:var(--gold-gradient);color:#0a0a0a;cursor:pointer;font-weight:700;">查询</button>
+                            <button onclick="renderLeaderboard()" style="font-size:12px;padding:4px 10px;border:1px solid var(--gold);border-radius:6px;background:var(--gold-gradient);color:#0d0b14;cursor:pointer;font-weight:700;">查询</button>
                             <span onclick="clearLbFilter()" style="font-size:12px;color:#ffffff;cursor:pointer;text-decoration:underline;text-shadow:-1px -1px 0 rgba(0,0,0,.85),1px -1px 0 rgba(0,0,0,.85),-1px 1px 0 rgba(0,0,0,.85),1px 1px 0 rgba(0,0,0,.85);">重置</span>
                         </div>
                         <div id="topicsLeaderboard"></div>
