@@ -2252,8 +2252,9 @@
                 loadSettings();
             }
             
-            // admin 管理员登录
-            if (u === 'admin' && p === 'admin123') {
+            // admin 管理员登录（支持自定义密码，存储在 localStorage）
+            const adminSavedPwd = localStorage.getItem('campus_admin_pwd') || 'admin123';
+            if (u === 'admin' && p === adminSavedPwd) {
                 currentUser = { username: u, role: 'admin' };
                 localStorage.setItem('campus_user', JSON.stringify(currentUser));
                 document.getElementById('loginPage').style.display = 'none';
@@ -2468,7 +2469,8 @@
             const info = document.getElementById('passwordInfo');
             if (!info) return;
             if (isAdmin()) {
-                info.textContent = '⚠️ 管理员账号不支持修改密码（使用固定密码 admin123）';
+                const hasCustom = localStorage.getItem('campus_admin_pwd');
+                info.textContent = hasCustom ? '当前用户：管理员（已设置自定义密码）' : '当前用户：管理员（默认密码：admin123）';
             } else {
                 info.textContent = `当前用户：${currentUser?.real_name || currentUser?.username || '未知'}（默认密码：123456）`;
             }
@@ -2482,10 +2484,6 @@
         }
 
         async function changePassword() {
-            if (isAdmin()) {
-                toast('管理员账号不支持修改密码', 'error');
-                return;
-            }
             const currentPwd = document.getElementById('pwdCurrent').value;
             const newPwd = document.getElementById('pwdNew').value;
             const confirmPwd = document.getElementById('pwdConfirm').value;
@@ -2494,6 +2492,20 @@
             if (!newPwd) { toast('请输入新密码', 'error'); return; }
             if (newPwd.length < 6) { toast('新密码至少6位', 'error'); return; }
             if (newPwd !== confirmPwd) { toast('两次输入的新密码不一致', 'error'); return; }
+
+            // 管理员：密码存储在 localStorage
+            if (isAdmin()) {
+                const savedPwd = localStorage.getItem('campus_admin_pwd') || 'admin123';
+                if (currentPwd !== savedPwd) {
+                    toast('当前密码错误', 'error');
+                    return;
+                }
+                localStorage.setItem('campus_admin_pwd', newPwd);
+                toast('管理员密码修改成功！下次登录请使用新密码 ✅', 'success');
+                resetPasswordForm();
+                initPasswordPage();
+                return;
+            }
 
             try {
                 // 验证当前密码（默认密码123456）
