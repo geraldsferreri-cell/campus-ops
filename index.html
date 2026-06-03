@@ -4348,6 +4348,7 @@
                             <td>💎 ${t.points || t.adoptedCount || 0}</td>
                             <td>
                                 <button class="btn btn-secondary" onclick="openTopicDetail('${t.id}')" style="font-size:12px;padding:5px 12px;">📋 详情</button>
+                                <button class="btn btn-danger" onclick="deleteTopic('${t.id}')" style="font-size:12px;padding:5px 12px;margin-left:6px;">🗑️ 删除</button>
                                 ${isSelf ? `<button class="btn-delete-topic" onclick="deleteTopic('${t.id}')" title="删除此选题">🗑️</button>` : ''}
                             </td>
                         </tr>`;
