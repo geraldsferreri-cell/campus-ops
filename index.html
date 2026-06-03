@@ -1135,7 +1135,7 @@
                                     <th>选题名称</th>
                                     <th>提交人</th>
                                     <th>提交时间</th>
-                                    <th>被采纳次数</th>
+                                    <th>💎 积分</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -4137,11 +4137,11 @@
 
         // ============ 近期选题数据 ============
         const TOPIC_DATA = [
-            { id: "t1", title: "大学生毕业租房避坑指南", author: "小明", url: "https://www.douyin.com/video/123456", createdAt: "2026-05-30", adoptedCount: 3, adoptedBy: ["小红", "小刚", "小丽"] },
-            { id: "t2", title: "AI工具让剪辑效率提升10倍", author: "李老师", url: "https://www.bilibili.com/video/BV1xxxx", createdAt: "2026-05-31", adoptedCount: 5, adoptedBy: ["小明", "小红", "小刚", "小华", "小李"] },
-            { id: "t3", title: "校园恋爱短剧爆款公式", author: "小红", url: "https://www.douyin.com/video/789012", createdAt: "2026-05-31", adoptedCount: 2, adoptedBy: ["小明", "小刚"] },
-            { id: "t4", title: "期末周高效复习vlog", author: "小刚", url: "https://www.xiaohongshu.com/video/345678", createdAt: "2026-06-01", adoptedCount: 0, adoptedBy: [] },
-            { id: "t5", title: "食堂美食探店系列", author: "小丽", url: "https://www.douyin.com/video/901234", createdAt: "2026-06-01", adoptedCount: 1, adoptedBy: ["小明"] }
+            { id: "t1", title: "大学生毕业租房避坑指南", author: "小明", url: "https://www.douyin.com/video/123456", createdAt: "2026-05-30", adoptedCount: 3, adoptedBy: ["小红", "小刚", "小丽"], points: 3 },
+            { id: "t2", title: "AI工具让剪辑效率提升10倍", author: "李老师", url: "https://www.bilibili.com/video/BV1xxxx", createdAt: "2026-05-31", adoptedCount: 5, adoptedBy: ["小明", "小红", "小刚", "小华", "小李"], points: 5 },
+            { id: "t3", title: "校园恋爱短剧爆款公式", author: "小红", url: "https://www.douyin.com/video/789012", createdAt: "2026-05-31", adoptedCount: 2, adoptedBy: ["小明", "小刚"], points: 2 },
+            { id: "t4", title: "期末周高效复习vlog", author: "小刚", url: "https://www.xiaohongshu.com/video/345678", createdAt: "2026-06-01", adoptedCount: 0, adoptedBy: [], points: 0 },
+            { id: "t5", title: "食堂美食探店系列", author: "小丽", url: "https://www.douyin.com/video/901234", createdAt: "2026-06-01", adoptedCount: 1, adoptedBy: ["小明"], points: 1 }
         ];
 
         // 从 localStorage 加载持久化数据（刷新不丢失）
@@ -4282,15 +4282,16 @@
             });
 
             // ========== Leaderboard ==========
-            // 达人榜：基于 TOPIC_DATA 统计被采纳次数（无奖励机制）
+            // 达人榜：基于 TOPIC_DATA 统计积分（每次被采纳 +1 积分）
             const authorStats = {};
             TOPIC_DATA.forEach(t => {
-                if (t.adoptedCount > 0) {
-                    if (!authorStats[t.author]) authorStats[t.author] = { adoptedCount: 0 };
-                    authorStats[t.author].adoptedCount += t.adoptedCount;
+                const pts = t.points || t.adoptedCount || 0;
+                if (pts > 0) {
+                    if (!authorStats[t.author]) authorStats[t.author] = { points: 0 };
+                    authorStats[t.author].points += pts;
                 }
             });
-            const sortedAuthors = Object.entries(authorStats).sort((a, b) => b[1].adoptedCount - a[1].adoptedCount);
+            const sortedAuthors = Object.entries(authorStats).sort((a, b) => b[1].points - a[1].points);
             const lbEl = document.getElementById('topicsLeaderboard');
             if (sortedAuthors.length === 0) {
                 lbEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:40px 0;">暂无数据</div>';
@@ -4302,7 +4303,7 @@
                         <div class="leaderboard-rank ${rankClass}">${medal || (i + 1)}</div>
                         <div class="leaderboard-info">
                             <div class="leaderboard-name">${name}</div>
-                            <div class="leaderboard-stats">被采纳 ${stats.adoptedCount} 次</div>
+                            <div class="leaderboard-stats">💎 积分 ${stats.points}</div>
                         </div>
                     </div>`;
                 }).join('');
@@ -4335,13 +4336,16 @@
             if (myTopics.length === 0) {
                 myEl.innerHTML = '<div style="text-align:center;color:var(--gray-500);padding:20px 0;">还没有提交过选题</div>';
             } else {
-                myEl.innerHTML = myTopics.map(t => `<div class="my-topic-item">
+                myEl.innerHTML = myTopics.map(t => {
+                    const pts = t.points || t.adoptedCount || 0;
+                    return `<div class="my-topic-item">
                     <div class="my-topic-title">${t.title}</div>
                     <div style="display:flex;align-items:center;gap:8px;">
-                        ${t.adoptedCount > 0 ? `<span class="my-topic-adopted">✅ 被采纳 ${t.adoptedCount} 次</span>` : '<span class="my-topic-pending">⏳ 暂未被采纳</span>'}
+                        ${pts > 0 ? `<span class="my-topic-adopted">💎 积分 ${pts}</span>` : '<span class="my-topic-pending">⏳ 暂无积分</span>'}
                         <button class="btn-delete-topic" onclick="deleteTopic('${t.id}')" title="删除此选题">🗑️</button>
                     </div>
-                </div>`).join('');
+                </div>`;
+                }).join('');
             }
 
             // ========== All Topics Table (admin only) ==========
@@ -4357,7 +4361,7 @@
                             <td><a href="${t.url}" target="_blank" style="color:var(--primary);text-decoration:none;font-weight:500;">${t.title}</a></td>
                             <td>${t.author}</td>
                             <td>${t.createdAt}${isExpired ? ' <span style="color:var(--gray-300);">(已过期)</span>' : ''}</td>
-                            <td>${t.adoptedCount}</td>
+                            <td>💎 ${t.points || t.adoptedCount || 0}</td>
                             <td>
                                 <button class="btn btn-secondary" onclick="openTopicDetail('${t.id}')" style="font-size:12px;padding:5px 12px;">📋 详情</button>
                                 ${isSelf ? `<button class="btn-delete-topic" onclick="deleteTopic('${t.id}')" title="删除此选题">🗑️</button>` : ''}
@@ -4386,8 +4390,12 @@
                     <a href="${topic.url}" target="_blank" style="color:var(--primary);word-break:break-all;">${topic.url}</a>
                 </div>
                 <div style="margin-bottom:8px;">
+                    <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px;">获得积分</div>
+                    <div style="font-size:20px;font-weight:700;color:var(--success);">💎 ${topic.points || topic.adoptedCount || 0} 分</div>
+                </div>
+                <div style="margin-bottom:8px;">
                     <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px;">被采纳次数</div>
-                    <div style="font-size:20px;font-weight:700;color:var(--success);">${topic.adoptedCount} 次</div>
+                    <div>${topic.adoptedCount} 次</div>
                 </div>
             `;
             if (topic.adoptedBy.length > 0) {
@@ -4429,7 +4437,8 @@
                 url: url,
                 createdAt: formatLocalDate(new Date()),
                 adoptedCount: 0,
-                adoptedBy: []
+                adoptedBy: [],
+                points: 0
             };
             TOPIC_DATA.unshift(newTopic);
             saveTopicData();
@@ -4456,7 +4465,8 @@
                 url: url,
                 createdAt: date,
                 adoptedCount: 0,
-                adoptedBy: []
+                adoptedBy: [],
+                points: 0
             };
             TOPIC_DATA.unshift(newTopic);
             saveTopicData();
@@ -4476,11 +4486,14 @@
             }
             topic.adoptedBy.push(currentUserName);
             topic.adoptedCount++;
+            // 积分：每次被采纳 +1
+            if (topic.points === undefined) topic.points = 0;
+            topic.points++;
             const isSelf = topic.author === currentUserName;
             if (isSelf) {
-                toast('采纳了自己的选题 ✅');
+                toast('采纳了自己的选题 ✅（作者积分 +1）');
             } else {
-                toast(`采纳成功！感谢支持 🎉`);
+                toast(`采纳成功！作者获得 +1 积分 🎉`);
             }
             saveTopicData();
             renderTopics();
