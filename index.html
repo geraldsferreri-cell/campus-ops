@@ -1095,10 +1095,11 @@
                         <!-- 日期筛选器 -->
                         <div id="lbDateFilter" style="display:flex;align-items:center;gap:8px;padding:0 0 12px 0;flex-wrap:wrap;">
                             <span style="font-size:12px;color:var(--gray-500);white-space:nowrap;">日期范围：</span>
-                            <input type="date" id="lbDateFrom" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);" onchange="renderLeaderboard()">
+                            <input type="date" id="lbDateFrom" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);">
                             <span style="font-size:12px;color:var(--gray-400);">至</span>
-                            <input type="date" id="lbDateTo" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);" onchange="renderLeaderboard()">
-                            <button onclick="clearLbFilter()" style="font-size:12px;padding:4px 10px;border:1px solid var(--gray-200);border-radius:6px;background:var(--gray-100);color:var(--gray-500);cursor:pointer;">清除</button>
+                            <input type="date" id="lbDateTo" style="font-size:12px;padding:4px 8px;border:1px solid var(--gray-200);border-radius:6px;color:var(--gray-700);">
+                            <button onclick="renderLeaderboard()" style="font-size:12px;padding:4px 10px;border:1px solid var(--primary);border-radius:6px;background:var(--primary);color:#fff;cursor:pointer;">查询</button>
+                            <span onclick="clearLbFilter()" style="font-size:12px;color:var(--gray-400);cursor:pointer;text-decoration:underline;">重置</span>
                         </div>
                         <div id="topicsLeaderboard"></div>
                     </div>
