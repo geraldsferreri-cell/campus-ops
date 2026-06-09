@@ -5659,7 +5659,11 @@
                         summary: row.summary || '',
                         source: row.source || '',
                         url: row.url || '#',
-                        time: row.published_time || ''
+                        time: row.published_time || '',
+                        isVideo: row.is_video || false,
+                        thumbnail: row.thumbnail || '',
+                        videoPlay: row.video_play || '',
+                        videoAuthor: row.video_author || ''
                     });
                 }
 
@@ -5746,17 +5750,18 @@
                 contentEl.innerHTML = `<div class="news-empty"><div class="news-empty-icon">📭</div><div>暂无资讯，等待每日 10:00 自动更新...</div></div>`;
                 return;
             }
-            const platformIcons = { bilibili: "🎬 B站", youtube: "▶️ YouTube", cctv: "📺 央视", douyin: "🎵 抖音", other: "📹 视频" };
+            const platformIcons = { B站: "🎬 B站", 抖音: "🎵 抖音", 小红书: "📕 小红书", 视频号: "💬 视频号", 微博: "📢 微博", YouTube: "▶️ YouTube", 央视: "📺 央视", other: "📹 视频" };
             contentEl.innerHTML = `<div class="news-grid">${cat.items.map(item => {
                 if (item.isVideo) {
-                    const pIcon = platformIcons[item.videoPlatform] || platformIcons.other;
+                    const pIcon = platformIcons[item.source] || platformIcons.other;
                     const thumbStyle = item.thumbnail ? `background-image:url(${item.thumbnail})` : "";
+                    const playInfo = item.videoPlay ? `<span class="news-video-duration">📺 ${item.videoPlay}</span>` : "";
                     return `
-                <div class="news-card news-card-video" onclick="window.open('${item.videoUrl || item.url || "#"}', '_blank')">
+                <div class="news-card news-card-video" onclick="window.open('${item.url || "#"}', '_blank')">
                     <div class="news-video-thumb" style="background:linear-gradient(135deg, ${cat.color}20, ${cat.color}40)">
                         ${thumbStyle ? `<div class="news-video-thumb-bg" style="${thumbStyle}"></div>` : ""}
                         <span class="news-video-platform">${pIcon}</span>
-                        ${item.videoDuration ? `<span class="news-video-duration">${item.videoDuration}</span>` : ""}
+                        ${playInfo}
                         <div class="news-video-play">▶</div>
                     </div>
                     <div class="news-card-header">
@@ -5765,7 +5770,7 @@
                     </div>
                     <div class="news-card-summary">${item.summary}</div>
                     <div class="news-card-footer">
-                        <span class="news-card-source">${pIcon} ${item.source}</span>
+                        <span class="news-card-source">${pIcon} ${item.videoAuthor || item.source}</span>
                         ${item.time ? `<span class="news-card-time">${item.time}</span>` : ""}
                     </div>
                 </div>`;
