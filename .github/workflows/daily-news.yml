@@ -1,0 +1,44 @@
+# 校园运营系统 - 每日资讯自动抓取
+# 每天北京时间 10:00 自动运行
+name: Daily News Scraper
+
+on:
+  schedule:
+    # 每天 02:00 UTC = 10:00 北京时间
+    - cron: "0 2 * * *"
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 lxml supabase
+
+      - name: Run news scraper
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        run: |
+          cd scraper
+          python news_scraper.py
+
+      - name: Upload result artifact (backup)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: news-output-${{ github.run_id }}
+          path: news_output.json
+          retention-days: 3
