@@ -53,4 +53,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html
           git diff --cached --quiet || git commit -m "auto: 更新每日资讯热点 $(date +%Y-%m-%d)"
-          git push
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin main 2>&1 || echo "⚠️ push failed (may need manual merge)"
