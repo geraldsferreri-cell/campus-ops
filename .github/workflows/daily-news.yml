@@ -54,4 +54,5 @@ jobs:
           git add index.html
           git diff --cached --quiet || git commit -m "auto: 更新每日资讯热点 $(date +%Y-%m-%d)"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git push origin main 2>&1 || echo "⚠️ push failed (may need manual merge)"
+          git pull origin main --rebase 2>&1 || true
+          git push origin main 2>&1 || echo "⚠️ push failed"
