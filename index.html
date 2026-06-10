@@ -1476,6 +1476,20 @@
             transform: scale(1.15);
         }
 
+        /* ═══════════════════ 框架蒸馏 Copywriting Distiller ═══════════════════ */
+        .distill-container { max-width:900px; margin:0 auto; padding:20px; }
+        .distill-input-card { background:var(--bg-card); border-radius:12px; box-shadow:var(--shadow); padding:28px; margin-bottom:20px; border:1px solid var(--gray-200); }
+        .distill-framework { background:var(--cream); color:#e8e0ff; border-radius:12px; padding:28px; margin-bottom:20px; }
+        .distill-framework h3 { color:var(--gold); font-size:16px; margin:16px 0 8px; font-family:var(--serif-cn); }
+        .distill-framework h3:first-child { margin-top:0; }
+        .distill-section { background:rgba(255,230,0,.06); border-left:3px solid var(--gold); padding:12px 16px; border-radius:0 8px 8px 0; margin-bottom:12px; }
+        .distill-section .distill-label { font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px; }
+        .distill-section .distill-content { font-size:14px; line-height:1.8; }
+        .distill-template-box { background:rgba(255,230,0,.08); border:1px dashed var(--gold); border-radius:10px; padding:16px; margin-top:12px; font-size:13px; line-height:1.9; white-space:pre-wrap; color:#FFF04D; }
+        .distill-meta { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
+        .distill-meta-item { background:var(--gray-100); padding:8px 14px; border-radius:8px; font-size:12px; color:var(--gray-500); }
+        .distill-meta-item b { color:var(--cream); }
+
         /* ═══════════════════ 文案脚本 AI Script Generator ═══════════════════ */
         .scriptgen-container { max-width:900px; margin:0 auto; padding:20px; }
         .sg-steps { display:flex; gap:4px; margin-bottom:32px; flex-wrap:wrap; }
@@ -1673,6 +1687,7 @@
                 <a class="topnav-link" data-page="news">资讯热点</a>
                 <a class="topnav-link" data-page="topics">近期选题</a>
                 <a class="topnav-link" data-page="scriptGen">文案脚本</a>
+                <a class="topnav-link" data-page="distill">框架蒸馏</a>
                 <a class="topnav-link" data-page="password">修改密码</a>
             </div>
             <div class="topnav-actions">
@@ -1698,6 +1713,7 @@
             <a class="mobile-menu-link" data-page="news" onclick="mobileNavTo('news')">资讯热点</a>
             <a class="mobile-menu-link" data-page="topics" onclick="mobileNavTo('topics')">近期选题</a>
             <a class="mobile-menu-link" data-page="scriptGen" onclick="mobileNavTo('scriptGen')">文案脚本</a>
+            <a class="mobile-menu-link" data-page="distill" onclick="mobileNavTo('distill')">框架蒸馏</a>
             <a class="mobile-menu-link" data-page="password" onclick="mobileNavTo('password')">修改密码</a>
             <div class="mobile-menu-logout" onclick="logout()">退出登录</div>
         </div>
@@ -2568,6 +2584,16 @@
         </div>
     </div>
 
+    <!-- 框架蒸馏 Copywriting Framework Distiller -->
+    <div id="page-distill" class="page">
+        <div class="distill-container" id="distillContainer">
+            <div style="text-align:center;padding:60px 20px;color:var(--gray-500)">
+                <div style="font-size:48px;margin-bottom:16px">🔬</div>
+                <p style="font-size:16px">文案框架蒸馏器加载中...</p>
+            </div>
+        </div>
+    </div>
+
     <!-- 文案脚本 AI Script Generator -->
     <div id="page-scriptGen" class="page">
         <div class="scriptgen-container" id="scriptGenContainer">
@@ -3343,6 +3369,7 @@
             if (page === 'news') renderNews();
             if (page === 'topics') renderTopics();
             if (page === 'scriptGen') renderScriptGen();
+            if (page === 'distill') renderDistill();
         }
 
         // ============ Toast ============
@@ -6205,6 +6232,62 @@
         }
 
                 // ═══════════════════════════════════════════════════════════════
+        // ═══════════════════════════════════════════════════════════════
+        // 框架蒸馏 — 女娲造人方法论 × 文案分析
+        // ═══════════════════════════════════════════════════════════════
+        let dsState = { input:'', result:null, loading:false };
+
+        async function dsCallAI(systemPrompt, userMessage, opts={}){
+            const apiKey=localStorage.getItem('campus_script_api_key');
+            if(!apiKey){toast('请先在修改密码页面配置 Anthropic API Key','error');return null;}
+            try{
+                const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:opts.model||'claude-sonnet-4-6',max_tokens:opts.maxTokens||4096,temperature:opts.temperature??0.3,system:systemPrompt,messages:[{role:'user',content:userMessage}]})});
+                if(!r.ok){toast('AI 请求失败','error');return null;}
+                const d=await r.json();return d.content?.[0]?.text||null;
+            }catch(e){toast('网络错误：'+e.message,'error');return null;}
+        }
+
+        async function dsDistill(){
+            const text=document.getElementById('ds-input')?.value?.trim();
+            if(!text||text.length<50)return toast('请粘贴至少50字的文案内容','error');
+            dsState.input=text;dsState.loading=true;renderDistill();
+            toast('🔬 框架蒸馏中...');
+            const sp='你是资深文案框架蒸馏师。你的任务不是评价这篇文案好不好，而是**提取它背后的写作框架**。\n\n方法论（来自女娲造人术）：\n- 不是复制原话，是提炼可复用的框架\n- 框架必须是一套"可运行的认知操作系统"\n- 区分"这一次写了什么"和"这个写法为什么有效"\n- 如果有矛盾/多种技巧并存，保留它们\n\n请分析以下爆款文案，提取出：\n1.【一句话定位】核心定位（10字内）\n2.【标题公式】结构模板，抽象为可填空的公式\n3.【结构骨架】3-7步叙事结构（每步一句话）\n4.【情绪曲线】标注情绪起伏点\n5.【金句模式】提取3-5个金句并抽象化写法公式\n6.【转折技巧】观点转折/认知颠覆的技法\n7.【结尾公式】结尾引导的结构模板\n8.【可复用模板】抽象为可填空的模板（用 ___ 标注可替换位置）\n9.【适用场景】最适合什么类型的内容\n10.【一句话总结】这个写手的核心方法论';
+            const result=await dsCallAI(sp,'请蒸馏以下爆款文案的写作框架：\n\n'+text,{maxTokens:3500});
+            dsState.loading=false;
+            if(!result){renderDistill();return;}
+            dsState.result=result;renderDistill();toast('✅ 框架蒸馏完成！');
+        }
+
+        function dsCopy(){
+            if(!dsState.result)return;
+            navigator.clipboard.writeText(dsState.result).then(()=>toast('📋 框架已复制')).catch(()=>toast('复制失败','error'));
+        }
+        function dsClear(){dsState={input:'',result:null,loading:false};renderDistill();}
+
+        function renderDistill(){
+            const c=document.getElementById('distillContainer');if(!c)return;
+            let h='<h2 style="font-family:var(--serif-cn);font-size:22px;margin-bottom:20px;text-align:center">🔬 文案框架蒸馏器 <span style="font-size:13px;color:var(--gray-500);font-weight:400">—— 女娲方法论：提取可运行的写作框架</span></h2>';
+            if(!dsState.result&&!dsState.loading){
+                h+='<div class="distill-input-card"><p style="font-size:14px;color:var(--gray-500);margin-bottom:16px;line-height:1.8">粘贴一篇你觉得写得好的爆款文案，AI 会<span style="color:var(--amber);font-weight:600">自动蒸馏出背后的写作框架</span>。<br>不是总结它写了什么，而是提炼<span style="color:var(--gold);font-weight:600">它为什么有效、下次你怎么复用</span>。</p><textarea id="ds-input" placeholder="直接粘贴爆款文案全文...（>=50字）\n\n例如：小红书爆款笔记、抖音热门文案、公众号十万+文章..." style="width:100%;min-height:220px;padding:16px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:14px;font-family:inherit;resize:vertical;outline:none;line-height:1.8">'+escHtml(dsState.input)+'</textarea><div style="display:flex;gap:12px;margin-top:16px;align-items:center"><button class="btn btn-primary" onclick="dsDistill()" style="padding:12px 28px;font-size:15px">🔬 蒸馏框架</button><span style="font-size:12px;color:var(--gray-500)">Ctrl+Enter 快捷提交</span></div></div>';
+            }else if(dsState.loading){
+                h+='<div class="distill-input-card"><div style="text-align:center;padding:60px 20px"><div class="sg-ai-thinking" style="display:inline-flex"><span class="sg-dot"></span><span class="sg-dot"></span><span class="sg-dot"></span><span style="font-size:14px;color:var(--amber);font-weight:500;margin-left:8px">正在蒸馏文案框架...</span></div></div></div>';
+            }
+            if(dsState.result){
+                const preId='ds-result-'+Date.now();
+                // 简单渲染：加粗标题、模板区高亮
+                const rendered=dsState.result.split('\n').map(line=>{
+                    if(line.match(/^#{1,3}\s/))return '<h3 style="color:var(--gold);font-size:16px;margin:20px 0 10px;font-family:var(--serif-cn)">'+escHtml(line.replace(/^#{1,3}\s*/,''))+'</h3>';
+                    if(line.includes('___'))return '<div class="distill-template-box">'+escHtml(line).replace(/___/g,'<span style="color:var(--gold);border-bottom:2px dashed var(--gold);padding:0 12px;margin:0 2px">___</span>')+'</div>';
+                    if(line.match(/^\d+\.\s/))return '<div class="distill-section"><div class="distill-content">'+escHtml(line)+'</div></div>';
+                    return '<div style="margin:4px 0;line-height:1.8;font-size:14px;color:#e8e0ff">'+escHtml(line)+'</div>';
+                }).join('');
+                h+='<div class="distill-framework" id="'+preId+'">'+rendered+'</div>';
+                h+='<div class="sg-actions" style="justify-content:center"><button class="btn btn-primary" onclick="dsCopy()">📋 复制框架</button><button class="btn btn-secondary" onclick="dsClear()">🔄 蒸馏新文案</button></div>';
+            }
+            c.innerHTML=h;
+        }
+
         // 文案脚本 AI Agent — 多阶段自主创作管线
         // ═══════════════════════════════════════════════════════════════
         let sgState = { step:1, keyword:'', hotTopicsData:[], topics:[], selectedTopic:null, platform:'xiaohongshu', scriptContent:'', feedback:'', revisions:[], competitorAnalysis:'', autoReviewResults:[], complianceResult:null, agentLog:[] };
