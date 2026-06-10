@@ -276,7 +276,7 @@ def update_html_news_defaults(categorized):
         items_js = ""
         for item in items:
             items_js += f'                    {{ title: "{escape_js(item.get("title",""))}", summary: "{escape_js(make_summary(item))}", source: "{escape_js(item.get("source",""))}", url: "{escape_js(item.get("url",""))}", time: "{item.get("time","")}" }},\n'
-        categories_js += f'                {{ id: "{cid}", name: "{cfg["name"]}", color: "{cfg["color"]}", items: [\n{items_js}                }}},\n'
+        categories_js += '                {{ id: "{}", name: "{}", color: "{}", items: [\n{}                }},\n'.format(cid, cfg['name'], cfg['color'], items_js)
 
     new_block = f"""                // ============ 资讯热点模块 ============
         // 【每日 10:00 由 GitHub Actions 自动抓取并写入】
