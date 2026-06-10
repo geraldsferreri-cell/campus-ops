@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -6204,26 +6204,17 @@
             renderLeaderboard();
         }
 
+                // ═══════════════════════════════════════════════════════════════
+        // 文案脚本 AI Agent — 多阶段自主创作管线
         // ═══════════════════════════════════════════════════════════════
-        // 文案脚本 AI Script Generator
-        // ═══════════════════════════════════════════════════════════════
-        let sgState = { step:1, keyword:'', topics:[], selectedTopic:null, platform:'xiaohongshu', scriptContent:'', feedback:'', revisions:[], complianceResult:null };
+        let sgState = { step:1, keyword:'', hotTopicsData:[], topics:[], selectedTopic:null, platform:'xiaohongshu', scriptContent:'', feedback:'', revisions:[], competitorAnalysis:'', autoReviewResults:[], complianceResult:null, agentLog:[] };
 
-        function escHtml(s) { if(!s)return''; return s.replace(/&/g,'\&amp;').replace(/</g,'\&lt;').replace(/>/g,'\&gt;'); }
+        function escHtml(s) { if(!s)return''; return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+        function sgLog(msg) { sgState.agentLog.push({time:new Date().toLocaleTimeString('zh-CN'),msg:msg}); if(sgState.agentLog.length>20) sgState.agentLog.shift(); }
 
         function sgStepBar(n){
-            const steps=[{n:1,l:'生成选题'},{n:2,l:'创作脚本'},{n:3,l:'查看修改'},{n:4,l:'迭代优化'},{n:5,l:'合规审核'}];
+            const steps=[{n:1,l:'热点选题'},{n:2,l:'竞品分析+创作'},{n:3,l:'自审修改'},{n:4,l:'迭代优化'},{n:5,l:'合规审核'}];
             return '<div class="sg-steps">'+steps.map(s=>'<div class="sg-step'+(s.n===n?' active':'')+(s.n<n?' done':'')+'" onclick="sgGoTo('+s.n+')"><div class="sg-num">'+(s.n<n?'✓':s.n)+'</div><div>'+s.l+'</div></div>').join('')+'</div>';
-        }
-
-        async function sgCallAI(systemPrompt, userMessage, opts={}){
-            const apiKey=localStorage.getItem('campus_script_api_key');
-            if(!apiKey){toast('请先在系统设置中配置 Anthropic API Key','error');return null;}
-            try{
-                const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},body:JSON.stringify({model:opts.model||'claude-sonnet-4-6',max_tokens:opts.maxTokens||4096,temperature:opts.temperature??0.7,system:systemPrompt,messages:[{role:'user',content:userMessage}]})});
-                if(!r.ok){const e=await r.json().catch(()=>({}));if(r.status===401)toast('API Key 无效，请检查设置','error');else if(r.status===429)toast('API 请求频率过高','error');else toast('AI 请求失败：'+(e.error?.message||r.statusText),'error');return null;}
-                const d=await r.json();return d.content?.[0]?.text||null;
-            }catch(e){toast('网络错误：'+e.message,'error');return null;}
         }
 
         function sgAIThink(text){
@@ -6232,119 +6223,424 @@
         }
         function sgAIHide(){var el=document.getElementById('sg-think');if(el)el.style.display='none';}
 
-        function sgGoTo(step){
-            if(step>=2&&sgState.selectedTopic===null)return toast('请先生成并选择一个选题','error');
-            if(step>=3&&!sgState.scriptContent)return toast('请先生成脚本','error');
-            sgState.step=step;sgState.feedback='';renderScriptGen();window.scrollTo({top:0,behavior:'smooth'});
+        // ─── Anthropic API 调用（支持多轮）───
+        async function sgCallAI(systemPrompt, messages, opts={}){
+            const apiKey=localStorage.getItem('campus_script_api_key');
+            if(!apiKey){toast('请先在修改密码页面配置 Anthropic API Key','error');return null;}
+            try{
+                const body={model:opts.model||'claude-sonnet-4-6',max_tokens:opts.maxTokens||4096,temperature:opts.temperature??0.7,system:systemPrompt,messages:Array.isArray(messages)?messages:[{role:'user',content:messages}]};
+                const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01'},body:JSON.stringify(body)});
+                if(!r.ok){const e=await r.json().catch(()=>({}));if(r.status===401)toast('API Key 无效','error');else if(r.status===429)toast('请求频率过高，稍后重试','error');else toast('AI 请求失败：'+(e.error?.message||r.statusText),'error');return null;}
+                const d=await r.json();return d.content?.[0]?.text||null;
+            }catch(e){toast('网络错误：'+e.message,'error');return null;}
         }
 
-        async function sgGenTopics(){
-            const kw=document.getElementById('sg-kw')?.value?.trim();if(!kw&&!sgState.keyword)return toast('请输入关键词','error');
-            if(kw)sgState.keyword=kw;
-            const btn=document.getElementById('sg-btn-topics');if(btn){btn.disabled=true;btn.textContent='生成中...';}
-            sgAIThink('正在分析平台热点，生成创意选题...');
-            const r=await sgCallAI('你是一个资深的内容策划专家，精通小红书和抖音的内容生态。请根据关键词生成5个创意选题，包含标题/角度/适合平台/标签。请格式化为JSON：{"topics":[{"title":"标题","angle":"角度","platforms":["xiaohongshu","douyin"],"tags":["标1","标2"]}]}','关键词：'+sgState.keyword+'。请生成5个选题方向。',{temperature:0.8,maxTokens:3000});
-            sgAIHide();if(btn){btn.disabled=false;btn.textContent='✨ 生成选题';}
-            if(!r)return;
-            try{const j=JSON.parse(r.match(/\{[\\s\\S]*\}/)[0]);if(j.topics){sgState.topics=j.topics;sgState.selectedTopic=null;renderScriptGen();toast('成功生成 '+j.topics.length+'个选题！');}}catch(e){toast('AI 返回格式异常，请重试','error');}
-        }
-
-        function sgSelectTopic(i){sgState.selectedTopic=i;renderScriptGen();}
-
-        function sgSelectPlatform(p){sgState.platform=p;if(sgState.step===2)renderScriptGen();}
-
-        async function sgGenScript(){
-            const t=sgState.topics[sgState.selectedTopic];if(!t)return;
-            const btn=document.getElementById('sg-btn-script');if(btn){btn.disabled=true;btn.textContent='创作中...';}
-            sgAIThink('正在为'+(sgState.platform==='xiaohongshu'?'小红书':'抖音')+'平台创作脚本...');
-            const isXHS=sgState.platform==='xiaohongshu';
-            const sp=isXHS?'你是小红书爆款文案写手，擅长精致种草风格。平台调性：精致、真实分享感、emoji丰富、标签多、年轻女性用户为主。请创作完整的小红书短视频脚本，包含封面文案/标题/正文/画面建议/口播/结尾引导/推荐标签':
-                '你是抖音短视频编导，擅长高互动率脚本。平台调性：口语化、节奏快、前3秒抓眼球、强情绪、引导互动。请创作完整的抖音短视频脚本，包含黄金前3秒/正文/分镜/音乐/互动引导/推荐话题';
-            const r=await sgCallAI(sp,'请根据选题「'+t.title+'」创作一个完整的'+(isXHS?'小红书':'抖音')+'短视频脚本。',{temperature:0.8,maxTokens:4000});
-            sgAIHide();if(btn){btn.disabled=false;btn.textContent='🚀 生成脚本';}
-            if(!r)return;sgState.scriptContent=r;sgState.step=2;renderScriptGen();toast('脚本生成成功！');
-        }
-
-        async function sgRevise(){
-            const fb=document.getElementById('sg-fb')?.value?.trim();if(!fb)return toast('请填写修改意见','error');
-            const btn=document.getElementById('sg-btn-revise');if(btn){btn.disabled=true;btn.textContent='修改中...';}
-            sgAIThink('正在根据您的意见修改脚本...');
-            sgState.revisions.push({content:sgState.scriptContent,feedback:fb,time:new Date().toLocaleString('zh-CN')});
-            const sp='你是一个'+(sgState.platform==='douyin'?'抖音':'小红书')+'内容创作专家。请根据用户意见修改以下脚本，保持原有格式结构，直接输出完整修改后的脚本。';
-            const r=await sgCallAI(sp,'原始脚本：\n'+sgState.scriptContent+'\n\n用户修改意见：'+fb,{temperature:0.7,maxTokens:4000});
-            sgAIHide();if(btn){btn.disabled=false;btn.textContent='🤖 提交修改意见，AI 重新生成';}
-            if(!r){sgState.revisions.pop();return;}
-            sgState.scriptContent=r;sgState.feedback='';sgState.step=4;renderScriptGen();toast('脚本已按意见修改！');
-        }
-
-        async function sgAudit(){
-            if(!sgState.scriptContent)return;
-            const btn=document.getElementById('sg-btn-audit');if(btn){btn.disabled=true;btn.textContent='审核中...';}
-            sgAIThink('正在逐条审核脚本合规性...');
-            const sp='你是'+(sgState.platform==='douyin'?'抖音':'小红书')+'内容审核专家。请检查10项违规红线：色情/暴力/政治敏感/虚假宣传/诱导分享/侵权/医疗健康/金融诱导/搬运抄袭/广告规范。JSON格式：{"overall_score":85,"risk_level":"low","checks":[{"category":"类别","status":"pass","detail":"说明","suggestion":"建议"}],"summary":"总评"} status取值pass/warn/fail，risk_level取low/medium/high';
-            const r=await sgCallAI(sp,'请审核以下脚本：\n\n'+sgState.scriptContent,{temperature:0.3,maxTokens:3000});
-            sgAIHide();if(btn){btn.disabled=false;btn.textContent='🔍 重新审核';}
-            if(!r)return;
-            try{const j=JSON.parse(r.match(/\{[\\s\\S]*\}/)[0]);sgState.complianceResult=j;renderScriptGen();const l=j.risk_level;if(l==='low')toast('✅ 审核通过！风险低');else if(l==='medium')toast('⚠️ 存在中等风险');else toast('🔴 高风险！请修改后重新审核','error');}catch(e){toast('审核结果解析失败','error');}
-        }
-
-        function sgFormatScript(t){
-            if(!t)return'';return t.replace(/&/g,'\&amp;').replace(/</g,'\&lt;').replace(/>/g,'\&gt;').replace(/\n/g,'<br>').replace(/【(.+?)】/g,'<span style="color:var(--gold);font-weight:700;font-size:15px;margin-top:12px;display:block">【$1】</span>');
-        }
-
-        function sgCopy(){if(!sgState.scriptContent)return;navigator.clipboard.writeText(sgState.scriptContent).then(()=>toast('📋 脚本已复制')).catch(()=>toast('复制失败，请手动复制','error'));}
-
-        function sgSave(){
-            if(!sgState.scriptContent)return;
-            const p=JSON.parse(localStorage.getItem('campus_script_projects')||'[]');
-            p.push({id:Date.now(),keyword:sgState.keyword,platform:sgState.platform,selectedTopic:sgState.topics[sgState.selectedTopic]?.title||'',scriptContent:sgState.scriptContent,revisions:sgState.revisions,complianceResult:sgState.complianceResult,updatedAt:new Date().toISOString()});
-            localStorage.setItem('campus_script_projects',JSON.stringify(p));toast('💾 项目已保存');
-        }
-
-        function sgLoad(id){
-            const p=JSON.parse(localStorage.getItem('campus_script_projects')||'[]');const r=p.find(x=>x.id==id);
-            if(!r)return toast('项目未找到','error');
-            sgState={step:r.complianceResult?5:(r.revisions.length>0?4:3),keyword:r.keyword||'',topics:[{title:r.selectedTopic||'',angle:'',platforms:['xiaohongshu','douyin'],tags:[]}],selectedTopic:0,platform:r.platform||'xiaohongshu',scriptContent:r.scriptContent||'',feedback:'',revisions:r.revisions||[],complianceResult:r.complianceResult||null};
-            renderScriptGen();toast('项目已加载');
-        }
-
-        function renderScriptGen(){
-            const c=document.getElementById('scriptGenContainer');if(!c)return;
-            const t=sgState.topics[sgState.selectedTopic];const cr=sgState.complianceResult;
-            const projects=JSON.parse(localStorage.getItem('campus_script_projects')||'[]').filter(p=>p.keyword).slice(0,10);
-            let html='';
-            if(sgState.step===1){
-                html=sgStepBar(1)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:12px">🔑 第一步：输入关键词，生成选题</h2><p style="font-size:13px;color:var(--gray-500);margin-bottom:16px">输入你感兴趣的内容方向，AI 将结合平台热点为你生成多个创意选题。</p><div style="display:flex;gap:12px"><input id="sg-kw" type="text" placeholder="例如：校园穿搭、期末复习、宿舍好物..." value="'+escHtml(sgState.keyword)+'" style="flex:1;padding:12px 16px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:15px;outline:none;font-family:inherit" onkeydown="if(event.key===\'Enter\')sgGenTopics()"><button class="btn btn-primary" onclick="sgGenTopics()" id="sg-btn-topics" style="padding:12px 28px;font-size:15px">✨ 生成选题</button></div>';
-                if(sgState.topics.length>0){
-                    html+='<div class="sg-topic-grid">'+sgState.topics.map((t,i)=>'<div class="sg-topic-card'+(sgState.selectedTopic===i?' selected':'')+'" onclick="sgSelectTopic('+i+')"><div class="sg-topic-num">选题 '+(i+1)+'</div><div class="sg-topic-title">'+escHtml(t.title)+'</div><div class="sg-topic-angle">'+escHtml(t.angle)+'</div><div class="sg-tags">'+(t.tags||[]).map(tg=>'<span class="sg-tag">'+escHtml(tg)+'</span>').join('')+'</div><div style="margin-top:8px;font-size:11px;color:var(--gray-500)">适合：'+(t.platforms||[]).map(p=>p==='xiaohongshu'?'📕 小红书':'🎵 抖音').join(' ')+'</div></div>').join('')+'</div><div class="sg-actions"><button class="btn btn-primary" onclick="sgGoTo(2)"'+(sgState.selectedTopic===null?' disabled':'')+' style="padding:12px 32px;font-size:15px">下一步：生成脚本 →</button><button class="btn btn-secondary" onclick="sgGenTopics()">🔄 重新生成</button></div>';
-                }
-                html+='</div>';
-            }else if(sgState.step===2){
-                const has=sgState.scriptContent.length>0;
-                html=sgStepBar(2)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:12px">✍️ 第二步：选择平台，生成脚本</h2><div style="background:#f8f5ff;padding:16px;border-radius:10px;margin-bottom:16px"><div style="font-size:12px;color:var(--gray-500);margin-bottom:4px">已选选题</div><div style="font-size:16px;font-weight:700;color:var(--cream)">'+escHtml(t?.title||'')+'</div></div><div class="sg-platform-selector"><div class="sg-platform-opt'+(sgState.platform==='xiaohongshu'?' selected':'')+'" onclick="sgSelectPlatform(\'xiaohongshu\')"><span class="sg-plat-icon">📕</span><div class="sg-plat-name">小红书</div><div class="sg-plat-desc">精致种草 · emoji丰富 · 标签多</div></div><div class="sg-platform-opt'+(sgState.platform==='douyin'?' selected':'')+'" onclick="sgSelectPlatform(\'douyin\')"><span class="sg-plat-icon">🎵</span><div class="sg-plat-name">抖音</div><div class="sg-plat-desc">口语化 · 节奏快 · 前3秒抓眼球</div></div></div><button class="btn btn-primary" onclick="sgGenScript()" id="sg-btn-script" style="padding:12px 28px;font-size:15px;width:100%">🚀 生成'+(sgState.platform==='xiaohongshu'?'小红书':'抖音')+'脚本</button>';
-                if(has){html+='<div style="margin-top:20px"><div class="sg-script-view">'+sgFormatScript(sgState.scriptContent)+'</div><div class="sg-actions"><button class="btn btn-primary" onclick="sgGoTo(3)" style="padding:12px 32px;font-size:15px">下一步：查看 & 修改意见 →</button><button class="btn btn-secondary" onclick="sgGenScript()">🔄 重新生成</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制脚本</button></div></div>';}
-                html+='</div>';
-            }else if(sgState.step===3){
-                html=sgStepBar(3)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:12px">👀 第三步：查看脚本 & 填写修改意见</h2><div class="sg-script-view">'+sgFormatScript(sgState.scriptContent)+'</div><div class="sg-feedback-box"><div style="font-size:14px;font-weight:600;color:var(--cream);margin-bottom:8px">💬 修改意见</div><textarea id="sg-fb" placeholder="请描述你希望修改的地方，例如：开头不够吸引人、文案太长、增加互动引导...">'+escHtml(sgState.feedback)+'</textarea></div><div class="sg-actions"><button class="btn btn-primary" onclick="sgRevise()" id="sg-btn-revise" style="padding:12px 28px;font-size:15px">🤖 提交修改意见，AI 重新生成</button><button class="btn btn-secondary" onclick="sgGoTo(5)">⏭️ 跳过修改，直接审核</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制脚本</button></div></div>';
-                if(sgState.revisions.length>0){html+='<div class="sg-card"><h3 style="font-size:15px;margin-bottom:12px">📜 修改历史（'+sgState.revisions.length+'次）</h3><div class="sg-rev-timeline">'+sgState.revisions.map((r,i)=>'<div class="sg-rev-item'+(i===sgState.revisions.length-1?' current':'')+'"><div class="sg-rev-header">第'+(i+1)+'次修改 · '+r.time+'</div><div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">意见：'+escHtml(r.feedback)+'</div><div class="sg-rev-content">'+escHtml(r.content.slice(0,200))+'...</div></div>').join('')+'</div></div>';}
-            }else if(sgState.step===4){
-                html=sgStepBar(4)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:12px">🔄 第四步：AI 已根据意见修改</h2><div class="sg-script-view">'+sgFormatScript(sgState.scriptContent)+'</div><div class="sg-feedback-box"><div style="font-size:14px;font-weight:600;color:var(--cream);margin-bottom:8px">💬 继续提修改意见（可选）</div><textarea id="sg-fb" placeholder="如果还需要调整，请继续描述...">'+escHtml(sgState.feedback)+'</textarea></div><div class="sg-actions"><button class="btn btn-primary" onclick="sgRevise()" id="sg-btn-revise" style="padding:12px 28px;font-size:15px">🤖 继续修改</button><button class="btn btn-success" onclick="sgGoTo(5)" style="padding:12px 28px;font-size:15px">✅ 满意，进入审核</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制脚本</button></div></div>';
-                if(sgState.revisions.length>0){html+='<div class="sg-card"><h3 style="font-size:15px;margin-bottom:12px">📜 修改历史（'+sgState.revisions.length+'次）</h3><div class="sg-rev-timeline">'+sgState.revisions.map((r,i)=>'<div class="sg-rev-item'+(i===sgState.revisions.length-1?' current':'')+'"><div class="sg-rev-header">第'+(i+1)+'次修改 · '+r.time+'</div><div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">意见：'+escHtml(r.feedback)+'</div><div class="sg-rev-content">'+escHtml(r.content.slice(0,200))+'...</div></div>').join('')+'</div></div>';}
-            }else if(sgState.step===5){
-                html=sgStepBar(5)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:12px">🔍 第五步：平台合规审核</h2>';
-                if(cr){
-                    html+='<div class="sg-compliance-score '+(cr.risk_level==='low'?'safe':'risk')+'"><div class="sg-score-num">'+cr.overall_score+'</div><div style="font-size:14px;margin-top:4px">合规评分 · 风险等级：'+({low:'🟢 低风险',medium:'🟡 中风险',high:'🔴 高风险'}[cr.risk_level]||cr.risk_level)+'</div></div><div>'+(cr.checks||[]).map(c=>'<div class="sg-compliance-item '+c.status+'"><span style="font-size:18px">'+({pass:'✅',warn:'⚠️',fail:'❌'}[c.status]||'❓')+'</span><div style="flex:1;font-size:13px;line-height:1.6"><div style="font-weight:600;margin-bottom:2px">'+escHtml(c.category)+'</div><div>'+escHtml(c.detail||'')+'</div>'+(c.suggestion?'<div style="color:var(--warning);margin-top:4px;font-size:12px">💡 '+escHtml(c.suggestion)+'</div>':'')+'</div></div>').join('')+'</div>'+(cr.summary?'<div style="margin-top:16px;padding:16px;background:#f8f5ff;border-radius:10px;border:1px solid var(--amber)"><div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:4px">📝 审核总结</div><div style="font-size:14px;line-height:1.8">'+escHtml(cr.summary)+'</div></div>':'');
-                }else{
-                    html+='<div style="text-align:center;padding:40px;background:var(--gray-100);border-radius:12px"><div style="font-size:40px;margin-bottom:12px">🔍</div><p style="color:var(--gray-500)">点击下方按钮，AI 将为你审核脚本合规性</p></div>';
-                }
-                html+='<div class="sg-actions"><button class="btn btn-primary" onclick="sgAudit()" id="sg-btn-audit" style="padding:12px 28px;font-size:15px">🔍 '+(cr?'重新审核':'开始审核')+'</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制脚本</button><button class="btn btn-success" onclick="sgSave()">💾 保存项目</button></div></div>';
-                if(cr){html+='<details style="margin-top:20px"><summary style="cursor:pointer;font-size:14px;font-weight:600;color:var(--cream)">📝 查看脚本全文</summary><div class="sg-script-view" style="margin-top:12px">'+sgFormatScript(sgState.scriptContent)+'</div></details>';}
+        // ─── Stage 0: 抓取真实热点 ───
+        async function sgFetchHotTrends() {
+            sgLog('🌐 Agent 正在抓取多平台实时热点...');
+            sgAIThink('Agent 正在抓取全网热点数据...');
+            const trends = [];
+            // 使用 rss2json API (免费, CORS 友好) 拉取多源热点
+            const feeds = [
+                {name:'微博热搜',url:'https://rsshub.app/weibo/search/hot'},
+                {name:'知乎热榜',url:'https://rsshub.app/zhihu/hotlist'},
+                {name:'百度热搜',url:'https://rsshub.app/baidu/top'},
+                {name:'抖音热点',url:'https://rsshub.app/douyin/hot'}
+            ];
+            for (const feed of feeds) {
+                try {
+                    const r = await fetch('https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed.url));
+                    if (r.ok) {
+                        const data = await r.json();
+                        if (data.items) {
+                            data.items.slice(0,8).forEach(item => {
+                                trends.push({source:feed.name, title:item.title, pubDate:item.pubDate});
+                            });
+                        }
+                    }
+                } catch(e) { /* 单个源失败不影响 */ }
             }
-            // Add project list
-            if(projects.length>0){
+            // 降级：如果 RSS 都失败了，用通用搜索
+            if (trends.length === 0) {
+                sgLog('⚠️ RSS 源不可用，使用搜索引擎获取热点');
+                try {
+                    const r = await fetch('https://news.google.com/rss?hl=zh-CN&gl=CN&ceid=CN:zh-Hans');
+                    if (r.ok) {
+                        const text = await r.text();
+                        const items = text.match(/<title>(?!Google News)([^<]+)<\/title>/g) || [];
+                        items.slice(0,20).forEach(t => {
+                            const title = t.replace(/<\/?title>/g,'').trim();
+                            if (title && title.length > 5) trends.push({source:'Google News',title:title,pubDate:''});
+                        });
+                    }
+                } catch(e2) {}
+            }
+            sgAIHide();
+            sgState.hotTopicsData = trends;
+            sgLog('✅ 已抓取 '+trends.length+' 条实时热点');
+            return trends;
+        }
+
+        // ─── Stage 1: Agent 选题生成（结合真实热点）───
+        async function sgAgentGenTopics() {
+            const kw = document.getElementById('sg-kw')?.value?.trim();
+            if (!kw && !sgState.keyword) return toast('请输入关键词','error');
+            if (kw) sgState.keyword = kw;
+            const btn = document.getElementById('sg-btn-topics');
+            if (btn) { btn.disabled = true; btn.textContent = 'Agent 工作中...'; }
+            sgLog('🚀 Agent 启动：关键词 = "'+sgState.keyword+'"');
+            renderScriptGen();
+
+            // Stage 0: 先抓热点
+            const trends = await sgFetchHotTrends();
+            // 过滤与关键词相关的热点
+            const kwLower = sgState.keyword.toLowerCase();
+            const relevantTrends = trends.filter(t => {
+                const tLower = t.title.toLowerCase();
+                // 模糊匹配
+                const kwChars = kwLower.split('');
+                return kwChars.filter(c => tLower.includes(c)).length >= kwChars.length * 0.5;
+            });
+            const trendText = (relevantTrends.length > 0 ? relevantTrends : trends.slice(0,15))
+                .map(t => '['+t.source+'] '+t.title).join('\n');
+
+            sgAIThink('Agent 正在基于 '+trends.length+' 条实时热点生成选题...');
+            sgLog('📊 结合 '+relevantTrends.length+' 条相关热点分析中...');
+            renderScriptGen();
+
+            // Stage 1: 基于热点生成选题
+            const sysPrompt = `你是资深内容策划 Agent。你必须基于用户提供的【真实当前热点数据】来生成选题，而不是凭记忆编造。
+
+每个选题必须：
+1. 明确关联至少一条热点趋势
+2. 标注"热点关联"字段，说明借势角度
+3. 标题有爆款潜力，角度新颖
+4. 标注适合平台及原因
+
+返回严格 JSON：
+{
+  "trend_analysis": "热点趋势简要分析（50字内）",
+  "topics": [{
+    "title": "选题标题",
+    "angle": "切入角度（50字）",
+    "trend_link": "关联的热点",
+    "platforms": ["xiaohongshu","douyin"],
+    "platform_reason": {"xiaohongshu":"为什么适合小红书","douyin":"为什么适合抖音"},
+    "tags": ["标签1","标签2","标签3"]
+  }]
+}`;
+
+            const result = await sgCallAI(sysPrompt,
+                '用户关键词：'+sgState.keyword+'\n\n=== 当前全网热点数据 ===\n'+trendText+'\n\n请基于以上真实热点数据，生成5个创意选题。');
+            sgAIHide();
+            if (btn) { btn.disabled = false; btn.textContent = '✨ Agent 生成选题'; }
+            if (!result) return;
+            try {
+                const json = JSON.parse(result.match(/\{[\s\S]*\}/)[0]);
+                if (json.topics) {
+                    sgState.topics = json.topics;
+                    sgState.selectedTopic = null;
+                    sgLog('✅ Agent 生成了 '+json.topics.length+' 个热点选题');
+                    if (json.trend_analysis) sgLog('📈 趋势分析: '+json.trend_analysis);
+                }
+            } catch(e) { toast('AI 返回格式异常，请重试','error'); return; }
+            renderScriptGen();
+        }
+
+        function sgSelectTopic(i) { sgState.selectedTopic = i; renderScriptGen(); }
+        function sgSelectPlatform(p) { sgState.platform = p; if (sgState.step===2) renderScriptGen(); }
+
+        // ─── Stage 2: Agent 竞品分析 + 差异化创作 ───
+        async function sgAgentGenScript() {
+            const t = sgState.topics[sgState.selectedTopic];
+            if (!t) return toast('请先选择选题','error');
+            const btn = document.getElementById('sg-btn-script');
+            if (btn) { btn.disabled = true; btn.textContent = 'Agent 分析竞品中...'; }
+            sgLog('🔍 Agent 开始竞品分析: "'+t.title+'"');
+            renderScriptGen();
+
+            // Stage 2a: 竞品分析 — 搜索已有类似内容
+            sgAIThink('Agent 正在搜索竞品内容，分析差异化空间...');
+            let competitorInsight = '';
+            try {
+                // 用 Brave Search API（免费）或 Google 搜索已有内容
+                const searchQuery = encodeURIComponent(t.title+' site:xiaohongshu.com OR site:douyin.com');
+                // 尝试 Brave Search（需要 API key，降级用 Bing）
+                const braveKey = localStorage.getItem('campus_brave_api_key') || '';
+                if (braveKey) {
+                    const sr = await fetch('https://api.search.brave.com/res/v1/web/search?q='+searchQuery+'&count=5', {
+                        headers: {'Accept':'application/json','Accept-Encoding':'gzip','X-Subscription-Token':braveKey}
+                    });
+                    if (sr.ok) {
+                        const sd = await sr.json();
+                        competitorInsight = (sd.web?.results||[]).map(r => r.title+' | '+r.description).join('\n');
+                    }
+                }
+                if (!competitorInsight) {
+                    // 降级：让 AI 自行分析（基于训练数据中的记忆）
+                    competitorInsight = '（web搜索不可用，Agent将基于训练数据中已知的爆款模式进行分析）';
+                }
+                sgLog('📊 竞品搜索完成'+(competitorInsight.length>50?'，获取到竞品数据':'，使用内置分析'));
+            } catch(e) { competitorInsight = '（竞品搜索失败，使用内置知识）'; }
+
+            // Stage 2b: 差异化脚本创作
+            sgAIThink('Agent 正在分析竞品差异化，创作脚本...');
+            const isXHS = sgState.platform === 'xiaohongshu';
+            const sp = `你是头部短视频内容策略 Agent。请完成以下分析并创作脚本：
+
+第一步：竞品差异化分析
+- 研究已有竞品内容的常见角度和套路
+- 找出未被充分覆盖的差异化切入点
+- 制定内容策略：如何在同一选题上做出辨识度
+
+第二步：创作脚本
+平台：${isXHS?'小红书（精致种草、真实分享感、emoji丰富）':'抖音（口语化、节奏快、前3秒抓眼球）'}
+要求：必须在角度上避开竞品常见套路，做出差异化。
+
+请按以下格式输出：
+【竞品分析】
+- 已有套路：...
+- 差异化策略：...
+- 爆款预判：为什么这个角度能火
+
+【完整脚本】
+（按${isXHS?'小红书':'抖音'}格式输出完整脚本）`;
+
+            const result = await sgCallAI(sp,
+                '选题：'+t.title+'\n角度：'+t.angle+'\n热点关联：'+(t.trend_link||'无')+'\n\n竞品搜索结果：\n'+competitorInsight+'\n\n请先做竞品差异化分析，再创作脚本。');
+            sgAIHide();
+            if (btn) { btn.disabled = false; btn.textContent = '🚀 Agent 创作脚本'; }
+            if (!result) return;
+            sgState.scriptContent = result;
+            sgState.competitorAnalysis = competitorInsight;
+            sgState.step = 2;
+            sgLog('✅ Agent 完成竞品分析+脚本创作');
+            renderScriptGen();
+            toast('脚本已生成（含竞品分析）！');
+        }
+
+        // ─── Stage 3-4: Agent 自主审查 + 多轮自动修改 ───
+        async function sgAgentAutoRevise() {
+            const fb = document.getElementById('sg-fb')?.value?.trim() || '';
+            sgState.feedback = fb;
+            const btn = document.getElementById('sg-btn-revise');
+            if (btn) { btn.disabled = true; btn.textContent = 'Agent 自审中...'; }
+            sgLog('🔍 Agent 开始自主质量审查...');
+            renderScriptGen();
+
+            // Step 1: AI 自我审查脚本质量
+            sgAIThink('Agent 正在自我审查脚本质量（第1轮）...');
+            const reviewPrompt = `你是严苛的内容质量审查 Agent。请审查以下${sgState.platform==='douyin'?'抖音':'小红书'}脚本，逐项打分（1-10分）：
+
+审查维度：
+1. 开头吸引力：能否3秒内抓住用户
+2. 结构完整性：是否覆盖了平台要求的全部要素
+3. 语言调性：是否符合${sgState.platform==='douyin'?'抖音口语化快节奏':'小红书精致种草'}风格
+4. 情绪张力：是否有情绪起伏和记忆点
+5. 差异化程度：是否避免了套路化的表达
+6. 互动引导：是否能驱动点赞/评论/关注
+7. 转化潜力：是否有效传递核心信息/种草点
+
+${fb?'额外用户意见：'+fb:''}
+
+请返回 JSON：
+{
+  "scores": {"吸引力":8,"结构":7,"调性":8,"情绪":6,"差异化":7,"互动":8,"转化":7},
+  "total_score": 51,
+  "critical_issues": ["问题1","问题2"],
+  "improvement_plan": "具体修改方案（100字内）",
+  "ready_to_publish": false
+}`;
+
+            const reviewResult = await sgCallAI(reviewPrompt, '请审查以下脚本：\n\n'+sgState.scriptContent, {temperature:0.3,maxTokens:2000});
+            let reviewData = null;
+            try {
+                if (reviewResult) {
+                    const j = JSON.parse(reviewResult.match(/\{[\s\S]*\}/)[0]);
+                    reviewData = j;
+                    sgState.autoReviewResults = [j];
+                    sgLog('📋 自审评分: '+j.total_score+'/70 | 问题数: '+(j.critical_issues||[]).length);
+                }
+            } catch(e) { sgLog('⚠️ 自审结果解析失败，继续修改'); }
+
+            // Step 2: 如果有严重问题或用户意见，自动修改
+            const hasIssues = reviewData && (reviewData.total_score < 49 || (reviewData.critical_issues||[]).length > 0);
+            const needsRevise = hasIssues || fb;
+
+            if (needsRevise) {
+                sgAIThink('Agent 正在根据审查结果自动修改脚本...');
+                sgLog('🔧 Agent 自动修改中...');
+                sgState.revisions.push({content:sgState.scriptContent,feedback:fb||'Agent 自主审查发现问题',time:new Date().toLocaleString('zh-CN')});
+
+                const revisePrompt = `你是资深内容修改 Agent。请根据以下审查结果${fb?'和用户意见':''}修改脚本。
+
+审查发现的问题：
+${(reviewData?.critical_issues||[]).map((x,i)=>'- '+x).join('\n')||'无严重问题'}
+${reviewData?.improvement_plan?'修改方案：'+reviewData.improvement_plan:''}
+${fb?'用户意见：'+fb:''}
+
+要求修改后的脚本保持原有格式结构，直接输出完整脚本。`;
+
+                const revised = await sgCallAI(revisePrompt, '原始脚本：\n'+sgState.scriptContent+'\n\n请按审查意见输出修改后的完整脚本。', {temperature:0.7,maxTokens:4000});
+                if (revised) {
+                    sgState.scriptContent = revised;
+                    sgLog('✅ Agent 完成自动修改');
+
+                    // Step 3: 二次审查 — 验证修改效果
+                    sgAIThink('Agent 正在二次审查修改效果...');
+                    const review2 = await sgCallAI(reviewPrompt, '请审查修改后的脚本：\n\n'+revised, {temperature:0.3,maxTokens:2000});
+                    try {
+                        if (review2) {
+                            const j2 = JSON.parse(review2.match(/\{[\s\S]*\}/)[0]);
+                            sgState.autoReviewResults.push(j2);
+                            sgLog('📋 二次评分: '+j2.total_score+'/70');
+                            if (j2.total_score >= 49) sgLog('✅ 质量达标！');
+                        }
+                    } catch(e2) {}
+                }
+            } else if (!fb) {
+                sgLog('✅ 脚本质量已达标准，无需修改');
+            }
+
+            sgAIHide();
+            if (btn) { btn.disabled = false; btn.textContent = '🤖 Agent 自审修改'; }
+            sgState.step = 4;
+            sgState.feedback = '';
+            renderScriptGen();
+            toast('Agent 审查修改完成！');
+        }
+
+        // ─── Stage 5: 合规审核 ───
+        async function sgAgentAudit() {
+            if (!sgState.scriptContent) return;
+            const btn = document.getElementById('sg-btn-audit');
+            if (btn) { btn.disabled = true; btn.textContent = '审核中...'; }
+            sgAIThink('Agent 正在逐条审核脚本合规性...');
+            sgLog('🔍 Agent 开始合规审核...');
+
+            const sp = `你是${sgState.platform==='douyin'?'抖音':'小红书'}内容合规审核 Agent。请逐条检查以下10项：
+
+1. 色情低俗 — 是否有性暗示/擦边内容
+2. 暴力血腥 — 是否有暴力/血腥描述
+3. 政治敏感 — 是否有敏感政治内容
+4. 虚假宣传 — 是否有夸大/不实宣称
+5. 诱导行为 — 是否过度诱导分享/关注
+6. 侵权风险 — 是否有未授权的音乐/图片/文案
+7. 医疗健康 — 是否有未认证的健康宣称
+8. 金融诱导 — 是否有投资理财诱导
+9. ${sgState.platform==='douyin'?'搬运抄袭 — 是否明显抄袭已有内容':'虚假种草 — 是否有代写代发嫌疑'}
+10. 广告违规 — 是否违反平台广告规范
+
+返回 JSON：
+{
+  "overall_score": 85,
+  "risk_level": "low",
+  "checks": [{"category":"类别","status":"pass","detail":"说明","suggestion":"建议"}],
+  "summary": "总评（50字）",
+  "must_fix": ["必须修改的项"]
+}`;
+
+            const result = await sgCallAI(sp, '待审核脚本：\n\n'+sgState.scriptContent, {temperature:0.2,maxTokens:3000});
+            sgAIHide();
+            if (btn) { btn.disabled = false; btn.textContent = '🔍 重新审核'; }
+            if (!result) return;
+            try {
+                const j = JSON.parse(result.match(/\{[\s\S]*\}/)[0]);
+                sgState.complianceResult = j;
+                const l = j.risk_level;
+                if (l==='low') { toast('✅ 审核通过！'); sgLog('✅ 合规审核通过 ('+j.overall_score+'分)'); }
+                else if (l==='medium') { toast('⚠️ 存在中等风险'); sgLog('⚠️ 中等风险，需关注 '+(j.must_fix||[]).length+' 项'); }
+                else { toast('🔴 高风险！需修改','error'); sgLog('🔴 高风险！必须修改 '+(j.must_fix||[]).length+' 项'); }
+            } catch(e) { toast('审核结果解析失败','error'); }
+            sgState.step = 5;
+            renderScriptGen();
+        }
+
+        function sgGoTo(step) {
+            if (step>=2 && sgState.selectedTopic===null) return toast('请先选择选题','error');
+            if (step>=3 && !sgState.scriptContent) return toast('请先生成脚本','error');
+            sgState.step = step; sgState.feedback = ''; renderScriptGen();
+        }
+
+        function sgFormatScript(t) {
+            if (!t) return '';
+            return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>').replace(/【(.+?)】/g,'<span style="color:var(--gold);font-weight:700;font-size:15px;margin-top:12px;display:block">【$1】</span>');
+        }
+
+        function sgCopy() {
+            if (!sgState.scriptContent) return;
+            navigator.clipboard.writeText(sgState.scriptContent).then(()=>toast('📋 已复制')).catch(()=>toast('复制失败','error'));
+        }
+
+        function sgSave() {
+            if (!sgState.scriptContent) return;
+            const p = JSON.parse(localStorage.getItem('campus_script_projects')||'[]');
+            p.push({id:Date.now(),keyword:sgState.keyword,platform:sgState.platform,selectedTopic:sgState.topics[sgState.selectedTopic]?.title||'',scriptContent:sgState.scriptContent,revisions:sgState.revisions,complianceResult:sgState.complianceResult,updatedAt:new Date().toISOString()});
+            localStorage.setItem('campus_script_projects',JSON.stringify(p)); toast('💾 已保存');
+        }
+
+        function sgLoad(id) {
+            const p=JSON.parse(localStorage.getItem('campus_script_projects')||'[]');
+            const r=p.find(x=>x.id==id);
+            if (!r) return toast('项目未找到','error');
+            sgState={step:r.complianceResult?5:(r.revisions.length>0?4:3),keyword:r.keyword||'',hotTopicsData:[],topics:[{title:r.selectedTopic||'',angle:'',platforms:['xiaohongshu','douyin'],tags:[]}],selectedTopic:0,platform:r.platform||'xiaohongshu',scriptContent:r.scriptContent||'',feedback:'',revisions:r.revisions||[],competitorAnalysis:'',autoReviewResults:[],complianceResult:r.complianceResult||null,agentLog:[]};
+            renderScriptGen(); toast('项目已加载');
+        }
+
+        function renderScriptGen() {
+            const c=document.getElementById('scriptGenContainer'); if(!c) return;
+            const t=sgState.topics[sgState.selectedTopic]; const cr=sgState.complianceResult;
+            const projects=JSON.parse(localStorage.getItem('campus_script_projects')||'[]').filter(p=>p.keyword).slice(0,10);
+            // Agent 操作日志
+            const logHtml=sgState.agentLog.length>0?'<div class="sg-card" style="background:var(--cream);color:#e8e0ff;padding:16px"><div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--gold)">🤖 Agent 运行日志</div>'+sgState.agentLog.map(l=>'<div style="font-size:12px;line-height:1.8"><span style="color:var(--gold)">'+l.time+'</span> '+escHtml(l.msg)+'</div>').join('')+'</div>':'';
+            let html='';
+            if (sgState.step===1) {
+                html=sgStepBar(1)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:8px">🔑 第一步：Agent 热点选题</h2><p style="font-size:13px;color:var(--gray-500);margin-bottom:16px">Agent 会先抓取全网实时热点，再结合你的关键词生成选题 — 不是凭记忆编造，而是<span style="color:var(--amber);font-weight:600">基于真实热点数据</span>。</p><div style="display:flex;gap:12px"><input id="sg-kw" type="text" placeholder="例如：校园穿搭、期末复习、宿舍好物..." value="'+escHtml(sgState.keyword)+'" style="flex:1;padding:12px 16px;border:1.5px solid var(--gray-200);border-radius:10px;font-size:15px;outline:none;font-family:inherit" onkeydown="if(event.key===\'Enter\')sgAgentGenTopics()"><button class="btn btn-primary" onclick="sgAgentGenTopics()" id="sg-btn-topics" style="padding:12px 28px;font-size:15px">🤖 Agent 生成选题</button></div>';
+                if (sgState.hotTopicsData.length>0) {
+                    html+='<div style="margin-top:16px;background:#f8f5ff;padding:14px;border-radius:10px;font-size:13px"><b style="color:var(--amber)">🌐 实时热点快照</b> ('+sgState.hotTopicsData.length+'条)<div style="max-height:150px;overflow-y:auto;margin-top:8px">'+sgState.hotTopicsData.slice(0,10).map(h=>'<div style="padding:4px 0;border-bottom:1px solid var(--gray-100);font-size:12px"><span style="color:var(--gray-500)">['+escHtml(h.source)+']</span> '+escHtml(h.title)+'</div>').join('')+'</div></div>';
+                }
+                if (sgState.topics.length>0) {
+                    html+='<div class="sg-topic-grid">'+sgState.topics.map((t,i)=>'<div class="sg-topic-card'+(sgState.selectedTopic===i?' selected':'')+'" onclick="sgSelectTopic('+i+')"><div class="sg-topic-num">选题 '+(i+1)+'</div><div class="sg-topic-title">'+escHtml(t.title)+'</div><div class="sg-topic-angle">'+escHtml(t.angle)+'</div>'+(t.trend_link?'<div style="margin-top:6px;font-size:11px;color:var(--amber);padding:4px 8px;background:#f3f0ff;border-radius:6px">🔥 热点关联：'+escHtml(t.trend_link)+'</div>':'')+'<div class="sg-tags">'+(t.tags||[]).map(tg=>'<span class="sg-tag">'+escHtml(tg)+'</span>').join('')+'</div><div style="margin-top:8px;font-size:11px;color:var(--gray-500)">适合：'+(t.platforms||[]).map(p=>p==='xiaohongshu'?'📕 小红书':'🎵 抖音').join(' ')+'</div></div>').join('')+'</div><div class="sg-actions"><button class="btn btn-primary" onclick="sgGoTo(2)"'+(sgState.selectedTopic===null?' disabled':'')+' style="padding:12px 32px;font-size:15px">下一步：竞品分析+创作 →</button><button class="btn btn-secondary" onclick="sgAgentGenTopics()">🔄 重新生成</button></div>';
+                }
+                html+='</div>';
+            } else if (sgState.step===2) {
+                const has=sgState.scriptContent.length>0;
+                html=sgStepBar(2)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:8px">🔍 第二步：竞品分析 + 差异化创作</h2><div style="background:#f8f5ff;padding:16px;border-radius:10px;margin-bottom:16px"><div style="font-size:12px;color:var(--gray-500);margin-bottom:4px">已选选题</div><div style="font-size:16px;font-weight:700;color:var(--cream)">'+escHtml(t?.title||'')+'</div>'+(t?.trend_link?'<div style="font-size:12px;color:var(--amber);margin-top:4px">🔥 '+escHtml(t.trend_link)+'</div>':'')+'</div><p style="font-size:13px;color:var(--gray-500);margin-bottom:16px">Agent 会先<span style="color:var(--amber);font-weight:600">搜索竞品内容</span>，分析已有套路，然后<span style="color:var(--amber);font-weight:600">找到差异化切入点</span>再创作 — 避免人云亦云。</p><div class="sg-platform-selector"><div class="sg-platform-opt'+(sgState.platform==='xiaohongshu'?' selected':'')+'" onclick="sgSelectPlatform(\'xiaohongshu\')"><span class="sg-plat-icon">📕</span><div class="sg-plat-name">小红书</div><div class="sg-plat-desc">精致种草 · emoji丰富 · 标签多</div></div><div class="sg-platform-opt'+(sgState.platform==='douyin'?' selected':'')+'" onclick="sgSelectPlatform(\'douyin\')"><span class="sg-plat-icon">🎵</span><div class="sg-plat-name">抖音</div><div class="sg-plat-desc">口语化 · 节奏快 · 前3秒抓眼球</div></div></div><button class="btn btn-primary" onclick="sgAgentGenScript()" id="sg-btn-script" style="padding:12px 28px;font-size:15px;width:100%">🤖 Agent 竞品分析 + 创作脚本</button>';
+                if (has) {
+                    html+='<div style="margin-top:20px"><div class="sg-script-view">'+sgFormatScript(sgState.scriptContent)+'</div><div class="sg-actions"><button class="btn btn-primary" onclick="sgGoTo(3)" style="padding:12px 32px;font-size:15px">下一步：Agent 自审修改 →</button><button class="btn btn-secondary" onclick="sgAgentGenScript()">🔄 重新生成</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制</button></div></div>';
+                }
+                html+='</div>';
+            } else if (sgState.step===3) {
+                const reviews=sgState.autoReviewResults;
+                html=sgStepBar(3)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:8px">🔍 第三步：Agent 自主审查</h2><p style="font-size:13px;color:var(--gray-500);margin-bottom:16px">Agent 会<span style="color:var(--amber);font-weight:600">自动审查脚本质量</span>（吸引力/结构/调性/情绪/差异化/互动/转化），发现问题后<span style="color:var(--amber);font-weight:600">自动修改</span>。你也可以添加人工意见。</p><div class="sg-script-view">'+sgFormatScript(sgState.scriptContent)+'</div><div class="sg-feedback-box"><div style="font-size:14px;font-weight:600;color:var(--cream);margin-bottom:8px">💬 你的修改意见（可选，Agent 会自动整合）</div><textarea id="sg-fb" placeholder="Agent 会先自行审查修改，你也可以补充意见...">'+escHtml(sgState.feedback)+'</textarea></div><div class="sg-actions"><button class="btn btn-primary" onclick="sgAgentAutoRevise()" id="sg-btn-revise" style="padding:12px 28px;font-size:15px">🤖 Agent 自审 + 自动修改</button><button class="btn btn-secondary" onclick="sgGoTo(5)">⏭️ 跳过，直接审核</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制</button></div></div>';
+                if (reviews.length>0) {
+                    html+='<div class="sg-card"><h3 style="font-size:15px;margin-bottom:12px">📊 Agent 质量审查报告</h3>'+reviews.map((r,i)=>'<div style="background:#f9fafb;padding:16px;border-radius:10px;margin-bottom:12px;border:1px solid var(--gray-200)"><div style="font-weight:600;margin-bottom:8px;color:var(--amber)">第'+(i+1)+'轮审查 ｜ 总分：<b>'+r.total_score+'/70</b></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 16px;font-size:12px;margin-bottom:8px">'+Object.entries(r.scores||{}).map(([k,v])=>'<div style="display:flex;justify-content:space-between"><span>'+k+'</span><span style="color:'+(v>=7?'var(--success)':v>=5?'var(--warning)':'var(--danger)')+'">'+v+'/10</span></div>').join('')+'</div>'+(r.critical_issues||[]).length>0?'<div style="font-size:12px;color:var(--danger);margin-bottom:6px">⚠️ 发现问题：'+(r.critical_issues||[]).map(x=>escHtml(x)).join('；')+'</div>':''+(r.improvement_plan?'<div style="font-size:12px;color:var(--gray-500)">💡 '+escHtml(r.improvement_plan)+'</div>':'')+'</div>').join('')+'</div>';
+                }
+                if (sgState.revisions.length>0) {
+                    html+='<div class="sg-card"><h3 style="font-size:15px;margin-bottom:12px">📜 修改历史（'+sgState.revisions.length+'次）</h3><div class="sg-rev-timeline">'+sgState.revisions.map((r,i)=>'<div class="sg-rev-item'+(i===sgState.revisions.length-1?' current':'')+'"><div class="sg-rev-header">第'+(i+1)+'次修改 · '+r.time+'</div><div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">'+escHtml(r.feedback)+'</div></div>').join('')+'</div></div>';
+                }
+            } else if (sgState.step===4) {
+                const reviews=sgState.autoReviewResults;
+                html=sgStepBar(4)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:8px">✅ Agent 修改完成</h2><div class="sg-script-view">'+sgFormatScript(sgState.scriptContent)+'</div>';
+                if (reviews.length>0) {
+                    html+='<div style="margin-top:16px;background:#f8f5ff;padding:16px;border-radius:10px;font-size:13px">'+reviews.map((r,i)=>'<div><b>第'+(i+1)+'轮评分：</b>'+r.total_score+'/70 '+(r.total_score>=49?'✅ 达标':'⚠️ 需改进')+'</div>').join('')+'</div>';
+                }
+                html+='<div class="sg-feedback-box"><div style="font-size:14px;font-weight:600;color:var(--cream);margin-bottom:8px">💬 继续修改意见（可选）</div><textarea id="sg-fb" placeholder="如果还需要调整...">'+escHtml(sgState.feedback)+'</textarea></div><div class="sg-actions"><button class="btn btn-primary" onclick="sgAgentAutoRevise()" id="sg-btn-revise" style="padding:12px 28px;font-size:15px">🤖 Agent 继续修改</button><button class="btn btn-success" onclick="sgGoTo(5)" style="padding:12px 28px;font-size:15px">✅ 满意，合规审核</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制</button></div></div>';
+            } else if (sgState.step===5) {
+                html=sgStepBar(5)+'<div class="sg-card"><h2 style="font-family:var(--serif-cn);font-size:20px;margin-bottom:12px">🛡️ 第五步：平台合规审核</h2>';
+                if (cr) {
+                    html+='<div class="sg-compliance-score '+(cr.risk_level==='low'?'safe':'risk')+'"><div class="sg-score-num">'+cr.overall_score+'</div><div style="font-size:14px;margin-top:4px">合规评分 · 风险等级：'+({low:'🟢 低风险 可发布',medium:'🟡 中风险 需修改',high:'🔴 高风险 建议重做'}[cr.risk_level]||cr.risk_level)+'</div></div><div>'+(cr.checks||[]).map(c=>'<div class="sg-compliance-item '+c.status+'"><span style="font-size:18px">'+({pass:'✅',warn:'⚠️',fail:'❌'}[c.status]||'❓')+'</span><div style="flex:1;font-size:13px;line-height:1.6"><div style="font-weight:600;margin-bottom:2px">'+escHtml(c.category)+'</div><div>'+escHtml(c.detail||'')+'</div>'+(c.suggestion?'<div style="color:var(--warning);margin-top:4px;font-size:12px">💡 '+escHtml(c.suggestion)+'</div>':'')+'</div></div>').join('')+'</div>'+(cr.summary?'<div style="margin-top:16px;padding:16px;background:#f8f5ff;border-radius:10px;border:1px solid var(--amber)"><div style="font-size:13px;font-weight:600;color:var(--amber);margin-bottom:4px">📝 审核总结</div><div style="font-size:14px;line-height:1.8">'+escHtml(cr.summary)+'</div></div>':'')+(cr.must_fix?.length>0?'<div style="margin-top:12px;padding:12px;background:#fef2f2;border-radius:8px;font-size:13px;color:var(--danger)">⚠️ 必须修改：'+(cr.must_fix||[]).map(x=>escHtml(x)).join('；')+'</div>':'');
+                } else {
+                    html+='<div style="text-align:center;padding:40px;background:var(--gray-100);border-radius:12px"><div style="font-size:40px;margin-bottom:12px">🛡️</div><p style="color:var(--gray-500)">Agent 将逐条检查 10 项平台违规红线</p></div>';
+                }
+                html+='<div class="sg-actions"><button class="btn btn-primary" onclick="sgAgentAudit()" id="sg-btn-audit" style="padding:12px 28px;font-size:15px">🛡️ '+(cr?'重新审核':'Agent 合规审核')+'</button><button class="btn btn-secondary" onclick="sgCopy()">📋 复制</button><button class="btn btn-success" onclick="sgSave()">💾 保存</button></div></div>';
+                if (cr) html+='<details style="margin-top:20px"><summary style="cursor:pointer;font-size:14px;font-weight:600;color:var(--cream)">📝 脚本全文</summary><div class="sg-script-view" style="margin-top:12px">'+sgFormatScript(sgState.scriptContent)+'</div></details>';
+            }
+            html+=logHtml;
+            if (projects.length>0) {
                 html+='<div class="sg-card"><h3 style="font-size:15px;margin-bottom:12px">📂 历史项目</h3>'+projects.map(p=>'<div class="sg-project-item" onclick="sgLoad('+p.id+')"><span class="sg-proj-platform">'+(p.platform==='douyin'?'🎵':'📕')+'</span><div class="sg-proj-info"><div class="sg-proj-keyword">'+escHtml(p.keyword||'未命名')+'</div><div class="sg-proj-topic">'+escHtml((p.selectedTopic||'').slice(0,50))+'</div></div><span style="font-size:11px;color:var(--gray-500)">'+(p.updatedAt||'').slice(0,10)+'</span></div>').join('')+'</div>';
             }
-            html+='<div style="text-align:center;margin-top:16px"><button class="btn btn-secondary" onclick="sgState={step:1,keyword:\x27\x27,topics:[],selectedTopic:null,platform:\x27xiaohongshu\x27,scriptContent:\x27\x27,feedback:\x27\x27,revisions:[],complianceResult:null};renderScriptGen();">➕ 新建项目</button></div>';
+            html+='<div style="text-align:center;margin-top:16px"><button class="btn btn-secondary" onclick="sgState={step:1,keyword:\'\',hotTopicsData:[],topics:[],selectedTopic:null,platform:\'xiaohongshu\',scriptContent:\'\',feedback:\'\',revisions:[],competitorAnalysis:\'\',autoReviewResults:[],complianceResult:null,agentLog:[]};renderScriptGen();">➕ 新建项目</button></div>';
             c.innerHTML=html;
         }
     </script>
