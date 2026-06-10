@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -171,6 +171,100 @@ tbody tr:last-child td { border-bottom:none; }
 .post-card .info { flex:1; }
 .post-card .title { font-size:14px; font-weight:500; margin-bottom:6px; }
 .post-card .meta { font-size:12px; color:var(--gray); display:flex; gap:12px; flex-wrap:wrap; }
+
+/* ═══════════════════════════════════════════════════════════════
+   文案脚本 - 新增样式
+   ═══════════════════════════════════════════════════════════════ */
+.script-steps { display:flex; gap:0; margin-bottom:28px; }
+.script-step { flex:1; text-align:center; position:relative; padding:16px 8px 12px; background:#f3f4f6; cursor:pointer; transition:all .25s; font-size:13px; color:var(--gray); border-radius:8px; margin-right:4px; }
+.script-step:last-child { margin-right:0; }
+.script-step .step-num { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; background:#d1d5db; color:#fff; font-weight:700; font-size:13px; margin-bottom:6px; transition:all .25s; }
+.script-step .step-label { font-weight:500; }
+.script-step.active { background:#4D00FF; color:#fff; }
+.script-step.active .step-num { background:#FFE600; color:#1a0a3e; }
+.script-step.done { background:#e8e0ff; color:#4D00FF; }
+.script-step.done .step-num { background:#4D00FF; color:#fff; }
+.script-step::after { content:''; position:absolute; top:50%; right:-6px; width:8px; height:8px; border-top:2px solid #d1d5db; border-right:2px solid #d1d5db; transform:rotate(45deg) translateY(-50%); }
+.script-step:last-child::after { display:none; }
+.script-step.done::after { border-color:#4D00FF; }
+
+.script-container { max-width:860px; margin:0 auto; }
+.script-card { background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:24px; margin-bottom:20px; border:1px solid var(--border); transition:all .2s; }
+.script-card:hover { border-color:#4D00FF; box-shadow:0 2px 8px rgba(77,0,255,.1); }
+.script-card.selected { border-color:#4D00FF; background:#f8f5ff; box-shadow:0 0 0 2px rgba(77,0,255,.15); }
+
+.topic-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
+.topic-card { background:#fff; border:2px solid var(--border); border-radius:12px; padding:20px; cursor:pointer; transition:all .2s; position:relative; }
+.topic-card:hover { border-color:#4D00FF; transform:translateY(-2px); box-shadow:0 6px 20px rgba(77,0,255,.12); }
+.topic-card.selected { border-color:#4D00FF; background:linear-gradient(135deg,#f8f5ff,#ede4ff); }
+.topic-card.selected::after { content:'✓'; position:absolute; top:12px; right:16px; width:28px; height:28px; background:#4D00FF; color:#fff; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; }
+.topic-card .topic-num { font-size:11px; font-weight:700; color:#4D00FF; text-transform:uppercase; letter-spacing:.05em; margin-bottom:8px; }
+.topic-card .topic-title { font-size:15px; font-weight:600; color:#1a0a3e; line-height:1.5; margin-bottom:8px; }
+.topic-card .topic-angle { font-size:12px; color:var(--gray); line-height:1.6; }
+.topic-card .topic-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+.topic-card .topic-tag { font-size:11px; padding:3px 10px; background:#f3f0ff; color:#4D00FF; border-radius:20px; }
+
+.platform-selector { display:flex; gap:12px; margin:16px 0; }
+.platform-option { flex:1; padding:20px; border:2px solid var(--border); border-radius:12px; cursor:pointer; text-align:center; transition:all .2s; }
+.platform-option:hover { border-color:#4D00FF; }
+.platform-option.selected { border-color:#4D00FF; background:#f8f5ff; }
+.platform-option .plat-icon { font-size:32px; margin-bottom:8px; display:block; }
+.platform-option .plat-name { font-size:15px; font-weight:600; color:#1a0a3e; }
+.platform-option .plat-desc { font-size:11px; color:var(--gray); margin-top:4px; }
+
+.script-preview { background:#1a0a3e; color:#e8e0ff; border-radius:12px; padding:28px; font-size:14px; line-height:2; white-space:pre-wrap; font-family:'PingFang SC','Microsoft YaHei',sans-serif; position:relative; max-height:500px; overflow-y:auto; }
+.script-preview .highlight { background:rgba(255,230,0,.15); padding:2px 6px; border-radius:4px; color:#FFE600; }
+.script-preview .scene-heading { color:#FFE600; font-weight:700; font-size:15px; margin-top:12px; display:block; }
+
+.feedback-box { background:#fef9e7; border:1px solid #FFE600; border-radius:12px; padding:16px; margin-top:16px; }
+.feedback-box textarea { width:100%; border:1px solid var(--border); border-radius:8px; padding:12px; font-size:14px; font-family:inherit; resize:vertical; min-height:80px; outline:none; }
+.feedback-box textarea:focus { border-color:#4D00FF; }
+
+.revision-timeline { margin:16px 0; padding-left:24px; border-left:2px solid #e8e0ff; }
+.revision-item { position:relative; margin-bottom:20px; padding-left:20px; }
+.revision-item::before { content:''; position:absolute; left:-33px; top:4px; width:12px; height:12px; background:#4D00FF; border-radius:50%; border:3px solid #e8e0ff; }
+.revision-item .rev-header { font-size:12px; color:var(--gray); margin-bottom:4px; }
+.revision-item .rev-content { background:#f9fafb; padding:12px 16px; border-radius:8px; font-size:13px; line-height:1.8; }
+.revision-item.current::before { background:#FFE600; border-color:#4D00FF; }
+.revision-item.current .rev-content { background:#f8f5ff; border:1px solid #4D00FF; }
+
+.compliance-result { margin-top:16px; }
+.compliance-item { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; border-radius:10px; margin-bottom:10px; background:#f9fafb; }
+.compliance-item .check-icon { font-size:18px; flex-shrink:0; margin-top:2px; }
+.compliance-item.pass { background:#ecfdf5; border-left:3px solid #10b981; }
+.compliance-item.warn { background:#fef9e7; border-left:3px solid #f59e0b; }
+.compliance-item.fail { background:#fef2f2; border-left:3px solid #ef4444; }
+.compliance-item .check-detail { flex:1; font-size:13px; line-height:1.6; }
+.compliance-item .check-label { font-weight:600; margin-bottom:2px; }
+.compliance-score { text-align:center; padding:24px; border-radius:12px; margin-bottom:16px; }
+.compliance-score.safe { background:#ecfdf5; color:#065f46; }
+.compliance-score.risk { background:#fef2f2; color:#991b1b; }
+.compliance-score .score-num { font-size:48px; font-weight:800; }
+.compliance-score .score-label { font-size:14px; margin-top:4px; }
+
+.ai-thinking { display:flex; align-items:center; gap:12px; padding:20px; background:#f8f5ff; border-radius:12px; margin:16px 0; }
+.ai-thinking .dot-pulse { display:flex; gap:6px; }
+.ai-thinking .dot-pulse span { width:8px; height:8px; background:#4D00FF; border-radius:50%; animation:bounce 1.4s infinite ease-in-out both; }
+.ai-thinking .dot-pulse span:nth-child(1) { animation-delay:-0.32s; }
+.ai-thinking .dot-pulse span:nth-child(2) { animation-delay:-0.16s; }
+.ai-thinking .dot-pulse span:nth-child(3) { animation-delay:0; }
+@keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+.ai-thinking .think-text { font-size:14px; color:#4D00FF; font-weight:500; }
+
+.script-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+.btn-outline { padding:8px 16px; border-radius:8px; font-size:13px; font-weight:500; cursor:pointer; border:1.5px solid #4D00FF; color:#4D00FF; background:transparent; transition:all .2s; font-family:inherit; }
+.btn-outline:hover { background:#4D00FF; color:#fff; }
+.btn-outline.danger { border-color:#ef4444; color:#ef4444; }
+.btn-outline.danger:hover { background:#ef4444; color:#fff; }
+
+.script-project-item { display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid var(--border); border-radius:10px; margin-bottom:10px; cursor:pointer; transition:all .2s; }
+.script-project-item:hover { border-color:#4D00FF; background:#fafaff; }
+.script-project-item .proj-platform { font-size:20px; flex-shrink:0; }
+.script-project-item .proj-info { flex:1; }
+.script-project-item .proj-keyword { font-size:14px; font-weight:600; color:#1a0a3e; }
+.script-project-item .proj-topic { font-size:12px; color:var(--gray); margin-top:2px; }
+.script-project-item .proj-status { font-size:11px; }
+.script-project-item .proj-time { font-size:11px; color:var(--gray); }
 </style>
 </head>
 
@@ -603,6 +697,7 @@ const NAV = {
     { id:'platforms', label:'平台管理', icon:'🌐' },
     { id:'groups', label:'编导分组', icon:'📂' },
     { id:'accounts', label:'账号管理', icon:'📱' },
+	{ id:'script-generator', label:'文案脚本', icon:'✍️' },
     { id:'posts', label:'视频记录', icon:'🎬' },
     { id:'data-export', label:'数据导出', icon:'📥' },
     { section:'财务' },
@@ -618,6 +713,7 @@ const NAV = {
     { section:'我的组' },
     { id:'groups', label:'编导分组', icon:'📂' },
     { id:'my-students', label:'组内学生', icon:'👨‍🎓' },
+	{ id:'script-generator', label:'文案脚本', icon:'✍️' },
     { id:'posts', label:'视频记录', icon:'🎬' },
     { id:'data-export', label:'数据导出', icon:'📥' },
     { section:'财务' },
@@ -630,6 +726,7 @@ const NAV = {
     { section:'我的组' },
     { id:'groups', label:'编导分组', icon:'📂' },
     { id:'my-students', label:'组内学生', icon:'👨‍🎓' },
+	{ id:'script-generator', label:'文案脚本', icon:'✍️' },
     { id:'posts', label:'视频记录', icon:'🎬' },
     { id:'accounts', label:'账号管理', icon:'📱' },
     { id:'data-export', label:'数据导出', icon:'📥' },
@@ -643,6 +740,7 @@ const NAV = {
     { section:'我的组' },
     { id:'groups', label:'编导分组', icon:'📂' },
     { id:'my-students', label:'组内学生', icon:'👨‍🎓' },
+    { id:'script-generator', label:'文案脚本', icon:'✍️' },
     { id:'posts', label:'视频记录', icon:'🎬' },
     { id:'data-export', label:'数据导出', icon:'📥' },
     { section:'财务' },
@@ -657,7 +755,9 @@ const NAV = {
 };
 
 function renderSidebar() {
-  const nav = NAV[currentUser.role] || NAV.student;
+  // mojjnfmn 角色等同于 team_leader
+  const roleKey = currentUser.role === 'mojjnfmn' ? 'team_leader' : currentUser.role;
+  const nav = NAV[roleKey] || NAV.student;
   $('sidebar-nav').innerHTML = nav.map(item => {
     if (item.section) return `<div class="nav-section">${item.section}</div>`;
     return `<div class="nav-item" id="nav-${item.id}" onclick="navigate('${item.id}')"><span class="icon">${item.icon}</span><span>${item.label}</span></div>`;
@@ -677,7 +777,8 @@ const TITLES = {
   platforms:'平台管理', groups:'编导分组', accounts:'账号管理',
   posts:'视频记录', 'my-students':'组内学生', 'my-posts':'我的视频',
   'submit-post':'上传视频', 'salary-config':'薪资配置', salary:'薪资结算',
-  'my-salary':'我的薪资', settings:'系统设置', 'teacher-dashboard':'我的看板'
+  'my-salary':'我的薪资', settings:'系统设置', 'teacher-dashboard':'我的看板',
+  'script-generator':'AI 文案脚本'
 };
 
 function navigate(page) {
@@ -693,7 +794,8 @@ function navigate(page) {
     posts: renderPosts, 'my-students': renderMyStudents, 'my-posts': renderMyPosts,
     'submit-post': renderSubmitPost, 'salary-config': renderSalaryConfig,
     salary: renderSalary, 'my-salary': renderMySalary, settings: renderSettings,
-    'teacher-dashboard': renderTeacherDashboard, 'data-export': renderDataExport
+    'teacher-dashboard': renderTeacherDashboard, 'data-export': renderDataExport,
+    'script-generator': renderScriptGenerator
   };
   const fn = pages[page]; if(fn) fn();
 }
@@ -3026,6 +3128,8 @@ function renderMySalary() {
 // ═══════════════════════════════════════════════════════════════
 function renderSettings() {
   $('topbar-actions').innerHTML = currentUser.role==='admin'?`<button class="btn btn-warning" onclick="resetData()">🔄 重置数据</button>`:'';
+  const apiKey = localStorage.getItem('campus_script_api_key') || '';
+  const hasApiKey = apiKey.length > 0;
   $('main-content').innerHTML = `
     <div class="card" style="max-width:560px">
       <div class="card-title">⚙️ 系统设置</div>
@@ -3036,6 +3140,19 @@ function renderSettings() {
         <p>📱 账号数：${DB.accounts.length}个</p>
         <p>🎬 视频数：${DB.posts.length}条</p>
         <p>🔄 数据共享：所有用户实时共享同一份数据</p>
+        <br>
+        <div style="background:#f8f5ff;padding:16px;border-radius:10px;border:1px solid #4D00FF">
+          <b style="color:#4D00FF">🤖 AI 文案脚本 API 配置</b><br><br>
+          <div style="font-size:13px;margin-bottom:8px">Anthropic API Key（用于驱动 AI 选题、脚本生成、合规审核）</div>
+          <div style="display:flex;gap:8px">
+            <input id="settings-api-key" type="password" placeholder="sk-ant-api03-..." value="${escHtml(apiKey)}"
+              style="flex:1;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;outline:none;font-family:monospace">
+            <button class="btn btn-primary" onclick="saveApiKey()">💾 保存</button>
+          </div>
+          <div style="font-size:11px;color:var(--gray);margin-top:6px">
+            ${hasApiKey ? '✅ API Key 已配置（已隐藏显示）' : '⚠️ 未配置，AI 功能将无法使用。获取 Key：console.anthropic.com → API Keys'}
+          </div>
+        </div>
         <br>
         <div style="background:#d1fae5;padding:16px;border-radius:10px;border:1px solid #6ee7b7">
           <b style="color:#065f46">✅ 云端版本已启用</b><br><br>
@@ -3048,11 +3165,906 @@ function renderSettings() {
   `;
 }
 
+function saveApiKey() {
+  const key = ($('settings-api-key')?.value || '').trim();
+  if (key) {
+    localStorage.setItem('campus_script_api_key', key);
+    toast('✅ API Key 已保存');
+  } else {
+    localStorage.removeItem('campus_script_api_key');
+    toast('API Key 已清除');
+  }
+  renderSettings();
+}
+
 function resetData() {
   if (!confirm('⚠️ 确认重置所有数据？此操作不可恢复！')) return;
   if (!confirm('再次确认：所有数据将被清空，确定继续？')) return;
   DS.reset();
   toast('数据已重置，请重新登录'); doLogout();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 文案脚本 - AI 文案脚本创作
+// ═══════════════════════════════════════════════════════════════
+
+// ---------- AI API 调用层 ----------
+async function callAI(systemPrompt, userMessage, options = {}) {
+  const apiKey = localStorage.getItem('campus_script_api_key');
+  if (!apiKey) {
+    toast('请先在系统设置中配置 Anthropic API Key');
+    return null;
+  }
+  const model = options.model || 'claude-sonnet-4-6';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model,
+        max_tokens: options.maxTokens || 4096,
+        temperature: options.temperature ?? 0.7,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userMessage }]
+      })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      if (res.status === 401) { toast('API Key 无效，请检查设置'); return null; }
+      if (res.status === 429) { toast('API 请求频率过高，请稍后重试'); return null; }
+      toast('AI 请求失败：' + (err.error?.message || res.statusText));
+      return null;
+    }
+    const data = await res.json();
+    return data.content?.[0]?.text || null;
+  } catch (e) {
+    toast('网络错误：' + e.message);
+    return null;
+  }
+}
+
+// ---------- Prompt 模板 ----------
+const SCRIPT_PROMPTS = {
+  // Step 1: 选题生成
+  generateTopics: (keyword) => `你是一个资深的内容策划专家，精通小红书和抖音的内容生态。用户输入了一个关键词，请根据当前平台热点趋势，生成5个有创意的选题方向。
+
+每个选题要求：
+1. 标题要吸引眼球，有爆款潜力
+2. 角度要新颖独特，不要老生常谈
+3. 标注适合的平台（小红书/抖音/双平台通用）
+4. 给出3-5个相关标签
+
+请严格按照以下 JSON 格式返回，不要输出任何其他内容：
+{
+  "topics": [
+    {
+      "title": "选题标题",
+      "angle": "选题角度和切入方式的一两句话描述",
+      "platforms": ["xiaohongshu", "douyin"],
+      "tags": ["标签1", "标签2", "标签3"]
+    }
+  ]
+}`,
+
+  // Step 2: 脚本生成 - 小红书
+  generateScriptXHS: (topic) => `你是一个小红书爆款文案写手，擅长撰写精致种草的图文/短视频脚本。
+
+平台调性：精致、真实分享感、emoji丰富、标签多、种草调性、年轻女性用户为主
+
+请根据以下选题创作一个完整的小红书短视频脚本：
+【选题】${topic}
+
+脚本格式要求：
+1. 【封面文案】（1行，抓眼球）
+2. 【标题】（吸引点击，15字以内）
+3. 【正文】（口语化种草文案，200-400字）
+4. 【画面建议】（每个段落对应的画面提示）
+5. 【口播文案】（正文的口语化版本）
+6. 【结尾引导】（关注/点赞/评论引导）
+7. 【推荐标签】（5-8个）
+
+请直接输出脚本内容，不要输出 JSON。`,
+
+  // Step 2: 脚本生成 - 抖音
+  generateScriptDY: (topic) => `你是一个抖音短视频编导，擅长创作高互动率的短视频脚本。
+
+平台调性：口语化、节奏快、前3秒抓眼球、强情绪、引导互动（点赞关注评论）
+
+请根据以下选题创作一个完整的抖音短视频脚本：
+【选题】${topic}
+
+脚本格式要求：
+1. 【黄金前3秒】（必须制造悬念或冲突，抓住注意力）
+2. 【正文脚本】（口语化，短句为主，节奏感强）
+3. 【分镜设计】（每个镜头的时间长度、画面内容、运镜方式）
+4. 【BGM建议】（推荐音乐风格）
+5. 【互动引导】（评论区引导话术）
+6. 【推荐话题】（3-5个抖音热门话题）
+
+请直接输出脚本内容，不要输出 JSON。`,
+
+  // Step 3-4: 脚本修改
+  reviseScript: (currentScript, platform, feedback) => `你是一个${platform==='douyin'?'抖音':'小红书'}内容创作专家。用户看了你之前写的脚本后，提出了修改意见。
+
+【原始脚本】
+${currentScript}
+
+【用户修改意见】
+${feedback}
+
+请根据修改意见，重新输出完整的脚本。保持原有的格式结构。
+请直接输出修改后的完整脚本。`,
+
+  // Step 5: 合规审核
+  auditScript: (scriptContent, platform) => `你是一个短视频平台内容审核专家，精通${platform==='douyin'?'抖音':'小红书'}的社区规范和内容审核标准。
+
+请对以下脚本进行全面的合规审核，检查是否触碰以下违规红线：
+1. 色情低俗内容
+2. 暴力血腥内容
+3. 政治敏感内容
+4. 虚假宣传/夸大宣传
+5. 诱导分享/诱导关注
+6. 侵权风险（音乐、图片、字体等）
+7. 医疗健康违规宣称
+8. 金融投资诱导
+9. ${platform==='douyin'?'抖音特有：搬运抄袭检测':'小红书特有：虚假种草/代写代发'}
+10. 平台广告规范（是否涉及违规广告）
+
+请严格按以下 JSON 格式返回审核结果：
+{
+  "overall_score": 85,
+  "risk_level": "low",
+  "checks": [
+    {
+      "category": "类别名称",
+      "status": "pass",
+      "detail": "具体检查结果说明",
+      "suggestion": "修改建议（如有风险）"
+    }
+  ],
+  "summary": "总体审核评语"
+}
+
+注意：status 必须是 "pass"（通过）、"warn"（警告）或 "fail"（不通过）之一。risk_level 必须是 "low"（低风险）、"medium"（中风险）或 "high"（高风险）之一。`
+};
+
+// ---------- 脚本项目状态管理 ----------
+let scriptState = {
+  step: 1,                  // 当前步骤 1-5
+  keyword: '',              // 输入的关键词
+  topics: [],               // AI生成的所有选题
+  selectedTopic: null,      // 选中的选题
+  platform: 'xiaohongshu',  // 选择的平台
+  scriptContent: '',        // 当前脚本内容
+  feedback: '',             // 用户的修改意见
+  revisions: [],            // 修改历史 [{content, feedback, time}]
+  complianceResult: null,   // 审核结果
+  savedProjectId: null      // Supabase记录ID
+};
+
+function resetScriptState() {
+  scriptState = {
+    step: 1,
+    keyword: '',
+    topics: [],
+    selectedTopic: null,
+    platform: 'xiaohongshu',
+    scriptContent: '',
+    feedback: '',
+    revisions: [],
+    complianceResult: null,
+    savedProjectId: null
+  };
+}
+
+// ---------- 主渲染函数 ----------
+function renderScriptGenerator() {
+  stepRenderers[scriptState.step]();
+}
+
+// ---------- 步骤渲染器 ----------
+const stepRenderers = {
+  1: renderStepKeyword,
+  2: renderStepScript,
+  3: renderStepReview,
+  4: renderStepRevise,
+  5: renderStepAudit
+};
+
+// Step 1: 关键词输入 + 选题生成
+function renderStepKeyword() {
+  const topicsAvailable = scriptState.topics.length > 0;
+  const content = $('main-content');
+  content.innerHTML = `
+    <div class="script-container">
+      ${renderStepBar(1)}
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">🔑 第一步：输入关键词，生成选题</div>
+        <div style="font-size:13px;color:var(--gray);margin-bottom:16px">
+          输入你感兴趣的内容方向关键词，AI 将结合平台热点为你生成多个创意选题。
+        </div>
+        <div style="display:flex;gap:12px">
+          <input id="script-keyword" type="text" placeholder="例如：校园穿搭、期末复习、宿舍好物..."
+            value="${escHtml(scriptState.keyword)}"
+            style="flex:1;padding:12px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:15px;outline:none;font-family:inherit"
+            onkeydown="if(event.key==='Enter') generateTopics()">
+          <button class="btn btn-primary" onclick="generateTopics()" id="btn-gen-topics" style="padding:12px 28px;font-size:15px">
+            ✨ 生成选题
+          </button>
+        </div>
+        ${topicsAvailable ? `
+          <div class="topic-grid">
+            ${scriptState.topics.map((t, i) => `
+              <div class="topic-card ${scriptState.selectedTopic === i ? 'selected' : ''}" onclick="selectTopic(${i})">
+                <div class="topic-num">选题 ${i + 1}</div>
+                <div class="topic-title">${escHtml(t.title)}</div>
+                <div class="topic-angle">${escHtml(t.angle)}</div>
+                <div class="topic-tags">
+                  ${(t.tags || []).map(tag => `<span class="topic-tag">${escHtml(tag)}</span>`).join('')}
+                </div>
+                <div style="margin-top:8px;font-size:11px;color:var(--gray)">
+                  适合：${(t.platforms || []).map(p => p === 'xiaohongshu' ? '📕 小红书' : '🎵 抖音').join(' ')}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="script-actions" style="margin-top:20px">
+            <button class="btn btn-primary" onclick="goToStep(2)" ${scriptState.selectedTopic === null ? 'disabled' : ''} style="padding:12px 32px;font-size:15px">
+              下一步：生成脚本 →
+            </button>
+            <button class="btn-outline" onclick="generateTopics()">🔄 重新生成</button>
+          </div>
+        ` : `
+          <div style="margin-top:24px;text-align:center;padding:40px;background:#f9fafb;border-radius:12px;color:var(--gray)">
+            <div style="font-size:40px;margin-bottom:12px">💡</div>
+            <p>输入关键词后点击「生成选题」，AI 将为你创作精彩选题</p>
+          </div>
+        `}
+      </div>
+      ${renderProjectList()}
+    </div>
+  `;
+}
+
+// Step 2: 平台选择 + 脚本生成
+function renderStepScript() {
+  const topic = scriptState.topics[scriptState.selectedTopic];
+  const hasScript = scriptState.scriptContent.length > 0;
+  const content = $('main-content');
+  content.innerHTML = `
+    <div class="script-container">
+      ${renderStepBar(2)}
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">✍️ 第二步：选择平台，生成脚本</div>
+        <div style="background:#f8f5ff;padding:16px;border-radius:10px;margin-bottom:16px">
+          <div style="font-size:12px;color:var(--gray);margin-bottom:4px">选中选题</div>
+          <div style="font-size:16px;font-weight:700;color:#1a0a3e">${escHtml(topic?.title || '')}</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:4px">${escHtml(topic?.angle || '')}</div>
+        </div>
+        <div style="font-size:14px;font-weight:600;color:#1a0a3e;margin-bottom:8px">选择目标平台：</div>
+        <div class="platform-selector">
+          <div class="platform-option xiaohongshu ${scriptState.platform === 'xiaohongshu' ? 'selected' : ''}"
+            onclick="selectPlatform('xiaohongshu')">
+            <span class="plat-icon">📕</span>
+            <div class="plat-name">小红书</div>
+            <div class="plat-desc">精致种草 · emoji丰富 · 标签多</div>
+          </div>
+          <div class="platform-option douyin ${scriptState.platform === 'douyin' ? 'selected' : ''}"
+            onclick="selectPlatform('douyin')">
+            <span class="plat-icon">🎵</span>
+            <div class="plat-name">抖音</div>
+            <div class="plat-desc">口语化 · 节奏快 · 前3秒抓眼球</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="generateScript()" id="btn-gen-script" style="padding:12px 28px;font-size:15px;width:100%">
+          🚀 生成${scriptState.platform === 'xiaohongshu' ? '小红书' : '抖音'}脚本
+        </button>
+        ${hasScript ? `
+          <div style="margin-top:20px">
+            <div style="font-size:14px;font-weight:600;color:#1a0a3e;margin-bottom:12px">📝 生成的脚本：</div>
+            <div class="script-preview" id="script-preview-2">${formatScriptDisplay(scriptState.scriptContent)}</div>
+            <div class="script-actions">
+              <button class="btn btn-primary" onclick="goToStep(3)" style="padding:12px 32px;font-size:15px">
+                下一步：查看 & 修改意见 →
+              </button>
+              <button class="btn-outline" onclick="generateScript()">🔄 重新生成</button>
+              <button class="btn-outline" onclick="copyScript()">📋 复制脚本</button>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+      ${renderProjectList()}
+    </div>
+  `;
+}
+
+// Step 3: 查看脚本 + 填写修改意见
+function renderStepReview() {
+  const content = $('main-content');
+  content.innerHTML = `
+    <div class="script-container">
+      ${renderStepBar(3)}
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">👀 第三步：查看脚本 & 填写修改意见</div>
+        <div class="script-preview">${formatScriptDisplay(scriptState.scriptContent)}</div>
+        <div class="feedback-box">
+          <div style="font-size:14px;font-weight:600;color:#1a0a3e;margin-bottom:8px">💬 修改意见</div>
+          <textarea id="script-feedback" placeholder="请描述你希望修改的地方，例如：
+- 开头不够吸引人，希望更有冲击力
+- 文案太长，缩短到200字以内
+- 增加更多互动引导
+- 调整整体语气风格...">${escHtml(scriptState.feedback)}</textarea>
+        </div>
+        <div class="script-actions">
+          <button class="btn btn-primary" onclick="requestRevision()" style="padding:12px 28px;font-size:15px">
+            🤖 提交修改意见，AI 重新生成
+          </button>
+          <button class="btn-outline" onclick="goToStep(5)">⏭️ 跳过修改，直接审核</button>
+          <button class="btn-outline" onclick="copyScript()">📋 复制脚本</button>
+        </div>
+      </div>
+      ${scriptState.revisions.length > 0 ? `
+        <div class="card">
+          <div class="card-title">📜 修改历史（${scriptState.revisions.length} 次）</div>
+          <div class="revision-timeline">
+            ${scriptState.revisions.map((r, i) => `
+              <div class="revision-item ${i === scriptState.revisions.length - 1 ? 'current' : ''}">
+                <div class="rev-header">第 ${i + 1} 次修改 · ${r.time}</div>
+                <div style="font-size:11px;color:var(--gray);margin-bottom:4px">意见：${escHtml(r.feedback)}</div>
+                <div class="rev-content">${r.content.slice(0, 200)}...</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+      ${renderProjectList()}
+    </div>
+  `;
+}
+
+// Step 4: AI修改后的脚本展示
+function renderStepRevise() {
+  const content = $('main-content');
+  const latest = scriptState.revisions[scriptState.revisions.length - 1];
+  content.innerHTML = `
+    <div class="script-container">
+      ${renderStepBar(4)}
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">🔄 第四步：AI 已根据意见修改</div>
+        <div style="background:#fef9e7;padding:12px 16px;border-radius:8px;margin-bottom:16px;font-size:13px;color:#92400e">
+          💡 已根据你的意见生成了新版本。如不满意可以继续提修改意见，直到满意为止。
+        </div>
+        <div class="script-preview">${formatScriptDisplay(scriptState.scriptContent)}</div>
+        <div class="feedback-box">
+          <div style="font-size:14px;font-weight:600;color:#1a0a3e;margin-bottom:8px">💬 继续提修改意见（可选）</div>
+          <textarea id="script-feedback" placeholder="如果还需要调整，请继续描述修改意见...">${escHtml(scriptState.feedback)}</textarea>
+        </div>
+        <div class="script-actions">
+          <button class="btn btn-primary" onclick="requestRevision()" style="padding:12px 28px;font-size:15px">
+            🤖 继续修改
+          </button>
+          <button class="btn btn-success" onclick="goToStep(5)" style="padding:12px 28px;font-size:15px">
+            ✅ 满意，进入审核
+          </button>
+          <button class="btn-outline" onclick="copyScript()">📋 复制脚本</button>
+        </div>
+      </div>
+      ${scriptState.revisions.length > 0 ? `
+        <div class="card">
+          <div class="card-title">📜 修改历史（${scriptState.revisions.length} 次）</div>
+          <div class="revision-timeline">
+            ${scriptState.revisions.map((r, i) => `
+              <div class="revision-item ${i === scriptState.revisions.length - 1 ? 'current' : ''}">
+                <div class="rev-header">第 ${i + 1} 次修改 · ${r.time}</div>
+                <div style="font-size:11px;color:var(--gray);margin-bottom:4px">意见：${escHtml(r.feedback)}</div>
+                <div class="rev-content">${r.content.slice(0, 200)}...</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+      ${renderProjectList()}
+    </div>
+  `;
+}
+
+// Step 5: 合规审核
+function renderStepAudit() {
+  const cr = scriptState.complianceResult;
+  const content = $('main-content');
+  content.innerHTML = `
+    <div class="script-container">
+      ${renderStepBar(5)}
+      <div class="card" style="margin-bottom:20px">
+        <div class="card-title">🔍 第五步：平台合规审核</div>
+        <div style="font-size:13px;color:var(--gray);margin-bottom:16px">
+          检测脚本是否触碰${scriptState.platform === 'xiaohongshu' ? '小红书' : '抖音'}平台违规红线。
+        </div>
+        ${cr ? `
+          <div class="compliance-score ${cr.risk_level === 'low' ? 'safe' : 'risk'}">
+            <div class="score-num">${cr.overall_score}</div>
+            <div class="score-label">合规评分 · 风险等级：${{low:'🟢 低风险',medium:'🟡 中风险',high:'🔴 高风险'}[cr.risk_level] || cr.risk_level}</div>
+          </div>
+          <div class="compliance-result">
+            ${(cr.checks || []).map(c => `
+              <div class="compliance-item ${c.status}">
+                <span class="check-icon">${{pass:'✅',warn:'⚠️',fail:'❌'}[c.status] || '❓'}</span>
+                <div class="check-detail">
+                  <div class="check-label">${escHtml(c.category)}</div>
+                  <div>${escHtml(c.detail || '')}</div>
+                  ${c.suggestion ? `<div style="color:var(--warning);margin-top:4px;font-size:12px">💡 ${escHtml(c.suggestion)}</div>` : ''}
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          ${cr.summary ? `
+            <div style="margin-top:16px;padding:16px;background:#f8f5ff;border-radius:10px;border:1px solid #4D00FF">
+              <div style="font-size:13px;font-weight:600;color:#4D00FF;margin-bottom:4px">📋 审核总结</div>
+              <div style="font-size:14px;line-height:1.8">${escHtml(cr.summary)}</div>
+            </div>
+          ` : ''}
+        ` : `
+          <div style="text-align:center;padding:40px;background:#f9fafb;border-radius:12px">
+            <div style="font-size:40px;margin-bottom:12px">🔍</div>
+            <p style="color:var(--gray)">点击下方按钮，AI 将为你审核脚本合规性</p>
+          </div>
+        `}
+        <div class="script-actions">
+          <button class="btn btn-primary" onclick="runComplianceCheck()" id="btn-audit" style="padding:12px 28px;font-size:15px">
+            🔍 ${cr ? '重新审核' : '开始审核'}
+          </button>
+          <button class="btn-outline" onclick="copyScript()">📋 复制脚本</button>
+          <button class="btn btn-success" onclick="saveScriptProject()">💾 保存项目</button>
+        </div>
+        ${cr ? `
+          <details style="margin-top:20px">
+            <summary style="cursor:pointer;font-size:14px;font-weight:600;color:#1a0a3e">📝 查看脚本全文</summary>
+            <div class="script-preview" style="margin-top:12px">${formatScriptDisplay(scriptState.scriptContent)}</div>
+          </details>
+        ` : ''}
+      </div>
+      ${renderProjectList()}
+    </div>
+  `;
+}
+
+// ---------- 步骤条渲染 ----------
+function renderStepBar(currentStep) {
+  const steps = [
+    { num: 1, label: '生成选题' },
+    { num: 2, label: '创作脚本' },
+    { num: 3, label: '查看修改' },
+    { num: 4, label: '迭代优化' },
+    { num: 5, label: '合规审核' }
+  ];
+  return `
+    <div class="script-steps">
+      ${steps.map(s => `
+        <div class="script-step ${s.num === currentStep ? 'active' : ''} ${s.num < currentStep ? 'done' : ''}"
+          onclick="goToStep(${s.num})">
+          <div class="step-num">${s.num < currentStep ? '✓' : s.num}</div>
+          <div class="step-label">${s.label}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ---------- 操作函数 ----------
+
+// 跳转到指定步骤
+function goToStep(step) {
+  // 验证前置条件
+  if (step >= 2 && !scriptState.selectedTopic && scriptState.selectedTopic !== 0) {
+    return toast('请先生成并选择一个选题');
+  }
+  if (step >= 3 && !scriptState.scriptContent) {
+    return toast('请先生成脚本');
+  }
+  scriptState.step = step;
+  scriptState.feedback = '';
+  renderScriptGenerator();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 生成选题
+async function generateTopics() {
+  const keyword = ($('script-keyword')?.value || '').trim();
+  if (!keyword) {
+    // 尝试从state回退
+    if (!scriptState.keyword) return toast('请输入关键词');
+  }
+  if (keyword) scriptState.keyword = keyword;
+
+  const btn = $('btn-gen-topics');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 生成中...'; }
+
+  // 显示思考动画
+  showAIThinking('正在分析平台热点，生成创意选题...');
+
+  const result = await callAI(
+    SCRIPT_PROMPTS.generateTopics(scriptState.keyword),
+    `关键词：${scriptState.keyword}\n请生成5个选题方向。`,
+    { temperature: 0.8, maxTokens: 3000 }
+  );
+
+  hideAIThinking();
+  if (btn) { btn.disabled = false; btn.textContent = '✨ 生成选题'; }
+
+  if (!result) return;
+
+  try {
+    // 尝试解析 JSON
+    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('No JSON found');
+    const data = JSON.parse(jsonMatch[0]);
+    if (data.topics && Array.isArray(data.topics)) {
+      scriptState.topics = data.topics;
+      scriptState.selectedTopic = null;
+      renderStepKeyword();
+      toast(`成功生成 ${data.topics.length} 个选题！`);
+    } else {
+      throw new Error('Invalid format');
+    }
+  } catch (e) {
+    // JSON 解析失败，尝试手动分割
+    toast('AI 返回格式异常，尝试智能解析...');
+    const topics = parseTopicsFallback(result);
+    if (topics.length > 0) {
+      scriptState.topics = topics;
+      scriptState.selectedTopic = null;
+      renderStepKeyword();
+    }
+  }
+}
+
+// 选题解析回退方案
+function parseTopicsFallback(text) {
+  const topics = [];
+  const sections = text.split(/(?:选题\s*\d|题目\s*\d|Topic\s*\d)[：:.\s]*/i);
+  for (const s of sections) {
+    const trimmed = s.trim();
+    if (trimmed.length < 10) continue;
+    const lines = trimmed.split('\n').filter(l => l.trim());
+    if (lines.length === 0) continue;
+    topics.push({
+      title: lines[0].replace(/^[#\-\*\d.\s]+/, '').trim().slice(0, 60),
+      angle: (lines[1] || lines[0]).replace(/^[#\-\*\d.\s]+/, '').trim().slice(0, 120),
+      platforms: ['xiaohongshu', 'douyin'],
+      tags: ['热点', '校园', '创作']
+    });
+    if (topics.length >= 5) break;
+  }
+  return topics;
+}
+
+// 选择选题
+function selectTopic(index) {
+  scriptState.selectedTopic = index;
+  renderStepKeyword();
+}
+
+// 选择平台
+function selectPlatform(platform) {
+  scriptState.platform = platform;
+  if (scriptState.step === 2) renderStepScript();
+}
+
+// 生成脚本
+async function generateScript() {
+  const topic = scriptState.topics[scriptState.selectedTopic];
+  if (!topic) return toast('请先选择选题');
+
+  const btn = $('btn-gen-script');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 创作中...'; }
+
+  showAIThinking(`正在为${scriptState.platform === 'xiaohongshu' ? '小红书' : '抖音'}平台创作脚本...`);
+
+  const promptFn = scriptState.platform === 'xiaohongshu'
+    ? SCRIPT_PROMPTS.generateScriptXHS
+    : SCRIPT_PROMPTS.generateScriptDY;
+
+  const result = await callAI(
+    promptFn(topic.title + '\n角度：' + topic.angle),
+    `请根据选题「${topic.title}」创作一个完整的${scriptState.platform === 'xiaohongshu' ? '小红书' : '抖音'}短视频脚本。`,
+    { temperature: 0.8, maxTokens: 4000 }
+  );
+
+  hideAIThinking();
+  if (btn) { btn.disabled = false; btn.textContent = '🚀 生成脚本'; }
+
+  if (!result) return;
+
+  scriptState.scriptContent = result;
+  renderStepScript();
+  toast('脚本生成成功！');
+}
+
+// 提交修改意见
+async function requestRevision() {
+  const feedback = ($('script-feedback')?.value || '').trim();
+  if (!feedback) return toast('请填写修改意见');
+
+  const btn = document.querySelector('#script-feedback + .script-actions .btn-primary');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 修改中...'; }
+
+  showAIThinking('正在根据你的意见修改脚本...');
+
+  // 保存当前版本到历史
+  scriptState.revisions.push({
+    content: scriptState.scriptContent,
+    feedback: feedback,
+    time: new Date().toLocaleString('zh-CN')
+  });
+
+  const result = await callAI(
+    SCRIPT_PROMPTS.reviseScript(scriptState.scriptContent, scriptState.platform, feedback),
+    '请根据修改意见重新输出完整脚本。',
+    { temperature: 0.7, maxTokens: 4000 }
+  );
+
+  hideAIThinking();
+  if (btn) { btn.disabled = false; btn.textContent = '🤖 提交修改意见，AI 重新生成'; }
+
+  if (!result) {
+    // 回退修改历史
+    scriptState.revisions.pop();
+    return;
+  }
+
+  scriptState.scriptContent = result;
+  scriptState.feedback = '';
+  scriptState.step = 4;
+  renderStepRevise();
+  toast('脚本已按意见修改！');
+}
+
+// 合规审核
+async function runComplianceCheck() {
+  if (!scriptState.scriptContent) return toast('没有可审核的脚本');
+
+  const btn = $('btn-audit');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ 审核中...'; }
+
+  showAIThinking('正在逐条审核脚本合规性...');
+
+  const result = await callAI(
+    SCRIPT_PROMPTS.auditScript(scriptState.scriptContent, scriptState.platform),
+    `请审核以下${scriptState.platform === 'xiaohongshu' ? '小红书' : '抖音'}脚本：\n\n${scriptState.scriptContent}`,
+    { temperature: 0.3, maxTokens: 3000 }
+  );
+
+  hideAIThinking();
+  if (btn) { btn.disabled = false; btn.textContent = '🔍 重新审核'; }
+
+  if (!result) return;
+
+  try {
+    const jsonMatch = result.match(/\{[\s\S]*\}/);
+    if (jsonMatch) {
+      scriptState.complianceResult = JSON.parse(jsonMatch[0]);
+      renderStepAudit();
+      const level = scriptState.complianceResult.risk_level;
+      if (level === 'low') toast('✅ 审核通过！脚本合规风险低');
+      else if (level === 'medium') toast('⚠️ 存在中等风险，请查看详情');
+      else toast('🔴 高风险！请修改脚本后重新审核');
+    } else {
+      toast('审核结果解析失败，请重试');
+    }
+  } catch (e) {
+    toast('审核结果解析异常：' + e.message);
+  }
+}
+
+// ---------- 工具函数 ----------
+
+function showAIThinking(text) {
+  let el = document.getElementById('ai-thinking-overlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'ai-thinking-overlay';
+    el.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);z-index:9999';
+    document.body.appendChild(el);
+  }
+  el.innerHTML = `
+    <div class="ai-thinking">
+      <div class="dot-pulse"><span></span><span></span><span></span></div>
+      <span class="think-text">${text}</span>
+    </div>
+  `;
+  el.style.display = 'block';
+}
+
+function hideAIThinking() {
+  const el = document.getElementById('ai-thinking-overlay');
+  if (el) el.style.display = 'none';
+}
+
+function formatScriptDisplay(text) {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>')
+    .replace(/【(.+?)】/g, '<span class="scene-heading">【$1】</span>')
+    .replace(/`([^`]+)`/g, '<span class="highlight">$1</span>');
+}
+
+function copyScript() {
+  if (!scriptState.scriptContent) return toast('没有可复制的脚本');
+  navigator.clipboard.writeText(scriptState.scriptContent).then(() => {
+    toast('📋 脚本已复制到剪贴板');
+  }).catch(() => {
+    toast('复制失败，请手动复制');
+  });
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ---------- 项目保存/加载 ----------
+async function saveScriptProject() {
+  if (!scriptState.scriptContent) return toast('没有可保存的脚本');
+
+  try {
+    const payload = {
+      user_id: currentUser.id,
+      keyword: scriptState.keyword,
+      platform: scriptState.platform,
+      selected_topic: scriptState.topics[scriptState.selectedTopic]?.title || '',
+      script_content: scriptState.scriptContent,
+      feedback: scriptState.feedback,
+      revisions: JSON.stringify(scriptState.revisions),
+      compliance_result: JSON.stringify(scriptState.complianceResult),
+      status: scriptState.complianceResult?.risk_level === 'low' ? 'approved' : 'reviewing',
+      updated_at: new Date().toISOString()
+    };
+
+    if (scriptState.savedProjectId) {
+      await SB.update('co_scripts', payload, `?id=eq.${scriptState.savedProjectId}`);
+    } else {
+      payload.created_at = new Date().toISOString();
+      const inserted = await SB.insert('co_scripts', payload);
+      const row = Array.isArray(inserted) ? inserted[0] : inserted;
+      scriptState.savedProjectId = row?.id;
+    }
+    toast('💾 项目保存成功！');
+  } catch (e) {
+    // 表可能不存在，降级到 localStorage
+    saveToLocalStorage();
+    toast('💾 已保存到本地（数据库表暂未创建）');
+  }
+}
+
+function saveToLocalStorage() {
+  const projects = JSON.parse(localStorage.getItem('campus_script_projects') || '[]');
+  const existing = projects.findIndex(p => p.id === scriptState.savedProjectId);
+  const project = {
+    id: scriptState.savedProjectId || Date.now(),
+    userId: currentUser.id,
+    keyword: scriptState.keyword,
+    platform: scriptState.platform,
+    selectedTopic: scriptState.topics[scriptState.selectedTopic]?.title || '',
+    scriptContent: scriptState.scriptContent,
+    revisions: scriptState.revisions,
+    complianceResult: scriptState.complianceResult,
+    status: scriptState.complianceResult?.risk_level === 'low' ? 'approved' : 'reviewing',
+    updatedAt: new Date().toISOString()
+  };
+  if (existing >= 0) {
+    projects[existing] = project;
+  } else {
+    projects.push(project);
+  }
+  localStorage.setItem('campus_script_projects', JSON.stringify(projects));
+  scriptState.savedProjectId = project.id;
+}
+
+async function loadScriptProjects() {
+  try {
+    const records = await SB.select('co_scripts', `?user_id=eq.${currentUser.id}&order=updated_at.desc&limit=20`);
+    return (records || []).map(r => ({
+      id: r.id,
+      keyword: r.keyword,
+      platform: r.platform,
+      selectedTopic: r.selected_topic,
+      scriptContent: r.script_content,
+      revisions: JSON.parse(r.revisions || '[]'),
+      complianceResult: JSON.parse(r.compliance_result || 'null'),
+      status: r.status,
+      updatedAt: r.updated_at
+    }));
+  } catch (e) {
+    return JSON.parse(localStorage.getItem('campus_script_projects') || '[]');
+  }
+}
+
+function renderProjectList() {
+  if (scriptState.step === 1) {
+    // 异步加载
+    loadScriptProjects().then(projects => {
+      if (projects.length > 0) {
+        const container = document.getElementById('project-list-container');
+        if (container) {
+          container.innerHTML = projects.map(p => `
+            <div class="script-project-item" onclick="loadProject('${p.id}')">
+              <span class="proj-platform">${p.platform === 'douyin' ? '🎵' : '📕'}</span>
+              <div class="proj-info">
+                <div class="proj-keyword">${escHtml(p.keyword || '未命名')}</div>
+                <div class="proj-topic">${escHtml((p.selectedTopic || '').slice(0, 50))}</div>
+              </div>
+              <span class="proj-status">${tag(p.status === 'approved' ? '已通过' : '审核中', p.status === 'approved' ? 'tag-active' : 'tag-pending')}</span>
+              <span class="proj-time">${(p.updatedAt || '').slice(0, 10)}</span>
+            </div>
+          `).join('');
+        }
+      }
+    });
+  }
+  return `
+    <div class="card" style="margin-top:20px">
+      <div class="card-title">📂 历史项目</div>
+      <div id="project-list-container">
+        <div style="text-align:center;padding:20px;color:var(--gray);font-size:13px">加载中...</div>
+      </div>
+      <div style="margin-top:12px;text-align:center">
+        <button class="btn-outline" onclick="resetScriptState();goToStep(1);">➕ 新建项目</button>
+      </div>
+    </div>
+  `;
+}
+
+async function loadProject(id) {
+  try {
+    let record;
+    try {
+      const rows = await SB.select('co_scripts', `?id=eq.${id}`);
+      if (rows && rows.length > 0) {
+        const r = rows[0];
+        record = {
+          id: r.id,
+          keyword: r.keyword,
+          platform: r.platform,
+          selectedTopic: r.selected_topic,
+          scriptContent: r.script_content,
+          revisions: JSON.parse(r.revisions || '[]'),
+          complianceResult: JSON.parse(r.compliance_result || 'null'),
+          status: r.status
+        };
+      }
+    } catch (e) {
+      const projects = JSON.parse(localStorage.getItem('campus_script_projects') || '[]');
+      record = projects.find(p => p.id == id);
+    }
+
+    if (!record) return toast('项目未找到');
+
+    scriptState = {
+      step: record.complianceResult ? 5 : (record.revisions.length > 0 ? 4 : 3),
+      keyword: record.keyword || '',
+      topics: [{ title: record.selectedTopic || '', angle: '', platforms: ['xiaohongshu', 'douyin'], tags: [] }],
+      selectedTopic: 0,
+      platform: record.platform || 'xiaohongshu',
+      scriptContent: record.scriptContent || '',
+      feedback: '',
+      revisions: record.revisions || [],
+      complianceResult: record.complianceResult || null,
+      savedProjectId: record.id
+    };
+
+    scriptState.step = record.complianceResult ? 5 : (record.revisions.length > 0 ? 4 : 3);
+    renderScriptGenerator();
+    toast('项目已加载');
+  } catch (e) {
+    toast('加载失败：' + e.message);
+  }
 }
 
 // ═══════════════════════════════════════════════════════════════
