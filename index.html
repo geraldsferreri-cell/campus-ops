@@ -5560,126 +5560,29 @@
             try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
         }
 
-                // ============ 资讯热点模块 ============
-        // 【每日 10:00 由 GitHub Actions 自动抓取并写入 Supabase】
-        // 前端优先从 Supabase 读取，无数据时使用内置默认数据兜底
+                                // ============ 资讯热点模块 ============
+        // 【每日 10:00 由 GitHub Actions 自动抓取并写入】
+        // 抓取时间：2026-06-10 20:15 CST
         const NEWS_DEFAULTS = {
-            date: "2026-06-08",
+            date: "2026-06-10",
             categories: [
-                { id: "tech", name: "🤖 科技", color: "#3b82f6", items: [
-                    { title: "小米17T系列国行版今日发布：天玑旗舰+徕卡影像回归", summary: "小米17T系列国行版本6月8日正式发布，包含小米17T与小米17T Pro两款机型，搭载天玑9500芯片", source: "中关村在线", url: "https://mobile.zol.com.cn/1193/11939760.html", time: "6/8" },
-                    { title: "华为nova16系列发布：麒麟9010S+7000mAh电池，2699元起", summary: "华为nova16系列6月1日在成都发布四款机型，搭载麒麟9010S处理器", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260601A07M8200", time: "6/1" },
-                    { title: "苹果WWDC2026定档6月9日：iOS27与Apple Intelligence全面进化", summary: "苹果全球开发者大会将于北京时间6月9日凌晨1点召开，将发布iOS 27等全平台系统", source: "搜狐", url: "https://www.sohu.com/a/1025102668_121956424", time: "6/9" },
-                    { title: "6月新机潮来袭：华为小米红米轮番登场", summary: "2026年6月手机市场迎来密集发布会，潮流拍照、综合旗舰、性价比机型全覆盖", source: "搜狐", url: "https://www.sohu.com/a/1027662873_112986", time: "6/8" }
-                ]},
-                { id: "ai", name: "🧠 AI", color: "#8b5cf6", items: [
-                    { title: "OpenAI内部变天：Codex上位，ChatGPT迎来史上最大改版", summary: "OpenAI正筹备ChatGPT发布以来最大规模改造，计划将Codex功能全面整合至ChatGPT", source: "新浪财经", url: "https://finance.sina.com.cn/wm/2026-06-07/doc-iniaqpek0824377.shtml", time: "6/7" },
-                    { title: "ChatGPT与Codex官宣合体：10亿用户喜提超级Agent", summary: "OpenAI宣布ChatGPT与Codex合并，一个主攻思考写作创作，一个负责真正动手干活", source: "36氪", url: "https://www.36kr.com/p/3836668227466630", time: "6/4" },
-                    { title: "2026年AI大模型卷出新高度", summary: "OpenAI守付费基本盘，Anthropic抢团队市场，Google免费策略铺量，xAI用API打开发者生态", source: "知乎", url: "https://zhuanlan.zhihu.com/p/2044827069998269302", time: "6/1" }
-                ]},
-                { id: "sports", name: "⚽ 体育", color: "#10b981", items: [
-                    { title: "兹维列夫法网首夺大满贯冠军！四进决赛终圆梦", summary: "29岁兹维列夫在2026法网男单决赛五盘击败科博利，终结德国男子球员30年大满贯冠军荒", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260608A00Y2F00", time: "6/8" },
-                    { title: "19岁安德列娃法网女单夺冠！05后第一人横扫黑马", summary: "19岁俄罗斯新星米拉·安德列娃以6-3/6-2横扫黑马赫瓦林斯卡，首次捧起大满贯冠军奖杯", source: "搜狐", url: "https://www.sohu.com/a/1033482872_121608858", time: "6/6" },
-                    { title: "2026美加墨世界杯倒计时！48队104场即将开战", summary: "2026年世界杯6月11日在墨西哥城开幕，首次扩军至48支球队，横跨美加墨三国16座城市", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260601A05LB000", time: "6/1" },
-                    { title: "高盛预测2026世界杯：西班牙头号热门", summary: "高盛全球投资研究部发布世界杯预测报告，西班牙成为头号热门，法国和阿根廷紧随其后", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260607A0759F00", time: "6/7" }
-                ]},
-                { id: "show", name: "🌟 秀场", color: "#ec4899", items: [
-                    { title: "李冰冰海边大片封神：银灰渐变抹胸长裙贵气清冷", summary: "李冰冰最新海边大片曝光，银灰渐变抹胸长裙配碎钻棕榈叶印花，被称为现实版人鱼公主", source: "QQ浏览器", url: "https://so.html5.qq.com/page/real/search_news?docid=70000021_1146a2606bb75952", time: "6/8" },
-                    { title: "黄仁勋录制韩国综艺《刘在街头》", summary: "英伟达CEO黄仁勋录制韩国脱口秀综艺《刘在街头》，身穿标志性黑色皮夹克与主持人刘在石畅谈", source: "新浪财经", url: "https://finance.sina.com.cn/wm/2026-06-07/doc-iniapwhu9890515.shtml", time: "6/7" }
-                ]},
-                { id: "fashion", name: "👗 时尚", color: "#f43f5e", items: [
-                    { title: "Titan联名Nike GT Cut 1 Dylon Harper配色6月20日发售", summary: "Titan x Nike GT Cut 1 Dylon Harper PE配色发售日确定，6月20日正式发售", source: "新浪时尚", url: "https://k.sina.com.cn/article_7857201856_1d45362c001906e5t4.html", time: "6/8" },
-                    { title: "夏季时尚新潮流：轻盈流动系列引领清爽穿搭风", summary: "2026夏季时尚界迎来轻盈流动系列，强调轻便舒适，环保材料成亮点", source: "搜狐", url: "https://www.sohu.com/a/1033557611_121956424", time: "6/8" }
-                ]},
-                { id: "variety", name: "📺 综艺", color: "#f59e0b", items: [
-                    { title: "乘风2026四公落幕：张慧雯淘汰告别独舞成最破防名场面", summary: "乘风2026第四次公演淘汰夜，张慧雯被宣布离开时主动要求播放初舞台曲目", source: "MSN", url: "https://www.msn.cn/zh-cn/entertainment/tv/", time: "6/7" },
-                    { title: "乘风2026四公团内双人秀：《搁浅》最佳", summary: "乘风2026第四公演团内双人秀环节，《搁浅》表现最佳，张慧雯因个人乘风值最低被淘汰", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260608A00FC400", time: "6/8" }
-                ]},
                 { id: "film", name: "🎬 影视", color: "#6366f1", items: [
-                    { title: "2026暑期档开启：55部新片扎堆，票房已破1.52亿元", summary: "2026暑期档正式拉开序幕，6月三十余部新片集结，截至6月4日票房已破1.5亿", source: "百度百家", url: "https://baijiahao.baidu.com/s?id=1867123940695584785", time: "6/4" },
-                    { title: "《三国第一部：争洛阳》定档7月10日", summary: "由《长安三万里》团队打造的三国题材电影定档7月10日，以争洛阳为叙事切口", source: "网易", url: "https://www.163.com/dy/article/KQIDO8TF0553LU5Z.html", time: "6/8" }
-                ]},
+                    { title: "Blender原创动画 |工程展示|Lan library", summary: "百万播放", source: "B站", url: "https://b23.tv/BV1wEEg62EDP", time: "6/10" },
+                },
                 { id: "kpop", name: "🇰🇷 韩娱", color: "#14b8a6", items: [
-                    { title: "aespa新歌《LEMONADE》洗脑全球！横扫19国冠军", summary: "aespa第二张正规专辑《LEMONADE》5月29日发行后迅速走红，MV不到24小时破千万观看", source: "韩星网", url: "https://www.koreastardaily.com/", time: "6/7" },
-                    { title: "二代团辣姐徐仁英离婚2年闪电再婚", summary: "Jewelry出身女星徐仁英宣布将于今年下半年再婚，未婚夫为内容创意企业NP代表崔志勋", source: "韩星网", url: "https://www.koreastardaily.com/sc/news/162875", time: "6/7" }
-                ]},
-                { id: "marketing", name: "📊 营销", color: "#f97316", items: [
-                    { title: "蜜雪冰城「雪王」IP营销出圈：从茶饮到文化符号", summary: "蜜雪冰城通过雪王IP持续运营，从洗脑主题曲到联名周边，成为2026最具话题性的品牌IP之一", source: "SocialBeta", url: "https://socialbeta.com/", time: "6/7" },
-                    { title: "品牌跨界联名2026年中盘点：最出圈的10个案例", summary: "2026上半年品牌联名营销持续升温，从奢侈品牌×茶饮到汽车×游戏，跨界玩法不断刷新", source: "梅花网", url: "https://www.meihua.info/", time: "6/5" }
-                ]},
+                    { title: "《三国杀：天命棋局》首曝PV&实机演示——让战棋回归热爱！", summary: "最新资讯：《三国杀：天命棋局》首曝PV&实机演示——让战棋回归热爱！（热度44.9万）", source: "B站", url: "https://b23.tv/BV1RNVh67ESt", time: "6/10" },
+                },
                 { id: "fun", name: "🎮 好玩有趣", color: "#22c55e", items: [
-                    { title: "B站UP主用AI还原《清明上河图》动态版，600万播放", summary: "UP主用AI视频生成技术将《清明上河图》变成动态影像，街市行人栩栩如生，网友直呼震撼", source: "B站", url: "https://www.bilibili.com/", time: "6/8" },
-                    { title: "手工耿新作「自动遛狗机」引发现代人生活大讨论", summary: "手工耿发布最新发明自动遛狗机，虽实用性存疑但创意满分，再次刷新网红发明家的脑洞天花板", source: "微博", url: "https://weibo.com/", time: "6/6" }
-                ]}
+                    { title: "【某幻】《盛世天下》再返深宫，活下来！", summary: "百万播放", source: "B站", url: "https://b23.tv/BV1W4EE6GECF", time: "6/10" },
+                    { title: "还能再来一次吗…", summary: "7万点赞", source: "B站", url: "https://b23.tv/BV1UzE765Ewm", time: "6/10" },
+                    { title: "《鸣潮》共鸣者战斗演示 | 洛瑟菈", summary: "百万播放", source: "B站", url: "https://b23.tv/BV1zkEX6FEAC", time: "6/10" },
+                    { title: "瓜摊监狱兔", summary: "6万点赞", source: "B站", url: "https://b23.tv/BV13CE26NEmn", time: "6/10" },
+                },
             ]
         };
 
         // 运行时数据（优先从 Supabase 加载，失败降级为内置默认数据）
         let NEWS_DATA = JSON.parse(JSON.stringify(NEWS_DEFAULTS));
-
-        /**
-         * 从 Supabase co_news 表加载最新资讯
-         * 成功返回 true，失败返回 false 并保留默认数据
-         */
-        async function loadNewsFromSupabase() {
-            if (!supabase) { console.log('[News] Supabase 未连接，使用默认数据'); return false; }
-            try {
-                const today = new Date().toISOString().slice(0, 10);
-                const { data, error } = await supabase
-                    .from('co_news').select('*').eq('scrape_date', today)
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                let rows = data;
-                if (!rows || rows.length === 0) {
-                    // 尝试加载最近一次抓取的数据
-                    const { data: recent, error: recentErr } = await supabase
-                        .from('co_news').select('*')
-                        .order('created_at', { ascending: false }).limit(200);
-                    if (recentErr || !recent || recent.length === 0) {
-                        console.log('[News] Supabase 中无数据，使用默认数据');
-                        return false;
-                    }
-                    rows = recent;
-                }
-
-                // 按 category 分组为旧的 NEWS_DATA 结构
-                const grouped = {};
-                for (const row of rows) {
-                    const cat = row.category || 'fun';
-                    if (!grouped[cat]) {
-                        grouped[cat] = {
-                            id: cat,
-                            name: row.category_name || '📰 资讯',
-                            color: row.category_color || '#3b82f6',
-                            items: []
-                        };
-                    }
-                    grouped[cat].items.push({
-                        title: row.title || '',
-                        summary: row.summary || '',
-                        source: row.source || '',
-                        url: row.url || '#',
-                        time: row.published_time || '',
-                        isVideo: row.is_video || false,
-                        thumbnail: row.thumbnail || '',
-                        videoPlay: row.video_play || '',
-                        videoAuthor: row.video_author || ''
-                    });
-                }
-
-                NEWS_DATA = {
-                    date: rows[0]?.scrape_date || today,
-                    categories: Object.values(grouped)
-                };
-                console.log('[News] ✅ 从 Supabase 加载了 ' + rows.length + ' 条资讯');
-                return true;
-            } catch (e) {
-                console.warn('[News] Supabase 加载失败，使用默认数据:', e.message);
-                return false;
-            }
-        }
 
         // ============ 近期选题数据 ============
         const TOPIC_DATA = [
