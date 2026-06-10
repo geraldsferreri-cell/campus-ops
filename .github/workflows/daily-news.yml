@@ -1,5 +1,6 @@
-# 校园运营系统 - 每日资讯自动抓取
+# 校园运营系统 - 每日资讯自动抓取 v3
 # 每天北京时间 10:00 自动运行
+# 数据源：DailyHot API (36+平台聚合)
 name: Daily News Scraper
 
 on:
@@ -25,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 lxml supabase
+          pip install requests beautifulsoup4 supabase
 
       - name: Run news scraper
         env:
@@ -42,3 +43,11 @@ jobs:
           name: news-output-${{ github.run_id }}
           path: news_output.json
           retention-days: 3
+
+      - name: Commit updated HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "auto: 更新每日资讯热点 $(date +%Y-%m-%d)"
+          git push
