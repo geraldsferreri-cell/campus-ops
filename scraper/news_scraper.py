@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-校园运营系统 - 每日新闻自动抓取器 v3
-数据源：DailyHot API（微博/B站/知乎/百度/抖音等36+平台聚合）
+校园运营系统 - 每日新闻自动抓取器 v4
+主源：DailyHot API（微博/B站/知乎/百度/抖音等36+平台聚合）
+备用：直接抓取微博/知乎/B站热榜
 同时更新 index.html 的 NEWS_DEFAULTS + 写入 Supabase
 通过 GitHub Actions 每日 10:00 CST 自动运行
 """
@@ -77,7 +78,6 @@ CATEGORY_SOURCES = {
 }
 
 # ── DailyHot API 平台映射 ──────────────────────────────────
-# 格式: (dailyhot平台名, 分类优先级列表)
 DAILYHOT_SOURCES = [
     ("weibo",       ["kpop", "variety", "show", "film", "fashion", "sports", "ai", "tech", "marketing", "fun"]),
     ("bilibili",    ["tech", "ai", "sports", "variety", "film", "fashion", "kpop", "marketing", "fun"]),
@@ -102,7 +102,7 @@ def safe_get(url, headers=None, timeout=15, retries=2, as_json=False):
             if attempt < retries:
                 time.sleep(2)
             else:
-                logger.debug(f"  请求失败 [{url[:80]}]: {e}")
+                logger.info(f"  请求失败 [{url[:80]}]: {e}")
     return None
 
 
@@ -127,8 +127,11 @@ def fetch_dailyhot(platform):
     try:
         url = f"{DAILYHOT_API}/{platform}"
         resp = safe_get(url, timeout=12, as_json=True)
-        if not resp or resp.get("code") != 200:
-            logger.debug(f"  DailyHot {platform}: 无数据或code非200")
+        if not resp:
+            logger.info(f"  DailyHot/{platform}: 请求无响应")
+            return items
+        if resp.get("code") != 200:
+            logger.info(f"  DailyHot/{platform}: code={resp.get('code')}, msg={resp.get('msg','')}")
             return items
 
         data = resp.get("data", [])
@@ -144,7 +147,6 @@ def fetch_dailyhot(platform):
                 "hot_score": entry.get("hot", 0),
                 "time": datetime.now(CST).strftime("%-m/%-d"),
             }
-            # B站视频特殊字段
             if platform == "bilibili" and entry.get("author"):
                 item["is_video"] = True
                 item["video_author"] = entry.get("author", "")
@@ -152,7 +154,7 @@ def fetch_dailyhot(platform):
 
         logger.info(f"  DailyHot/{platform} → {len(items)} 条")
     except Exception as e:
-        logger.debug(f"  DailyHot/{platform} 失败: {e}")
+        logger.info(f"  DailyHot/{platform} 失败: {e}")
     return items
 
 
@@ -162,7 +164,109 @@ def fetch_all_dailyhot():
     for platform, _ in DAILYHOT_SOURCES:
         items = fetch_dailyhot(platform)
         all_items.extend(items)
-        time.sleep(0.5)  # 礼貌延迟
+        time.sleep(0.5)
+    return all_items
+
+
+# ═══════════════════════════════════════════════════════════
+#  备用数据源：直接抓取各平台热榜
+# ═══════════════════════════════════════════════════════════
+
+def fetch_weibo_hot():
+    """备用：抓取微博热搜"""
+    items = []
+    try:
+        url = "https://weibo.com/ajax/side/hotSearch"
+        resp = safe_get(url, timeout=12, as_json=True)
+        if not resp:
+            return items
+        data = resp.get("data", {}).get("realtime", [])
+        for entry in data[:30]:
+            title = (entry.get("note") or "").strip()
+            if not title:
+                continue
+            items.append({
+                "title": title,
+                "url": f"https://s.weibo.com/weibo?q=%23{title}%23",
+                "source": "weibo",
+                "summary": (entry.get("word") or "")[:200],
+                "hot_score": entry.get("raw_hot", 0),
+                "time": datetime.now(CST).strftime("%-m/%-d"),
+            })
+        logger.info(f"  备用/微博热搜 → {len(items)} 条")
+    except Exception as e:
+        logger.info(f"  备用/微博热搜 失败: {e}")
+    return items
+
+
+def fetch_zhihu_hot():
+    """备用：抓取知乎热榜"""
+    items = []
+    try:
+        url = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total"
+        headers = {"User-Agent": DESKTOP_UA, "Referer": "https://www.zhihu.com/"}
+        resp = safe_get(url, headers=headers, timeout=12, as_json=True)
+        if not resp:
+            return items
+        data = resp.get("data", [])
+        for entry in data[:30]:
+            card = entry.get("target", {})
+            title = (card.get("title") or "").strip()
+            if not title:
+                continue
+            items.append({
+                "title": title,
+                "url": card.get("url", "").replace("http://", "https://"),
+                "source": "zhihu",
+                "summary": (card.get("excerpt", ""))[:200],
+                "hot_score": entry.get("detail_text", ""),
+                "time": datetime.now(CST).strftime("%-m/%-d"),
+            })
+        logger.info(f"  备用/知乎热榜 → {len(items)} 条")
+    except Exception as e:
+        logger.info(f"  备用/知乎热榜 失败: {e}")
+    return items
+
+
+def fetch_bilibili_hot():
+    """备用：抓取B站热门"""
+    items = []
+    try:
+        url = "https://api.bilibili.com/x/web-interface/popular?ps=30"
+        headers = {"User-Agent": DESKTOP_UA, "Referer": "https://www.bilibili.com"}
+        resp = safe_get(url, headers=headers, timeout=12, as_json=True)
+        if not resp:
+            return items
+        data = resp.get("data", {}).get("list", [])
+        for entry in data[:30]:
+            title = (entry.get("title") or "").strip()
+            if not title:
+                continue
+            owner = entry.get("owner", {})
+            items.append({
+                "title": title,
+                "url": entry.get("short_link_v2") or f"https://www.bilibili.com/video/{entry.get('bvid','')}",
+                "source": "bilibili",
+                "summary": (entry.get("rcmd_reason", {}).get("content", ""))[:200],
+                "hot_score": entry.get("stat", {}).get("view", 0),
+                "time": datetime.now(CST).strftime("%-m/%-d"),
+                "is_video": True,
+                "video_author": owner.get("name", ""),
+            })
+        logger.info(f"  备用/B站热门 → {len(items)} 条")
+    except Exception as e:
+        logger.info(f"  备用/B站热门 失败: {e}")
+    return items
+
+
+def fetch_fallback_sources():
+    """当 DailyHot 失败时，使用备用数据源"""
+    logger.info("\n[备用] DailyHot 无数据，尝试直接抓取各平台 ...")
+    all_items = []
+    all_items.extend(fetch_weibo_hot())
+    all_items.extend(fetch_zhihu_hot())
+    all_items.extend(fetch_bilibili_hot())
+    logger.info(f"  备用源共抓取 {len(all_items)} 条")
     return all_items
 
 
@@ -170,7 +274,6 @@ def fetch_all_dailyhot():
 #  分类 & 去重
 # ═══════════════════════════════════════════════════════════
 
-# 平台中文名映射
 PLATFORM_NAMES = {
     "weibo": "微博热搜", "bilibili": "B站", "zhihu": "知乎",
     "baidu": "百度热搜", "douyin": "抖音", "toutiao": "今日头条",
@@ -188,14 +291,12 @@ def categorize_items(items):
         source = item.get("source", "")
         assigned = False
 
-        # 找到该平台的优先分类列表
-        priority = ["fun"]  # 默认
+        priority = ["fun"]
         for plat, prio in DAILYHOT_SOURCES:
             if plat == source:
                 priority = prio
                 break
 
-        # 按优先级匹配
         for cid in priority:
             if match_any(title, CATEGORY_SOURCES[cid]["keywords"]):
                 categorized[cid].append(item)
@@ -205,7 +306,6 @@ def categorize_items(items):
         if not assigned:
             categorized["fun"].append(item)
 
-        # 更新来源名称为中文
         item["source"] = PLATFORM_NAMES.get(source, source)
 
     return categorized
@@ -230,7 +330,6 @@ def make_summary(item):
     if item.get("summary"):
         return item["summary"][:200]
     title = item.get("title", "")
-    src = item.get("source", "")
     hs = item.get("hot_score", 0)
     if isinstance(hs, (int, float)) and hs > 10000:
         heat = f"热度{hs/10000:.1f}万"
@@ -256,7 +355,6 @@ def update_html_news_defaults(categorized):
     with open(html_path, "r", encoding="utf-8") as f:
         content = f.read()
 
-    # 查找边界标记
     start_marker = "// ============ 资讯热点模块 ============"
     end_marker = "// ============ 近期选题数据 ============"
 
@@ -266,7 +364,6 @@ def update_html_news_defaults(categorized):
         logger.error("  ❌ 找不到边界标记，无法更新 HTML")
         return False
 
-    # 构建 NEWS_DEFAULTS 字符串
     today = datetime.now(CST).strftime("%Y-%m-%d")
     categories_js = ""
     for cid, items in categorized.items():
@@ -356,40 +453,45 @@ def save_to_supabase(categorized):
 def main():
     t0 = datetime.now(CST)
     logger.info("=" * 60)
-    logger.info("📡 校园运营系统 - 每日新闻抓取器 v3 (DailyHot)")
+    logger.info("📡 校园运营系统 - 每日新闻抓取器 v4")
     logger.info(f"⏰ {t0.strftime('%Y-%m-%d %H:%M:%S')} CST")
     logger.info("=" * 60)
 
     # 1) 从 DailyHot API 抓取
     logger.info("\n[1/4] 从 DailyHot API 抓取热榜 ...")
     all_items = fetch_all_dailyhot()
-    logger.info(f"  共抓取 {len(all_items)} 条原始条目")
+    logger.info(f"  DailyHot 共抓取 {len(all_items)} 条")
+
+    # 2) 如果 DailyHot 失败，使用备用源
+    if not all_items:
+        all_items = fetch_fallback_sources()
 
     if not all_items:
-        logger.error("❌ 没有抓取到任何数据，退出")
-        return 1
+        logger.warning("⚠️ 所有数据源均无数据，跳过本次更新（保留已有内容）")
+        return 0
 
-    # 2) 分类
+    # 3) 分类
     logger.info("\n[2/4] 关键词分类 ...")
     categorized = categorize_items(all_items)
     for cid, items in categorized.items():
         logger.info(f"  {CATEGORY_SOURCES[cid]['name']:12s} → {len(items):3d} 条")
 
-    # 3) 去重
+    # 4) 去重
     logger.info("\n[3/4] 去重 ...")
     categorized = deduplicate(categorized)
     total = sum(len(v) for v in categorized.values())
     logger.info(f"  去重后 {total} 条")
 
-    # 4) 存储
+    # 5) 存储
     logger.info("\n[4/4] 存储 ...")
     html_ok = update_html_news_defaults(categorized)
     db_count = save_to_supabase(categorized)
 
-    # 保存一份 JSON 备份
+    # 保存 JSON 备份
     backup = {"scrape_date": datetime.now(CST).strftime("%Y-%m-%d"), "categories": []}
     for cid, items in categorized.items():
-        if not items: continue
+        if not items:
+            continue
         cfg = CATEGORY_SOURCES[cid]
         backup["categories"].append({
             "id": cid, "name": cfg["name"], "color": cfg["color"],
