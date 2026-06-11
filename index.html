@@ -5560,128 +5560,26 @@
             try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
         }
 
-                // ============ 资讯热点模块 ============
-        // 【每日 10:00 由 GitHub Actions 自动抓取并写入 Supabase】
-        // 前端优先从 Supabase 读取，无数据时使用内置默认数据兜底
-                const NEWS_DEFAULTS = {
+                                // ============ 资讯热点模块 ============
+        // 【每日 10:00 由 GitHub Actions 自动抓取并写入】
+        // 抓取时间：2026-06-11 14:46 CST
+        const NEWS_DEFAULTS = {
             date: "2026-06-11",
             categories: [
-                { id: "tech", name: "🤖 科技", color: "#3b82f6", items: [
-                    { title: "苹果WWDC2026：Siri AI独立App正式发布", summary: "苹果WWDC推出自研AI架构Apple Foundation Models，发布Siri AI独立App与Core AI框架", source: "澎湃新闻", url: "https://www.thepaper.cn/newsDetail_forward_33338557", time: "6/9" },
-                    { title: "Anthropic发布Claude Fable 5性能全面超越前代", summary: "Anthropic推出最新AI模型，代码理解、逻辑推理和创意写作能力显著提升", source: "OSChina", url: "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html", time: "6/10" },
-                    { title: "阿里重组大模型架构成立Token Foundry事业部", summary: "阿里巴巴升级大模型组织架构，成立Token Foundry专注大模型技术创新和应用落地", source: "赛塔", url: "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html", time: "6/10" },
-                    { title: "npm v12重大安全更新：默认关闭脚本执行", summary: "npm v12默认关闭脚本执行并限制依赖权限，大幅提升Node.js生态整体安全性", source: "赛塔", url: "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html", time: "6/10" }
-                ]},
-                { id: "ai", name: "🧠 AI", color: "#8b5cf6", items: [
-                    { title: "Claude Fable 5发布：企业级AI能力全面升级", summary: "Anthropic发布Claude Fable 5，针对企业级应用场景深度优化，代码与推理能力大幅提升", source: "OSChina", url: "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html", time: "6/10" },
-                    { title: "MiniMax发布M3国产通用大模型", summary: "MiniMax正式发布M3大模型，实现百万字超长上下文、原生多模态与顶尖代码能力三大突破", source: "搜狐", url: "https://www.sohu.com/a/1031584618_120426565", time: "6/9" },
-                    { title: "腾讯云发布全场景产业级智能体落地方案", summary: "腾讯云AI大会发布Agent进场效能生长方案，覆盖多行业智能体落地场景", source: "搜狐", url: "https://www.sohu.com/a/1031584618_120426565", time: "6/5" },
-                    { title: "Google Alphabet官宣800亿美元AI专项投资", summary: "Alphabet宣布800亿美元AI专项投资计划，加码AI领域布局强化全球技术竞争力", source: "搜狐", url: "https://www.sohu.com/a/1031584618_120426565", time: "6/10" }
-                ]},
-                { id: "sports", name: "⚽ 体育", color: "#10b981", items: [
-                    { title: "美加墨世界杯明日开幕：48队104场创纪录", summary: "2026世界杯6月12日开幕，首次扩军至48队，约70%比赛在北京时间上午直播", source: "中新网", url: "https://www.chinanews.com.cn/ty/2026/06-07/10635869.shtml", time: "6/11" },
-                    { title: "NBA总决赛G3：马刺115-111客场胜尼克斯", summary: "总决赛第三场文班亚马率马刺扳回一城，总比分1-2落后，G4继续在纽约进行", source: "新华社", url: "https://www.xinhuanet.com/sports/20260609/ba0b151e98b444b79b3b78181b8c01a9/c.html", time: "6/8" },
-                    { title: "央视世界杯特别节目《如约而至》今晚开播", summary: "CCTV-5推出世界杯特别节目，联动国内足球文化城市打造球迷第二主场，每晚22点播出", source: "央视体育", url: "https://sports.cctv.com/2026/06/09/ARTIXzDjUSJ1svi8pBv5TSQu260609.shtml", time: "6/11" },
-                    { title: "西班牙被高盛评为世界杯头号夺冠热门", summary: "高盛发布2026世界杯预测报告，西班牙成为头号热门，法国和阿根廷紧随其后", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260607A0759F00", time: "6/7" }
-                ]},
-                { id: "ent", name: "🌟 秀场", color: "#ec4899", items: [
-                    { title: "素人综艺《烟火人间》豆瓣9.1霸榜热搜", summary: "无流量明星的治愈系综艺聚焦普通人日常，真实记录三餐四季引发全网共鸣与讨论", source: "新浪娱乐", url: "https://ent.sina.cn/2026-06-09/detail-iniavfst1799913.d.html", time: "6/9" },
-                    { title: "古装剧《逐玉》双平台热度双双破万出海", summary: "张凌赫田曦薇主演古偶剧热度断层领跑，服化道精良同时登陆Netflix实现出海", source: "新浪娱乐", url: "https://ent.sina.cn/2026-06-09/detail-iniavfst1799913.d.html", time: "6/9" },
-                    { title: "杨紫胡歌《生命树》收视口碑双丰收爆火", summary: "CCTV8单日最高收视连续19天登顶，豆瓣评分8.3，从粉丝向逆袭为全民向爆款", source: "新浪娱乐", url: "https://ent.sina.cn/2026-06-09/detail-iniavfst1799913.d.html", time: "6/9" },
-                    { title: "水木年华卢庚戌公开发声维权索要版权费", summary: "卢庚戌为原创歌曲《爱上你我很快乐》喊话侵权方，引发全网音乐版权保护讨论", source: "新浪娱乐", url: "https://ent.sina.cn/2026-06-09/detail-iniavfst1799913.d.html", time: "6/9" }
-                ]},
-                { id: "fashion", name: "👗 时尚", color: "#f43f5e", items: [
-                    { title: "adidas×可口可乐联名6款经典鞋型正式发售", summary: "adidas Originals与可口可乐联名系列6月3日发售，涵盖Samba、Superstar等6款鞋型", source: "什么值得买", url: "https://post.smzdm.com/p/aqr68lnp/", time: "6/3" },
-                    { title: "VOGUE 2026秋冬高级成衣秀场趋势解读", summary: "Valentino、Thom Browne等品牌秋冬RTW系列发布，轻盈流动设计成为女装新趋势", source: "VOGUE", url: "https://www.vogue.com.cn/shows/", time: "6/10" },
-                    { title: "2026春夏男装周本月下旬米兰巴黎轮番登场", summary: "LV、Dior等70个品牌参与春夏男装周发布，Pharrell操刀LV男装秀备受期待", source: "头条", url: "https://www.toutiao.com/article/7508189525512929826/", time: "6/9" }
-                ]},
-                { id: "variety", name: "📺 综艺", color: "#f59e0b", items: [
-                    { title: "《乘风2026》更新至6月8日期直播公演", summary: "本季采用直播模式公演核心呈现，邀请30+实力女性嘉宾以音乐为媒展现多元表达", source: "芒果TV", url: "https://www.mgtv.com/h/859271.html", time: "6/8" },
-                    { title: "《哈哈哈哈哈第6季》真人秀持续热播霸榜", summary: "《五哈6》持续霸榜综艺热度榜，嘉宾趣味互动和旅行挑战环节引发网友热议", source: "爱奇艺", url: "https://www.iqiyi.com/zongyi/", time: "6/10" },
-                    { title: "《开始推理吧第4季》烧脑推理新一季回归", summary: "推理综艺新一季回归腾讯视频，高能烧脑剧情和嘉宾精彩互动成为话题焦点", source: "腾讯视频", url: "https://v.qq.com/channel/variety", time: "6/10" },
-                    { title: "新综《超燃青春的合唱》36位新人合宿竞演", summary: "爱奇艺新综艺计划邀请36位唱跳新生代合宿特训，与国外合唱团展开竞演对抗", source: "网易", url: "https://www.163.com/dy/article/KJ6204J80517CM0B.html", time: "6/8" }
-                ]},
-                { id: "film", name: "🎬 影视", color: "#6366f1", items: [
-                    { title: "动作片《火遮眼》今日上映豆瓣开分8.9", summary: "谢苗主演年度最受期待动作片，谷垣健治执导，多伦多电影节展映口碑极佳", source: "搜狐", url: "https://www.sohu.com/a/1030728372_121124728", time: "6/11" },
-                    { title: "斯皮尔伯格科幻巨制《揭秘日》明日上映", summary: "聚焦外星文明揭秘事件，艾米莉·布朗特科林·费尔斯主演，时长145分钟", source: "搜狐", url: "https://www.sohu.com/a/1030728372_121124728", time: "6/11" },
-                    { title: "2026年度电影总票房已突破160亿元", summary: "截至6月6日年度票房破160亿，《飞驰人生3》《给阿嬷的情书》《镖人》暂列前三", source: "IT之家", url: "https://finance.sina.com.cn/tech/digi/2026-06-07/doc-iniapryy6778315.shtml", time: "6/7" },
-                    { title: "暑期档超60部影片定档涵盖多元类型", summary: "《玩具总动员5》《超级少女》等新片集结，历史科幻青春动画满足不同观众需求", source: "腾讯新闻", url: "https://news.qq.com/rain/a/20260607A02PUU00", time: "6/7" }
-                ]},
-                { id: "kpop", name: "🇰🇷 韩娱", color: "#14b8a6", items: [
-                    { title: "BOYNEXTDOOR首张正规专辑《HOME》正式发行", summary: "新人男团BOYNEXTDOOR首张录音室专辑6月8日正式发行，展现全新音乐风格和成长", source: "Kpann", url: "https://kpoppann.com/6327.html", time: "6/8" },
-                    { title: "SHINee携迷你六辑《Atmos》回归乐坛", summary: "二代传奇男团SHINee第六张迷你专辑《Atmos》6月1日正式发行，引发粉丝热烈响应", source: "Kpann", url: "https://kpoppann.com/6327.html", time: "6/1" },
-                    { title: "Sandara Park设立个人厂牌20天闪电Solo回归", summary: "2NE1成员Sandara Park宣布个人厂牌设立后仅20天即超高速Solo回归引发关注", source: "KOTourLive", url: "https://www.kotourlive.com/zh-CN/news", time: "6/10" },
-                    { title: "郑敬浩崔秀英公开恋爱14年后官宣分手", summary: "演员郑敬浩与少女时代崔秀英结束14年公开恋情，决定以好同事关系继续相处", source: "KOTourLive", url: "https://www.kotourlive.com/zh-CN/news", time: "6/9" }
-                ]}
+                { id: "marketing", name: "📊 营销", color: "#f97316", items: [
+                    { title: "今年最恶毒烂梗出炉，一个梗骂几亿中国人，我没见过这么恶心的营销手段！", summary: "5万点赞", source: "B站", url: "https://b23.tv/BV1GLER6sEVa", time: "6/11" },
+                },
+                { id: "fun", name: "🎮 好玩有趣", color: "#22c55e", items: [
+                    { title: "《鸣潮》共鸣者「洛瑟菈」PV | 课后辅导", summary: "最新资讯：《鸣潮》共鸣者「洛瑟菈」PV | 课后辅导（热度56.7万）", source: "B站", url: "https://b23.tv/BV1GnEe6aEng", time: "6/11" },
+                    { title: "末世先杀圣母", summary: "百万播放", source: "B站", url: "https://b23.tv/BV1keEu61EfE", time: "6/11" },
+                    { title: "认为自己旅游运差时可以看看我.", summary: "7万点赞", source: "B站", url: "https://b23.tv/BV18VED63EBi", time: "6/11" },
+                    { title: "真正的完美犯罪，为邪恶丈夫量身定制！《致命女人》三线重叠，收网", summary: "百万播放", source: "B站", url: "https://b23.tv/BV187EX6jERG", time: "6/11" },
+                },
             ]
         };
 
         // 运行时数据（优先从 Supabase 加载，失败降级为内置默认数据）
         let NEWS_DATA = JSON.parse(JSON.stringify(NEWS_DEFAULTS));
-
-        /**
-         * 从 Supabase co_news 表加载最新资讯
-         * 成功返回 true，失败返回 false 并保留默认数据
-         */
-        async function loadNewsFromSupabase() {
-            if (!supabase) { console.log('[News] Supabase 未连接，使用默认数据'); return false; }
-            try {
-                const today = new Date().toISOString().slice(0, 10);
-                const { data, error } = await supabase
-                    .from('co_news').select('*').eq('scrape_date', today)
-                    .order('created_at', { ascending: false });
-
-                if (error) throw error;
-
-                let rows = data;
-                if (!rows || rows.length === 0) {
-                    // 尝试加载最近一次抓取的数据
-                    const { data: recent, error: recentErr } = await supabase
-                        .from('co_news').select('*')
-                        .order('created_at', { ascending: false }).limit(200);
-                    if (recentErr || !recent || recent.length === 0) {
-                        console.log('[News] Supabase 中无数据，使用默认数据');
-                        return false;
-                    }
-                    rows = recent;
-                }
-
-                // 按 category 分组为旧的 NEWS_DATA 结构
-                const grouped = {};
-                for (const row of rows) {
-                    const cat = row.category || 'fun';
-                    if (!grouped[cat]) {
-                        grouped[cat] = {
-                            id: cat,
-                            name: row.category_name || '📰 资讯',
-                            color: row.category_color || '#3b82f6',
-                            items: []
-                        };
-                    }
-                    grouped[cat].items.push({
-                        title: row.title || '',
-                        summary: row.summary || '',
-                        source: row.source || '',
-                        url: row.url || '#',
-                        time: row.published_time || '',
-                        isVideo: row.is_video || false,
-                        thumbnail: row.thumbnail || '',
-                        videoPlay: row.video_play || '',
-                        videoAuthor: row.video_author || ''
-                    });
-                }
-
-                NEWS_DATA = {
-                    date: rows[0]?.scrape_date || today,
-                    categories: Object.values(grouped)
-                };
-                console.log('[News] ✅ 从 Supabase 加载了 ' + rows.length + ' 条资讯');
-                return true;
-            } catch (e) {
-                console.warn('[News] Supabase 加载失败，使用默认数据:', e.message);
-                return false;
-            }
-        }
 
         // ============ 近期选题数据 ============
         const TOPIC_DATA = [
