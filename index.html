@@ -7,9 +7,16 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050210">
     <title>🐯 方片校园运营系统 - HuHu Campus OPS</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <!-- 🔧 Google Fonts 异步加载（绕过GFW阻塞）：media="print" 使CSS不阻塞渲染，onload切换media="all"应用字体 -->
+    <!-- 3秒超时后强制以回退字体渲染，避免字体加载卡住导致白屏 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" media="print" onload="this.onload=null;this.media='all';document.documentElement.classList.add('fonts-loaded')">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet"></noscript>
+    <script>
+      // 🔧 3秒超时保护：Google Fonts 被墙时自动以回退字体显示，避免白屏
+      (function(){var t=setTimeout(function(){document.documentElement.classList.add('fonts-loaded');document.querySelectorAll('link[media="print"]').forEach(function(l){if(l.href.indexOf('fonts.googleapis.com')!==-1){l.media='all'}})},3000);window.addEventListener('load',function(){var el=document.querySelector('link[href*="fonts.googleapis.com"][media="print"]');if(el){clearTimeout(t)}else{clearTimeout(t);document.documentElement.classList.add('fonts-loaded')}})})();
+    </script>
     <style>
         :root {
             /* ⚡ 赛博深紫 + 荧光亮黄 色系 */
@@ -2515,6 +2522,19 @@
 
     <!-- Toast -->
     <div id="toast" class="toast" style="display:none"></div>
+    <!-- 🔧 网络错误横幅 -->
+    <div id="networkErrorBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#FF3B30,#FF6B00);color:#fff;text-align:center;padding:12px 16px;font-size:14px;font-weight:600;letter-spacing:.02em;cursor:pointer;" onclick="this.style.display='none'" title="点击关闭">
+        ⚠️ <span id="networkErrorMsg"></span> <span style="font-size:12px;opacity:.7;">（点击关闭 · 刷新页面重试）</span>
+    </div>
+    <script>
+      function showNetworkError(msg) {
+          document.getElementById('networkErrorMsg').textContent = msg;
+          document.getElementById('networkErrorBanner').style.display = 'block';
+          // 如果topnav存在，调整其top位置
+          var nav = document.querySelector('.topnav');
+          if (nav) nav.style.top = '44px';
+      }
+    </script>
 
     <!-- Supabase SDK -->
     <script>
@@ -2539,12 +2559,48 @@
         const SALARY_PER_PAGE = 10;
         let allSalaries = [];
 
+        // 🔧 Supabase SDK 多CDN加载（中国用户jsDelivr可能不可用）
+        async function loadSupabaseSDK() {
+            const CDN_LIST = [
+                'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm',
+                'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js',
+                'https://esm.sh/@supabase/supabase-js@2'
+            ];
+            for (const cdn of CDN_LIST) {
+                try {
+                    if (cdn.includes('unpkg.com')) {
+                        // UMD build: load as script, then use window.supabase.createClient
+                        await new Promise((resolve, reject) => {
+                            const s = document.createElement('script');
+                            s.src = cdn;
+                            s.onload = () => {
+                                if (window.supabase && window.supabase.createClient) {
+                                    window._createClient = window.supabase.createClient;
+                                    resolve();
+                                } else { reject(new Error('UMD未暴露supabase全局变量')); }
+                            };
+                            s.onerror = () => reject(new Error('UMD script加载失败'));
+                            document.head.appendChild(s);
+                        });
+                    } else {
+                        const mod = await import(cdn);
+                        if (mod.createClient) {
+                            window._createClient = mod.createClient;
+                        }
+                    }
+                    if (window._createClient) return true;
+                } catch (e) {
+                    console.warn('Supabase CDN 尝试失败:', cdn, e.message);
+                }
+            }
+            return false;
+        }
+
         (async function init() {
-            try {
-                const { createClient } = await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm');
-                window._createClient = createClient;
-            } catch (e) {
-                console.error('Supabase SDK 加载失败:', e);
+            const sdkLoaded = await loadSupabaseSDK();
+            if (!sdkLoaded) {
+                console.error('❌ Supabase SDK 所有CDN均加载失败');
+                toast('⚠️ 网络连接异常，请检查网络后刷新页面（GFW可能屏蔽了CDN）', 'error');
             }
             loadSettings();
             const savedUser = localStorage.getItem('campus_user');
@@ -2967,6 +3023,7 @@
             }
 
             // 从数据库查找用户（按姓名匹配）
+            if (!ensureSupabase()) return;
             try {
                 const { data: users, error } = await supabase.from('users').select('*').eq('real_name', u);
                 if (error) throw error;
@@ -3278,6 +3335,16 @@
             setTimeout(() => t.style.display = 'none', 3000);
         }
 
+        // 🔧 确保 Supabase 已初始化，未初始化时显示错误横幅
+        function ensureSupabase() {
+            if (!supabase) {
+                console.error('Supabase 未初始化，无法执行数据库操作');
+                showNetworkError('数据库连接未建立，请检查网络后刷新页面');
+                return false;
+            }
+            return true;
+        }
+
         // ============ Modal ============
         function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
@@ -3347,6 +3414,7 @@
 
         // ============ Load All Data ============
         async function loadAllData() {
+            if (!ensureSupabase()) return;
             // 先加载用户，再并行加载其他数据
             await loadUsers();
             await Promise.all([loadVideos(), loadAccounts(), loadGroups(), loadSalaryConfigs(), loadSalaries()]);
@@ -5472,46 +5540,71 @@
             toast('导出成功！');
         }
 
-        // 动态加载 SheetJS 库
+        // 动态加载 SheetJS 库（多CDN回退，兼容中国网络）
         async function loadSheetJS() {
-            return new Promise((resolve, reject) => {
-                if (typeof XLSX !== 'undefined') { resolve(); return; }
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
-                script.onload = resolve;
-                script.onerror = () => toast('加载Excel库失败，请检查网络', 'error');
-                document.head.appendChild(script);
-            });
+            if (typeof XLSX !== 'undefined') return true;
+            const CDN_LIST = [
+                'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+                'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+            ];
+            for (const cdn of CDN_LIST) {
+                try {
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = cdn;
+                        script.onload = resolve;
+                        script.onerror = () => reject(new Error('加载失败'));
+                        document.head.appendChild(script);
+                    });
+                    if (typeof XLSX !== 'undefined') return true;
+                } catch (e) {
+                    console.warn('SheetJS CDN 尝试失败:', cdn, e.message);
+                }
+            }
+            toast('加载Excel库失败，请检查网络', 'error');
+            return false;
         }
         
-        // 动态加载 Chart.js
+        // 动态加载 Chart.js（多CDN回退，兼容中国网络）
         let chartInstances = {};
         async function loadChartJS() {
-            return new Promise((resolve) => {
-                if (typeof Chart !== 'undefined') { resolve(); return; }
-                const script = document.createElement('script');
-                script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
-                script.onload = () => {
-                    // 深色主题默认配置
-                    if (typeof Chart !== 'undefined') {
-                        Chart.defaults.color = '#cccccc';
-                        Chart.defaults.borderColor = 'rgba(255,230,0,0.2)';
-                        Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(26,26,26,0.95)';
-                        Chart.defaults.plugins.tooltip.titleColor = '#FFF04D';
-                        Chart.defaults.plugins.tooltip.bodyColor = '#cccccc';
-                        Chart.defaults.plugins.tooltip.borderColor = 'rgba(255,230,0,0.4)';
-                        Chart.defaults.plugins.tooltip.borderWidth = 1;
-                        Chart.defaults.scale.grid.color = 'rgba(255,255,255,0.06)';
-                        Chart.defaults.scale.ticks.color = '#999999';
-                    }
-                    resolve();
-                };
-                script.onerror = () => {
-                    toast('加载图表库失败，请检查网络', 'error');
-                    resolve(); // 即使失败也继续执行，避免卡住
-                };
-                document.head.appendChild(script);
-            });
+            if (typeof Chart !== 'undefined') return true;
+            const CDN_LIST = [
+                'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js',
+                'https://unpkg.com/chart.js@4.4.0/dist/chart.umd.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js'
+            ];
+            for (const cdn of CDN_LIST) {
+                try {
+                    await new Promise((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = cdn;
+                        script.onload = () => {
+                            if (typeof Chart !== 'undefined') {
+                                // 深色主题默认配置
+                                Chart.defaults.color = '#cccccc';
+                                Chart.defaults.borderColor = 'rgba(255,230,0,0.2)';
+                                Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(26,26,26,0.95)';
+                                Chart.defaults.plugins.tooltip.titleColor = '#FFF04D';
+                                Chart.defaults.plugins.tooltip.bodyColor = '#cccccc';
+                                Chart.defaults.plugins.tooltip.borderColor = 'rgba(255,230,0,0.4)';
+                                Chart.defaults.plugins.tooltip.borderWidth = 1;
+                                Chart.defaults.scale.grid.color = 'rgba(255,255,255,0.06)';
+                                Chart.defaults.scale.ticks.color = '#999999';
+                            }
+                            resolve();
+                        };
+                        script.onerror = () => reject(new Error('加载失败'));
+                        document.head.appendChild(script);
+                    });
+                    if (typeof Chart !== 'undefined') return true;
+                } catch (e) {
+                    console.warn('Chart.js CDN 尝试失败:', cdn, e.message);
+                }
+            }
+            toast('加载图表库失败，请检查网络', 'error');
+            return false;
         }
 
         // 导出为 xlsx 格式
