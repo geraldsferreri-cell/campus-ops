@@ -2560,35 +2560,46 @@
         let allSalaries = [];
 
         // 🔧 Supabase SDK 多CDN加载（中国用户jsDelivr可能不可用）
+        // 每个CDN限时6秒，全部失败后返回false；不阻塞页面渲染
         async function loadSupabaseSDK() {
+            if (window._createClient) return true;
             const CDN_LIST = [
                 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm',
                 'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js',
                 'https://esm.sh/@supabase/supabase-js@2'
             ];
+            // 🔧 每个CDN限时6秒，逐个尝试（不并行，避免同时触发GFW封锁）
             for (const cdn of CDN_LIST) {
                 try {
-                    if (cdn.includes('unpkg.com')) {
-                        // UMD build: load as script, then use window.supabase.createClient
-                        await new Promise((resolve, reject) => {
-                            const s = document.createElement('script');
-                            s.src = cdn;
-                            s.onload = () => {
-                                if (window.supabase && window.supabase.createClient) {
-                                    window._createClient = window.supabase.createClient;
-                                    resolve();
-                                } else { reject(new Error('UMD未暴露supabase全局变量')); }
-                            };
-                            s.onerror = () => reject(new Error('UMD script加载失败'));
-                            document.head.appendChild(s);
-                        });
-                    } else {
-                        const mod = await import(cdn);
-                        if (mod.createClient) {
-                            window._createClient = mod.createClient;
-                        }
+                    const result = await Promise.race([
+                        (async () => {
+                            if (cdn.includes('unpkg.com')) {
+                                await new Promise((resolve, reject) => {
+                                    const s = document.createElement('script');
+                                    s.src = cdn;
+                                    s.onload = () => {
+                                        if (window.supabase && window.supabase.createClient) {
+                                            window._createClient = window.supabase.createClient;
+                                            resolve();
+                                        } else { reject(new Error('UMD未暴露supabase全局变量')); }
+                                    };
+                                    s.onerror = () => reject(new Error('UMD加载失败'));
+                                    document.head.appendChild(s);
+                                });
+                            } else {
+                                const mod = await import(cdn);
+                                if (mod.createClient) {
+                                    window._createClient = mod.createClient;
+                                }
+                            }
+                            return true;
+                        })(),
+                        new Promise((_, reject) => setTimeout(() => reject(new Error('CDN超时(6s)')), 6000))
+                    ]);
+                    if (result && window._createClient) {
+                        console.log('✅ Supabase SDK 加载成功 via', cdn);
+                        return true;
                     }
-                    if (window._createClient) return true;
                 } catch (e) {
                     console.warn('Supabase CDN 尝试失败:', cdn, e.message);
                 }
@@ -2597,12 +2608,13 @@
         }
 
         (async function init() {
-            const sdkLoaded = await loadSupabaseSDK();
-            if (!sdkLoaded) {
-                console.error('❌ Supabase SDK 所有CDN均加载失败');
-                toast('⚠️ 网络连接异常，请检查网络后刷新页面（GFW可能屏蔽了CDN）', 'error');
-            }
-            loadSettings();
+            // 🔧 SDK 后台静默加载（不阻塞页面渲染！中国CDN可能很慢/被墙）
+            // 视频开屏、登录页面等完全不需要 SDK
+            loadSupabaseSDK().then(ok => {
+                if (!ok) console.error('❌ Supabase SDK 所有CDN均加载失败（可能需要刷新重试）');
+                else loadSettings(); // SDK 到位后才初始化 Supabase
+            });
+
             const savedUser = localStorage.getItem('campus_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
@@ -2612,7 +2624,8 @@
                 document.getElementById('currentUser').textContent = '欢迎，' + (currentUser.real_name || currentUser.username);
                 updateSidebarByRole();
                 showPage('dashboard');
-                loadAllData();
+                // 等待 SDK 就绪后加载数据（最多等15秒）
+                waitForSDKAndLoadData();
             } else {
                 playVideoSplash();
             }
@@ -2992,19 +3005,20 @@
             const p = document.getElementById('loginPass').value;
             if (!u || !p) { toast('请输入姓名和密码', 'error'); return; }
             
-            // 确保 Supabase SDK 已加载
+            // 确保 Supabase SDK 已加载并就绪
             if (!window._createClient) {
-                toast('正在加载系统...', 'error');
-                // 等待 SDK 加载
+                toast('正在连接系统...', 'info');
                 for (let i = 0; i < 50; i++) {
                     await new Promise(r => setTimeout(r, 100));
                     if (window._createClient) break;
                 }
                 if (!window._createClient) {
-                    toast('系统加载失败，请刷新页面重试', 'error');
+                    showNetworkError('系统初始化超时，请刷新页面重试');
                     return;
                 }
-                // 重新初始化 Supabase
+            }
+            // SDK 已有但 supabase 实例可能尚未创建
+            if (!supabase && window._createClient) {
                 loadSettings();
             }
             
@@ -3336,6 +3350,21 @@
         }
 
         // 🔧 确保 Supabase 已初始化，未初始化时显示错误横幅
+        // 🔧 等待 SDK 就绪后加载数据（用于已登录用户直接进入仪表盘）
+        // 最多等待15秒，超时后显示错误
+        async function waitForSDKAndLoadData() {
+            for (let i = 0; i < 150; i++) {
+                if (window._createClient) {
+                    if (!supabase) loadSettings();
+                    loadAllData();
+                    return;
+                }
+                await new Promise(r => setTimeout(r, 100));
+            }
+            console.error('SDK 加载超时（15秒），数据加载失败');
+            showNetworkError('系统初始化超时，请刷新页面重试');
+        }
+
         function ensureSupabase() {
             if (!supabase) {
                 console.error('Supabase 未初始化，无法执行数据库操作');
