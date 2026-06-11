@@ -2871,10 +2871,10 @@
                     triggerDissolve(canvas);
                 }, 800);
 
-                // Safety: force-finish after 5s
+                // Safety: force-finish after 3s (overlay image may be slow to load)
                 setTimeout(function() {
                     if (!hasEnded) finishSplash();
-                }, 5000);
+                }, 3000);
             }, { once: true });
 
             // Video failed to load → skip to login
