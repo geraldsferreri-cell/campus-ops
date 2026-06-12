@@ -3314,9 +3314,9 @@
             if (!info) return;
             if (isAdmin()) {
                 const hasCustom = localStorage.getItem('campus_admin_pwd');
-                info.textContent = hasCustom ? '当前用户：管理员（已设置自定义密码）' : '当前用户：管理员（默认密码：admin123）';
+                info.textContent = '当前用户：管理员';
             } else {
-                info.textContent = `当前用户：${currentUser?.real_name || currentUser?.username || '未知'}（默认密码：123456）`;
+                info.textContent = `当前用户：${currentUser?.real_name || currentUser?.username || '未知'}`;
             }
             resetPasswordForm();
         }
