@@ -3068,8 +3068,25 @@
             const u = document.getElementById('loginUser').value.trim();
             const p = document.getElementById('loginPass').value;
             if (!u || !p) { toast('请输入姓名和密码', 'error'); return; }
-            
-            // 确保 Supabase SDK 已加载并就绪
+
+            // ⚡ admin 管理员登录优先处理（纯 local，不需要 Supabase / 网络）
+            const adminSavedPwd = localStorage.getItem('campus_admin_pwd') || 'admin123';
+            if (u === 'admin' && p === adminSavedPwd) {
+                currentUser = { username: u, role: 'admin' };
+                localStorage.setItem('campus_user', JSON.stringify(currentUser));
+                if (window._finishSplash) window._finishSplash();
+                document.getElementById('videoSplash').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('appPage').style.display = 'block';
+                document.getElementById('currentUser').textContent = '欢迎，管理员';
+                updateSidebarByRole();
+                showPage('dashboard');
+                // SDK 可能还在后台加载，就绪后自动加载数据
+                waitForSDKAndLoadData();
+                return;
+            }
+
+            // ── 普通用户登录：需要 Supabase 查询数据库 ──
             if (!window._createClient) {
                 toast('正在连接系统...', 'info');
                 var sdkReady = await waitForSDK(15000);
@@ -3078,33 +3095,8 @@
                     return;
                 }
             }
-            // SDK 已有但 supabase 实例可能尚未创建
             if (!supabase && window._createClient) {
                 loadSettings();
-            }
-            
-            // admin 管理员登录（支持自定义密码，存储在 localStorage）
-            const adminSavedPwd = localStorage.getItem('campus_admin_pwd') || 'admin123';
-            if (u === 'admin' && p === adminSavedPwd) {
-                currentUser = { username: u, role: 'admin' };
-                localStorage.setItem('campus_user', JSON.stringify(currentUser));
-                if (window._finishSplash) window._finishSplash();
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('appPage').style.display = 'block';
-                document.getElementById('currentUser').textContent = '欢迎，管理员';
-                updateSidebarByRole();
-                showPage('dashboard');
-                loadAllData();
-                return;
-            }
-
-            // 从数据库查找用户（按姓名匹配）
-            if (!supabase) {
-                var dbReady = await waitForSDK(10000);
-                if (!dbReady || !supabase) {
-                    showNetworkError('数据库连接未建立，请刷新页面重试');
-                    return;
-                }
             }
             try {
                 const { data: users, error } = await supabase.from('users').select('*').eq('real_name', u);
