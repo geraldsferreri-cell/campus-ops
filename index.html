@@ -5794,21 +5794,48 @@
             try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
         }
 
-                                // ============ 资讯热点模块 ============
+                                                                // ============ 资讯热点模块 ============
         // 【每日 10:00 由 GitHub Actions 自动抓取并写入】
-        // 抓取时间：2026-06-11 14:46 CST
+        // 抓取时间：2026-06-12 11:20 CST
+        // 数据源：60s.viki.moe (微博/知乎/抖音/百度)
         const NEWS_DEFAULTS = {
-            date: "2026-06-11",
+            date: "2026-06-12",
             categories: [
+                { id: "tech", name: "🤖 科技", color: "#3b82f6", items: [
+                    { title: "尹锡悦因无人机事件被判30年", summary: "最新资讯：尹锡悦因无人机事件被判30年（热度780.0万）", source: "抖音", url: "https://www.douyin.com/search/%E5%B0%B9%E9%94%A1%E6%82%A6%E5%9B%A0%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BA%8B%E4%BB%B6%E8%A2%AB%E5%88%A430%E5%B9%B4", time: "6/12" },
+                },
+                { id: "ai", name: "🧠 AI", color: "#8b5cf6", items: [
+                    { title: "AI短片效果看到起鸡皮疙瘩了", summary: "最新资讯：AI短片效果看到起鸡皮疙瘩了（热度48.8万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=AI%E7%9F%AD%E7%89%87%E6%95%88%E6%9E%9C%E7%9C%8B%E5%88%B0%E8%B5%B7%E9%B8%A1%E7%9A%AE%E7%96%99%E7%98%A9%E4%BA%86", time: "6/12" },
+                    { title: "OpenAI 考虑大幅降价以与 Anthropic 竞争，此举将如何影响 AI 市场格局？", summary: "据报道，OpenAI考虑大幅降价，以期在与Anthropic的用户争夺战中占据有利地位。https://baijiahao.baidu.com/s?id=1867666240591750106&wfr=spider&for=pc", source: "知乎", url: "https://www.zhihu.com/question/2048342346048213458", time: "6/12" },
+                    { title: "抖音AI创作大赛来了", summary: "最新资讯：抖音AI创作大赛来了（热度772.9万）", source: "抖音", url: "https://www.douyin.com/search/%E6%8A%96%E9%9F%B3AI%E5%88%9B%E4%BD%9C%E5%A4%A7%E8%B5%9B%E6%9D%A5%E4%BA%86", time: "6/12" },
+                },
+                { id: "sports", name: "⚽ 体育", color: "#10b981", items: [
+                    { title: "韩国vs捷克", summary: "最新资讯：韩国vs捷克（热度217.3万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BDvs%E6%8D%B7%E5%85%8B", time: "6/12" },
+                    { title: "韩国球员撕破对手球衣", summary: "最新资讯：韩国球员撕破对手球衣（热度49.0万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E7%90%83%E5%91%98%E6%92%95%E7%A0%B4%E5%AF%B9%E6%89%8B%E7%90%83%E8%A1%A3", time: "6/12" },
+                    { title: "世界杯赛程", summary: "最新资讯：世界杯赛程（热度48.7万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E8%B5%9B%E7%A8%8B", time: "6/12" },
+                    { title: "世界杯开幕式", summary: "最新资讯：世界杯开幕式（热度48.6万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E5%BC%80%E5%B9%95%E5%BC%8F", time: "6/12" },
+                },
+                { id: "show", name: "🌟 秀场", color: "#ec4899", items: [
+                    { title: "白鹿方六连辟谣", summary: "最新资讯：白鹿方六连辟谣（热度1914.1万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E6%96%B9%E5%85%AD%E8%BF%9E%E8%BE%9F%E8%B0%A3", time: "6/12" },
+                    { title: "白鹿起诉蒙淇淇", summary: "最新资讯：白鹿起诉蒙淇淇（热度49.0万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E8%B5%B7%E8%AF%89%E8%92%99%E6%B7%87%E6%B7%87", time: "6/12" },
+                    { title: "迪丽热巴 陈飞宇", summary: "最新资讯：迪丽热巴 陈飞宇（热度48.2万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%20%E9%99%88%E9%A3%9E%E5%AE%87", time: "6/12" },
+                    { title: "杨幂她是我多年的粉丝", summary: "最新资讯：杨幂她是我多年的粉丝（热度20.0万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E6%9D%A8%E5%B9%82%E5%A5%B9%E6%98%AF%E6%88%91%E5%A4%9A%E5%B9%B4%E7%9A%84%E7%B2%89%E4%B8%9D", time: "6/12" },
+                },
+                { id: "film", name: "🎬 影视", color: "#6366f1", items: [
+                    { title: "电影魔方小姐定档", summary: "最新资讯：电影魔方小姐定档（热度29.9万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E7%94%B5%E5%BD%B1%E9%AD%94%E6%96%B9%E5%B0%8F%E5%A7%90%E5%AE%9A%E6%A1%A3", time: "6/12" },
+                    { title: "如何评价新番《躲在超市后门吸烟的二人》？", summary: "虽然没到7月，但是提前发放。看完有感，没有提问，就自己来。本人回答仅抛砖引玉，希望评论区友好互动", source: "知乎", url: "https://www.zhihu.com/question/2046391124668035295", time: "6/12" },
+                    { title: "蜘蛛侠4定档7月29日", summary: "最新资讯：蜘蛛侠4定档7月29日（热度763.4万）", source: "抖音", url: "https://www.douyin.com/search/%E8%9C%98%E8%9B%9B%E4%BE%A04%E5%AE%9A%E6%A1%A37%E6%9C%8829%E6%97%A5", time: "6/12" },
+                },
                 { id: "marketing", name: "📊 营销", color: "#f97316", items: [
-                    { title: "今年最恶毒烂梗出炉，一个梗骂几亿中国人，我没见过这么恶心的营销手段！", summary: "5万点赞", source: "B站", url: "https://b23.tv/BV1GLER6sEVa", time: "6/11" },
-                ]},
+                    { title: "如何看待哈兰德正式成为王老吉国际化品牌WALOVI的全球代言人？", summary: "足球巨星代言中国凉茶品牌，也算是另类的合作了。", source: "知乎", url: "https://www.zhihu.com/question/2047619888999675185", time: "6/12" },
+                    { title: "为什么十几二十年前的广告这么令人印象深刻，但现在能给人留下印象的很少了？", summary: "现在有人问印象深刻的广告，还是会想起之前的脑白金、喜之郎、点读机、妈妈洗脚这些，为什么从前的广告这么让人印象深刻，现在的却不行了呢？", source: "知乎", url: "https://www.zhihu.com/question/2044741584500126955", time: "6/12" },
+                },
                 { id: "fun", name: "🎮 好玩有趣", color: "#22c55e", items: [
-                    { title: "《鸣潮》共鸣者「洛瑟菈」PV | 课后辅导", summary: "最新资讯：《鸣潮》共鸣者「洛瑟菈」PV | 课后辅导（热度56.7万）", source: "B站", url: "https://b23.tv/BV1GnEe6aEng", time: "6/11" },
-                    { title: "末世先杀圣母", summary: "百万播放", source: "B站", url: "https://b23.tv/BV1keEu61EfE", time: "6/11" },
-                    { title: "认为自己旅游运差时可以看看我.", summary: "7万点赞", source: "B站", url: "https://b23.tv/BV18VED63EBi", time: "6/11" },
-                    { title: "真正的完美犯罪，为邪恶丈夫量身定制！《致命女人》三线重叠，收网", summary: "百万播放", source: "B站", url: "https://b23.tv/BV187EX6jERG", time: "6/11" },
-                ]},
+                    { title: "为何长征二字总能戳中人心", summary: "最新资讯：为何长征二字总能戳中人心（热度169.4万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%BA%E4%BD%95%E9%95%BF%E5%BE%81%E4%BA%8C%E5%AD%97%E6%80%BB%E8%83%BD%E6%88%B3%E4%B8%AD%E4%BA%BA%E5%BF%83", time: "6/12" },
+                    { title: "上下嘴唇一碰差点把自己毒死", summary: "最新资讯：上下嘴唇一碰差点把自己毒死（热度117.6万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%8A%E4%B8%8B%E5%98%B4%E5%94%87%E4%B8%80%E7%A2%B0%E5%B7%AE%E7%82%B9%E6%8A%8A%E8%87%AA%E5%B7%B1%E6%AF%92%E6%AD%BB", time: "6/12" },
+                    { title: "日本炸鸡店一锅油反复用66年", summary: "最新资讯：日本炸鸡店一锅油反复用66年（热度111.3万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E6%97%A5%E6%9C%AC%E7%82%B8%E9%B8%A1%E5%BA%97%E4%B8%80%E9%94%85%E6%B2%B9%E5%8F%8D%E5%A4%8D%E7%94%A866%E5%B9%B4", time: "6/12" },
+                    { title: "泰国公主帕查拉吉迪雅帕逝世", summary: "最新资讯：泰国公主帕查拉吉迪雅帕逝世（热度56.7万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E6%B3%B0%E5%9B%BD%E5%85%AC%E4%B8%BB%E5%B8%95%E6%9F%A5%E6%8B%89%E5%90%89%E8%BF%AA%E9%9B%85%E5%B8%95%E9%80%9D%E4%B8%96", time: "6/12" },
+                },
             ]
         };
 
@@ -5847,6 +5874,55 @@
         }
 
         let currentNewsTab = "tech";
+
+        // 🔧 从 Supabase 加载当天新闻（优先于内置默认数据）
+        async function loadNewsFromSupabase() {
+            try {
+                // 等待 SDK 就绪（最多 5 秒）
+                for (let i = 0; i < 50 && !window._createClient; i++) {
+                    await new Promise(r => setTimeout(r, 100));
+                }
+                if (!window._createClient) { console.warn('Supabase SDK 未就绪，使用内置新闻'); return; }
+
+                const cfg = JSON.parse(localStorage.getItem('campus_cfg') || '{}');
+                const projectId = cfg.projectId || 'eeuvrabunfvsaxgpaiub';
+                const anonKey = cfg.anonKey || 'sb_publishable_fETyamK-jikojdIg9QwcJw__06jEb7A';
+                const sb = window._createClient('https://' + projectId + '.supabase.co', anonKey);
+
+                const today = new Date().toISOString().slice(0, 10);
+                const { data, error } = await sb.from('co_news').select('*').eq('scrape_date', today).order('created_at', { ascending: false });
+                if (error || !data || data.length === 0) { console.warn('Supabase 无当天新闻数据'); return; }
+
+                // 按分类重组
+                const cats = {};
+                for (const row of data) {
+                    const cid = row.category || 'fun';
+                    if (!cats[cid]) {
+                        cats[cid] = {
+                            id: cid,
+                            name: row.category_name || '🎮 好玩有趣',
+                            color: row.category_color || '#22c55e',
+                            items: []
+                        };
+                    }
+                    cats[cid].items.push({
+                        title: row.title,
+                        summary: row.summary || '',
+                        source: row.source || '未知',
+                        url: row.url || '',
+                        time: row.published_time || ''
+                    });
+                }
+
+                const categories = Object.values(cats);
+                if (categories.length > 0) {
+                    NEWS_DATA = { date: today, categories: categories };
+                    console.log('✅ 从 Supabase 加载 ' + data.length + ' 条新闻，' + categories.length + ' 个分类');
+                }
+            } catch(e) {
+                console.warn('Supabase 新闻加载失败，降级为内置数据:', e);
+            }
+        }
 
         let newsLoaded = false;
         async function renderNews() {
