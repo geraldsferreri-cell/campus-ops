@@ -1507,22 +1507,21 @@
 </head>
 <body>
     <!-- Video Splash Page -->
-    <div id="videoSplash" class="video-splash">
+    <!-- 🔧 开屏视频/图片已移除；videoSplash 默认隐藏 -->
+    <div id="videoSplash" class="video-splash" style="display:none">
         <video id="splashVideo"
                src="intro.mp4"
                muted
-               autoplay
                playsinline
                webkit-playsinline
                x5-video-player-type="h5"
                x5-video-player-fullscreen="true"
                x5-video-orientation="portraint"
-               preload="auto"
-               poster="splash-overlay.png"
+               preload="none"
                disableRemotePlayback>
         </video>
         <canvas id="splashCanvas"></canvas>
-        <img id="splashOverlay" class="splash-overlay-image" src="splash-overlay.png" alt="✨">
+        <img id="splashOverlay" class="splash-overlay-image" src="splash-overlay.png" alt="✨" style="display:none">
         <div class="splash-calli-group splash-calli-1" id="splashCalli1"></div>
         <div class="splash-calli-group splash-calli-2" id="splashCalli2"></div>
         <div class="splash-calli-group splash-calli-3" id="splashCalli3"></div>
@@ -2617,6 +2616,9 @@
                 else loadSettings(); // SDK 到位后才初始化 Supabase
             });
 
+            // 🔧 开屏视频/图片已在 HTML 层默认隐藏，无需 playVideoSplash()
+            // 直接进入：已登录 → App；未登录 → 登录页
+
             const savedUser = localStorage.getItem('campus_user');
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
@@ -2632,6 +2634,7 @@
                 // 🔧 直接显示登录页（视频已通过 HTML inline style 隐藏）
                 document.getElementById('loginPage').style.display = 'flex';
             }
+            // 未登录：loginPage（display:flex）已可见，videoSplash（display:none）已隐藏
             initDateFilters();
             // Setup top nav click handlers
             document.querySelectorAll('.topnav-link').forEach(link => {
@@ -2928,9 +2931,20 @@
                     pctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
                 }
                 if (globalSafetyInterval) clearInterval(globalSafetyInterval);
+                // 隐藏末帧canvas
+                if (canvas) { canvas.style.display = 'none'; }
                 splash.classList.add('fade-out');
                 setTimeout(function() {
                     splash.style.display = 'none';
+                    // 🔧 显示登录页面
+                    var loginPage = document.getElementById('loginPage');
+                    if (loginPage) {
+                        loginPage.style.display = 'flex';
+                        loginPage.style.opacity = '0';
+                        loginPage.style.transition = 'opacity 0.6s ease';
+                        loginPage.offsetHeight; // force reflow
+                        loginPage.style.opacity = '1';
+                    }
                 }, 550);
             }
             // 暴露到全局，供 onclick 和 doLogin 调用
@@ -2972,9 +2986,10 @@
                 if (canvas) {
                     canvas.width = video.videoWidth || 1920;
                     canvas.height = video.videoHeight || 1080;
+                    canvas.style.display = 'block'; // 🔧 必须可见才能正确采样像素（部分浏览器隐藏canvas会清空缓冲区）
                     var ctx = canvas.getContext('2d');
                     try { ctx.drawImage(video, 0, 0, canvas.width, canvas.height); } catch(e) {}
-                    canvas.style.display = 'none'; // 不需要显示，粒子会重绘它
+                    // ❌ 不要在这里隐藏canvas！buildParticlesFromFrame需要getImageData读取像素
                 }
                 video.style.display = 'none';
                 if (loader) { loader.style.opacity = '0'; loader.style.display = 'none'; }
@@ -2990,10 +3005,10 @@
                     triggerDissolve(canvas);
                 }, 800);
 
-                // Safety: force-finish after 3s (overlay image may be slow to load)
+                // Safety: force-finish after 4s (overlay image may be slow to load)
                 setTimeout(function() {
                     if (!hasEnded) finishSplash();
-                }, 3000);
+                }, 4000);
             }
 
             // ── Video ended → show overlay image → dissolve → finish ──
