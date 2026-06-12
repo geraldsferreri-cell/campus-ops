@@ -1602,7 +1602,6 @@
                         <input type="password" id="loginPass" class="form-input sketch-input" placeholder="请输入密码">
                     </div>
                     <button class="btn-sketch" onclick="doLogin()">登 录</button>
-                    <p style="text-align:center;margin-top:1rem;font-size:.65rem;color:var(--text-tertiary)">管理员账号: admin / 默认密码: admin123<br><a href="javascript:resetAdminPwd()" style="color:var(--amber)">点此重置管理员密码为 admin123</a></p>
                 </div>
             </div>
         </div>
@@ -3072,10 +3071,6 @@
         }
 
         // ============ Login ============
-        function resetAdminPwd() {
-            localStorage.removeItem('campus_admin_pwd');
-            toast('管理员密码已重置为 admin123', 'success');
-        }
         async function doLogin() {
             const u = document.getElementById('loginUser').value.trim();
             const p = document.getElementById('loginPass').value;
