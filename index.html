@@ -7,16 +7,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050210">
     <title>🐯 方片校园运营系统 - HuHu Campus OPS</title>
-    <!-- 🔧 Google Fonts 异步加载（绕过GFW阻塞）：media="print" 使CSS不阻塞渲染，onload切换media="all"应用字体 -->
-    <!-- 3秒超时后强制以回退字体渲染，避免字体加载卡住导致白屏 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet" media="print" onload="this.onload=null;this.media='all';document.documentElement.classList.add('fonts-loaded')">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700;900&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet"></noscript>
-    <script>
-      // 🔧 3秒超时保护：Google Fonts 被墙时自动以回退字体显示，避免白屏
-      (function(){var t=setTimeout(function(){document.documentElement.classList.add('fonts-loaded');document.querySelectorAll('link[media="print"]').forEach(function(l){if(l.href.indexOf('fonts.googleapis.com')!==-1){l.media='all'}})},3000);window.addEventListener('load',function(){var el=document.querySelector('link[href*="fonts.googleapis.com"][media="print"]');if(el){clearTimeout(t)}else{clearTimeout(t);document.documentElement.classList.add('fonts-loaded')}})})();
-    </script>
+    <!-- 🔧 字体使用系统自带，国内直连无需Google Fonts -->
+    <script>document.documentElement.classList.add('fonts-loaded')</script>
     <style>
         :root {
             /* ⚡ 赛博深紫 + 荧光亮黄 色系 */
@@ -51,9 +43,9 @@
             --gray-900: #1a0a3e;
             --bg-main: #F5F3FF;
             --bg-card-hover: #F0ECFF;
-            --serif: 'Instrument Serif', 'Noto Serif SC', Georgia, serif;
-            --sans: 'Syne', 'Noto Serif SC', system-ui, sans-serif;
-            --serif-cn: 'Noto Serif SC', 'Instrument Serif', Georgia, serif;
+            --serif: Georgia, 'STSong', 'SimSun', 'PingFang SC', serif;
+            --sans: system-ui, 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            --serif-cn: 'STSong', 'PingFang SC', 'SimSun', 'KaiTi', Georgia, serif;
             --gold-border: 1px solid rgba(255,230,0,.35);
             --gold-border-strong: 2px solid rgba(255,230,0,.55);
             --shadow: 0 2px 12px rgba(26,10,62,.08);
@@ -568,7 +560,7 @@
         }
         .splash-calli-group .char {
             display: inline-block;
-            font-family: 'Ma Shan Zheng', 'Noto Serif SC', 'STKaiti', 'KaiTi', cursive;
+            font-family: 'STKaiti', 'KaiTi', 'PingFang SC', cursive;
             font-weight: 400;
             color: rgba(255, 230, 0, 0);
             text-shadow: none;
@@ -587,7 +579,7 @@
             text-shadow: 0 0 18px rgba(255, 230, 0, 0.35), 0 0 40px rgba(77, 0, 255, 0.3), 0 2px 4px rgba(0,0,0,0.5);
         }
         .splash-calli-group .char.punct {
-            font-family: 'Noto Serif SC', serif;
+            font-family: 'STSong', 'PingFang SC', 'SimSun', serif;
         }
         /* ── 3 widely-spaced Y positions, all left-aligned ── */
         /* "AI，" — top-left, biggest */
