@@ -1499,17 +1499,18 @@
 </head>
 <body>
     <!-- Video Splash Page -->
-    <!-- 🔧 开屏视频/图片已移除；videoSplash 默认隐藏 -->
     <div id="videoSplash" class="video-splash" style="display:none">
         <video id="splashVideo"
                src="intro.mp4"
                muted
+               autoplay
                playsinline
                webkit-playsinline
                x5-video-player-type="h5"
                x5-video-player-fullscreen="true"
                x5-video-orientation="portraint"
-               preload="none"
+               preload="auto"
+               poster="splash-overlay.png"
                disableRemotePlayback>
         </video>
         <canvas id="splashCanvas"></canvas>
@@ -2608,11 +2609,9 @@
                 else loadSettings(); // SDK 到位后才初始化 Supabase
             });
 
-            // 🔧 开屏视频/图片已在 HTML 层默认隐藏，无需 playVideoSplash()
-            // 直接进入：已登录 → App；未登录 → 登录页
-
             const savedUser = localStorage.getItem('campus_user');
             if (savedUser) {
+                // 已登录：直接进 App，跳过视频
                 currentUser = JSON.parse(savedUser);
                 document.getElementById('videoSplash').style.display = 'none';
                 document.getElementById('loginPage').style.display = 'none';
@@ -2623,10 +2622,10 @@
                 // 等待 SDK 就绪后加载数据（最多等15秒）
                 waitForSDKAndLoadData();
             } else {
-                // 🔧 直接显示登录页（视频已通过 HTML inline style 隐藏）
-                document.getElementById('loginPage').style.display = 'flex';
+                // 未登录：播放开屏视频，视频结束后自动显示登录页
+                document.getElementById('loginPage').style.display = 'none';
+                playVideoSplash();
             }
-            // 未登录：loginPage（display:flex）已可见，videoSplash（display:none）已隐藏
             initDateFilters();
             // Setup top nav click handlers
             document.querySelectorAll('.topnav-link').forEach(link => {
