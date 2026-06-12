@@ -2622,8 +2622,8 @@
                 // 等待 SDK 就绪后加载数据（最多等15秒）
                 waitForSDKAndLoadData();
             } else {
-                // 未登录：播放开屏视频，视频结束后自动显示登录页
-                document.getElementById('loginPage').style.display = 'none';
+                // 未登录：播放开屏视频，视频层(z-index:200)覆盖登录页(z-index:100)
+                // 登录页保持渲染（不用display:none），视频播完淡出后自然露出
                 playVideoSplash();
             }
             initDateFilters();
@@ -2927,15 +2927,7 @@
                 splash.classList.add('fade-out');
                 setTimeout(function() {
                     splash.style.display = 'none';
-                    // 🔧 显示登录页面
-                    var loginPage = document.getElementById('loginPage');
-                    if (loginPage) {
-                        loginPage.style.display = 'flex';
-                        loginPage.style.opacity = '0';
-                        loginPage.style.transition = 'opacity 0.6s ease';
-                        loginPage.offsetHeight; // force reflow
-                        loginPage.style.opacity = '1';
-                    }
+                    // 登录页一直在视频层后面渲染，视频淡出后自然露出，无需手动设置display
                 }, 550);
             }
             // 暴露到全局，供 onclick 和 doLogin 调用
@@ -3033,21 +3025,21 @@
                 }
             }, 500);
 
-            // ── 绝对最大超时：15秒后强制跳过 ──
+            // ── 绝对最大超时：8秒后强制跳过 ──
             setTimeout(function() {
                 if (!hasEnded) {
                     console.warn('Video splash max timeout reached, forcing skip.');
                     finishSplash();
                 }
-            }, 15000);
+            }, 8000);
 
-            // Safety timeout: if video never starts within 8s (mobile) / 5s (desktop), skip
+            // Safety timeout: if video never starts within 4s (mobile) / 3s (desktop), skip
             setTimeout(function() {
                 if (!hasEnded && video.paused && video.currentTime === 0) {
                     console.warn('Video never started, skipping to login.');
                     finishSplash();
                 }
-            }, isMobile ? 8000 : 5000);
+            }, isMobile ? 4000 : 3000);
 
             // Start playback
             var playPromise = video.play();
@@ -3061,10 +3053,10 @@
                         overlay.classList.add('reveal');
                     }
                     if (loader) { loader.style.opacity = '0'; loader.style.display = 'none'; }
-                    // 5秒后自动进入登录页
+                    // 3秒后自动进入登录页
                     setTimeout(function() {
                         if (!hasEnded) finishSplash();
-                    }, 5000);
+                    }, 3000);
                 });
             }
         }
