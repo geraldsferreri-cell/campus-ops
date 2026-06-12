@@ -1513,7 +1513,7 @@
 </head>
 <body>
     <!-- Video Splash Page -->
-    <div id="videoSplash" class="video-splash">
+    <div id="videoSplash" class="video-splash" style="display:none">
         <video id="splashVideo"
                src="intro.mp4"
                muted
@@ -2615,6 +2615,7 @@
         }
 
         (async function init() {
+            try {
             // 🔧 SDK 后台静默加载（不阻塞页面渲染！中国CDN可能很慢/被墙）
             // 视频开屏、登录页面等完全不需要 SDK
             loadSupabaseSDK().then(ok => {
@@ -2634,8 +2635,7 @@
                 // 等待 SDK 就绪后加载数据（最多等15秒）
                 waitForSDKAndLoadData();
             } else {
-                // 🔧 临时绕过视频开屏，直接显示登录页
-                document.getElementById('videoSplash').style.display = 'none';
+                // 🔧 直接显示登录页（视频已通过 HTML inline style 隐藏）
                 document.getElementById('loginPage').style.display = 'flex';
             }
             initDateFilters();
@@ -2652,6 +2652,12 @@
             document.addEventListener('click', function(e) {
                 createPawTrail(e.pageX, e.pageY);
             });
+            } catch(e) {
+                console.error('init() error:', e);
+                // 确保登录页至少可见
+                document.getElementById('videoSplash').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
+            }
         })();
 
         // 🐯 Tiger mascot: click to scroll to top
