@@ -2926,9 +2926,7 @@
                 if (pctx && particleCanvas) {
                     pctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
                 }
-                // 清理所有定时器和检查
                 if (globalSafetyInterval) clearInterval(globalSafetyInterval);
-                if (stallRecoveryTimeout) clearTimeout(stallRecoveryTimeout);
                 splash.classList.add('fade-out');
                 setTimeout(function() {
                     splash.style.display = 'none';
@@ -3018,65 +3016,28 @@
                 }
             }, { once: true });
 
-            // ── Stalled / Waiting recovery ──
-            // 视频卡住/缓冲中太久 → 尝试恢复，失败则跳过
-            var stallStartTime = 0;
-            var stallRecoveryTimeout = null;
-            video.addEventListener('waiting', function() {
-                if (hasEnded) return;
-                if (!stallStartTime) stallStartTime = Date.now();
-                // 5秒内没恢复就跳过
-                if (!stallRecoveryTimeout) {
-                    stallRecoveryTimeout = setTimeout(function() {
-                        if (!hasEnded && video.paused) {
-                            console.warn('Video splash stalled during playback, skipping.');
-                            finishSplash();
-                        }
-                    }, 5000);
-                }
-            });
-            video.addEventListener('playing', function() {
-                // 视频恢复播放，清除卡住计时
-                stallStartTime = 0;
-                if (stallRecoveryTimeout) { clearTimeout(stallRecoveryTimeout); stallRecoveryTimeout = null; }
-            });
-            video.addEventListener('stalled', function() {
-                if (hasEnded) return;
-                if (!stallStartTime) stallStartTime = Date.now();
-                // stalled 后 3 秒没恢复就跳过
-                if (!stallRecoveryTimeout) {
-                    stallRecoveryTimeout = setTimeout(function() {
-                        if (!hasEnded && video.paused) {
-                            console.warn('Video splash stalled, skipping.');
-                            finishSplash();
-                        }
-                    }, 3000);
-                }
-            });
-
-            // ── 全局兜底：定期检查视频状态 ──
+            // ── 全局兜底：定期检查视频状态（每500ms） ──
+            // 主要针对 ended 事件在极端浏览器不触发的情况
             var globalSafetyInterval = setInterval(function() {
                 if (hasEnded) { clearInterval(globalSafetyInterval); return; }
-                // 视频已播到末尾但 ended 事件和 timeupdate 都没触发（极端情况）
                 if (!endedFired && video.duration && video.currentTime >= video.duration - 0.3) {
                     endedFired = true;
                     handleVideoEnded();
-                    return;
                 }
             }, 500);
 
-            // ── 绝对最大超时：15 秒后强制跳过（针对所有异常情况） ──
+            // ── 绝对最大超时：视频总长+10秒后强制跳过 ──
             setTimeout(function() {
                 if (!hasEnded) {
                     console.warn('Video splash max timeout reached, forcing skip.');
                     finishSplash();
                 }
-            }, 15000);
+            }, 20000);
 
             // Safety timeout: if video never starts within 8s (mobile) / 5s (desktop), skip
             setTimeout(function() {
                 if (!hasEnded && video.paused && video.currentTime === 0) {
-                    console.warn('Video splash stalled, skipping to login.');
+                    console.warn('Video never started, skipping to login.');
                     finishSplash();
                 }
             }, isMobile ? 8000 : 5000);
@@ -3085,8 +3046,18 @@
             var playPromise = video.play();
             if (playPromise !== undefined) {
                 playPromise.catch(function(err) {
+                    // autoplay 被阻止时，不立即跳过，显示静态 overlay 并允许手动跳过
                     console.warn('Video autoplay prevented:', err);
-                    finishSplash();
+                    // 展示叠加图片作为回退视觉效果
+                    if (overlay) {
+                        overlay.offsetHeight;
+                        overlay.classList.add('reveal');
+                    }
+                    if (loader) { loader.style.opacity = '0'; loader.style.display = 'none'; }
+                    // 10秒后自动进入登录页
+                    setTimeout(function() {
+                        if (!hasEnded) finishSplash();
+                    }, 10000);
                 });
             }
         }
@@ -3100,11 +3071,8 @@
             // 确保 Supabase SDK 已加载并就绪
             if (!window._createClient) {
                 toast('正在连接系统...', 'info');
-                for (let i = 0; i < 50; i++) {
-                    await new Promise(r => setTimeout(r, 100));
-                    if (window._createClient) break;
-                }
-                if (!window._createClient) {
+                var sdkReady = await waitForSDK(15000);
+                if (!sdkReady) {
                     showNetworkError('系统初始化超时，请刷新页面重试');
                     return;
                 }
@@ -3130,7 +3098,13 @@
             }
 
             // 从数据库查找用户（按姓名匹配）
-            if (!ensureSupabase()) return;
+            if (!supabase) {
+                var dbReady = await waitForSDK(10000);
+                if (!dbReady || !supabase) {
+                    showNetworkError('数据库连接未建立，请刷新页面重试');
+                    return;
+                }
+            }
             try {
                 const { data: users, error } = await supabase.from('users').select('*').eq('real_name', u);
                 if (error) throw error;
@@ -3446,17 +3420,25 @@
         // 🔧 确保 Supabase 已初始化，未初始化时显示错误横幅
         // 🔧 等待 SDK 就绪后加载数据（用于已登录用户直接进入仪表盘）
         // 最多等待15秒，超时后显示错误
-        async function waitForSDKAndLoadData() {
-            for (let i = 0; i < 150; i++) {
+        // 等待 SDK 就绪（最多等20秒），就绪后自动初始化 Supabase 并返回 true
+        async function waitForSDK(maxWaitMs) {
+            maxWaitMs = maxWaitMs || 20000;
+            var start = Date.now();
+            while (Date.now() - start < maxWaitMs) {
                 if (window._createClient) {
                     if (!supabase) loadSettings();
-                    loadAllData();
-                    return;
+                    return true;
                 }
-                await new Promise(r => setTimeout(r, 100));
+                await new Promise(function(r) { setTimeout(r, 200); });
             }
-            console.error('SDK 加载超时（15秒），数据加载失败');
-            showNetworkError('系统初始化超时，请刷新页面重试');
+            console.error('SDK 加载超时（' + (maxWaitMs/1000) + '秒）');
+            return false;
+        }
+
+        async function waitForSDKAndLoadData() {
+            var ok = await waitForSDK(20000);
+            if (ok) { loadAllData(); }
+            else { showNetworkError('系统初始化超时，请刷新页面重试'); }
         }
 
         function ensureSupabase() {
@@ -3537,7 +3519,14 @@
 
         // ============ Load All Data ============
         async function loadAllData() {
-            if (!ensureSupabase()) return;
+            // SDK 可能还在后台加载中，等待就绪（最多20秒）
+            if (!supabase) {
+                var ready = await waitForSDK(20000);
+                if (!ready) {
+                    showNetworkError('数据库连接未建立，请刷新页面重试');
+                    return;
+                }
+            }
             // 先加载用户，再并行加载其他数据
             await loadUsers();
             await Promise.all([loadVideos(), loadAccounts(), loadGroups(), loadSalaryConfigs(), loadSalaries()]);
