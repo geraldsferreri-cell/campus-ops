@@ -2634,8 +2634,9 @@
                 // 等待 SDK 就绪后加载数据（最多等15秒）
                 waitForSDKAndLoadData();
             } else {
-                // 视频作为背景播放，登录框立即可用
-                playVideoSplash();
+                // 🔧 临时绕过视频开屏，直接显示登录页
+                document.getElementById('videoSplash').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
             }
             initDateFilters();
             // Setup top nav click handlers
