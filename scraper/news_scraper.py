@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-校园运营系统 - 每日新闻自动抓取器 v5
+校园运营系统 - 每日新闻自动抓取器 v6
 数据源：60s.viki.moe API (微博/知乎/抖音/百度热榜聚合)
-同时更新 index.html 的 NEWS_DEFAULTS + 写入 Supabase
+写入独立的 news_data.json 文件 + Supabase（不再修改 HTML 内嵌 JS）
 通过 GitHub Actions 每日 10:00 CST 自动运行
 """
 
@@ -235,65 +235,43 @@ def make_summary(item):
 #  存储：HTML 更新 + Supabase
 # ═══════════════════════════════════════════════════════════
 
-def update_html_news_defaults(categorized):
-    """更新 index.html 中的 NEWS_DEFAULTS 块"""
-    html_path = Path(__file__).parent.parent / "index.html"
-    if not html_path.exists():
-        logger.error(f"  ❌ 找不到 {html_path}")
-        return False
-
-    with open(html_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    start_marker = "// ============ 资讯热点模块 ============"
-    end_marker = "// ============ 近期选题数据 ============"
-
-    start_idx = content.find(start_marker)
-    end_idx = content.find(end_marker)
-    if start_idx == -1 or end_idx == -1:
-        logger.error("  ❌ 找不到边界标记，无法更新 HTML")
-        return False
+def update_news_json(categorized):
+    """将新闻数据写入独立的 news_data.json 文件（不再修改 HTML 内嵌 JS）"""
+    json_path = Path(__file__).parent.parent / "news_data.json"
 
     today = datetime.now(CST).strftime("%Y-%m-%d")
-    categories_js = ""
+    news_obj = {
+        "date": today,
+        "scrape_time": datetime.now(CST).strftime("%Y-%m-%d %H:%M") + " CST",
+        "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+        "categories": []
+    }
+
     for cid, items in categorized.items():
         if not items:
             continue
         cfg = CATEGORY_SOURCES[cid]
-        items_js = ""
-        for idx, item in enumerate(items):
-            trailing = "," if idx < len(items) - 1 else ""
-            items_js += '                    {{ title: "{title}", summary: "{summary}", source: "{source}", url: "{url}", time: "{time}" }}{trailing}\n'.format(
-                title=escape_js(item.get("title","")),
-                summary=escape_js(make_summary(item)),
-                source=escape_js(item.get("source","")),
-                url=escape_js(item.get("url","")),
-                time=item.get("time",""),
-                trailing=trailing
-            )
-        categories_js += '                {{ id: "{}", name: "{}", color: "{}", items: [\n{}                ]}},\n'.format(cid, cfg['name'], cfg['color'], items_js)
+        cat = {
+            "id": cid,
+            "name": cfg["name"],
+            "color": cfg["color"],
+            "items": [
+                {
+                    "title": item.get("title", ""),
+                    "summary": make_summary(item),
+                    "source": item.get("source", ""),
+                    "url": item.get("url", ""),
+                    "time": item.get("time", "")
+                }
+                for item in items
+            ]
+        }
+        news_obj["categories"].append(cat)
 
-    new_block = f"""                // ============ 资讯热点模块 ============
-        // 【每日 10:00 由 GitHub Actions 自动抓取并写入】
-        // 抓取时间：{datetime.now(CST).strftime("%Y-%m-%d %H:%M")} CST
-        // 数据源：60s.viki.moe (微博/知乎/抖音/百度)
-        const NEWS_DEFAULTS = {{
-            date: "{today}",
-            categories: [
-{categories_js}            ]
-        }};
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(news_obj, f, ensure_ascii=False, indent=2)
 
-        // 运行时数据（优先从 Supabase 加载，失败降级为内置默认数据）
-        let NEWS_DATA = JSON.parse(JSON.stringify(NEWS_DEFAULTS));
-
-        """
-
-    new_content = content[:start_idx] + new_block + content[end_idx:]
-
-    with open(html_path, "w", encoding="utf-8") as f:
-        f.write(new_content)
-
-    logger.info(f"  ✅ HTML 更新完成: NEWS_DEFAULTS 已刷新 ({today})")
+    logger.info(f"  ✅ news_data.json 写入完成 ({today}, {len(news_obj['categories'])}个分类)")
     return True
 
 
@@ -352,7 +330,7 @@ def save_to_supabase(categorized):
 def main():
     t0 = datetime.now(CST)
     logger.info("=" * 60)
-    logger.info("📡 校园运营系统 - 每日新闻抓取器 v5")
+    logger.info("📡 校园运营系统 - 每日新闻抓取器 v6")
     logger.info(f"⏰ {t0.strftime('%Y-%m-%d %H:%M:%S')} CST")
     logger.info(f"🌐 数据源: 60s.viki.moe (微博/知乎/抖音/百度)")
     logger.info("=" * 60)
@@ -380,7 +358,7 @@ def main():
 
     # 4) 存储
     logger.info("\n[4/4] 存储 ...")
-    html_ok = update_html_news_defaults(categorized)
+    html_ok = update_news_json(categorized)
     db_count = save_to_supabase(categorized)
 
     # 保存 JSON 备份

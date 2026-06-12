@@ -5777,56 +5777,27 @@
             try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
         }
 
-                                                                                // ============ 资讯热点模块 ============
-        // 【每日 10:00 由 GitHub Actions 自动抓取并写入】
-        // 抓取时间：2026-06-12 14:37 CST
-        // 数据源：60s.viki.moe (微博/知乎/抖音/百度)
-        const NEWS_DEFAULTS = {
-            date: "2026-06-12",
-            categories: [
-                { id: "tech", name: "🤖 科技", color: "#3b82f6", items: [
-                    { title: "尹锡悦因无人机事件被判30年", summary: "最新资讯：尹锡悦因无人机事件被判30年（热度780.4万）", source: "抖音", url: "https://www.douyin.com/search/%E5%B0%B9%E9%94%A1%E6%82%A6%E5%9B%A0%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%BA%8B%E4%BB%B6%E8%A2%AB%E5%88%A430%E5%B9%B4", time: "6/12" }
-                ]},
-                { id: "ai", name: "🧠 AI", color: "#8b5cf6", items: [
-                    { title: "魅族前高管质疑苹果搞不懂AI", summary: "最新资讯：魅族前高管质疑苹果搞不懂AI（热度20.5万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E9%AD%85%E6%97%8F%E5%89%8D%E9%AB%98%E7%AE%A1%E8%B4%A8%E7%96%91%E8%8B%B9%E6%9E%9C%E6%90%9E%E4%B8%8D%E6%87%82AI", time: "6/12" },
-                    { title: "我们真的需要又一个DeepSeek V5吗？", summary: "未来两年舞台已经提前给大家准备好了（", source: "知乎", url: "https://www.zhihu.com/question/2031303606524186735", time: "6/12" },
-                    { title: "抖音AI创作大赛来了", summary: "最新资讯：抖音AI创作大赛来了（热度770.3万）", source: "抖音", url: "https://www.douyin.com/search/%E6%8A%96%E9%9F%B3AI%E5%88%9B%E4%BD%9C%E5%A4%A7%E8%B5%9B%E6%9D%A5%E4%BA%86", time: "6/12" }
-                ]},
-                { id: "sports", name: "⚽ 体育", color: "#10b981", items: [
-                    { title: "老外也疑惑中国为什么不参加世界杯", summary: "最新资讯：老外也疑惑中国为什么不参加世界杯（热度129.5万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E8%80%81%E5%A4%96%E4%B9%9F%E7%96%91%E6%83%91%E4%B8%AD%E5%9B%BD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%8F%82%E5%8A%A0%E4%B8%96%E7%95%8C%E6%9D%AF", time: "6/12" },
-                    { title: "梅西首次回应慌得一批表情包", summary: "最新资讯：梅西首次回应慌得一批表情包（热度50.3万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E6%A2%85%E8%A5%BF%E9%A6%96%E6%AC%A1%E5%9B%9E%E5%BA%94%E6%85%8C%E5%BE%97%E4%B8%80%E6%89%B9%E8%A1%A8%E6%83%85%E5%8C%85", time: "6/12" },
-                    { title: "韩国vs捷克", summary: "最新资讯：韩国vs捷克（热度29.9万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BDvs%E6%8D%B7%E5%85%8B", time: "6/12" },
-                    { title: "韩国2比1捷克", summary: "最新资讯：韩国2比1捷克（热度29.0万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD2%E6%AF%941%E6%8D%B7%E5%85%8B", time: "6/12" }
-                ]},
-                { id: "show", name: "🌟 秀场", color: "#ec4899", items: [
-                    { title: "白鹿方六连辟谣", summary: "最新资讯：白鹿方六连辟谣（热度152.8万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E6%96%B9%E5%85%AD%E8%BF%9E%E8%BE%9F%E8%B0%A3", time: "6/12" },
-                    { title: "白鹿学历", summary: "最新资讯：白鹿学历（热度1010.1万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%AD%A6%E5%8E%86", time: "6/12" },
-                    { title: "迪丽热巴陈飞宇持续掉粉", summary: "最新资讯：迪丽热巴陈飞宇持续掉粉（热度40.5万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E9%99%88%E9%A3%9E%E5%AE%87%E6%8C%81%E7%BB%AD%E6%8E%89%E7%B2%89", time: "6/12" },
-                    { title: "演员白鹿方发表声明", summary: "最新资讯：演员白鹿方发表声明（热度774.7万）", source: "抖音", url: "https://www.douyin.com/search/%E6%BC%94%E5%91%98%E7%99%BD%E9%B9%BF%E6%96%B9%E5%8F%91%E8%A1%A8%E5%A3%B0%E6%98%8E", time: "6/12" }
-                ]},
-                { id: "variety", name: "📺 综艺", color: "#f59e0b", items: [
-                    { title: "炽礼瞳合作曲舞台", summary: "最新资讯：炽礼瞳合作曲舞台（热度768.9万）", source: "抖音", url: "https://www.douyin.com/search/%E7%82%BD%E7%A4%BC%E7%9E%B3%E5%90%88%E4%BD%9C%E6%9B%B2%E8%88%9E%E5%8F%B0", time: "6/12" }
-                ]},
-                { id: "film", name: "🎬 影视", color: "#6366f1", items: [
-                    { title: "如何评价新番《躲在超市后门吸烟的二人》？", summary: "虽然没到7月，但是提前发放。看完有感，没有提问，就自己来。本人回答仅抛砖引玉，希望评论区友好互动", source: "知乎", url: "https://www.zhihu.com/question/2046391124668035295", time: "6/12" },
-                    { title: "童年时看过的哪部电影，长大后重看才理解了其中的某些隐喻？", summary: "最新资讯：童年时看过的哪部电影，长大后重看才理解了其中的某些隐喻？", source: "知乎", url: "https://www.zhihu.com/question/2044848950755190445", time: "6/12" },
-                    { title: "如何评价电影《万箭穿心》里李现饰演的小宝，他为何要将自己的亲母亲赶出家门，是不是绝情过分了？", summary: "最新资讯：如何评价电影《万箭穿心》里李现饰演的小宝，他为何要将自己的亲母亲赶出家门，是不是绝情过分了？", source: "知乎", url: "https://www.zhihu.com/question/419646528", time: "6/12" }
-                ]},
-                { id: "marketing", name: "📊 营销", color: "#f97316", items: [
-                    { title: "中国广告片终于有了世界级松弛感", summary: "最新资讯：中国广告片终于有了世界级松弛感（热度48.7万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%AD%E5%9B%BD%E5%B9%BF%E5%91%8A%E7%89%87%E7%BB%88%E4%BA%8E%E6%9C%89%E4%BA%86%E4%B8%96%E7%95%8C%E7%BA%A7%E6%9D%BE%E5%BC%9B%E6%84%9F", time: "6/12" },
-                    { title: "网络测评新规落地，无资质不得测食品、隐形带货须标广告、只评不测必须显著标注个人体验，将产生哪些影响？", summary: "针对一些网络测评存在夸大宣传、只评不测、商测一体等问题，国家网信办、市场监管总局8日公布《网络测评活动规范》", source: "知乎", url: "https://www.zhihu.com/question/2047740535050335112", time: "6/12" }
-                ]},
-                { id: "fun", name: "🎮 好玩有趣", color: "#22c55e", items: [
-                    { title: "上海一幼儿园教师离世", summary: "最新资讯：上海一幼儿园教师离世（热度136.4万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%8A%E6%B5%B7%E4%B8%80%E5%B9%BC%E5%84%BF%E5%9B%AD%E6%95%99%E5%B8%88%E7%A6%BB%E4%B8%96", time: "6/12" },
-                    { title: "为何长征二字总能戳中人心", summary: "最新资讯：为何长征二字总能戳中人心（热度131.7万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E4%B8%BA%E4%BD%95%E9%95%BF%E5%BE%81%E4%BA%8C%E5%AD%97%E6%80%BB%E8%83%BD%E6%88%B3%E4%B8%AD%E4%BA%BA%E5%BF%83", time: "6/12" },
-                    { title: "第一次见丑得像人的狗", summary: "最新资讯：第一次见丑得像人的狗（热度76.8万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E7%AC%AC%E4%B8%80%E6%AC%A1%E8%A7%81%E4%B8%91%E5%BE%97%E5%83%8F%E4%BA%BA%E7%9A%84%E7%8B%97", time: "6/12" },
-                    { title: "鹿晗gapday音乐节", summary: "最新资讯：鹿晗gapday音乐节（热度61.8万）", source: "微博热搜", url: "https://s.weibo.com/weibo?q=%E9%B9%BF%E6%99%97gapday%E9%9F%B3%E4%B9%90%E8%8A%82", time: "6/12" }
-                ]}
-            ]
-        };
+                                                                                        // ============ 资讯热点模块（数据独立于 HTML，从 news_data.json 加载） ============
+        // 内置极简兜底数据（仅 JSON 解析失败时使用，不会导致 JS 整体崩溃）
+        const NEWS_FALLBACK = { date: "加载中", categories: [] };
+        let NEWS_DATA = JSON.parse(JSON.stringify(NEWS_FALLBACK));
 
-        // 运行时数据（优先从 Supabase 加载，失败降级为内置默认数据）
-        let NEWS_DATA = JSON.parse(JSON.stringify(NEWS_DEFAULTS));
+        // 从独立 JSON 文件加载资讯数据（数据出错只影响资讯区，不影响登录等核心功能）
+        (async function loadNewsData() {
+            try {
+                const resp = await fetch("news_data.json");
+                if (!resp.ok) throw new Error("HTTP " + resp.status);
+                const data = await resp.json();
+                if (data && data.categories && data.categories.length > 0) {
+                    NEWS_DATA = data;
+                    console.log("资讯数据从 news_data.json 加载成功：", data.date, data.categories.length + "个分类");
+                } else {
+                    console.warn("news_data.json 内容为空，使用兜底数据");
+                }
+            } catch(e) {
+                console.warn("news_data.json 加载失败（不影响登录）：", e.message);
+            }
+        })();
 
         // ============ 近期选题数据 ============
         const TOPIC_DATA = [
@@ -5920,7 +5891,7 @@
             }
             // 确保至少显示默认数据
             if (!NEWS_DATA || !NEWS_DATA.categories || NEWS_DATA.categories.length === 0) {
-                NEWS_DATA = JSON.parse(JSON.stringify(NEWS_DEFAULTS));
+                NEWS_DATA = JSON.parse(JSON.stringify(NEWS_FALLBACK));
             }
             // 显示日期
             document.getElementById("newsDate").textContent = "📅 " + NEWS_DATA.date;

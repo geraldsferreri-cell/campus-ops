@@ -1,6 +1,7 @@
-# 校园运营系统 - 每日资讯自动抓取 v3
+# 校园运营系统 - 每日资讯自动抓取 v4
 # 每天北京时间 10:00 自动运行
 # 数据源：DailyHot API (36+平台聚合)
+# 输出：news_data.json (独立JSON文件) + Supabase
 name: Daily News Scraper
 
 on:
@@ -47,11 +48,11 @@ jobs:
           path: news_output.json
           retention-days: 3
 
-      - name: Commit updated HTML
+      - name: Commit updated files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add news_data.json index.html
           git diff --cached --quiet || git commit -m "auto: 更新每日资讯热点 $(date +%Y-%m-%d)"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git pull origin main --rebase 2>&1 || true
