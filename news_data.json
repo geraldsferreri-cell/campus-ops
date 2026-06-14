@@ -1,6 +1,6 @@
 {
-  "date": "2026-06-13",
-  "scrape_time": "2026-06-13 14:13 CST",
+  "date": "2026-06-14",
+  "scrape_time": "2026-06-14 14:32 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,25 +9,25 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "6月12日华为发布开源盘古 2.0 模型，如何评价 openPangu 2.0 ？",
-          "summary": "6 月 12 日消息，在今日的华为开发者大会 HDC 2026 主题演讲中，华为常务董事、产品投资评审委员会主任、终端 BG 董事长余承东正式发布开源盘古 openPangu 2.0。 openPangu 2.0 计划从 6 月 30 日起陆续开源 7 大组件，包括新增开源的预训练代码、后训练代码、训练算子。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2048823351049707836",
-          "time": "6/13"
+          "title": "机器人伴侣仅限成人购买",
+          "summary": "最新资讯：机器人伴侣仅限成人购买（热度43.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BC%B4%E4%BE%A3%E4%BB%85%E9%99%90%E6%88%90%E4%BA%BA%E8%B4%AD%E4%B9%B0",
+          "time": "6/14"
         },
         {
-          "title": "《宝可梦GO》被荷兰媒体《Trouw》曝光成为美国军方数据供应商，训练无人机导航系统，如何看待此事？",
-          "summary": "荷兰媒体《Trouw》于 2026年6月初发布调查报道，揭露《宝可梦 GO》全球玩家贡献的约300亿张环境扫描图像，被用于训练美国军方无人机导航系统。 荷兰媒体《Trouw》在最新的调查报道中，揭露了《宝可梦GO》开发商分拆成立的Niantic Spatial公司底层环境数据的最终流向 该公司已将玩家多年来为获取游戏内奖励而沿街扫描采集的众包数据，直接提供给了专门从事国防人工智能技术的美国军事承包",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2048117055455499743",
-          "time": "6/13"
+          "title": "小米汽车回应直播5小时结束原因",
+          "summary": "最新资讯：小米汽车回应直播5小时结束原因（热度28.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E6%B1%BD%E8%BD%A6%E5%9B%9E%E5%BA%94%E7%9B%B4%E6%92%AD5%E5%B0%8F%E6%97%B6%E7%BB%93%E6%9D%9F%E5%8E%9F%E5%9B%A0",
+          "time": "6/14"
         },
         {
-          "title": "SpaceX 的万亿美元估值，核心到底是火箭、星链，还是未来想象力？",
-          "summary": "航天驭星资深副总裁、总师曹梦与科普作家、航空航天深度观察者瘦驼在知乎科学全新播客《知无不言》中，从商业航天的定义聊起，一路聊到星链、可重复使用火箭、20 万颗卫星的轨道博弈，以及失重环境下的新基建… 这个行业到底发生过什么？【和具体问题相关的一句设问】 欢迎试听节目一起讨论 知乎收听20 万颗卫星、可回收火箭、太空药厂，商业航天离我们还有多远？ 小宇宙收听20 万颗卫星、可回收火箭、太空药厂，商业",
+          "title": "网传 iPhone 改日期可空出20G，苹果回应不建议操作，这个邪修方法有用吗？技术层面有什么依据吗？",
+          "summary": "据报道，该方法利用了iOS的缓存管理机制，通过改时间，让iOS认为系统存在大量过期的缓存，于是触发清理动作。 对此，苹果官方客服回复称：“Apple官方没有这种方法，也没有相关的文章说明支持这个说法。如果您需要尝试的话，我建议您先备份好您的数据，防止丢失。” 另据白鹿视频消息，苹果官方客服称这种操作并不现实：手动更改手机日期，虽然不会损坏手机硬件，但会对日常使用、网络连线以及App的正常运行带来一",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2046296202283410356",
-          "time": "6/13"
+          "url": "https://www.zhihu.com/question/2046000361807111269",
+          "time": "6/14"
         }
       ]
     },
@@ -37,32 +37,18 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "九鹭非香把七时吉祥重新做成AI剧了",
-          "summary": "最新资讯：九鹭非香把七时吉祥重新做成AI剧了（热度61.7万）",
+          "title": "AI现在不仅仅是眼神光了",
+          "summary": "最新资讯：AI现在不仅仅是眼神光了（热度17.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B9%9D%E9%B9%AD%E9%9D%9E%E9%A6%99%E6%8A%8A%E4%B8%83%E6%97%B6%E5%90%89%E7%A5%A5%E9%87%8D%E6%96%B0%E5%81%9A%E6%88%90AI%E5%89%A7%E4%BA%86",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=AI%E7%8E%B0%E5%9C%A8%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E7%9C%BC%E7%A5%9E%E5%85%89%E4%BA%86",
+          "time": "6/14"
         },
         {
-          "title": "以岗位被AI取代为由裁员判违法",
-          "summary": "最新资讯：以岗位被AI取代为由裁员判违法（热度40.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BB%A5%E5%B2%97%E4%BD%8D%E8%A2%ABAI%E5%8F%96%E4%BB%A3%E4%B8%BA%E7%94%B1%E8%A3%81%E5%91%98%E5%88%A4%E8%BF%9D%E6%B3%95",
-          "time": "6/13"
-        },
-        {
-          "title": "美国限制外国使用大模型",
-          "summary": "最新资讯：美国限制外国使用大模型（热度22.7万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%BE%8E%E5%9B%BD%E9%99%90%E5%88%B6%E5%A4%96%E5%9B%BD%E4%BD%BF%E7%94%A8%E5%A4%A7%E6%A8%A1%E5%9E%8B",
-          "time": "6/13"
-        },
-        {
-          "title": "如何评价Claude Fable 5全球暂停访问？",
-          "summary": "太突然了！ 就在刚刚，Anthropic官宣—— 全球禁用外籍人士对Claude Fable 5和Mythos 5的所有访问权限。 无论是在美国境内还是境外，就连Anthropic的外籍员工，全都不可用。 上线才3天的Claude Fable 5，一瞬间就没了。突发！Anthropic全球停用Claude 5",
+          "title": "作为老师，你见过最明显的AI作业是什么？你怎么看待当下学生用AI写论文这件事？",
+          "summary": "最新资讯：作为老师，你见过最明显的AI作业是什么？你怎么看待当下学生用AI写论文这件事？",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2049072203191342205",
-          "time": "6/13"
+          "url": "https://www.zhihu.com/question/2037135692707390495",
+          "time": "6/14"
         }
       ]
     },
@@ -72,32 +58,67 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "英格兰队遭盗窃只剩1个足球",
-          "summary": "最新资讯：英格兰队遭盗窃只剩1个足球（热度119.5万）",
+          "title": "尼克斯NBA总冠军",
+          "summary": "最新资讯：尼克斯NBA总冠军（热度44.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%8B%B1%E6%A0%BC%E5%85%B0%E9%98%9F%E9%81%AD%E7%9B%97%E7%AA%83%E5%8F%AA%E5%89%A91%E4%B8%AA%E8%B6%B3%E7%90%83",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%BC%E5%85%8B%E6%96%AFNBA%E6%80%BB%E5%86%A0%E5%86%9B",
+          "time": "6/14"
         },
         {
-          "title": "韩国网友批Lisa世界杯开幕式歌曲低俗",
-          "summary": "最新资讯：韩国网友批Lisa世界杯开幕式歌曲低俗（热度46.8万）",
+          "title": "NBA总决直播介绍中国演员邓超",
+          "summary": "最新资讯：NBA总决直播介绍中国演员邓超（热度37.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E7%BD%91%E5%8F%8B%E6%89%B9Lisa%E4%B8%96%E7%95%8C%E6%9D%AF%E5%BC%80%E5%B9%95%E5%BC%8F%E6%AD%8C%E6%9B%B2%E4%BD%8E%E4%BF%97",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=NBA%E6%80%BB%E5%86%B3%E7%9B%B4%E6%92%AD%E4%BB%8B%E7%BB%8D%E4%B8%AD%E5%9B%BD%E6%BC%94%E5%91%98%E9%82%93%E8%B6%85",
+          "time": "6/14"
         },
         {
-          "title": "世界杯",
-          "summary": "最新资讯：世界杯（热度29.1万）",
+          "title": "巴西醒醒 这是世界杯",
+          "summary": "最新资讯：巴西醒醒 这是世界杯（热度34.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E5%B7%B4%E8%A5%BF%E9%86%92%E9%86%92%20%E8%BF%99%E6%98%AF%E4%B8%96%E7%95%8C%E6%9D%AF",
+          "time": "6/14"
         },
         {
-          "title": "C罗回应年龄和身体状态质疑",
-          "summary": "最新资讯：C罗回应年龄和身体状态质疑（热度28.9万）",
+          "title": "25-26赛季NBA总决赛G5尼克斯94比90马刺，以总比分4比1夺得NBA总冠军，如何评价本场比赛？",
+          "summary": "本场比赛双方球员的各自表现如何？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2049285900409091751",
+          "time": "6/14"
+        }
+      ]
+    },
+    {
+      "id": "show",
+      "name": "🌟 秀场",
+      "color": "#ec4899",
+      "items": [
+        {
+          "title": "迪丽热巴手机壳",
+          "summary": "最新资讯：迪丽热巴手机壳（热度44.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E5%9B%9E%E5%BA%94%E5%B9%B4%E9%BE%84%E5%92%8C%E8%BA%AB%E4%BD%93%E7%8A%B6%E6%80%81%E8%B4%A8%E7%96%91",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E6%89%8B%E6%9C%BA%E5%A3%B3",
+          "time": "6/14"
+        },
+        {
+          "title": "微博电影之夜红毯",
+          "summary": "最新资讯：微博电影之夜红毯（热度37.2万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%BE%AE%E5%8D%9A%E7%94%B5%E5%BD%B1%E4%B9%8B%E5%A4%9C%E7%BA%A2%E6%AF%AF",
+          "time": "6/14"
+        },
+        {
+          "title": "李登科自曝跟三个明星谈过恋爱",
+          "summary": "最新资讯：李登科自曝跟三个明星谈过恋爱（热度22.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%9D%8E%E7%99%BB%E7%A7%91%E8%87%AA%E6%9B%9D%E8%B7%9F%E4%B8%89%E4%B8%AA%E6%98%8E%E6%98%9F%E8%B0%88%E8%BF%87%E6%81%8B%E7%88%B1",
+          "time": "6/14"
+        },
+        {
+          "title": "王俊凯穿搭完全男大",
+          "summary": "最新资讯：王俊凯穿搭完全男大（热度18.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E4%BF%8A%E5%87%AF%E7%A9%BF%E6%90%AD%E5%AE%8C%E5%85%A8%E7%94%B7%E5%A4%A7",
+          "time": "6/14"
         }
       ]
     },
@@ -107,18 +128,11 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "奔跑吧已正常播出",
-          "summary": "最新资讯：奔跑吧已正常播出（热度777.0万）",
+          "title": "十八成年亦乘风",
+          "summary": "最新资讯：十八成年亦乘风（热度772.0万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%A5%94%E8%B7%91%E5%90%A7%E5%B7%B2%E6%AD%A3%E5%B8%B8%E6%92%AD%E5%87%BA",
-          "time": "6/13"
-        },
-        {
-          "title": "歌手2026第四期舞台",
-          "summary": "最新资讯：歌手2026第四期舞台（热度772.2万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%AD%8C%E6%89%8B2026%E7%AC%AC%E5%9B%9B%E6%9C%9F%E8%88%9E%E5%8F%B0",
-          "time": "6/13"
+          "url": "https://www.douyin.com/search/%E5%8D%81%E5%85%AB%E6%88%90%E5%B9%B4%E4%BA%A6%E4%B9%98%E9%A3%8E",
+          "time": "6/14"
         }
       ]
     },
@@ -128,18 +142,25 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "王俊凯官宣电影之夜",
-          "summary": "最新资讯：王俊凯官宣电影之夜（热度28.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E4%BF%8A%E5%87%AF%E5%AE%98%E5%AE%A3%E7%94%B5%E5%BD%B1%E4%B9%8B%E5%A4%9C",
-          "time": "6/13"
+          "title": "凡人修仙传动画新年番开播，同时在线观看人数达78万，如何看待这一数据？",
+          "summary": "70多万人同时在线！《凡人修仙传》年番开播：没大会员也能看",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2049089308208918603",
+          "time": "6/14"
         },
         {
-          "title": "我看动画是为了消遣时间，你们看动画是为了什么？",
-          "summary": "因为现在找不到好的影视看了或者说具体点就是欣赏疲劳了，觉得动画能吸引眼球，消磨时间，所以才看的，你们又为了什么？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2040963254340543337",
-          "time": "6/13"
+          "title": "张杰一生所爱好强的电影感",
+          "summary": "最新资讯：张杰一生所爱好强的电影感（热度765.7万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%BC%A0%E6%9D%B0%E4%B8%80%E7%94%9F%E6%89%80%E7%88%B1%E5%A5%BD%E5%BC%BA%E7%9A%84%E7%94%B5%E5%BD%B1%E6%84%9F",
+          "time": "6/14"
+        },
+        {
+          "title": "第28届上海国际电影节启幕",
+          "summary": "最新资讯：第28届上海国际电影节启幕（热度764.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%AC%AC28%E5%B1%8A%E4%B8%8A%E6%B5%B7%E5%9B%BD%E9%99%85%E7%94%B5%E5%BD%B1%E8%8A%82%E5%90%AF%E5%B9%95",
+          "time": "6/14"
         }
       ]
     },
@@ -149,11 +170,25 @@
       "color": "#14b8a6",
       "items": [
         {
-          "title": "aespa也去看世界杯了",
-          "summary": "最新资讯：aespa也去看世界杯了（热度774.5万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/aespa%E4%B9%9F%E5%8E%BB%E7%9C%8B%E4%B8%96%E7%95%8C%E6%9D%AF%E4%BA%86",
-          "time": "6/13"
+          "title": "奚梦瑶17年入坑EXO",
+          "summary": "最新资讯：奚梦瑶17年入坑EXO（热度24.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%A5%9A%E6%A2%A6%E7%91%B617%E5%B9%B4%E5%85%A5%E5%9D%91EXO",
+          "time": "6/14"
+        }
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "📊 营销",
+      "color": "#f97316",
+      "items": [
+        {
+          "title": "如何看待海澜之家这个品牌？",
+          "summary": "[图片]",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/265173700",
+          "time": "6/14"
         }
       ]
     },
@@ -163,32 +198,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "四级作文",
-          "summary": "最新资讯：四级作文（热度86.9万）",
+          "title": "小县城取消中考选拔全员直升高中",
+          "summary": "最新资讯：小县城取消中考选拔全员直升高中（热度269.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%9B%9B%E7%BA%A7%E4%BD%9C%E6%96%87",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E5%8E%BF%E5%9F%8E%E5%8F%96%E6%B6%88%E4%B8%AD%E8%80%83%E9%80%89%E6%8B%94%E5%85%A8%E5%91%98%E7%9B%B4%E5%8D%87%E9%AB%98%E4%B8%AD",
+          "time": "6/14"
         },
         {
-          "title": "青春华章两弹一星铸丰碑",
-          "summary": "最新资讯：青春华章两弹一星铸丰碑（热度76.7万）",
+          "title": "爷爷爸爸离世2岁娃要还50万贷款吗",
+          "summary": "最新资讯：爷爷爸爸离世2岁娃要还50万贷款吗（热度102.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9D%92%E6%98%A5%E5%8D%8E%E7%AB%A0%E4%B8%A4%E5%BC%B9%E4%B8%80%E6%98%9F%E9%93%B8%E4%B8%B0%E7%A2%91",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E7%88%B7%E7%88%B7%E7%88%B8%E7%88%B8%E7%A6%BB%E4%B8%962%E5%B2%81%E5%A8%83%E8%A6%81%E8%BF%9850%E4%B8%87%E8%B4%B7%E6%AC%BE%E5%90%97",
+          "time": "6/14"
         },
         {
-          "title": "韩庚鹿晗说朝鲜语",
-          "summary": "最新资讯：韩庚鹿晗说朝鲜语（热度76.3万）",
+          "title": "六张网锻造中国经济硬核底座",
+          "summary": "最新资讯：六张网锻造中国经济硬核底座（热度90.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%BA%9A%E9%B9%BF%E6%99%97%E8%AF%B4%E6%9C%9D%E9%B2%9C%E8%AF%AD",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E5%85%AD%E5%BC%A0%E7%BD%91%E9%94%BB%E9%80%A0%E4%B8%AD%E5%9B%BD%E7%BB%8F%E6%B5%8E%E7%A1%AC%E6%A0%B8%E5%BA%95%E5%BA%A7",
+          "time": "6/14"
         },
         {
-          "title": "原来瘦了真的会变聪明",
-          "summary": "最新资讯：原来瘦了真的会变聪明（热度75.6万）",
+          "title": "人一定要主动主动再主动",
+          "summary": "最新资讯：人一定要主动主动再主动（热度90.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8E%9F%E6%9D%A5%E7%98%A6%E4%BA%86%E7%9C%9F%E7%9A%84%E4%BC%9A%E5%8F%98%E8%81%AA%E6%98%8E",
-          "time": "6/13"
+          "url": "https://s.weibo.com/weibo?q=%E4%BA%BA%E4%B8%80%E5%AE%9A%E8%A6%81%E4%B8%BB%E5%8A%A8%E4%B8%BB%E5%8A%A8%E5%86%8D%E4%B8%BB%E5%8A%A8",
+          "time": "6/14"
         }
       ]
     }
