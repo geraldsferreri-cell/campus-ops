@@ -5139,8 +5139,15 @@
             // 根据角色和组别筛选老师和学生
             const teachers = allUsers.filter(u => u.role === 'teacher' && canViewUser(u) && (!group || u.group_name === group));
             const students = allUsers.filter(u => u.role === 'student' && canViewUser(u) && (!group || u.group_name === group));
-            const thousandVideos = videos.filter(v => v.likes >= 1000);
-            const tenThousandVideos = videos.filter(v => v.likes >= 10000);
+            // 用与 getDataStandardStatus 一致的逻辑：跨所有时间维度的点赞字段检查（v.likes 不存在，DB字段是 likes_day3/likes_day7/likes_month_end）
+            const thousandVideos = videos.filter(v => {
+                const likes = [v.likes_day3, v.likes_day7, v.likes_month_end].filter(l => l != null && l !== '');
+                return likes.some(l => parseInt(l) >= 1000);
+            });
+            const tenThousandVideos = videos.filter(v => {
+                const likes = [v.likes_day3, v.likes_day7, v.likes_month_end].filter(l => l != null && l !== '');
+                return likes.some(l => parseInt(l) >= 10000);
+            });
 
             document.getElementById('statTeachers').textContent = teachers.length;
             document.getElementById('statStudents').textContent = students.length;
@@ -5211,8 +5218,8 @@
                     tVideos = videos.filter(v => teacherNames.includes(v.publisher));
                 }
                 
-                const tThousand = tVideos.filter(v => v.likes >= 1000).length;
-                const tTenThousand = tVideos.filter(v => v.likes >= 10000).length;
+                const tThousand = tVideos.filter(v => getMaxLikes(v) >= 1000).length;
+                const tTenThousand = tVideos.filter(v => getMaxLikes(v) >= 10000).length;
                 const tStudents = groupStudents.length;
                 const thousandRate = tVideos.length > 0 ? ((tThousand / tVideos.length) * 100).toFixed(1) : 0;
                 const tenThousandRate = tVideos.length > 0 ? ((tTenThousand / tVideos.length) * 100).toFixed(1) : 0;
@@ -5322,9 +5329,15 @@
             });
         }
 
+        // 获取视频的最大点赞数（跨所有时间维度，与 getDataStandardStatus 一致）
+        function getMaxLikes(v) {
+            const likes = [v.likes_day3, v.likes_day7, v.likes_month_end].filter(l => l != null && l !== '');
+            return likes.length > 0 ? Math.max(...likes.map(l => parseInt(l))) : 0;
+        }
+
         function renderTopLists(videos) {
             // 千赞TOP5 - 柱状图
-            const topThousand = [...videos].filter(v => v.likes >= 1000).sort((a, b) => b.likes - a.likes).slice(0, 5);
+            const topThousand = [...videos].filter(v => getMaxLikes(v) >= 1000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
             const thousandCanvas = document.getElementById('topThousandChart');
             if (thousandCanvas && topThousand.length > 0) {
                 if (chartInstances['thousand']) chartInstances['thousand'].destroy();
@@ -5334,7 +5347,7 @@
                         labels: topThousand.map(v => v.publisher || '-'),
                         datasets: [{
                             label: '点赞数',
-                            data: topThousand.map(v => v.likes),
+                            data: topThousand.map(v => getMaxLikes(v)),
                             backgroundColor: 'rgba(245, 158, 11, 0.8)',
                             borderColor: 'rgb(245, 158, 11)',
                             borderWidth: 1
@@ -5353,7 +5366,7 @@
             }
 
             // 万赞TOP5 - 柱状图
-            const topTenThousand = [...videos].filter(v => v.likes >= 10000).sort((a, b) => b.likes - a.likes).slice(0, 5);
+            const topTenThousand = [...videos].filter(v => getMaxLikes(v) >= 10000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
             const tenThousandCanvas = document.getElementById('topTenThousandChart');
             if (tenThousandCanvas && topTenThousand.length > 0) {
                 if (chartInstances['tenThousand']) chartInstances['tenThousand'].destroy();
@@ -5363,7 +5376,7 @@
                         labels: topTenThousand.map(v => v.publisher || '-'),
                         datasets: [{
                             label: '点赞数',
-                            data: topTenThousand.map(v => v.likes),
+                            data: topTenThousand.map(v => getMaxLikes(v)),
                             backgroundColor: 'rgba(139, 92, 246, 0.8)',
                             borderColor: 'rgb(139, 92, 246)',
                             borderWidth: 1
@@ -5568,7 +5581,7 @@
             const now = new Date();
             const weekAgo = new Date(now - 7 * 24 * 60 * 60 * 1000);
             const weekVideos = getMyVideos().filter(v => new Date(v.created_at) > weekAgo);
-            const report = [{ '报表类型': '周报', '日期范围': `${weekAgo.toLocaleDateString()} ~ ${now.toLocaleDateString()}`, '发片总数': weekVideos.length, '千赞数': weekVideos.filter(v => v.likes >= 1000).length, '万赞数': weekVideos.filter(v => v.likes >= 10000).length }];
+            const report = [{ '报表类型': '周报', '日期范围': `${weekAgo.toLocaleDateString()} ~ ${now.toLocaleDateString()}`, '发片总数': weekVideos.length, '千赞数': weekVideos.filter(v => getMaxLikes(v) >= 1000).length, '万赞数': weekVideos.filter(v => getMaxLikes(v) >= 10000).length }];
             exportToXLSX(report, Object.keys(report[0]), '周报');
         }
 
@@ -5576,7 +5589,7 @@
             const now = new Date();
             const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
             const monthVideos = getMyVideos().filter(v => new Date(v.created_at) >= monthStart);
-            const report = [{ '报表类型': '月报', '月份': `${now.getFullYear()}年${now.getMonth() + 1}月`, '发片总数': monthVideos.length, '千赞数': monthVideos.filter(v => v.likes >= 1000).length, '万赞数': monthVideos.filter(v => v.likes >= 10000).length }];
+            const report = [{ '报表类型': '月报', '月份': `${now.getFullYear()}年${now.getMonth() + 1}月`, '发片总数': monthVideos.length, '千赞数': monthVideos.filter(v => getMaxLikes(v) >= 1000).length, '万赞数': monthVideos.filter(v => getMaxLikes(v) >= 10000).length }];
             exportToXLSX(report, Object.keys(report[0]), '月报');
         }
 
