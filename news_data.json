@@ -1,6 +1,6 @@
 {
-  "date": "2026-06-15",
-  "scrape_time": "2026-06-15 15:15 CST",
+  "date": "2026-06-16",
+  "scrape_time": "2026-06-16 15:22 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,25 +9,18 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "家长偶遇雷军鼓励孩子去小米上班",
-          "summary": "最新资讯：家长偶遇雷军鼓励孩子去小米上班（热度16.9万）",
+          "title": "小米高管称数字抽真空会成为趋势",
+          "summary": "最新资讯：小米高管称数字抽真空会成为趋势（热度29.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%AE%B6%E9%95%BF%E5%81%B6%E9%81%87%E9%9B%B7%E5%86%9B%E9%BC%93%E5%8A%B1%E5%AD%A9%E5%AD%90%E5%8E%BB%E5%B0%8F%E7%B1%B3%E4%B8%8A%E7%8F%AD",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E9%AB%98%E7%AE%A1%E7%A7%B0%E6%95%B0%E5%AD%97%E6%8A%BD%E7%9C%9F%E7%A9%BA%E4%BC%9A%E6%88%90%E4%B8%BA%E8%B6%8B%E5%8A%BF",
+          "time": "6/16"
         },
         {
-          "title": "优必选「机器人伴侣」10天预售3800台，限成年人购买，不做家务只做陪伴，你看好这款产品市场前景吗？",
-          "summary": "人形机器人终于走到了离家庭场景最近的一次，但做的不是呼声最高的家务活。 上线10天，主打情感陪伴的人形机器人U1为优必选收获超3800台预售订单，对应的定金总额逾千万元。对去年只卖了1079台人形机器人的优必选来说，这次尝试已经算是“小有突破”。 身着修身西装、可上妆、搭载“养成系”情感大模型、支持多维度外观定制、开启IP合作、仅限成人购买使用，这些特性，将这款分男女的人形机器人快速推到了大众视野",
+          "title": "AMD 嘲讽 MacBook 游戏兼容差，称苹果缺失功能自家全具备，如何看待这一行为？真的是这样的吗？",
+          "summary": "据 Wccftech 报道，一场本没必要再起的 Windows 与 macOS 之争，又被重新摆上了台面。 AMD 拿游戏性能嘲讽苹果 MacBook Neo，宣称锐龙笔记本可流畅运行全部 20 款测试游戏，而 MacBook Neo 仅能驾驭其中 5 款。 Windows 与 macOS 之间的争论向来没完没了，可没想到这场交锋竟来自主流芯片厂商之一。AMD 近期推出全新营销内容，一边宣传锐龙处",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2049162105648051147",
-          "time": "6/15"
-        },
-        {
-          "title": "全新 RTX3060 显卡再上市售价 2349 元，性价比如何？",
-          "summary": "梦回2021！全新rtx3060正式开卖！",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2047077275779306805",
-          "time": "6/15"
+          "url": "https://www.zhihu.com/question/2049788824297764188",
+          "time": "6/16"
         }
       ]
     },
@@ -37,11 +30,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "网友用AI魔改风云",
-          "summary": "最新资讯：网友用AI魔改风云（热度29.1万）",
+          "title": "华为盘古大模型",
+          "summary": "最新资讯：华为盘古大模型（热度63.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%BD%91%E5%8F%8B%E7%94%A8AI%E9%AD%94%E6%94%B9%E9%A3%8E%E4%BA%91",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E5%8D%8E%E4%B8%BA%E7%9B%98%E5%8F%A4%E5%A4%A7%E6%A8%A1%E5%9E%8B",
+          "time": "6/16"
+        },
+        {
+          "title": "如果一门文科课程的作业可以用AI完成，这门课该不该取消？",
+          "summary": "技术越是强大，那些「并不高效但属于我」的痕迹，就越珍贵。 你无需证明，只需记录，我们邀请你一起共建一场充满「人味」的讨论场。让过去的创造、今天的尝试，还有未来的每一步——都带着人类的温度，被看见、被留下… 2026 人文季正式启动｜活动主会场 ⬇️知乎 2026 人文季「本来就很棒的人类」",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2045831566538924509",
+          "time": "6/16"
+        },
+        {
+          "title": "GPT-5.6 惊现 150 万上下文窗口，将如何影响大模型竞争格局？",
+          "summary": "多名开发者在 OpenAI Codex 后端日志中捕捉到了一系列未官宣模型的踪迹，其中代号为「iris-alpha」的 GPT-5.6 模型凭借 150 万 Token 的超大上下文窗口，成为行业焦点 ... 容量暴增： GPT-5.6 的上下文窗口高达 150 万 Token，较当前的 GPT-5.5API（105 万）提升了近 43% ... 极端场景验证：在开发者利用 OpenCode 进行",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2042539496676352614",
+          "time": "6/16"
+        },
+        {
+          "title": "AI编程这么厉害，为什么不下班前提交需求给AI，第二天回来给AI Review代码？",
+          "summary": "最新资讯：AI编程这么厉害，为什么不下班前提交需求给AI，第二天回来给AI Review代码？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2012909173415888479",
+          "time": "6/16"
         }
       ]
     },
@@ -51,32 +65,32 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "世界杯这对中国组合是最大显眼包",
-          "summary": "最新资讯：世界杯这对中国组合是最大显眼包（热度29.1万）",
+          "title": "佛得角官方感谢中国帮圆梦世界杯",
+          "summary": "最新资讯：佛得角官方感谢中国帮圆梦世界杯（热度177.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E8%BF%99%E5%AF%B9%E4%B8%AD%E5%9B%BD%E7%BB%84%E5%90%88%E6%98%AF%E6%9C%80%E5%A4%A7%E6%98%BE%E7%9C%BC%E5%8C%85",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E4%BD%9B%E5%BE%97%E8%A7%92%E5%AE%98%E6%96%B9%E6%84%9F%E8%B0%A2%E4%B8%AD%E5%9B%BD%E5%B8%AE%E5%9C%86%E6%A2%A6%E4%B8%96%E7%95%8C%E6%9D%AF",
+          "time": "6/16"
         },
         {
-          "title": "世界杯第一对中国cp出现了",
-          "summary": "最新资讯：世界杯第一对中国cp出现了（热度29.0万）",
+          "title": "男子参加幼儿园马拉松猝死家属发声",
+          "summary": "最新资讯：男子参加幼儿园马拉松猝死家属发声（热度45.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E7%AC%AC%E4%B8%80%E5%AF%B9%E4%B8%AD%E5%9B%BDcp%E5%87%BA%E7%8E%B0%E4%BA%86",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E7%94%B7%E5%AD%90%E5%8F%82%E5%8A%A0%E5%B9%BC%E5%84%BF%E5%9B%AD%E9%A9%AC%E6%8B%89%E6%9D%BE%E7%8C%9D%E6%AD%BB%E5%AE%B6%E5%B1%9E%E5%8F%91%E5%A3%B0",
+          "time": "6/16"
         },
         {
-          "title": "世界杯期间就这样晒小卡",
-          "summary": "最新资讯：世界杯期间就这样晒小卡（热度24.3万）",
+          "title": "世界杯最夸张失误出现了",
+          "summary": "最新资讯：世界杯最夸张失误出现了（热度33.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E6%9C%9F%E9%97%B4%E5%B0%B1%E8%BF%99%E6%A0%B7%E6%99%92%E5%B0%8F%E5%8D%A1",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E6%9C%80%E5%A4%B8%E5%BC%A0%E5%A4%B1%E8%AF%AF%E5%87%BA%E7%8E%B0%E4%BA%86",
+          "time": "6/16"
         },
         {
-          "title": "马宁接受采访时说，自己为了世界杯梦想保持身体机能，40岁后一口红肉都不吃，对此你怎么看？",
-          "summary": "最新资讯：马宁接受采访时说，自己为了世界杯梦想保持身体机能，40岁后一口红肉都不吃，对此你怎么看？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2048790424978814485",
-          "time": "6/15"
+          "title": "世界杯第一张神图诞生",
+          "summary": "最新资讯：世界杯第一张神图诞生（热度29.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E7%AC%AC%E4%B8%80%E5%BC%A0%E7%A5%9E%E5%9B%BE%E8%AF%9E%E7%94%9F",
+          "time": "6/16"
         }
       ]
     },
@@ -86,11 +100,67 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "那些年全国统一的潮流穿搭",
-          "summary": "最新资讯：那些年全国统一的潮流穿搭（热度842.3万）",
+          "title": "迪丽热巴90花咖位",
+          "summary": "最新资讯：迪丽热巴90花咖位（热度55.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B490%E8%8A%B1%E5%92%96%E4%BD%8D",
+          "time": "6/16"
+        },
+        {
+          "title": "白鹿已争气争气再争气",
+          "summary": "最新资讯：白鹿已争气争气再争气（热度30.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%B7%B2%E4%BA%89%E6%B0%94%E4%BA%89%E6%B0%94%E5%86%8D%E4%BA%89%E6%B0%94",
+          "time": "6/16"
+        },
+        {
+          "title": "小个子精致夏日穿搭参考",
+          "summary": "最新资讯：小个子精致夏日穿搭参考（热度774.2万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E9%82%A3%E4%BA%9B%E5%B9%B4%E5%85%A8%E5%9B%BD%E7%BB%9F%E4%B8%80%E7%9A%84%E6%BD%AE%E6%B5%81%E7%A9%BF%E6%90%AD",
-          "time": "6/15"
+          "url": "https://www.douyin.com/search/%E5%B0%8F%E4%B8%AA%E5%AD%90%E7%B2%BE%E8%87%B4%E5%A4%8F%E6%97%A5%E7%A9%BF%E6%90%AD%E5%8F%82%E8%80%83",
+          "time": "6/16"
+        },
+        {
+          "title": "我在河南宝泉拍到了人生封面",
+          "summary": "最新资讯：我在河南宝泉拍到了人生封面（热度764.8万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%88%91%E5%9C%A8%E6%B2%B3%E5%8D%97%E5%AE%9D%E6%B3%89%E6%8B%8D%E5%88%B0%E4%BA%86%E4%BA%BA%E7%94%9F%E5%B0%81%E9%9D%A2",
+          "time": "6/16"
+        }
+      ]
+    },
+    {
+      "id": "fashion",
+      "name": "👗 时尚",
+      "color": "#f43f5e",
+      "items": [
+        {
+          "title": "我的美妆宝藏大开箱",
+          "summary": "最新资讯：我的美妆宝藏大开箱（热度769.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%88%91%E7%9A%84%E7%BE%8E%E5%A6%86%E5%AE%9D%E8%97%8F%E5%A4%A7%E5%BC%80%E7%AE%B1",
+          "time": "6/16"
+        },
+        {
+          "title": "时尚还得跟小朋友学",
+          "summary": "最新资讯：时尚还得跟小朋友学（热度765.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%97%B6%E5%B0%9A%E8%BF%98%E5%BE%97%E8%B7%9F%E5%B0%8F%E6%9C%8B%E5%8F%8B%E5%AD%A6",
+          "time": "6/16"
+        }
+      ]
+    },
+    {
+      "id": "variety",
+      "name": "📺 综艺",
+      "color": "#f59e0b",
+      "items": [
+        {
+          "title": "严浩翔谢帝官宣说唱巅峰赛事组",
+          "summary": "最新资讯：严浩翔谢帝官宣说唱巅峰赛事组（热度769.6万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E4%B8%A5%E6%B5%A9%E7%BF%94%E8%B0%A2%E5%B8%9D%E5%AE%98%E5%AE%A3%E8%AF%B4%E5%94%B1%E5%B7%85%E5%B3%B0%E8%B5%9B%E4%BA%8B%E7%BB%84",
+          "time": "6/16"
         }
       ]
     },
@@ -100,46 +170,39 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "《大鱼海棠》导演发文称王菲「要求多报价贵」、「对不起周深，我喜欢梁博」，如何评价此事？",
-          "summary": "大鱼海棠导演情商怎么低成这样，发文把所有人都得罪…说周深捡王菲不要的歌…还说王菲要求多，报价太贵了…",
+          "title": "动画电影《浪浪山小妖怪 2》确认制作，於水继续执导，对此你有何期待？",
+          "summary": "上海国际电影节",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2049533398402781507",
-          "time": "6/15"
+          "url": "https://www.zhihu.com/question/2049844715986630260",
+          "time": "6/16"
         },
         {
-          "title": "如何评价《原神》动画短片——「最后的遗产」？",
-          "summary": "最新资讯：如何评价《原神》动画短片——「最后的遗产」？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2049825193565148860",
-          "time": "6/15"
-        },
-        {
-          "title": "章若楠金靖电影想你了定档",
-          "summary": "最新资讯：章若楠金靖电影想你了定档（热度770.0万）",
+          "title": "王宝强新片狠家伙首曝预告",
+          "summary": "最新资讯：王宝强新片狠家伙首曝预告（热度898.4万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%AB%A0%E8%8B%A5%E6%A5%A0%E9%87%91%E9%9D%96%E7%94%B5%E5%BD%B1%E6%83%B3%E4%BD%A0%E4%BA%86%E5%AE%9A%E6%A1%A3",
-          "time": "6/15"
+          "url": "https://www.douyin.com/search/%E7%8E%8B%E5%AE%9D%E5%BC%BA%E6%96%B0%E7%89%87%E7%8B%A0%E5%AE%B6%E4%BC%99%E9%A6%96%E6%9B%9D%E9%A2%84%E5%91%8A",
+          "time": "6/16"
         },
         {
           "title": "光阴之外年番定档0620",
-          "summary": "最新资讯：光阴之外年番定档0620（热度765.0万）",
+          "summary": "最新资讯：光阴之外年番定档0620（热度764.1万）",
           "source": "抖音",
           "url": "https://www.douyin.com/search/%E5%85%89%E9%98%B4%E4%B9%8B%E5%A4%96%E5%B9%B4%E7%95%AA%E5%AE%9A%E6%A1%A30620",
-          "time": "6/15"
+          "time": "6/16"
         }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "marketing",
+      "name": "📊 营销",
+      "color": "#f97316",
       "items": [
         {
-          "title": "歌手OliverTree空难去世",
-          "summary": "最新资讯：歌手OliverTree空难去世（热度24.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%AD%8C%E6%89%8BOliverTree%E7%A9%BA%E9%9A%BE%E5%8E%BB%E4%B8%96",
-          "time": "6/15"
+          "title": "净网：网安局公布5起银狐木马案例",
+          "summary": "最新资讯：净网：网安局公布5起银狐木马案例（热度1039.5万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%87%80%E7%BD%91%EF%BC%9A%E7%BD%91%E5%AE%89%E5%B1%80%E5%85%AC%E5%B8%835%E8%B5%B7%E9%93%B6%E7%8B%90%E6%9C%A8%E9%A9%AC%E6%A1%88%E4%BE%8B",
+          "time": "6/16"
         }
       ]
     },
@@ -149,32 +212,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "印度苦行僧坚持站立5年不坐不躺",
-          "summary": "最新资讯：印度苦行僧坚持站立5年不坐不躺（热度116.4万）",
+          "title": "爸爸亲子活动猝死幼儿园被指救援不力",
+          "summary": "最新资讯：爸爸亲子活动猝死幼儿园被指救援不力（热度93.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%B0%E5%BA%A6%E8%8B%A6%E8%A1%8C%E5%83%A7%E5%9D%9A%E6%8C%81%E7%AB%99%E7%AB%8B5%E5%B9%B4%E4%B8%8D%E5%9D%90%E4%B8%8D%E8%BA%BA",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E7%88%B8%E7%88%B8%E4%BA%B2%E5%AD%90%E6%B4%BB%E5%8A%A8%E7%8C%9D%E6%AD%BB%E5%B9%BC%E5%84%BF%E5%9B%AD%E8%A2%AB%E6%8C%87%E6%95%91%E6%8F%B4%E4%B8%8D%E5%8A%9B",
+          "time": "6/16"
         },
         {
-          "title": "山姆向会员致歉",
-          "summary": "最新资讯：山姆向会员致歉（热度86.7万）",
+          "title": "教育部升级2026高考志愿信息系统",
+          "summary": "最新资讯：教育部升级2026高考志愿信息系统（热度75.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B1%B1%E5%A7%86%E5%90%91%E4%BC%9A%E5%91%98%E8%87%B4%E6%AD%89",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E6%95%99%E8%82%B2%E9%83%A8%E5%8D%87%E7%BA%A72026%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F",
+          "time": "6/16"
         },
         {
-          "title": "龙舟赛变身端午消费新引擎",
-          "summary": "最新资讯：龙舟赛变身端午消费新引擎（热度66.9万）",
+          "title": "柯淳 长剧",
+          "summary": "最新资讯：柯淳 长剧（热度72.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%BE%99%E8%88%9F%E8%B5%9B%E5%8F%98%E8%BA%AB%E7%AB%AF%E5%8D%88%E6%B6%88%E8%B4%B9%E6%96%B0%E5%BC%95%E6%93%8E",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E6%9F%AF%E6%B7%B3%20%E9%95%BF%E5%89%A7",
+          "time": "6/16"
         },
         {
-          "title": "戚薇李承铉女儿11岁近照",
-          "summary": "最新资讯：戚薇李承铉女儿11岁近照（热度66.6万）",
+          "title": "爸爸年轻时究竟有多敢穿",
+          "summary": "最新资讯：爸爸年轻时究竟有多敢穿（热度72.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%88%9A%E8%96%87%E6%9D%8E%E6%89%BF%E9%93%89%E5%A5%B3%E5%84%BF11%E5%B2%81%E8%BF%91%E7%85%A7",
-          "time": "6/15"
+          "url": "https://s.weibo.com/weibo?q=%E7%88%B8%E7%88%B8%E5%B9%B4%E8%BD%BB%E6%97%B6%E7%A9%B6%E7%AB%9F%E6%9C%89%E5%A4%9A%E6%95%A2%E7%A9%BF",
+          "time": "6/16"
         }
       ]
     }
