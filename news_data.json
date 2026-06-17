@@ -1,7 +1,5 @@
 {
-  "date": "2026-06-16",
-  "scrape_time": "2026-06-16 15:22 CST",
-  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+  "date": "2026-06-17",
   "categories": [
     {
       "id": "tech",
@@ -9,17 +7,31 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "小米高管称数字抽真空会成为趋势",
-          "summary": "最新资讯：小米高管称数字抽真空会成为趋势（热度29.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E9%AB%98%E7%AE%A1%E7%A7%B0%E6%95%B0%E5%AD%97%E6%8A%BD%E7%9C%9F%E7%A9%BA%E4%BC%9A%E6%88%90%E4%B8%BA%E8%B6%8B%E5%8A%BF",
+          "title": "荣耀X80 Pro Max 6月22日发布",
+          "summary": "搭载11000mAh第四代青海湖电池，金标抗摔+满级防水+免费换屏",
+          "source": "QQ看点",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_0626a3174f431452",
+          "time": "6/17"
+        },
+        {
+          "title": "谷歌发布Android 17",
+          "summary": "AI底层重构，Gemini Intelligence分阶段推送，Pixel设备首批升级",
+          "source": "QQ看点",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_5046a32001d29052",
+          "time": "6/17"
+        },
+        {
+          "title": "小红书选定高盛中金筹办港股IPO",
+          "summary": "最早2026年下半年在港上市，估值或超300亿美元",
+          "source": "新浪科技",
+          "url": "http://tech.2008.sina.com.cn/",
           "time": "6/16"
         },
         {
-          "title": "AMD 嘲讽 MacBook 游戏兼容差，称苹果缺失功能自家全具备，如何看待这一行为？真的是这样的吗？",
-          "summary": "据 Wccftech 报道，一场本没必要再起的 Windows 与 macOS 之争，又被重新摆上了台面。 AMD 拿游戏性能嘲讽苹果 MacBook Neo，宣称锐龙笔记本可流畅运行全部 20 款测试游戏，而 MacBook Neo 仅能驾驭其中 5 款。 Windows 与 macOS 之间的争论向来没完没了，可没想到这场交锋竟来自主流芯片厂商之一。AMD 近期推出全新营销内容，一边宣传锐龙处",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2049788824297764188",
+          "title": "微信支付内测AI支付功能",
+          "summary": "腾讯回应称正在测试AI支付新体验，未来或支持智能体直接下单",
+          "source": "新浪科技",
+          "url": "http://tech.2008.sina.com.cn/",
           "time": "6/16"
         }
       ]
@@ -30,32 +42,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "华为盘古大模型",
-          "summary": "最新资讯：华为盘古大模型（热度63.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%8E%E4%B8%BA%E7%9B%98%E5%8F%A4%E5%A4%A7%E6%A8%A1%E5%9E%8B",
-          "time": "6/16"
+          "title": "科大讯飞发布星火X2-VL多模态",
+          "summary": "无锡具身智能大会上发布，对标国际顶尖的多模态大模型",
+          "source": "东方财富",
+          "url": "https://caifuhao.eastmoney.com/news/1726064157",
+          "time": "6/13"
         },
         {
-          "title": "如果一门文科课程的作业可以用AI完成，这门课该不该取消？",
-          "summary": "技术越是强大，那些「并不高效但属于我」的痕迹，就越珍贵。 你无需证明，只需记录，我们邀请你一起共建一场充满「人味」的讨论场。让过去的创造、今天的尝试，还有未来的每一步——都带着人类的温度，被看见、被留下… 2026 人文季正式启动｜活动主会场 ⬇️知乎 2026 人文季「本来就很棒的人类」",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2045831566538924509",
-          "time": "6/16"
+          "title": "2026未来汽车AI技术展重庆启幕",
+          "summary": "聚焦AI+汽车创新生态，涵盖智能制造、机器人和大模型应用",
+          "source": "人民网",
+          "url": "http://cq.people.com.cn/n2/2026/0614/c365407-41610044.html",
+          "time": "6/13"
         },
         {
-          "title": "GPT-5.6 惊现 150 万上下文窗口，将如何影响大模型竞争格局？",
-          "summary": "多名开发者在 OpenAI Codex 后端日志中捕捉到了一系列未官宣模型的踪迹，其中代号为「iris-alpha」的 GPT-5.6 模型凭借 150 万 Token 的超大上下文窗口，成为行业焦点 ... 容量暴增： GPT-5.6 的上下文窗口高达 150 万 Token，较当前的 GPT-5.5API（105 万）提升了近 43% ... 极端场景验证：在开发者利用 OpenCode 进行",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2042539496676352614",
-          "time": "6/16"
+          "title": "微软Build 2026发布7款自研模型",
+          "summary": "微软一口气发布7款自研AI模型和Scout智能体，黄仁勋远程连线",
+          "source": "腾讯云",
+          "url": "https://cloud.tencent.com/developer/article/2686070",
+          "time": "6/10"
         },
         {
-          "title": "AI编程这么厉害，为什么不下班前提交需求给AI，第二天回来给AI Review代码？",
-          "summary": "最新资讯：AI编程这么厉害，为什么不下班前提交需求给AI，第二天回来给AI Review代码？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2012909173415888479",
-          "time": "6/16"
+          "title": "字节调整AI资源重心",
+          "summary": "从大众产品转向企业服务，重押B端AI应用市场",
+          "source": "新浪科技",
+          "url": "http://tech.2008.sina.com.cn/",
+          "time": "6/17"
         }
       ]
     },
@@ -65,67 +77,67 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "佛得角官方感谢中国帮圆梦世界杯",
-          "summary": "最新资讯：佛得角官方感谢中国帮圆梦世界杯（热度177.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BD%9B%E5%BE%97%E8%A7%92%E5%AE%98%E6%96%B9%E6%84%9F%E8%B0%A2%E4%B8%AD%E5%9B%BD%E5%B8%AE%E5%9C%86%E6%A2%A6%E4%B8%96%E7%95%8C%E6%9D%AF",
-          "time": "6/16"
+          "title": "世界杯6月17日四场对决",
+          "summary": "法国vs塞内加尔、伊拉克vs挪威、阿根廷vs阿尔及利亚、奥地利vs约旦",
+          "source": "QQ看点",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_2566a31280769552",
+          "time": "6/17"
         },
         {
-          "title": "男子参加幼儿园马拉松猝死家属发声",
-          "summary": "最新资讯：男子参加幼儿园马拉松猝死家属发声（热度45.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%94%B7%E5%AD%90%E5%8F%82%E5%8A%A0%E5%B9%BC%E5%84%BF%E5%9B%AD%E9%A9%AC%E6%8B%89%E6%9D%BE%E7%8C%9D%E6%AD%BB%E5%AE%B6%E5%B1%9E%E5%8F%91%E5%A3%B0",
-          "time": "6/16"
+          "title": "世界杯48队新赛制",
+          "summary": "39天104场比赛横跨3国16城，预计带来801亿美元全球经济产出",
+          "source": "MSN",
+          "url": "https://www.msn.cn/zh-cn/news/other/",
+          "time": "6/12"
         },
         {
-          "title": "世界杯最夸张失误出现了",
-          "summary": "最新资讯：世界杯最夸张失误出现了（热度33.9万）",
+          "title": "C罗回应年龄质疑",
+          "summary": "C罗在世界杯赛前回应外界对其年龄和竞技状态的质疑",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E6%9C%80%E5%A4%B8%E5%BC%A0%E5%A4%B1%E8%AF%AF%E5%87%BA%E7%8E%B0%E4%BA%86",
-          "time": "6/16"
+          "url": "https://s.weibo.com/weibo?q=C罗回应年龄和身体状态质疑",
+          "time": "6/13"
         },
         {
-          "title": "世界杯第一张神图诞生",
-          "summary": "最新资讯：世界杯第一张神图诞生（热度29.4万）",
+          "title": "英格兰队训练基地遭盗窃",
+          "summary": "世界杯备战期间遭盗窃，装备被盗仅剩1个足球",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E7%AC%AC%E4%B8%80%E5%BC%A0%E7%A5%9E%E5%9B%BE%E8%AF%9E%E7%94%9F",
-          "time": "6/16"
+          "url": "https://s.weibo.com/weibo?q=英格兰队遭盗窃只剩1个足球",
+          "time": "6/13"
         }
       ]
     },
     {
-      "id": "show",
+      "id": "ent",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
-          "title": "迪丽热巴90花咖位",
-          "summary": "最新资讯：迪丽热巴90花咖位（热度55.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B490%E8%8A%B1%E5%92%96%E4%BD%8D",
-          "time": "6/16"
+          "title": "迪丽热巴中国影视之夜压轴",
+          "summary": "时隔605天回归红毯，玫红高定纱裙惊艳，单条话题阅读破3.2亿",
+          "source": "QQ看点",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_5446a3078b111852",
+          "time": "6/15"
         },
         {
-          "title": "白鹿已争气争气再争气",
-          "summary": "最新资讯：白鹿已争气争气再争气（热度30.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%B7%B2%E4%BA%89%E6%B0%94%E4%BA%89%E6%B0%94%E5%86%8D%E4%BA%89%E6%B0%94",
-          "time": "6/16"
+          "title": "上海迪士尼十周年红毯",
+          "summary": "孙俪、姚明、刘宇宁、宋雨琦、毛晓彤、阿云嘎等众星亮相",
+          "source": "新浪财经",
+          "url": "https://finance.sina.com.cn/jjxw/2026-06-15/doc-inicpewp4867003.shtml",
+          "time": "6/15"
         },
         {
-          "title": "小个子精致夏日穿搭参考",
-          "summary": "最新资讯：小个子精致夏日穿搭参考（热度774.2万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%B0%8F%E4%B8%AA%E5%AD%90%E7%B2%BE%E8%87%B4%E5%A4%8F%E6%97%A5%E7%A9%BF%E6%90%AD%E5%8F%82%E8%80%83",
-          "time": "6/16"
+          "title": "中国影视之夜上海举行",
+          "summary": "刘烨、闫妮、陈数、段奕宏、吴越、倪大红、孙千等同场亮相",
+          "source": "QQ看点",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_2476a30a1d492352",
+          "time": "6/15"
         },
         {
-          "title": "我在河南宝泉拍到了人生封面",
-          "summary": "最新资讯：我在河南宝泉拍到了人生封面（热度764.8万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%88%91%E5%9C%A8%E6%B2%B3%E5%8D%97%E5%AE%9D%E6%B3%89%E6%8B%8D%E5%88%B0%E4%BA%86%E4%BA%BA%E7%94%9F%E5%B0%81%E9%9D%A2",
-          "time": "6/16"
+          "title": "张凌赫提名首尔电视剧大赏视帝",
+          "summary": "凭《逐玉》入围SDA国际竞赛单元，352部作品中唯一华人男演员",
+          "source": "搜狐娱乐",
+          "url": "https://www.sohu.com/a/1035789171_114941",
+          "time": "6/12"
         }
       ]
     },
@@ -135,18 +147,32 @@
       "color": "#f43f5e",
       "items": [
         {
-          "title": "我的美妆宝藏大开箱",
-          "summary": "最新资讯：我的美妆宝藏大开箱（热度769.3万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%88%91%E7%9A%84%E7%BE%8E%E5%A6%86%E5%AE%9D%E8%97%8F%E5%A4%A7%E5%BC%80%E7%AE%B1",
-          "time": "6/16"
+          "title": "adidas×Coca-Cola世界杯联名",
+          "summary": "为庆祝2026 FIFA世界杯推出大胆联名系列，6月11日起发售",
+          "source": "搜狐",
+          "url": "https://www.sohu.com/a/1032737344_121119286",
+          "time": "6/11"
         },
         {
-          "title": "时尚还得跟小朋友学",
-          "summary": "最新资讯：时尚还得跟小朋友学（热度765.3万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%97%B6%E5%B0%9A%E8%BF%98%E5%BE%97%E8%B7%9F%E5%B0%8F%E6%9C%8B%E5%8F%8B%E5%AD%A6",
-          "time": "6/16"
+          "title": "Nike推出罗纳尔多R9生活鞋",
+          "summary": "Cryoshot Mercurial Vapor R9世界杯期间发售，约1450元",
+          "source": "GDF档口",
+          "url": "http://gdf01.com/",
+          "time": "6/12"
+        },
+        {
+          "title": "Stone Island×New Balance联名",
+          "summary": "1890 \"Deep Forest\"6月4日发售，森林绿防撕裂鞋面，约1600元",
+          "source": "GDF档口",
+          "url": "http://gdf01.com/",
+          "time": "6/4"
+        },
+        {
+          "title": "Kith×Birkenstock夏季联名",
+          "summary": "2026夏季联名含五款拖鞋，Zurich和Amsterdam木屐两种鞋型",
+          "source": "YOHO潮流志",
+          "url": "https://weibo.com/u/1729505414",
+          "time": "6/14"
         }
       ]
     },
@@ -156,11 +182,32 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "严浩翔谢帝官宣说唱巅峰赛事组",
-          "summary": "最新资讯：严浩翔谢帝官宣说唱巅峰赛事组（热度769.6万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E4%B8%A5%E6%B5%A9%E7%BF%94%E8%B0%A2%E5%B8%9D%E5%AE%98%E5%AE%A3%E8%AF%B4%E5%94%B1%E5%B7%85%E5%B3%B0%E8%B5%9B%E4%BA%8B%E7%BB%84",
+          "title": "种地吧第四季持续热播",
+          "summary": "十个勤天方阵出场气势拉满，响亮口号能量满满",
+          "source": "电视猫",
+          "url": "https://www.tvmao.com/tvshow",
+          "time": "6/17"
+        },
+        {
+          "title": "推团意外入职诈骗集团",
+          "summary": "极限逃脱高能剧情，腾讯视频每周四12:00更新",
+          "source": "电视猫",
+          "url": "https://www.tvmao.com/tvshow",
+          "time": "6/17"
+        },
+        {
+          "title": "哈哈哈哈哈第6季热播",
+          "summary": "爱奇艺王牌综艺回归，完整版高清在线观看",
+          "source": "爱奇艺",
+          "url": "https://www.iqiyi.com/zongyi/",
           "time": "6/16"
+        },
+        {
+          "title": "半熟恋人第5季腾讯独播",
+          "summary": "五十公里桃花坞第6季同期热播，恋爱观察类综艺新爆款",
+          "source": "腾讯视频",
+          "url": "https://v.qq.com/channel/variety",
+          "time": "6/15"
         }
       ]
     },
@@ -170,74 +217,67 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "动画电影《浪浪山小妖怪 2》确认制作，於水继续执导，对此你有何期待？",
-          "summary": "上海国际电影节",
+          "title": "端午档票房破3000万",
+          "summary": "《我看见两朵一样的云》《玩具总动员5》《爱是愤怒》暂列前三",
+          "source": "百度百家",
+          "url": "https://baijiahao.baidu.com/s?id=1868139668046606823",
+          "time": "6/16"
+        },
+        {
+          "title": "暑期档票房破7亿",
+          "summary": "截至6月15日总票房约7亿，超55部新片定档92天档期",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2049844715986630260",
-          "time": "6/16"
+          "url": "https://www.zhihu.com/question/2050039692201140372",
+          "time": "6/15"
         },
         {
-          "title": "王宝强新片狠家伙首曝预告",
-          "summary": "最新资讯：王宝强新片狠家伙首曝预告（热度898.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%8E%8B%E5%AE%9D%E5%BC%BA%E6%96%B0%E7%89%87%E7%8B%A0%E5%AE%B6%E4%BC%99%E9%A6%96%E6%9B%9D%E9%A2%84%E5%91%8A",
-          "time": "6/16"
+          "title": "《小气鬼》6月27日上映",
+          "summary": "孟鹤堂、管乐主演剧情片，讲述唢呐手与男孩的半路父子故事",
+          "source": "百度百科",
+          "url": "https://baike.baidu.com/starmap/view?nodeId=121b5b2a58cc135bb9eeb322",
+          "time": "6/8"
         },
         {
-          "title": "光阴之外年番定档0620",
-          "summary": "最新资讯：光阴之外年番定档0620（热度764.1万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%85%89%E9%98%B4%E4%B9%8B%E5%A4%96%E5%B9%B4%E7%95%AA%E5%AE%9A%E6%A1%A30620",
-          "time": "6/16"
+          "title": "年度总票房已破160亿元",
+          "summary": "飞驰人生3、给阿嬷的情书、镖人暂列年度票房前三",
+          "source": "证券时报",
+          "url": "https://www.stcn.com/article/detail/3947379.html",
+          "time": "6/6"
         }
       ]
     },
     {
-      "id": "marketing",
-      "name": "📊 营销",
-      "color": "#f97316",
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
       "items": [
         {
-          "title": "净网：网安局公布5起银狐木马案例",
-          "summary": "最新资讯：净网：网安局公布5起银狐木马案例（热度1039.5万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%87%80%E7%BD%91%EF%BC%9A%E7%BD%91%E5%AE%89%E5%B1%80%E5%85%AC%E5%B8%835%E8%B5%B7%E9%93%B6%E7%8B%90%E6%9C%A8%E9%A9%AC%E6%A1%88%E4%BE%8B",
-          "time": "6/16"
-        }
-      ]
-    },
-    {
-      "id": "fun",
-      "name": "🎮 好玩有趣",
-      "color": "#22c55e",
-      "items": [
-        {
-          "title": "爸爸亲子活动猝死幼儿园被指救援不力",
-          "summary": "最新资讯：爸爸亲子活动猝死幼儿园被指救援不力（热度93.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%88%B8%E7%88%B8%E4%BA%B2%E5%AD%90%E6%B4%BB%E5%8A%A8%E7%8C%9D%E6%AD%BB%E5%B9%BC%E5%84%BF%E5%9B%AD%E8%A2%AB%E6%8C%87%E6%95%91%E6%8F%B4%E4%B8%8D%E5%8A%9B",
-          "time": "6/16"
+          "title": "六月韩剧男神扎堆回归",
+          "summary": "苏志燮《金特务》化身最强奶爸，徐仁国《明天也要上班》",
+          "source": "今日头条",
+          "url": "https://www.toutiao.com/article/7645129847915807272/",
+          "time": "6/1"
         },
         {
-          "title": "教育部升级2026高考志愿信息系统",
-          "summary": "最新资讯：教育部升级2026高考志愿信息系统（热度75.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%95%99%E8%82%B2%E9%83%A8%E5%8D%87%E7%BA%A72026%E9%AB%98%E8%80%83%E5%BF%97%E6%84%BF%E4%BF%A1%E6%81%AF%E7%B3%BB%E7%BB%9F",
-          "time": "6/16"
+          "title": "六大强档新剧承包整夏",
+          "summary": "治愈温情、热血校园、写实职场、烧脑悬疑、硬核爽剧、爆笑喜剧",
+          "source": "今日头条",
+          "url": "https://www.toutiao.com/article/7645129847915807272/",
+          "time": "6/1"
         },
         {
-          "title": "柯淳 长剧",
-          "summary": "最新资讯：柯淳 长剧（热度72.7万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9F%AF%E6%B7%B3%20%E9%95%BF%E5%89%A7",
-          "time": "6/16"
+          "title": "BLACKPINK 6月回归传闻被否",
+          "summary": "YG娱乐官方回应：6月回归说法不属实，日程尚未确定",
+          "source": "百度知道",
+          "url": "https://zhidao.baidu.com/question/1124898256596551539.html",
+          "time": "6/15"
         },
         {
-          "title": "爸爸年轻时究竟有多敢穿",
-          "summary": "最新资讯：爸爸年轻时究竟有多敢穿（热度72.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%88%B8%E7%88%B8%E5%B9%B4%E8%BD%BB%E6%97%B6%E7%A9%B6%E7%AB%9F%E6%9C%89%E5%A4%9A%E6%95%A2%E7%A9%BF",
-          "time": "6/16"
+          "title": "BTS《ARIRANG》乐评翻车",
+          "summary": "暌违四年回归专辑Pitchfork仅5.3分，主打曲被指流于套路",
+          "source": "新浪娱乐",
+          "url": "https://ent.sina.cn/2026-05-07/detail-inhxaxnx2650922.d.html",
+          "time": "5/7"
         }
       ]
     }
