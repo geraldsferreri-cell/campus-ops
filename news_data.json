@@ -1,5 +1,7 @@
 {
-  "date": "2026-06-18",
+  "date": "2026-06-19",
+  "scrape_time": "2026-06-19 15:02 CST",
+  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
       "id": "tech",
@@ -7,32 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "DeepSeek完成超510亿元融资",
-          "summary": "刷新AI行业融资纪录，资方含多家国资与头部机构",
-          "source": "快科技",
-          "url": "https://www.wuaishare.cn/10385.html",
-          "time": "6/18"
+          "title": "都说13代、14代酷睿处理器缩缸，具体是什么情况?",
+          "summary": "建议讨论移动端、桌面端，具体型号，不稳定的场景，如何应对（当下入手时如何选择更合适的CPU、使用时怎么处理降频情况等）以及其它可补充…",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/10624364978",
+          "time": "6/19"
         },
         {
-          "title": "华为Mate XT2三折叠定档9月",
-          "summary": "首发麒麟9050系列芯片，采用G型双内折创新设计",
-          "source": "快科技",
-          "url": "https://news.mydrivers.com/tag/huawei.htm",
-          "time": "6/18"
+          "title": "国家统计局首次发布社会消费商品和服务零售总额指标，其对观察中国消费市场有何意义？",
+          "summary": "6月16日，国家统计局新闻发言人、总经济师、国民经济综合统计司司长付凌晖在国新办新闻发布会上表示，国家统计局于本月首次发布社会消费商品和服务零售总额指标。1-5月，社会消费商品和服务零售总额同比增长2.8%。 付凌晖表示，跟踪消费情况，要全面地看，不仅是商品消费，还有服务消费。5月当月，商品零售额略有下降，主要原因是去年同期基数较高，以及部分地区受高温多雨因素影响了居民的线下消费。但综合商品和服务",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050179245612216708",
+          "time": "6/19"
         },
         {
-          "title": "ChatGPT市场份额跌破50%",
-          "summary": "Sensor Tower报告显示ChatGPT市占率首次不足一半",
-          "source": "OSChina",
-          "url": "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html",
-          "time": "6/18"
+          "title": "2026新能源汽车下乡车型目录公布",
+          "summary": "最新资讯：2026新能源汽车下乡车型目录公布（热度917.9万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/2026%E6%96%B0%E8%83%BD%E6%BA%90%E6%B1%BD%E8%BD%A6%E4%B8%8B%E4%B9%A1%E8%BD%A6%E5%9E%8B%E7%9B%AE%E5%BD%95%E5%85%AC%E5%B8%83",
+          "time": "6/19"
         },
         {
-          "title": "鸿蒙HarmonyOS 7正式发布",
-          "summary": "华为全面迈入原生鸿蒙时代，性能大幅提升",
-          "source": "快科技",
-          "url": "https://www.wuaishare.cn/10385.html",
-          "time": "6/18"
+          "title": "莫斯科遭无人机袭击",
+          "summary": "最新资讯：莫斯科遭无人机袭击（热度780.1万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E8%8E%AB%E6%96%AF%E7%A7%91%E9%81%AD%E6%97%A0%E4%BA%BA%E6%9C%BA%E8%A2%AD%E5%87%BB",
+          "time": "6/19"
         }
       ]
     },
@@ -42,32 +44,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "世界AI大会倒计时30天",
-          "summary": "超300款AI产品全球首发，7月17日上海举办",
-          "source": "澎湃新闻",
-          "url": "https://www.thepaper.cn/newsDetail_forward_33400001",
-          "time": "6/17"
+          "title": "如何评价 DeepSeek 的识图模式？",
+          "summary": "最新资讯：如何评价 DeepSeek 的识图模式？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2032903059739767247",
+          "time": "6/19"
         },
         {
-          "title": "科创板标准扩大至AI大模型",
-          "summary": "上交所发布指引，AI大模型企业融资通道正式打开",
-          "source": "每日经济新闻",
-          "url": "https://www.nbd.com.cn/articles/2026-06-17/4429937.html",
-          "time": "6/17"
+          "title": "为什么AI永远无法像一个长辈那样给你忠告，反而可能悄悄把你推向极端？",
+          "summary": "为什么AI永远成不了长者？它给的假安慰，正在把你推向极端 你有没有过这种感受：和AI聊完天，你觉得它说得特别有道理，句句都戳中你的心坎，但放下对话框后，心里反而更没底了？ 最近我越来越深刻地意识到一件事：AI是有重大缺陷的，它根本没办法像一个经验丰富的长者那样，给你真正中肯的建议，更没法替你拍板做决策。如果我们毫无防备地完全相信它，很可能会被它温柔地推向思维的深渊。01 温柔陷阱：它只看你的关键字",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2047442845498398435",
+          "time": "6/19"
         },
         {
-          "title": "AI调用流量包乱象引关注",
-          "summary": "15元买数百万Token，大模型API低价引发行业反思",
-          "source": "快科技",
-          "url": "https://k.sina.cn/article_7857201856_1d45362c001906z58m.html",
-          "time": "6/18"
+          "title": "AI 时代，我们还需要背诵知识吗？",
+          "summary": "技术越是强大，那些「并不高效但属于我」的痕迹，就越珍贵。 你无需证明，只需记录，我们邀请你一起共建一场充满「人味」的讨论场。让过去的创造、今天的尝试，还有未来的每一步——都带着人类的温度，被看见、被留下… 2026 人文季正式启动｜活动主会场 ⬇️知乎 2026 人文季「本来就很棒的人类」",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2046245649616835938",
+          "time": "6/19"
         },
         {
-          "title": "字节调整AI资源重押B端",
-          "summary": "从大众产品转向企业服务，字节重押B端AI应用市场",
-          "source": "新浪科技",
-          "url": "http://tech.2008.sina.com.cn/",
-          "time": "6/17"
+          "title": "AI 时代，哲学对我们还有什么用？",
+          "summary": "技术越是强大，那些「并不高效但属于我」的痕迹，就越珍贵。 你无需证明，只需记录，我们邀请你一起共建一场充满「人味」的讨论场。让过去的创造、今天的尝试，还有未来的每一步——都带着人类的温度，被看见、被留下… 2026 人文季正式启动｜活动主会场 ⬇️知乎 2026 人文季「本来就很棒的人类」",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2049880051164911080",
+          "time": "6/19"
         }
       ]
     },
@@ -77,102 +79,32 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "C罗六战世界杯创纪录",
-          "summary": "葡萄牙1-1平刚果（金），C罗第六次出战世界杯",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/wm/2026-06-18/doc-inicuqfx6595304.shtml",
-          "time": "6/18"
+          "title": "2026 年世界杯小组赛 A 组，墨西哥 1:0 韩国，韩国门将失误孙兴慜0射门，如何评价本场比赛？",
+          "summary": "相关问题亚洲二流球队韩国打赢了欧洲二流球队捷克，是否说明亚洲足球已经赶上欧洲足球？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050229431092733522",
+          "time": "6/19"
         },
         {
-          "title": "英格兰4-2战胜克罗地亚",
-          "summary": "2026世界杯小组赛英格兰酣畅获胜，进攻火力全开",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/wm/2026-06-18/doc-inicuqfx6595304.shtml",
-          "time": "6/18"
+          "title": "2026 年世界杯小组赛 B 组，加拿大 6-0 卡塔尔，加拿大队科内小腿重伤折断，如何评价本场比赛？",
+          "summary": "相关问题假使2022年的卡塔尔不是东道主，那他们能否通过预选赛，力压日韩澳沙伊其中一个而闯入世界杯正赛呢？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050229300993814782",
+          "time": "6/19"
         },
         {
-          "title": "世界杯48队小组赛激战",
-          "summary": "39天104场比赛横跨3国16城，全球瞩目赛事盛宴",
-          "source": "央视网",
-          "url": "https://worldcup.cctv.com/2026/index.shtml",
-          "time": "6/17"
+          "title": "新西兰华裔边锋贾斯特世界杯对阵伊朗梅开二度，一战成名，为何我们从来未关注到这位华裔球员？",
+          "summary": "贾斯特2000年出生于新西兰，父亲是德国人，母亲是华裔。为何我们的归化目标从未投向他？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050210872241476932",
+          "time": "6/19"
         },
         {
-          "title": "夏窗转会与世界杯赛程交织",
-          "summary": "英超6月15日开启转会窗，多线开战转会忙",
-          "source": "MSN",
-          "url": "https://www.msn.com/zh-cn/news/other/",
-          "time": "6/17"
-        }
-      ]
-    },
-    {
-      "id": "ent",
-      "name": "🌟 秀场",
-      "color": "#ec4899",
-      "items": [
-        {
-          "title": "黄明昊银发造型引爆全网",
-          "summary": "全新银发造型亮相引发粉丝狂热，话题直冲热搜",
-          "source": "新浪娱乐",
-          "url": "https://k.sina.com.cn/article_7857201856_1d45362c001906z6v6.html",
-          "time": "6/18"
-        },
-        {
-          "title": "薛之谦心愿见到梅西",
-          "summary": "自称脑残粉，薛之谦公开发文想要见到球王梅西",
-          "source": "新浪明星",
-          "url": "https://k.sina.cn/article_7857201856_1d45362c001906zeba.html",
-          "time": "6/18"
-        },
-        {
-          "title": "上海迪士尼十周年红毯",
-          "summary": "孙俪姚明刘宇宁宋雨琦等众星亮相迪士尼庆",
-          "source": "新浪财经",
-          "url": "https://finance.sina.com.cn/jjxw/2026-06-15/doc-inicpewp4867003.shtml",
-          "time": "6/15"
-        },
-        {
-          "title": "张凌赫提名SDA视帝",
-          "summary": "凭《逐玉》入围首尔电视剧大赏，唯一华人男演员",
-          "source": "搜狐娱乐",
-          "url": "https://www.sohu.com/a/1035789171_114941",
-          "time": "6/12"
-        }
-      ]
-    },
-    {
-      "id": "fashion",
-      "name": "👗 时尚",
-      "color": "#f43f5e",
-      "items": [
-        {
-          "title": "HONMA×布加迪联名全球首发",
-          "summary": "上海新天地全球首发，6.18公众开放日直击现场",
+          "title": "墨西哥1:0韩国提前晋级",
+          "summary": "最新资讯：墨西哥1:0韩国提前晋级（热度910.3万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/video/7652572843594898660",
-          "time": "6/18"
-        },
-        {
-          "title": "六月球鞋发售世界杯主题",
-          "summary": "Nike、adidas世界杯战靴集中上市，盲盒玩法引热议",
-          "source": "腾讯新闻",
-          "url": "https://news.qq.com/rain/a/20260608A02GJ100",
-          "time": "6/8"
-        },
-        {
-          "title": "adidas×玩具总动员5联名",
-          "summary": "巴斯光年与胡迪配色鞋款全新亮相，6月发售",
-          "source": "Juksy",
-          "url": "https://www.juksy.com/article/146249",
-          "time": "6/1"
-        },
-        {
-          "title": "Kith×Birkenstock夏季联名",
-          "summary": "五款联名拖鞋，Zurich和Amsterdam两种鞋型可选",
-          "source": "YOHO潮流志",
-          "url": "https://weibo.com/u/1729505414",
-          "time": "6/14"
+          "url": "https://www.douyin.com/search/%E5%A2%A8%E8%A5%BF%E5%93%A51%3A0%E9%9F%A9%E5%9B%BD%E6%8F%90%E5%89%8D%E6%99%8B%E7%BA%A7",
+          "time": "6/19"
         }
       ]
     },
@@ -182,32 +114,11 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "乘风2026直播竞演热播",
-          "summary": "芒果TV创新直播模式，重构综艺创作逻辑与观演关系",
-          "source": "芒果TV",
-          "url": "https://www.mgtv.com/h/859271.html",
-          "time": "6/17"
-        },
-        {
-          "title": "哈哈哈哈哈第6季热播中",
-          "summary": "爱奇艺王牌户外综艺回归，五哈团笑料不断",
-          "source": "爱奇艺",
-          "url": "https://www.iqiyi.com/zongyi/",
-          "time": "6/17"
-        },
-        {
-          "title": "开始推理吧4腾讯热播",
-          "summary": "硬核推理综艺升级，沉浸式剧情引爆全网讨论",
-          "source": "腾讯视频",
-          "url": "https://v.qq.com/",
-          "time": "6/17"
-        },
-        {
-          "title": "喜欢你我也是第6季热播",
-          "summary": "恋爱观察类综艺再掀甜蜜风暴，素人CP引热议",
-          "source": "爱奇艺",
-          "url": "https://www.iqiyi.com/zongyi/",
-          "time": "6/16"
+          "title": "抖瓦杯S4选秀大会",
+          "summary": "最新资讯：抖瓦杯S4选秀大会（热度1211.8万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%8A%96%E7%93%A6%E6%9D%AFS4%E9%80%89%E7%A7%80%E5%A4%A7%E4%BC%9A",
+          "time": "6/19"
         }
       ]
     },
@@ -217,67 +128,46 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "暑期档票房突破4亿元",
-          "summary": "超60部影片锁定暑期档，年度总票房已破160亿",
-          "source": "新浪科技",
-          "url": "https://finance.sina.com.cn/tech/digi/2026-06-09/doc-iniavmyn3114646.shtml",
-          "time": "6/18"
-        },
-        {
-          "title": "给阿嬷的情书港澳上映",
-          "summary": "年度票房亚军今日登陆港澳新马，全球上映启动",
-          "source": "百度百家",
-          "url": "https://baijiahao.baidu.com/s?id=1867296834505268003",
-          "time": "6/18"
-        },
-        {
-          "title": "冯小刚《抓特务》定档619",
-          "summary": "端午档迎来种子选手，17部新片轮番上映角逐",
-          "source": "新浪财经",
-          "url": "https://finance.sina.cn/2026-06-16/detail-inicqxfr7673579.d.html",
-          "time": "6/16"
-        },
-        {
-          "title": "端午档新片票房破3000万",
-          "summary": "《两朵云》《玩具总动员5》《爱是愤怒》暂列前三",
-          "source": "新浪财经",
-          "url": "https://finance.sina.cn/2026-06-16/detail-inicqxfr7673579.d.html",
-          "time": "6/16"
+          "title": "电视剧《步步惊心》若曦和四爷之间真的是爱情吗？",
+          "summary": "多年之后再看，物是人非！",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/1976733644220543042",
+          "time": "6/19"
         }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "fun",
+      "name": "🎮 好玩有趣",
+      "color": "#22c55e",
       "items": [
         {
-          "title": "BOYNEXTDOOR Oricon周冠",
-          "summary": "日本新单《HOME》获Oricon周榜冠军，日韩双丰收",
-          "source": "KSD韩星网",
-          "url": "https://www.koreastardaily.com/sc/kpop",
-          "time": "6/17"
+          "title": "刚被约谈完，山姆就变更了董事长，时间相差仅一天，大家怎么看待这事？山姆可能有哪些改变？",
+          "summary": "6月16日，沃尔玛（中国）投资有限公司发生工商变更，MUK SOOK YE卸任法定代表人、董事长，由刘鹏接任。昨天，因食品安全问题被市场监管总局约谈，仅仅一天时间，就变更负责人。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050349390083232343",
+          "time": "6/19"
         },
         {
-          "title": "六月韩剧六强档新剧来袭",
-          "summary": "苏志燮徐仁国等韩剧男神扎堆回归，题材全覆盖",
-          "source": "今日头条",
-          "url": "https://www.toutiao.com/article/7644792492893717026/",
-          "time": "6/17"
+          "title": "河南一动物园年薪十万招人扮演黑熊，全程严禁说人话，靠肢体动作和「嗷嗷叫」与游客互动，这个工作难度大吗？",
+          "summary": "近日，河南漯河一动物园年薪十万招人扮黑熊，引发关注。 其招聘海报及推文显示，该岗位需身穿黑熊玩偶服装，在景区乱窜，大胆与游客互动，“没事即兴跳段魔性舞蹈、摆烂发呆、原地蹦跳，越抽象越受欢迎，不用专业功底”。不限性别、18岁以上身体健康可报名。工作时全程严禁说人话（除游客求助、特殊突发情况外），与游客日常交流只靠肢体动作+“嗷嗷叫”。性格“抽象”加分，敢放飞、敢搞怪、不社怯、接受投喂不挑食。 6月1",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050284726062264666",
+          "time": "6/19"
         },
         {
-          "title": "FIFTY FIFTY六月回归",
-          "summary": "发行第四张迷你专辑《Imperfect-I'mperfect》",
-          "source": "Kpann",
-          "url": "https://kpoppann.com/6327.html",
-          "time": "6/1"
+          "title": "网友爆料周冬雨、段奕宏、陈明昊演话剧不背台词，全程依赖提词器甚至直接念台本且频频出错，是真的吗？",
+          "summary": "网友爆料去看周冬雨、段奕宏和陈明昊的话剧，周冬雨开始看着提词器后来念台本，陈明昊一直念台本，段奕宏前面背台词了后面也有部分念台本 ，而且三个人念台本还念错了。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050931331446436682",
+          "time": "6/19"
         },
         {
-          "title": "K-POP六月回归日程速览",
-          "summary": "多组团体密集回归，完整日程更新一览追星必备",
-          "source": "Kpann",
-          "url": "https://kpoppann.com/6327.html",
-          "time": "6/17"
+          "title": "领导总说“年轻人不要太计较工资，要先成长”，这句话到底是善意提醒，还是职场 PUA？",
+          "summary": "职场中很多新人入职后，会被反复强调“平台比工资重要”“先把能力练出来”。但现实是，房租、生活成本都很具体，所谓成长有时并没有对应到收入和机会。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2043701576947201481",
+          "time": "6/19"
         }
       ]
     }
