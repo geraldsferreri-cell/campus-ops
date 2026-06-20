@@ -2161,7 +2161,7 @@
 
                 <!-- Marquee Section -->
                 <div class="topics-marquee-section">
-                    <div class="topics-marquee-title">✨ 选题弹幕 · 仅显示最近3天 · 点击跳转视频 · 点 👍 采纳</div>
+                    <div class="topics-marquee-title">✨ 选题弹幕 · 实时共享 · 点击跳转视频 · 点 👍 采纳</div>
                     <div class="topics-marquee-container" id="topicsMarquee">
                         <div class="topics-marquee-track track-1" id="topicsMarqueeTrack1"></div>
                         <div class="topics-marquee-track track-2" id="topicsMarqueeTrack2"></div>
@@ -3396,7 +3396,7 @@
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
             if (page === 'password') initPasswordPage();
             if (page === 'news') renderNews();
-            if (page === 'topics') renderTopics();
+            if (page === 'topics') { loadTopicData().then(() => renderTopics()); }
         }
 
         // ============ Toast ============
@@ -5812,36 +5812,35 @@
             }
         })();
 
-        // ============ 近期选题数据 ============
-        const TOPIC_DATA = [
-            { id: "t1", title: "大学生毕业租房避坑指南", author: "小明", url: "https://www.douyin.com/video/123456", createdAt: "2026-05-30", adoptedCount: 3, adoptedBy: ["小红", "小刚", "小丽"], points: 3 },
-            { id: "t2", title: "AI工具让剪辑效率提升10倍", author: "李老师", url: "https://www.bilibili.com/video/BV1xxxx", createdAt: "2026-05-31", adoptedCount: 5, adoptedBy: ["小明", "小红", "小刚", "小华", "小李"], points: 5 },
-            { id: "t3", title: "校园恋爱短剧爆款公式", author: "小红", url: "https://www.douyin.com/video/789012", createdAt: "2026-05-31", adoptedCount: 2, adoptedBy: ["小明", "小刚"], points: 2 },
-            { id: "t4", title: "期末周高效复习vlog", author: "小刚", url: "https://www.xiaohongshu.com/video/345678", createdAt: "2026-06-01", adoptedCount: 0, adoptedBy: [], points: 0 },
-            { id: "t5", title: "食堂美食探店系列", author: "小丽", url: "https://www.douyin.com/video/901234", createdAt: "2026-06-01", adoptedCount: 1, adoptedBy: ["小明"], points: 1 }
-        ];
+        // ============ 近期选题数据（Supabase 存储，实时共享） ============
+        // TOPIC_DATA 在内存中缓存，从 Supabase topics 表加载
+        let TOPIC_DATA = [];
 
-        // 从 localStorage 加载持久化数据（刷新不丢失）
-        (function loadTopicData() {
+        // 从 Supabase 加载所有选题（无时间限制）
+        async function loadTopicData() {
+            if (!supabase) { console.warn('Supabase 未就绪，跳过选题加载'); return; }
             try {
-                const savedTopics = localStorage.getItem('campus_topics_data');
-                if (savedTopics) {
-                    const parsed = JSON.parse(savedTopics);
-                    TOPIC_DATA.length = 0;
-                    parsed.forEach(t => TOPIC_DATA.push(t));
-                }
+                const { data, error } = await supabase.from('topics').select('*').order('created_at', { ascending: false });
+                if (error) { console.error('加载选题失败:', error.message); return; }
+                // 将 DB 字段名映射为 JS 字段名
+                TOPIC_DATA = (data || []).map(row => ({
+                    id: row.id,
+                    title: row.title || '',
+                    author: row.author || '',
+                    url: row.url || '',
+                    createdAt: (row.created_at || '').slice(0, 10),
+                    adoptedCount: row.adopted_count || 0,
+                    adoptedBy: Array.isArray(row.adopted_by) ? row.adopted_by : (row.adopted_by ? JSON.parse(row.adopted_by) : []),
+                    points: row.points || 0
+                }));
+                console.log('✅ 选题数据加载成功，共', TOPIC_DATA.length, '条');
             } catch (e) {
-                console.error('加载选题数据失败:', e);
-            }
-        })();
-
-        function saveTopicData() {
-            try {
-                localStorage.setItem('campus_topics_data', JSON.stringify(TOPIC_DATA));
-            } catch (e) {
-                console.error('保存选题数据失败:', e);
+                console.error('加载选题异常:', e);
             }
         }
+
+        // 不再使用 localStorage 存选题（改为 Supabase，此函数保留为空以防旧调用）
+        function saveTopicData() { /* 已废弃，改用 Supabase */ }
 
         let currentNewsTab = "tech";
 
@@ -5974,14 +5973,16 @@
 
         // ============ Topics Functions ============
         function isTopicExpired(createdAt) {
+            // 已去掉3天限制，此函数仅用于管理端表格显示"已过期"标记（保留但不过滤弹幕）
             const d = new Date(createdAt);
             const now = new Date();
             const diffDays = (now - d) / (1000 * 60 * 60 * 24);
-            return diffDays > 3;
+            return diffDays > 30; // 改为30天才算过期
         }
 
         function getRecentTopics() {
-            return TOPIC_DATA.filter(t => !isTopicExpired(t.createdAt)).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            // 不再过滤时间，全部显示（从 Supabase 加载的均为有效数据）
+            return [...TOPIC_DATA].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         }
 
         function renderTopics() {
@@ -6135,7 +6136,7 @@
             document.getElementById('topicModal').classList.add('show');
         }
 
-        function submitTopic() {
+        async function submitTopic() {
             const author = document.getElementById('topicAuthor').value.trim();
             const title = document.getElementById('topicTitle').value.trim();
             const url = document.getElementById('topicUrl').value.trim();
@@ -6143,25 +6144,25 @@
             if (!title) { toast('请输入选题名称', 'error'); return; }
             if (!url) { toast('请输入对标视频链接', 'error'); return; }
             if (!url.startsWith('http')) { toast('链接格式不正确，请以 http:// 或 https:// 开头', 'error'); return; }
+            if (!supabase) { toast('数据库连接未就绪，请刷新重试', 'error'); return; }
 
-            const newTopic = {
-                id: 't' + Date.now(),
+            const { data, error } = await supabase.from('topics').insert([{
                 title: title,
                 author: author,
                 url: url,
-                createdAt: formatLocalDate(new Date()),
-                adoptedCount: 0,
-                adoptedBy: [],
+                adopted_count: 0,
+                adopted_by: [],
                 points: 0
-            };
-            TOPIC_DATA.unshift(newTopic);
-            saveTopicData();
+            }]).select().single();
+
+            if (error) { toast('提交失败：' + error.message, 'error'); return; }
             toast('选题提交成功！🎉');
             closeModal('topicModal');
+            await loadTopicData();
             renderTopics();
         }
 
-        function submitUploadTopic() {
+        async function submitUploadTopic() {
             const date = document.getElementById('uploadTopicDate').value;
             const title = document.getElementById('uploadTopicTitle').value.trim();
             const url = document.getElementById('uploadTopicUrl').value.trim();
@@ -6171,26 +6172,27 @@
             if (!title) { toast('请输入选题名称', 'error'); return; }
             if (!url) { toast('请输入对标视频链接', 'error'); return; }
             if (!url.startsWith('http')) { toast('链接格式不正确，请以 http:// 或 https:// 开头', 'error'); return; }
+            if (!supabase) { toast('数据库连接未就绪，请刷新重试', 'error'); return; }
 
-            const newTopic = {
-                id: 't' + Date.now(),
+            const { data, error } = await supabase.from('topics').insert([{
                 title: title,
                 author: author,
                 url: url,
-                createdAt: date,
-                adoptedCount: 0,
-                adoptedBy: [],
+                created_at: date + 'T00:00:00+08:00',
+                adopted_count: 0,
+                adopted_by: [],
                 points: 0
-            };
-            TOPIC_DATA.unshift(newTopic);
-            saveTopicData();
+            }]).select().single();
+
+            if (error) { toast('提交失败：' + error.message, 'error'); return; }
             toast('选题上传成功！🎉');
             document.getElementById('uploadTopicTitle').value = '';
             document.getElementById('uploadTopicUrl').value = '';
+            await loadTopicData();
             renderTopics();
         }
 
-        function adoptTopic(topicId) {
+        async function adoptTopic(topicId) {
             const topic = TOPIC_DATA.find(t => t.id === topicId);
             if (!topic) return;
             const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '访客';
@@ -6198,22 +6200,28 @@
                 toast('你已经采纳过这个选题了', 'error');
                 return;
             }
-            topic.adoptedBy.push(currentUserName);
-            topic.adoptedCount++;
-            // 积分：每次被采纳 +1
-            if (topic.points === undefined) topic.points = 0;
-            topic.points++;
+            if (!supabase) { toast('数据库连接未就绪', 'error'); return; }
+
+            const newAdoptedBy = [...topic.adoptedBy, currentUserName];
+            const newPoints = (topic.points || 0) + 1;
+            const { error } = await supabase.from('topics').update({
+                adopted_by: newAdoptedBy,
+                adopted_count: newPoints,
+                points: newPoints
+            }).eq('id', topicId);
+
+            if (error) { toast('采纳失败：' + error.message, 'error'); return; }
             const isSelf = topic.author === currentUserName;
             if (isSelf) {
                 toast('采纳了自己的选题 ✅（作者积分 +1）');
             } else {
-                toast(`采纳成功！作者获得 +1 积分 🎉`);
+                toast('采纳成功！作者获得 +1 积分 🎉');
             }
-            saveTopicData();
+            await loadTopicData();
             renderTopics();
         }
 
-        function deleteTopic(topicId) {
+        async function deleteTopic(topicId) {
             const topic = TOPIC_DATA.find(t => t.id === topicId);
             if (!topic) return;
             const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
@@ -6223,13 +6231,13 @@
                 return;
             }
             if (!confirm('确定要删除选题「' + topic.title + '」吗？\n删除后不可恢复。')) return;
-            const idx = TOPIC_DATA.findIndex(t => t.id === topicId);
-            if (idx > -1) {
-                TOPIC_DATA.splice(idx, 1);
-                saveTopicData();
-                toast('选题已删除');
-                renderTopics();
-            }
+            if (!supabase) { toast('数据库连接未就绪', 'error'); return; }
+
+            const { error } = await supabase.from('topics').delete().eq('id', topicId);
+            if (error) { toast('删除失败：' + error.message, 'error'); return; }
+            toast('选题已删除');
+            await loadTopicData();
+            renderTopics();
         }
 
         // ============ Leaderboard: 日期范围筛选 ============
