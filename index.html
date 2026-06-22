@@ -1629,6 +1629,7 @@
                 <a class="topnav-link admin-only-link" data-page="salary">薪资结算</a>
                 <a class="topnav-link" data-page="news">资讯热点</a>
                 <a class="topnav-link" data-page="topics">近期选题</a>
+                <a class="topnav-link admin-only-link" data-page="review">📊 数据复盘</a>
                 <a class="topnav-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
                 <a class="topnav-link" data-page="password">修改密码</a>
             </div>
@@ -1654,6 +1655,7 @@
             <a class="mobile-menu-link admin-only-link" data-page="salary" onclick="mobileNavTo('salary')">薪资结算</a>
             <a class="mobile-menu-link" data-page="news" onclick="mobileNavTo('news')">资讯热点</a>
             <a class="mobile-menu-link" data-page="topics" onclick="mobileNavTo('topics')">近期选题</a>
+            <a class="mobile-menu-link admin-only-link" data-page="review" onclick="mobileNavTo('review')">📊 数据复盘</a>
             <a class="mobile-menu-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
             <a class="mobile-menu-link" data-page="password" onclick="mobileNavTo('password')">修改密码</a>
             <div class="mobile-menu-logout" onclick="logout()">退出登录</div>
@@ -2234,6 +2236,133 @@
                             </thead>
                             <tbody id="topicsAllBody"></tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Review Page (数据复盘) -->
+            <div id="page-review" class="page">
+                <div class="header">
+                    <h2>📊 数据复盘</h2>
+                    <span id="reviewSubTitle" style="font-size:13px;color:#6b7280;">每周复盘会数据汇总</span>
+                </div>
+
+                <!-- 时间段筛选 -->
+                <div class="filter-bar">
+                    <span style="font-size:13px;color:#1a0a3e;">📅 复盘时段：</span>
+                    <input type="date" id="reviewDateStart">
+                    <span>至</span>
+                    <input type="date" id="reviewDateEnd">
+                    <button class="btn btn-sm btn-primary" onclick="queryReview()">🔍 查询</button>
+                    <button class="btn btn-sm" onclick="setReviewLastWeek()" style="margin-left:4px;">⏮ 上周</button>
+                    <button class="btn btn-sm" onclick="setReviewThisWeek()" style="margin-left:4px;">本周</button>
+                    <span style="margin-left:12px;font-size:13px;color:#1a0a3e;">👥 组别：</span>
+                    <select id="reviewGroup" class="form-input" style="width:140px;padding:4px 8px;">
+                        <option value="">全部分组</option>
+                    </select>
+                </div>
+
+                <!-- 总数据看板 -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">👨‍🏫 老师总数</div>
+                        <div class="stat-value" id="rvStatTeachers">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">👨‍🎓 学生总数</div>
+                        <div class="stat-value" id="rvStatStudents">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">📱 账号总数</div>
+                        <div class="stat-value" id="rvStatAccounts">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">🎬 发片总数</div>
+                        <div class="stat-value" id="rvStatVideos">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">⭐ 千赞数</div>
+                        <div class="stat-value" id="rvStatThousand">0</div>
+                        <div class="stat-sub">≥1000赞</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">🏆 万赞数</div>
+                        <div class="stat-value" id="rvStatTenThousand">0</div>
+                        <div class="stat-sub">≥10000赞</div>
+                    </div>
+                </div>
+
+                <!-- 老师数据看板 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">👨‍🏫 老师数据看板</span>
+                    </div>
+                    <div class="teacher-grid" id="rvTeacherGrid">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 同学发片数排名 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">👨‍🎓 同学发片数排名</span>
+                    </div>
+                    <div style="max-height:350px;overflow-y:auto;">
+                        <canvas id="rvStudentRankChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 爆款视频列表 (点赞≥100) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">🔥 爆款视频（点赞 ≥ 100）</span>
+                        <span class="topics-subtitle" id="rvHotCount">0条</span>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>账号名称</th>
+                                    <th>发布者</th>
+                                    <th>点赞数</th>
+                                    <th>视频链接</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rvHotVideosBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 非爆款视频列表 (点赞<100) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📝 非爆款视频（点赞 < 100）</span>
+                        <span class="topics-subtitle" id="rvColdCount">0条</span>
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table class="table" style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th>账号名称</th>
+                                    <th>发布者</th>
+                                    <th>点赞数</th>
+                                    <th>视频链接</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rvColdVideosBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 市场大盘分析 (占位区) -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">📈 市场大盘分析</span>
+                        <span class="topics-subtitle">红书千瓜数据 · 待接入</span>
+                    </div>
+                    <div id="rvMarketAnalysis" style="padding:40px;text-align:center;color:#9ca3af;">
+                        <p style="font-size:16px;">📤 将千瓜数据表上传后，即可自动生成市场大盘分析</p>
+                        <p style="font-size:13px;">支持：小红书千瓜数据 Excel 导入</p>
                     </div>
                 </div>
             </div>
@@ -3397,9 +3526,238 @@
             if (page === 'password') initPasswordPage();
             if (page === 'news') renderNews();
             if (page === 'topics') { loadTopicData().then(() => renderTopics()); }
+            if (page === 'review') { loadAllData().then(() => initReview()); }
         }
 
-        // ============ Toast ============
+        // ============ 数据复盘 ============
+        let rvChartInstance = null;
+
+        // 初始化复盘页面：默认上周，填充组别筛选器
+        function initReview() {
+            setReviewLastWeek();
+            // 组别筛选器
+            const sel = document.getElementById('reviewGroup');
+            if (sel) {
+                const groups = [...new Set(allUsers.filter(u => u.group_name).map(u => u.group_name))].sort();
+                sel.innerHTML = '<option value="">全部分组</option>' + groups.map(g => `<option value="${g}">${g}</option>`).join('');
+            }
+            queryReview();
+        }
+
+        // 设置上周时间范围
+        function setReviewLastWeek() {
+            const now = new Date();
+            // 找到本周周一
+            const dayOfWeek = now.getDay(); // 0=Sunday
+            const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+            const thisMonday = new Date(now);
+            thisMonday.setDate(now.getDate() + mondayOffset);
+            const lastMonday = new Date(thisMonday);
+            lastMonday.setDate(thisMonday.getDate() - 7);
+            const lastSunday = new Date(thisMonday);
+            lastSunday.setDate(thisMonday.getDate() - 1);
+            document.getElementById('reviewDateStart').value = formatDate(lastMonday);
+            document.getElementById('reviewDateEnd').value = formatDate(lastSunday);
+        }
+
+        // 设置本周时间范围
+        function setReviewThisWeek() {
+            const now = new Date();
+            const dayOfWeek = now.getDay();
+            const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+            const thisMonday = new Date(now);
+            thisMonday.setDate(now.getDate() + mondayOffset);
+            document.getElementById('reviewDateStart').value = formatDate(thisMonday);
+            document.getElementById('reviewDateEnd').value = formatDate(now);
+        }
+
+        function formatDate(d) {
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+
+        // 查询复盘数据
+        async function queryReview() {
+            const start = document.getElementById('reviewDateStart').value;
+            const end = document.getElementById('reviewDateEnd').value;
+            const group = document.getElementById('reviewGroup')?.value;
+
+            // 筛选时间段内的视频
+            const videos = allVideos.filter(v => {
+                const date = getLocalDateStr(v.created_at);
+                if (start && date < start) return false;
+                if (end && date > end) return false;
+                if (group) {
+                    const videoGroup = getVideoGroupForFilter(v);
+                    if (videoGroup !== group) return false;
+                }
+                return true;
+            });
+
+            // 筛选老师和学生
+            const teachers = allUsers.filter(u => u.role === 'teacher' && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && (!group || u.group_name === group));
+            const accounts = group ? allAccounts.filter(a => a.group_name === group) : allAccounts;
+
+            // 千赞/万赞统计
+            const thousandVideos = videos.filter(v => getMaxLikes(v) >= 1000);
+            const tenThousandVideos = videos.filter(v => getMaxLikes(v) >= 10000);
+
+            // 填充统计卡片
+            document.getElementById('rvStatTeachers').textContent = teachers.length;
+            document.getElementById('rvStatStudents').textContent = students.length;
+            document.getElementById('rvStatAccounts').textContent = accounts.length;
+            document.getElementById('rvStatVideos').textContent = videos.length;
+            document.getElementById('rvStatThousand').textContent = thousandVideos.length;
+            document.getElementById('rvStatTenThousand').textContent = tenThousandVideos.length;
+
+            // 更新子标题
+            document.getElementById('reviewSubTitle').textContent = `复盘时段：${start} ~ ${end}`;
+
+            // 渲染老师看板
+            renderReviewTeacherGrid(teachers, videos, students);
+
+            // 渲染学生排名图表
+            await loadChartJS();
+            if (rvChartInstance) rvChartInstance.destroy();
+            renderReviewStudentRank(videos, students);
+
+            // 爆款/非爆款视频列表
+            renderReviewVideoLists(videos);
+        }
+
+        // 老师看板渲染
+        function renderReviewTeacherGrid(teachers, videos, students) {
+            const grid = document.getElementById('rvTeacherGrid');
+            if (!grid) return;
+            grid.innerHTML = teachers.map(t => {
+                const groupName = t.group_name || '-';
+                const groupStudents = students.filter(s => s.group_name === t.group_name);
+                const groupVideos = videos.filter(v => getVideoGroupForFilter(v) === t.group_name);
+                const tThousand = groupVideos.filter(v => getMaxLikes(v) >= 1000).length;
+                const tTenThousand = groupVideos.filter(v => getMaxLikes(v) >= 10000).length;
+                const thousandRate = groupVideos.length > 0 ? (tThousand / groupVideos.length * 100).toFixed(1) + '%' : '0%';
+                const tenThousandRate = groupVideos.length > 0 ? (tTenThousand / groupVideos.length * 100).toFixed(1) + '%' : '0%';
+                return `
+                <div class="teacher-card">
+                    <div class="teacher-card-header">
+                        <span class="teacher-card-name">${t.real_name || t.username}</span>
+                        <span class="teacher-card-group">${groupName}</span>
+                    </div>
+                    <div class="teacher-card-stats">
+                        <div class="teacher-card-stat">
+                            <span class="teacher-card-stat-num">${groupVideos.length}</span>
+                            <span class="teacher-card-stat-label">发片数</span>
+                        </div>
+                        <div class="teacher-card-stat">
+                            <span class="teacher-card-stat-num">${groupStudents.length}</span>
+                            <span class="teacher-card-stat-label">学生数</span>
+                        </div>
+                        <div class="teacher-card-stat">
+                            <span class="teacher-card-stat-num">${tThousand}</span>
+                            <span class="teacher-card-stat-label">千赞数</span>
+                        </div>
+                        <div class="teacher-card-stat">
+                            <span class="teacher-card-stat-num">${tTenThousand}</span>
+                            <span class="teacher-card-stat-label">万赞数</span>
+                        </div>
+                        <div class="teacher-card-stat">
+                            <span class="teacher-card-stat-num">${thousandRate}</span>
+                            <span class="teacher-card-stat-label">千赞率</span>
+                        </div>
+                        <div class="teacher-card-stat">
+                            <span class="teacher-card-stat-num">${tenThousandRate}</span>
+                            <span class="teacher-card-stat-label">万赞率</span>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // 同学发片数排名图表
+        function renderReviewStudentRank(videos, students) {
+            const canvas = document.getElementById('rvStudentRankChart');
+            if (!canvas || typeof Chart === 'undefined') return;
+
+            // 统计每个学生的发片数
+            const rankMap = {};
+            students.forEach(s => { rankMap[s.real_name || s.username] = 0; });
+            videos.forEach(v => {
+                const name = v.publisher;
+                if (rankMap[name] !== undefined) rankMap[name]++;
+                else rankMap[name] = 1;
+            });
+
+            const sorted = Object.entries(rankMap).filter(([, count]) => count > 0).sort((a, b) => b[1] - a[1]);
+            if (sorted.length === 0) {
+                canvas.style.display = 'none';
+                return;
+            }
+            canvas.style.display = 'block';
+
+            rvChartInstance = new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: sorted.map(([name]) => name),
+                    datasets: [{
+                        label: '发片数',
+                        data: sorted.map(([, count]) => count),
+                        backgroundColor: sorted.map((_, i) => {
+                            const colors = ['#f97316', '#ef4444', '#8b5cf6', '#3b82f6', '#10b981', '#6366f1', '#ec4899', '#14b8a6', '#f59e0b', '#22c55e'];
+                            return colors[i % colors.length];
+                        }),
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { beginAtZero: true, ticks: { stepSize: 1 } },
+                        y: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        // 爆款/非爆款视频列表
+        function renderReviewVideoLists(videos) {
+            const hotThreshold = 100; // 爆款标准：点赞≥100
+            const hotVideos = videos.filter(v => getMaxLikes(v) >= hotThreshold).sort((a, b) => getMaxLikes(b) - getMaxLikes(a));
+            const coldVideos = videos.filter(v => getMaxLikes(v) < hotThreshold && getMaxLikes(v) > 0).sort((a, b) => getMaxLikes(b) - getMaxLikes(a));
+            const zeroVideos = videos.filter(v => getMaxLikes(v) === 0); // 无点赞数据的
+
+            document.getElementById('rvHotCount').textContent = hotVideos.length + '条';
+            document.getElementById('rvColdCount').textContent = (coldVideos.length + zeroVideos.length) + '条';
+
+            // 爆款表格
+            document.getElementById('rvHotVideosBody').innerHTML = hotVideos.length === 0
+                ? '<tr><td colspan="4" style="text-align:center;color:#9ca3af;">无爆款视频</td></tr>'
+                : hotVideos.map(v => `
+                    <tr>
+                        <td>${v.account_name || '-'}</td>
+                        <td>${v.publisher || '-'}</td>
+                        <td style="color:#ef4444;font-weight:700;">${getMaxLikes(v)}</td>
+                        <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" style="color:#3b82f6;">查看</a>` : '-'}</td>
+                    </tr>
+                `).join('');
+
+            // 非爆款表格（含无数据）
+            const coldList = [...coldVideos, ...zeroVideos];
+            document.getElementById('rvColdVideosBody').innerHTML = coldList.length === 0
+                ? '<tr><td colspan="4" style="text-align:center;color:#9ca3af;">无非爆款视频</td></tr>'
+                : coldList.map(v => `
+                    <tr>
+                        <td>${v.account_name || '-'}</td>
+                        <td>${v.publisher || '-'}</td>
+                        <td>${getMaxLikes(v)}</td>
+                        <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" style="color:#3b82f6;">查看</a>` : '-'}</td>
+                    </tr>
+                `).join('');
+        }
+
+
         function toast(msg, type = 'success') {
             const t = document.getElementById('toast');
             t.textContent = msg;
