@@ -6196,12 +6196,14 @@
             const topic = TOPIC_DATA.find(t => t.id === topicId);
             if (!topic) return;
             const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '访客';
-            if (topic.adoptedBy.includes(currentUserName)) {
-                toast('你已经采纳过这个选题了', 'error');
+            // 自己不能采纳自己的选题（不加积分）
+            if (topic.author === currentUserName) {
+                toast('不能采纳自己提交的选题', 'error');
                 return;
             }
             if (!supabase) { toast('数据库连接未就绪', 'error'); return; }
 
+            // 同一选题可被同一人多次采纳，adopted_by 追加记录（允许重复）
             const newAdoptedBy = [...topic.adoptedBy, currentUserName];
             const newPoints = (topic.points || 0) + 1;
             const { error } = await supabase.from('topics').update({
@@ -6211,12 +6213,7 @@
             }).eq('id', topicId);
 
             if (error) { toast('采纳失败：' + error.message, 'error'); return; }
-            const isSelf = topic.author === currentUserName;
-            if (isSelf) {
-                toast('采纳了自己的选题 ✅（作者积分 +1）');
-            } else {
-                toast('采纳成功！作者获得 +1 积分 🎉');
-            }
+            toast('采纳成功！作者获得 +1 积分 🎉');
             await loadTopicData();
             renderTopics();
         }
