@@ -1,7 +1,7 @@
 {
-  "date": "2026-06-22",
-  "scrape_time": "2026-06-22 15:18 CST",
-  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+  "date": "2026-06-23",
+  "scrape_time": "2026-06-23 13:44 CST",
+  "data_source": "WebSearch 多源聚合（新浪/新华网/央视/凤凰网/搜狐等）",
   "categories": [
     {
       "id": "tech",
@@ -9,31 +9,31 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "小米创首个纽北自动驾驶圈速纪录",
-          "summary": "最新资讯：小米创首个纽北自动驾驶圈速纪录（热度49.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E5%88%9B%E9%A6%96%E4%B8%AA%E7%BA%BD%E5%8C%97%E8%87%AA%E5%8A%A8%E9%A9%BE%E9%A9%B6%E5%9C%88%E9%80%9F%E7%BA%AA%E5%BD%95",
+          "title": "小米YU7 GT创纽北自动驾驶圈速纪录",
+          "summary": "10分29秒483，全球首个无人驾驶纽北官方计时圈纪录",
+          "source": "快科技",
+          "url": "https://news.mydrivers.com/tag/xinpian.htm",
           "time": "6/22"
         },
         {
-          "title": "网友按压胳膊冒出一排小米粒",
-          "summary": "最新资讯：网友按压胳膊冒出一排小米粒（热度43.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%BD%91%E5%8F%8B%E6%8C%89%E5%8E%8B%E8%83%B3%E8%86%8A%E5%86%92%E5%87%BA%E4%B8%80%E6%8E%92%E5%B0%8F%E7%B1%B3%E7%B2%92",
+          "title": "刘强东提涅槃计划：70万快递员转型修机器人",
+          "summary": "京东内部提出涅槃计划，将蓝领工人送校培训应对AI冲击",
+          "source": "新浪财经",
+          "url": "https://finance.sina.com.cn/roll/2026-06-22/doc-iniehmvv9380378.shtml",
           "time": "6/22"
         },
         {
-          "title": "刘强东称未来根本不需要快递员，要保住70万兄弟的工作，让他们给机器人做维修保养，如何评价这番话？",
-          "summary": "6月21日举办的2026年APEC工商领导人中国论坛上，京东集团创始人、董事局主席刘强东透露，近期，京东内部提出了“涅槃计划”，希望把京东已有的70万快递员等蓝领工人，送到学校做技术培训，以应对AI和技术发展带来的冲击。 “将来都是机器人送货了，根本不需要快递员，一定是机器人送货，但是我并不需要我们70万兄弟没有饭吃、没有工作。”刘强东表示，京东因此在全国签了120所学校，把他们送去学校做培训，以",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052154478204400622",
+          "title": "中国芯片设备商逐步取代日本欧美份额",
+          "summary": "国内半导体设备制造商正从日欧美竞争对手手中夺取市场",
+          "source": "快科技",
+          "url": "https://news.mydrivers.com/tag/xinpian.htm",
           "time": "6/22"
         },
         {
-          "title": "你如何看待，高考后很多孩子要苹果手机全家桶，形成了一股热潮？",
-          "summary": "高考刚刚结束，网络形成了一股热潮，一些学生追问父母要苹果全家桶。那么，对于这件事，你如何看待？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2048784446720161578",
+          "title": "高通展示智能体AI实践，加速产业智能化",
+          "summary": "第四届链博会展示智能体AI实践，携手生态伙伴推进智能",
+          "source": "新华网",
+          "url": "https://www.xinhuanet.com/tech/kjkx/index.html",
           "time": "6/22"
         }
       ]
@@ -44,17 +44,31 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "如何下载安装Claude code",
-          "summary": "最新资讯：如何下载安装Claude code（热度42.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A6%82%E4%BD%95%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85Claude%20code",
+          "title": "智谱GLM 5.2引发硅谷热议",
+          "summary": "DeepSeek之后又一中国开源AI模型震撼业界，获硅谷高度关注",
+          "source": "凤凰网科技",
+          "url": "https://tech.ifeng.com/c/8u9nqRy0g3Y",
           "time": "6/22"
         },
         {
-          "title": "数学博士生 2 年研究被 AI 抢发，这种现象会越来越普遍吗？如何看待 AI 对数学研究的冲击？",
-          "summary": "#数学博士生2年研究被AI抢发#【对话丨被AI震动的两年人生，数学博士生的新难题：如何证明自己？】#数学博士生钻研2年难题AI仅5天破解#那些曾需要数年才能攻克的数学难题，如今正被AI以惊人的速度破解。卡耐基梅隆大学的博士生哈里哈兰近期发现，他和团队在过去两年钻研并即将收尾的项目，被一家AI公司利用大模型“抢先发表成果”，且该公司宣称AI的用时仅为5天。当“数学天才”都不再稀缺，人类智慧最引以为傲",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052067691926484153",
+          "title": "Anthropic发布Claude Fable 5与Mythos 5",
+          "summary": "神话级模型首次公开，72小时后被美国纳入出口管制",
+          "source": "搜狐",
+          "url": "https://www.sohu.com/a/1034805845_122585292",
+          "time": "6/9"
+        },
+        {
+          "title": "智谱港股暴涨42%市值逼近1.2万亿港元",
+          "summary": "全球大模型第一股股价已涨18倍，有望纳入恒生科技指数",
+          "source": "雪球",
+          "url": "https://xueqiu.com/1678127602/395904862",
+          "time": "6/22"
+        },
+        {
+          "title": "AI人才争夺战升温，科技大厂抢AI工程师",
+          "summary": "人工智能工程师、芯片工程师等热门岗位需求持续扩大",
+          "source": "中国新闻网",
+          "url": "https://www.chinanews.com.cn/cj/2026/06-22/10645017.shtml",
           "time": "6/22"
         }
       ]
@@ -65,64 +79,64 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "佛得角门将世界杯前告别球队",
-          "summary": "最新资讯：佛得角门将世界杯前告别球队（热度52.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BD%9B%E5%BE%97%E8%A7%92%E9%97%A8%E5%B0%86%E4%B8%96%E7%95%8C%E6%9D%AF%E5%89%8D%E5%91%8A%E5%88%AB%E7%90%83%E9%98%9F",
+          "title": "梅西两球登顶世界杯历史射手王",
+          "summary": "阿根廷2-0奥地利两连胜提前出线，梅西18球超越克洛泽",
+          "source": "新华网",
+          "url": "https://www.news.cn/sports/20260623/d92654a3764d4defb20b472d361795ee/c.html",
+          "time": "6/23"
+        },
+        {
+          "title": "姆巴佩梅开二度法国3-0伊拉克提前出线",
+          "summary": "16场16球进球效率超梅西，登贝莱传射助法国锁定32强",
+          "source": "央视网",
+          "url": "https://sports.cctv.com/2026/06/23/VIDEj8fWQkAG7xHuUemcrP2s260623.shtml",
+          "time": "6/23"
+        },
+        {
+          "title": "西班牙4-0横扫沙特强势复苏",
+          "summary": "H组首轮爆冷后复苏，4球大胜沙特展示豪门实力",
+          "source": "新浪体育",
+          "url": "https://sports.sina.com.cn/g/2026-06-22/doc-iniehfpx9412833.shtml",
           "time": "6/22"
         },
         {
-          "title": "NBA交易",
-          "summary": "最新资讯：NBA交易（热度45.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=NBA%E4%BA%A4%E6%98%93",
-          "time": "6/22"
-        },
-        {
-          "title": "葡萄牙队友孔塞桑表示「没有感觉有什么义务或必须传给C罗」，对此你怎么看？",
-          "summary": "https://m.zhibo8.com/news/web/zuqiu/2026-06-21/6a38017fa3a12native.htm?able=1782066386",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052227689986143903",
-          "time": "6/22"
-        },
-        {
-          "title": "央视直播世界杯日本 vs 突尼斯比赛收视率超 3%，这是什么水平？可能受哪些因素影响？",
-          "summary": "热度真高！正在进行的日本与突尼斯的比赛，CCTV5进行直播，统计显示半场比赛收视率最高超过了3%，市占率超过27%",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052060271871353728",
-          "time": "6/22"
+          "title": "2026世界杯48队盛宴揭幕战打响",
+          "summary": "首次扩军至48支球队104场比赛，横跨39天16座城市",
+          "source": "央视网",
+          "url": "https://sports.cctv.com/2026/06/11/ARTINVgcNG7uYC6Rxgwb6NL5260611.shtml",
+          "time": "6/12"
         }
       ]
     },
     {
-      "id": "show",
+      "id": "ent",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
-          "title": "迪丽热巴8号球员钰珑",
-          "summary": "最新资讯：迪丽热巴8号球员钰珑（热度46.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B48%E5%8F%B7%E7%90%83%E5%91%98%E9%92%B0%E7%8F%91",
+          "title": "迪丽热巴获CMG最佳电视剧女演员",
+          "summary": "凭《利剑玫瑰》邓妍一角获年度推荐最佳电视剧女演员奖",
+          "source": "中华网娱乐",
+          "url": "https://ent.china.com/movie/newszh/11005281/20260616/49550080.html",
+          "time": "6/16"
+        },
+        {
+          "title": "白鹿角色热度登顶超越迪丽热巴",
+          "summary": "90花格局重写，白鹿连轴播剧角色热度反超热巴",
+          "source": "中华网娱乐",
+          "url": "https://ent.china.com/movie/newszh/11005281/20260622/49562591_all.html",
           "time": "6/22"
         },
         {
-          "title": "白鹿叶璃演技口碑",
-          "summary": "最新资讯：白鹿叶璃演技口碑（热度44.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%8F%B6%E7%92%83%E6%BC%94%E6%8A%80%E5%8F%A3%E7%A2%91",
-          "time": "6/22"
-        },
-        {
-          "title": "拿捏夏日高能运动穿搭",
-          "summary": "最新资讯：拿捏夏日高能运动穿搭（热度933.8万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8B%BF%E6%8D%8F%E5%A4%8F%E6%97%A5%E9%AB%98%E8%83%BD%E8%BF%90%E5%8A%A8%E7%A9%BF%E6%90%AD",
+          "title": "周冬雨话剧提词器事件引质疑",
+          "summary": "阿那亚戏剧节开幕大戏，周冬雨全程依赖提词屏遭质疑",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2051351954798764830",
           "time": "6/22"
         },
         {
           "title": "短剧演员出发图全是巧思",
-          "summary": "最新资讯：短剧演员出发图全是巧思（热度767.1万）",
+          "summary": "短剧明星出发造型引热议，创意搭配成社交话题",
           "source": "抖音",
           "url": "https://www.douyin.com/search/%E7%9F%AD%E5%89%A7%E6%BC%94%E5%91%98%E5%87%BA%E5%8F%91%E5%9B%BE%E5%85%A8%E6%98%AF%E5%B7%A7%E6%80%9D",
           "time": "6/22"
@@ -135,11 +149,53 @@
       "color": "#f43f5e",
       "items": [
         {
-          "title": "沈梦辰 全身涂粉底液",
-          "summary": "最新资讯：沈梦辰 全身涂粉底液（热度50.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%B2%88%E6%A2%A6%E8%BE%B0%20%E5%85%A8%E8%BA%AB%E6%B6%82%E7%B2%89%E5%BA%95%E6%B6%B2",
+          "title": "权志龙x Nike世界杯联名球鞋发布",
+          "summary": "PEACEMINUSONE x Nike Cryoshot融入足球文化，世界杯定制",
+          "source": "FlightClub",
+          "url": "https://www.flightclub.cn/news/89526",
+          "time": "6/1"
+        },
+        {
+          "title": "Mizuno人气鞋王新款六月发售",
+          "summary": "WAVE PROPHECY RING MOC SETSUMESA领衔六月球鞋清单",
+          "source": "JUKSY",
+          "url": "https://www.juksy.com/article/146249",
+          "time": "6/1"
+        },
+        {
+          "title": "Under Armour与Marine Serre破界联名",
+          "summary": "运动品牌与时装品牌首次跨界联名胶囊系列",
+          "source": "晋江新闻网",
+          "url": "https://www.ijjnews.com/zygl/rdxw/2026-06-16/491774.shtml",
+          "time": "6/16"
+        }
+      ]
+    },
+    {
+      "id": "variety",
+      "name": "📺 综艺",
+      "color": "#f59e0b",
+      "items": [
+        {
+          "title": "乘风2026直播模式公演热播",
+          "summary": "任洋团队制作女性音乐竞演综艺，33位嘉宾直播公演",
+          "source": "芒果TV",
+          "url": "https://www.mgtv.com/h/859271.html",
           "time": "6/22"
+        },
+        {
+          "title": "三档恋综同台对打：半熟恋人5等",
+          "summary": "半熟恋人5/喜欢你我也是6/我们与恋爱的距离三综对决",
+          "source": "腾讯新闻",
+          "url": "https://news.qq.com/rain/a/20260609A0AN9300",
+          "time": "6/9"
+        },
+        {
+          "title": "暑期综艺密集定档开播",
+          "summary": "浙江卫视、爱奇艺、芒果TV接连放出重磅综艺定档信息",
+          "source": "搜狐",
+          "url": "https://www.sohu.com/a/1036546483_351788",
+          "time": "6/14"
         }
       ]
     },
@@ -149,81 +205,67 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "地球超新鲜2人物预告",
-          "summary": "最新资讯：地球超新鲜2人物预告（热度42.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%9C%B0%E7%90%83%E8%B6%85%E6%96%B0%E9%B2%9C2%E4%BA%BA%E7%89%A9%E9%A2%84%E5%91%8A",
-          "time": "6/22"
+          "title": "端午档总票房3.94亿创场次纪录",
+          "summary": "玩具总动员5领跑，给阿嬷的情书闯入前二",
+          "source": "灯塔数据",
+          "url": "https://news.qq.com/rain/a/20260622A05NOF00",
+          "time": "6/21"
         },
         {
-          "title": "话剧导演陈明昊称「没要求周冬雨背词，是先锋戏剧的实验性表达」引质疑，商演中如何平衡艺术实验与观众体验？",
-          "summary": "剧目改编自余华同名小说，由陈明昊执导，段奕宏、周冬雨、陈明昊联合主演。该剧作为2026阿那亚戏剧节开幕大戏，于6月17日在秦皇岛阿那亚孤独外剧场首演。演出时长为150分钟，计划连演四天（6月17日至20日）。票价区间为480元至1280元，所有场次门票均已售罄。 周冬雨在演出中几乎全程依赖舞台前置的巨型电子提词屏，目光极少与对手演员交流，导致角色情绪断裂。即便有提词器辅助，她仍多次出现卡顿、念错字",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2051351954798764830",
-          "time": "6/22"
+          "title": "冯小刚《抓特务》端午上映",
+          "summary": "雷佳音胡歌领衔主演年代片，30年筹备终上映",
+          "source": "百度百家",
+          "url": "https://baijiahao.baidu.com/s?id=1867766801154659881",
+          "time": "6/19"
         },
         {
-          "title": "电影抓特务观后感",
-          "summary": "最新资讯：电影抓特务观后感（热度765.5万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%8A%93%E7%89%B9%E5%8A%A1%E8%A7%82%E5%90%8E%E6%84%9F",
-          "time": "6/22"
+          "title": "2026暑期档票房破10亿",
+          "summary": "80余部影片锁定暑期档，国产片覆盖多元类型",
+          "source": "羊城晚报",
+          "url": "https://news.ycwb.com/ikimvkmtik/content_54186386.htm",
+          "time": "6/20"
+        },
+        {
+          "title": "《给阿嬷的情书》票房超15亿",
+          "summary": "口碑票房持续走高，暂列2026年度票房前三",
+          "source": "新浪科技",
+          "url": "https://finance.sina.com.cn/tech/digi/2026-06-07/doc-iniapryy6778315.shtml",
+          "time": "6/7"
         }
       ]
     },
     {
-      "id": "marketing",
-      "name": "📊 营销",
-      "color": "#f97316",
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
       "items": [
         {
-          "title": "滴露消毒液广告被指物化女性，品牌方道歉称系第三方达人创作，为何此类事件频繁发生？对品牌影响有多大？",
-          "summary": "最新进展 利洁时中国（投资）有限公司通过滴露品牌官微发布声明称，“近期网络上出现多支滴露视频片段，引发网友热议。经调查，该视频由第三方达人为滴露品牌创作，通过剧情反转的叙事方式，讲述人们应当打破不平等的两性观，提倡健康自信的恋爱观与生活方式。该视频于5月24日首次发布。之后网上陆续出现多支视频片段，拼接截取了原视频的部分内容，曲解原始视频表达本意，引发争议。我们在第一时间责令下架了该视频。” 滴露",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2051710499239059925",
-          "time": "6/22"
+          "title": "MAMAMOO睽违四年合体回归",
+          "summary": "传奇女团2026年6月开启完整体活动及全球巡演",
+          "source": "搜狐",
+          "url": "https://www.sohu.com/a/953740464_122507509",
+          "time": "6/16"
         },
         {
-          "title": "格力 CMO 朱磊称空调「一晚只用一度电」是噱头，这背后反映了行业怎样的营销模式？",
-          "summary": "【格力CMO朱磊：空调一晚只用一度电是噱头】近日，格力电器CMO朱磊在与新浪科技沟通中，火力全开炮轰家电行业营销乱象。他表示，过去有个“一晚只用一度电”的噱头，现在又被拿出来玩了。“这个噱头的真相是：如果室外温度26度，室内也控制在26度，空调几乎只有风机在转，压缩机不工作，别说一度电，一度电都用不到，这就是明摆的噱头。”格力CMO朱磊：空调一晚只用一度电是噱头",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2050180545519285996",
-          "time": "6/22"
-        }
-      ]
-    },
-    {
-      "id": "fun",
-      "name": "🎮 好玩有趣",
-      "color": "#22c55e",
-      "items": [
-        {
-          "title": "佛得角门将收不续约通知",
-          "summary": "最新资讯：佛得角门将收不续约通知（热度125.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BD%9B%E5%BE%97%E8%A7%92%E9%97%A8%E5%B0%86%E6%94%B6%E4%B8%8D%E7%BB%AD%E7%BA%A6%E9%80%9A%E7%9F%A5",
-          "time": "6/22"
+          "title": "aespa LEMONADE连续两周登顶K-Pop榜",
+          "summary": "Soompi排行榜蝉联冠军，新曲持续席卷全球乐迷",
+          "source": "搜狐",
+          "url": "https://www.sohu.com/a/1039671893_122507509",
+          "time": "6/23"
         },
         {
-          "title": "滴露发声明致歉",
-          "summary": "最新资讯：滴露发声明致歉（热度97.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%BB%B4%E9%9C%B2%E5%8F%91%E5%A3%B0%E6%98%8E%E8%87%B4%E6%AD%89",
-          "time": "6/22"
+          "title": "BOYNEXTDOOR首张正规专辑HOME发行",
+          "summary": "出道3年终于迎来团体第一张正规专辑，先行曲预热",
+          "source": "新浪娱乐",
+          "url": "https://ent.sina.cn/2026-06-16/detail-inicqxfr7685455.d.html",
+          "time": "6/16"
         },
         {
-          "title": "长三角地区进出口规模再创新高",
-          "summary": "最新资讯：长三角地区进出口规模再创新高（热度93.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%95%BF%E4%B8%89%E8%A7%92%E5%9C%B0%E5%8C%BA%E8%BF%9B%E5%87%BA%E5%8F%A3%E8%A7%84%E6%A8%A1%E5%86%8D%E5%88%9B%E6%96%B0%E9%AB%98",
-          "time": "6/22"
-        },
-        {
-          "title": "生日朋友圈发了三天了",
-          "summary": "最新资讯：生日朋友圈发了三天了（热度93.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%94%9F%E6%97%A5%E6%9C%8B%E5%8F%8B%E5%9C%88%E5%8F%91%E4%BA%86%E4%B8%89%E5%A4%A9%E4%BA%86",
-          "time": "6/22"
+          "title": "RIIZE六月回归发新作品",
+          "summary": "新生代男团持续活跃，6月接连发布新音乐作品",
+          "source": "beauty321",
+          "url": "https://www.beauty321.com/post/72386",
+          "time": "6/1"
         }
       ]
     }
