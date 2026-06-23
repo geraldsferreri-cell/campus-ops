@@ -2354,15 +2354,93 @@
                     </div>
                 </div>
 
-                <!-- 市场大盘分析 (占位区) -->
+                <!-- 市场大盘分析 -->
                 <div class="card">
                     <div class="card-header">
                         <span class="card-title">📈 市场大盘分析</span>
-                        <span class="topics-subtitle">红书千瓜数据 · 待接入</span>
+                        <span class="topics-subtitle" id="rvMarketSub">小红书千瓜数据 · AI智能分析</span>
                     </div>
-                    <div id="rvMarketAnalysis" style="padding:40px;text-align:center;color:#9ca3af;">
-                        <p style="font-size:16px;">📤 将千瓜数据表上传后，即可自动生成市场大盘分析</p>
-                        <p style="font-size:13px;">支持：小红书千瓜数据 Excel 导入</p>
+                    <div id="rvMarketAnalysis">
+
+                        <!-- 步骤1：拖拽上传区 -->
+                        <div id="rvMarketUpload" style="padding:24px;">
+                            <div id="rvMarketDropZone" style="border:2px dashed #c4b5fd;border-radius:16px;padding:48px 24px;text-align:center;cursor:pointer;transition:all .25s;background:linear-gradient(135deg,#faf5ff 0%,#f5f3ff 100%);"
+                                onmouseover="this.style.borderColor='#7c3aed';this.style.background='linear-gradient(135deg,#f3f0ff 0%,#ede9fe 100%)'"
+                                onmouseout="if(!this.dataset.dragging){this.style.borderColor='#c4b5fd';this.style.background='linear-gradient(135deg,#faf5ff 0%,#f5f3ff 100%)'}"
+                                onclick="document.getElementById('rvMarketFileInput').click()"
+                                ondragover="event.preventDefault();this.dataset.dragging='1';this.style.borderColor='#7c3aed';this.style.background='linear-gradient(135deg,#ede9fe 0%,#ddd6fe 100%)'"
+                                ondragleave="delete this.dataset.dragging;this.style.borderColor='#c4b5fd';this.style.background='linear-gradient(135deg,#faf5ff 0%,#f5f3ff 100%)'"
+                                ondrop="event.preventDefault();delete this.dataset.dragging;handleMarketFileDrop(event)">
+                                <div style="font-size:48px;margin-bottom:16px;">📂</div>
+                                <p style="font-size:18px;color:#1a0a3e;margin-bottom:8px;font-weight:600;">将千瓜数据文件拖拽到此处</p>
+                                <p style="font-size:14px;color:#7c3aed;margin-bottom:4px;">或 点击此处选择文件</p>
+                                <p style="font-size:12px;color:#9ca3af;margin-top:12px;">支持 .xlsx / .xls / .csv · 可多文件上传</p>
+                                <input type="file" id="rvMarketFileInput" accept=".xlsx,.xls,.csv" multiple style="display:none;" onchange="handleMarketFileSelect(this)">
+                            </div>
+                            <div style="margin-top:12px;padding:10px 14px;background:#f3f0ff;border-radius:8px;display:flex;gap:8px;align-items:flex-start;">
+                                <span style="font-size:14px;">💡</span>
+                                <div style="font-size:12px;color:#5b21b6;line-height:1.6;">
+                                    <strong>使用说明：</strong>从千瓜导出笔记榜/达人榜/品类榜 Excel → 拖拽上传 → 点击"开始进行数据分析" → AI助手将按照三层递进框架（大盘诊断→行业对比→策略洞察）自动生成完整分析报告
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 步骤2：文件列表 + 预览 + 分析按钮 -->
+                        <div id="rvMarketFileList" style="display:none;padding:24px;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                                <span style="font-size:15px;color:#1a0a3e;font-weight:600;">📄 已上传文件</span>
+                                <button class="btn btn-sm" onclick="resetMarketUpload()" style="color:#ef4444;">🗑 清除全部</button>
+                            </div>
+                            <div id="rvMarketFilesContainer" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;"></div>
+
+                            <!-- 数据预览 -->
+                            <div id="rvMarketPreview" style="margin-bottom:20px;"></div>
+
+                            <!-- 开始分析按钮 -->
+                            <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#faf5ff 0%,#f5f3ff 100%);border-radius:12px;border:1px solid #c4b5fd;">
+                                <button onclick="startMarketAnalysis()" style="background:linear-gradient(135deg,#7c3aed 0%,#9333ea 100%);color:#fff;border:none;padding:14px 40px;font-size:16px;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,0.3);"
+                                    onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(124,58,237,0.4)'"
+                                    onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 14px rgba(124,58,237,0.3)'">
+                                    🚀 开始进行数据分析
+                                </button>
+                                <p style="font-size:12px;color:#7c3aed;margin-top:10px;">AI助手将按照「达人笔记数据分析」三层框架进行全面分析</p>
+                            </div>
+                        </div>
+
+                        <!-- 步骤3：分析引导弹窗 -->
+                        <div id="rvMarketGuide" style="display:none;padding:24px;">
+                            <div style="text-align:center;margin-bottom:20px;">
+                                <div style="font-size:48px;margin-bottom:12px;">✅</div>
+                                <p style="font-size:18px;color:#1a0a3e;font-weight:600;margin-bottom:6px;">数据已准备就绪！</p>
+                                <p style="font-size:14px;color:#6b7280;" id="rvMarketGuideInfo"></p>
+                            </div>
+                            <div style="background:#f9fafb;border-radius:12px;padding:20px;margin-bottom:16px;">
+                                <p style="font-size:14px;color:#1a0a3e;font-weight:600;margin-bottom:12px;">📋 接下来请按以下步骤操作：</p>
+                                <div style="display:flex;flex-direction:column;gap:10px;">
+                                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                                        <span style="background:#7c3aed;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">1</span>
+                                        <span style="font-size:13px;color:#374151;line-height:1.6;">点击下方"下载数据文件"按钮，保存AI分析所需的数据包</span>
+                                    </div>
+                                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                                        <span style="background:#7c3aed;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">2</span>
+                                        <span style="font-size:13px;color:#374151;line-height:1.6;">在WorkBuddy对话中，将下载的文件发送给AI助手</span>
+                                    </div>
+                                    <div style="display:flex;gap:10px;align-items:flex-start;">
+                                        <span style="background:#7c3aed;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">3</span>
+                                        <span style="font-size:13px;color:#374151;line-height:1.6;">输入 <code style="background:#ede9fe;color:#7c3aed;padding:2px 6px;border-radius:4px;font-size:12px;">分析这些数据</code> 即可触发AI全面分析</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align:center;display:flex;gap:10px;justify-content:center;">
+                                <button onclick="downloadMarketData()" style="background:#7c3aed;color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:600;border-radius:8px;cursor:pointer;">
+                                    ⬇ 下载数据文件
+                                </button>
+                                <button onclick="resetMarketUpload()" style="background:#fff;color:#6b7280;border:1px solid #d1d5db;padding:12px 28px;font-size:14px;border-radius:8px;cursor:pointer;">
+                                    🔄 重新上传
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -3764,6 +3842,229 @@
             t.className = 'toast ' + type;
             t.style.display = 'block';
             setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        // ============ 市场大盘分析 ============
+        let marketFiles = []; // 存储已上传的文件 {name, size, data, sheetNames, rowCount, columns}
+
+        // 拖拽上传处理
+        function handleMarketFileDrop(event) {
+            const files = event.dataTransfer.files;
+            if (!files || files.length === 0) return;
+            processMarketFiles(files);
+        }
+
+        // 点击选择文件处理
+        function handleMarketFileSelect(input) {
+            if (!input.files || input.files.length === 0) return;
+            processMarketFiles(input.files);
+            input.value = ''; // 重置input以便重复选择同一文件
+        }
+
+        // 处理上传的文件
+        async function processMarketFiles(fileList) {
+            const ok = await loadSheetJS();
+            if (!ok) return;
+
+            const files = Array.from(fileList).filter(f => /\.(xlsx|xls|csv)$/i.test(f.name));
+            if (files.length === 0) {
+                toast('请上传 .xlsx / .xls / .csv 格式的文件', 'error');
+                return;
+            }
+
+            toast('正在解析文件...', 'success');
+
+            for (const file of files) {
+                try {
+                    const result = await parseMarketFile(file);
+                    marketFiles.push(result);
+                } catch(e) {
+                    console.error('解析失败:', file.name, e);
+                    toast('文件解析失败: ' + file.name, 'error');
+                }
+            }
+
+            if (marketFiles.length > 0) {
+                renderMarketFileList();
+                document.getElementById('rvMarketUpload').style.display = 'none';
+                document.getElementById('rvMarketFileList').style.display = 'block';
+                document.getElementById('rvMarketGuide').style.display = 'none';
+                toast('成功加载 ' + marketFiles.length + ' 个文件', 'success');
+            }
+        }
+
+        // 解析单个Excel/CSV文件
+        function parseMarketFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        const workbook = XLSX.read(data, { type: 'array' });
+                        const sheetNames = workbook.SheetNames.filter(n => n !== '关于千瓜' && n !== '说明');
+                        const sheets = {};
+                        let totalRows = 0;
+                        let allColumns = [];
+
+                        sheetNames.forEach(sheetName => {
+                            const sheet = workbook.Sheets[sheetName];
+                            const jsonData = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+                            sheets[sheetName] = jsonData;
+                            totalRows += jsonData.length;
+                            if (jsonData.length > 0) {
+                                const cols = Object.keys(jsonData[0]);
+                                allColumns = [...new Set([...allColumns, ...cols])];
+                            }
+                        });
+
+                        resolve({
+                            name: file.name,
+                            size: file.size,
+                            workbook: workbook,
+                            sheetNames: sheetNames,
+                            sheets: sheets,
+                            rowCount: totalRows,
+                            columns: allColumns
+                        });
+                    } catch(e) {
+                        reject(e);
+                    }
+                };
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
+        }
+
+        // 渲染文件列表 + 数据预览
+        function renderMarketFileList() {
+            const container = document.getElementById('rvMarketFilesContainer');
+            container.innerHTML = marketFiles.map((f, i) => `
+                <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f9fafb;border-radius:10px;border:1px solid #e5e7eb;">
+                    <div style="font-size:28px;">📊</div>
+                    <div style="flex:1;">
+                        <div style="font-size:14px;color:#1a0a3e;font-weight:600;">${f.name}</div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:2px;">
+                            ${(f.size/1024).toFixed(1)} KB · ${f.rowCount} 行数据 · ${f.sheetNames.length} 个工作表
+                        </div>
+                    </div>
+                    <button onclick="removeMarketFile(${i})" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:18px;">×</button>
+                </div>
+            `).join('');
+
+            // 数据预览
+            renderMarketPreview();
+        }
+
+        // 渲染数据预览
+        function renderMarketPreview() {
+            const preview = document.getElementById('rvMarketPreview');
+            if (marketFiles.length === 0) {
+                preview.innerHTML = '';
+                return;
+            }
+
+            let html = '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">';
+            html += '<div style="padding:10px 16px;background:#f9fafb;border-bottom:1px solid #e5e7eb;font-size:13px;color:#1a0a3e;font-weight:600;">📋 数据预览（前5行）</div>';
+
+            marketFiles.forEach(f => {
+                f.sheetNames.forEach(sheetName => {
+                    const rows = f.sheets[sheetName];
+                    if (!rows || rows.length === 0) return;
+                    const columns = Object.keys(rows[0]);
+                    const previewRows = rows.slice(0, 5);
+
+                    html += `<div style="padding:8px 16px;font-size:12px;color:#7c3aed;font-weight:600;border-bottom:1px solid #f3f4f6;">${f.name} → ${sheetName} (${rows.length}行)</div>`;
+                    html += '<div style="overflow-x:auto;"><table class="table" style="width:100%;font-size:12px;"><thead><tr>';
+                    columns.slice(0, 10).forEach(c => { html += `<th style="white-space:nowrap;">${c}</th>`; });
+                    if (columns.length > 10) html += `<th>...共${columns.length}列</th>`;
+                    html += '</tr></thead><tbody>';
+                    previewRows.forEach(row => {
+                        html += '<tr>';
+                        columns.slice(0, 10).forEach(c => {
+                            const val = row[c];
+                            html += `<td style="white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;">${val !== '' ? val : '-'}</td>`;
+                        });
+                        if (columns.length > 10) html += '<td>...</td>';
+                        html += '</tr>';
+                    });
+                    html += '</tbody></table></div>';
+                });
+            });
+
+            html += '</div>';
+            preview.innerHTML = html;
+        }
+
+        // 移除单个文件
+        function removeMarketFile(index) {
+            marketFiles.splice(index, 1);
+            if (marketFiles.length === 0) {
+                resetMarketUpload();
+            } else {
+                renderMarketFileList();
+            }
+        }
+
+        // 重置上传区域
+        function resetMarketUpload() {
+            marketFiles = [];
+            document.getElementById('rvMarketUpload').style.display = 'block';
+            document.getElementById('rvMarketFileList').style.display = 'none';
+            document.getElementById('rvMarketGuide').style.display = 'none';
+            document.getElementById('rvMarketFileInput').value = '';
+        }
+
+        // 开始数据分析 — 导出数据并显示引导
+        function startMarketAnalysis() {
+            if (marketFiles.length === 0) {
+                toast('请先上传数据文件', 'error');
+                return;
+            }
+
+            let totalRows = marketFiles.reduce((sum, f) => sum + f.rowCount, 0);
+            let totalSheets = marketFiles.reduce((sum, f) => sum + f.sheetNames.length, 0);
+
+            document.getElementById('rvMarketGuideInfo').textContent =
+                `共 ${marketFiles.length} 个文件 · ${totalSheets} 个工作表 · ${totalRows} 行数据`;
+            document.getElementById('rvMarketUpload').style.display = 'none';
+            document.getElementById('rvMarketFileList').style.display = 'none';
+            document.getElementById('rvMarketGuide').style.display = 'block';
+
+            toast('数据已准备就绪，请下载并发送给AI助手', 'success');
+        }
+
+        // 下载数据文件（合并为单个JSON）
+        function downloadMarketData() {
+            if (marketFiles.length === 0) {
+                toast('没有可下载的数据', 'error');
+                return;
+            }
+
+            const exportData = {
+                export_time: new Date().toISOString(),
+                source: '校园运营系统-市场大盘分析',
+                file_count: marketFiles.length,
+                files: marketFiles.map(f => ({
+                    filename: f.name,
+                    sheets: f.sheetNames.map(sn => ({
+                        sheet_name: sn,
+                        row_count: f.sheets[sn].length,
+                        columns: f.sheets[sn].length > 0 ? Object.keys(f.sheets[sn][0]) : [],
+                        data: f.sheets[sn]
+                    }))
+                }))
+            };
+
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = '千瓜数据_' + new Date().toISOString().slice(0, 10) + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            toast('数据文件已下载！请发送给AI助手', 'success');
         }
 
         // 🔧 确保 Supabase 已初始化，未初始化时显示错误横幅
