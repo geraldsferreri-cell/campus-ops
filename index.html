@@ -2374,8 +2374,8 @@
                                 <div style="font-size:48px;margin-bottom:16px;">📂</div>
                                 <p style="font-size:18px;color:#1a0a3e;margin-bottom:8px;font-weight:600;">将千瓜数据文件拖拽到此处</p>
                                 <p style="font-size:14px;color:#7c3aed;margin-bottom:4px;">或 点击此处选择文件</p>
-                                <p style="font-size:12px;color:#9ca3af;margin-top:12px;">支持 .xlsx / .xls / .csv · 可多文件上传</p>
-                                <input type="file" id="rvMarketFileInput" accept=".xlsx,.xls,.csv" multiple style="display:none;" onchange="handleMarketFileSelect(this)">
+                                <p style="font-size:12px;color:#9ca3af;margin-top:12px;">支持所有文件格式 · 可多文件上传</p>
+                                <input type="file" id="rvMarketFileInput" multiple style="display:none;" onchange="handleMarketFileSelect(this)">
                             </div>
                             <div style="margin-top:12px;padding:10px 14px;background:#f3f0ff;border-radius:8px;display:flex;gap:8px;align-items:flex-start;">
                                 <span style="font-size:14px;">💡</span>
@@ -3863,26 +3863,30 @@
 
         // 处理上传的文件
         async function processMarketFiles(fileList) {
-            const ok = await loadSheetJS();
-            if (!ok) return;
+            const files = Array.from(fileList);
+            if (files.length === 0) return;
 
-            const files = Array.from(fileList).filter(f => /\.(xlsx|xls|csv)$/i.test(f.name));
-            if (files.length === 0) {
-                toast('请上传 .xlsx / .xls / .csv 格式的文件', 'error');
-                return;
-            }
-
-            toast('正在解析文件...', 'success');
+            toast('正在处理文件...', 'success');
 
             for (const file of files) {
                 try {
-                    const result = await parseMarketFile(file);
-                    marketFiles.push(result);
+                    // Excel/CSV 用SheetJS解析，其他文件直接读取为原始数据
+                    const isSpreadsheet = /\.(xlsx|xls|csv)$/i.test(f.name);
+                    if (isSpreadsheet) {
+                        await loadSheetJS();
+                        const result = await parseMarketFile(file);
+                        marketFiles.push(result);
+                    } else {
+                        // 非表格文件：直接保存原始数据
+                        marketFiles.push(await parseRawFile(file));
+                    }
                 } catch(e) {
-                    console.error('解析失败:', file.name, e);
-                    toast('文件解析失败: ' + file.name, 'error');
+                    console.error('处理失败:', file.name, e);
+                    toast('文件处理失败: ' + file.name, 'error');
                 }
             }
+
+            if (marketFiles.length > 0) {
 
             if (marketFiles.length > 0) {
                 renderMarketFileList();
@@ -3935,21 +3939,71 @@
             });
         }
 
+        // 解析非表格文件（图片/PDF/文本等）
+        function parseRawFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        // 文本文件读取内容，二进制文件用base64
+                        const isText = /\.(txt|csv|json|md|log|xml|html?|css|js|ts|py|sql)$/i.test(file.name) || file.size < 5 * 1024 * 1024;
+                        let content;
+                        if (isText) {
+                            content = e.target.result; // readAsText
+                            resolve({
+                                name: file.name,
+                                size: file.size,
+                                isRaw: true,
+                                type: 'text',
+                                content: content
+                            });
+                        } else {
+                            resolve({
+                                name: file.name,
+                                size: file.size,
+                                isRaw: true,
+                                type: 'binary',
+                                base64: e.target.result // readAsDataURL
+                            });
+                        }
+                    } catch(e) {
+                        reject(e);
+                    }
+                };
+                reader.onerror = reject;
+                if (/\.(txt|csv|json|md|log|xml|html?|css|js|ts|py|sql)$/i.test(f.name)) {
+                    reader.readAsText(file, 'UTF-8');
+                } else {
+                    reader.readAsDataURL(file); // 二进制文件用base64
+                }
+            });
+        }
+
         // 渲染文件列表 + 数据预览
         function renderMarketFileList() {
             const container = document.getElementById('rvMarketFilesContainer');
-            container.innerHTML = marketFiles.map((f, i) => `
+            container.innerHTML = marketFiles.map((f, i) => {
+                const icon = f.isRaw ? (/\.(png|jpe?g|gif|webp|svg|bmp)$/i.test(f.name) ? '🖼' : '📄') : '📊';
+                let detail = '';
+                if (f.isRaw) {
+                    detail = `${(f.size/1024).toFixed(1)} KB · ${f.type === 'text' ? '文本文件' : '二进制文件'}`;
+                    if (f.content && f.content.length > 0) {
+                        const lines = f.content.split('\n').length;
+                        detail += ' · ' + lines + ' 行';
+                    }
+                } else {
+                    detail = `${(f.size/1024).toFixed(1)} KB · ${f.rowCount} 行数据 · ${f.sheetNames.length} 个工作表`;
+                }
+                return `
                 <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f9fafb;border-radius:10px;border:1px solid #e5e7eb;">
-                    <div style="font-size:28px;">📊</div>
+                    <div style="font-size:28px;">${icon}</div>
                     <div style="flex:1;">
                         <div style="font-size:14px;color:#1a0a3e;font-weight:600;">${f.name}</div>
-                        <div style="font-size:12px;color:#6b7280;margin-top:2px;">
-                            ${(f.size/1024).toFixed(1)} KB · ${f.rowCount} 行数据 · ${f.sheetNames.length} 个工作表
-                        </div>
+                        <div style="font-size:12px;color:#6b7280;margin-top:2px;">${detail}</div>
                     </div>
                     <button onclick="removeMarketFile(${i})" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:18px;">×</button>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
 
             // 数据预览
             renderMarketPreview();
@@ -3964,35 +4018,66 @@
             }
 
             let html = '<div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;">';
-            html += '<div style="padding:10px 16px;background:#f9fafb;border-bottom:1px solid #e5e7eb;font-size:13px;color:#1a0a3e;font-weight:600;">📋 数据预览（前5行）</div>';
+            html += '<div style="padding:10px 16px;background:#f9fafb;border-bottom:1px solid #e5e7eb;font-size:13px;color:#1a0a3e;font-weight:600;">📋 文件预览</div>';
 
             marketFiles.forEach(f => {
-                f.sheetNames.forEach(sheetName => {
-                    const rows = f.sheets[sheetName];
-                    if (!rows || rows.length === 0) return;
-                    const columns = Object.keys(rows[0]);
-                    const previewRows = rows.slice(0, 5);
+                if (f.isRaw) {
+                    // 非表格文件预览
+                    if (/\.(png|jpe?g|gif|webp|svg|bmp)$/i.test(f.name)) {
+                        html += `<div style="padding:12px;text-align:center;border-bottom:1px solid #f3f4f6;">`;
+                        html += `<img src="${f.base64}" style="max-height:200px;max-width:100%;border-radius:8px;" />`;
+                        html += `<div style="font-size:11px;color:#9ca3af;margin-top:4px;">${f.name}</div>`;
+                        html += `</div>`;
+                    } else if (f.type === 'text' && f.content) {
+                        const lines = f.content.split('\n').slice(0, 8);
+                        html += `<div style="padding:8px 16px;font-size:12px;color:#7c3aed;font-weight:600;border-bottom:1px solid #f3f4f6;">${f.name}（文本 · ${f.content.length}字符）</div>`;
+                        html += `<pre style="padding:12px 16px;font-size:11px;color:#374151;white-space:pre-wrap;word-break:break-all;max-height:150px;overflow-y:auto;background:#fafafa;">`;
+                        lines.forEach(l => { html += escapeHtml(l) + '\n'; });
+                        if (lines.length < f.content.split('\n').length) html += `... 共 ${f.content.split('\n').length} 行`;
+                        html += '</pre>';
+                    } else {
+                        html += `<div style="padding:12px;text-align:center;border-bottom:1px solid #f3f4f6;">
+                            <span style="font-size:28px;">📄</span>
+                            <div style="font-size:13px;color:#1a0a3e;font-weight:600;margin-top:6px;">${f.name}</div>
+                            <div style="font-size:12px;color:#9ca3af;">二进制文件，大小 ${(f.size/1024).toFixed(1)} KB</div>
+                        </div>`;
+                    }
+                } else {
+                    // 表格文件预览
+                    f.sheetNames.forEach(sheetName => {
+                        const rows = f.sheets[sheetName];
+                        if (!rows || rows.length === 0) return;
+                        const columns = Object.keys(rows[0]);
+                        const previewRows = rows.slice(0, 5);
 
-                    html += `<div style="padding:8px 16px;font-size:12px;color:#7c3aed;font-weight:600;border-bottom:1px solid #f3f4f6;">${f.name} → ${sheetName} (${rows.length}行)</div>`;
-                    html += '<div style="overflow-x:auto;"><table class="table" style="width:100%;font-size:12px;"><thead><tr>';
-                    columns.slice(0, 10).forEach(c => { html += `<th style="white-space:nowrap;">${c}</th>`; });
-                    if (columns.length > 10) html += `<th>...共${columns.length}列</th>`;
-                    html += '</tr></thead><tbody>';
-                    previewRows.forEach(row => {
-                        html += '<tr>';
-                        columns.slice(0, 10).forEach(c => {
-                            const val = row[c];
-                            html += `<td style="white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;">${val !== '' ? val : '-'}</td>`;
+                        html += `<div style="padding:8px 16px;font-size:12px;color:#7c3aed;font-weight:600;border-bottom:1px solid #f3f4f6;">${f.name} → ${sheetName} (${rows.length}行)</div>`;
+                        html += '<div style="overflow-x:auto;"><table class="table" style="width:100%;font-size:12px;"><thead><tr>';
+                        columns.slice(0, 10).forEach(c => { html += `<th style="white-space:nowrap;">${c}</th>`; });
+                        if (columns.length > 10) html += `<th>...共${columns.length}列</th>`;
+                        html += '</tr></thead><tbody>';
+                        previewRows.forEach(row => {
+                            html += '<tr>';
+                            columns.slice(0, 10).forEach(c => {
+                                const val = row[c];
+                                html += `<td style="white-space:nowrap;max-width:120px;overflow:hidden;text-overflow:ellipsis;">${val !== '' ? val : '-'}</td>`;
+                            });
+                            if (columns.length > 10) html += '<td>...</td>';
+                            html += '</tr>';
                         });
-                        if (columns.length > 10) html += '<td>...</td>';
-                        html += '</tr>';
+                        html += '</tbody></table></div>';
                     });
-                    html += '</tbody></table></div>';
-                });
+                }
             });
 
             html += '</div>';
             preview.innerHTML = html;
+        }
+
+        // HTML转义
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
         }
 
         // 移除单个文件
@@ -4044,15 +4129,29 @@
                 export_time: new Date().toISOString(),
                 source: '校园运营系统-市场大盘分析',
                 file_count: marketFiles.length,
-                files: marketFiles.map(f => ({
-                    filename: f.name,
-                    sheets: f.sheetNames.map(sn => ({
-                        sheet_name: sn,
-                        row_count: f.sheets[sn].length,
-                        columns: f.sheets[sn].length > 0 ? Object.keys(f.sheets[sn][0]) : [],
-                        data: f.sheets[sn]
-                    }))
-                }))
+                files: marketFiles.map(f => {
+                    if (f.isRaw) {
+                        return {
+                            filename: f.name,
+                            size: f.size,
+                            type: f.type,
+                            isRaw: true,
+                            content: f.content || null,
+                            base64_data: f.base64 || null
+                        };
+                    } else {
+                        return {
+                            filename: f.name,
+                            size: f.size,
+                            sheets: f.sheetNames.map(sn => ({
+                                sheet_name: sn,
+                                row_count: f.sheets[sn].length,
+                                columns: f.sheets[sn].length > 0 ? Object.keys(f.sheets[sn][0]) : [],
+                                data: f.sheets[sn]
+                            }))
+                        };
+                    }
+                })
             };
 
             const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
