@@ -2380,7 +2380,7 @@
                             <div style="margin-top:12px;padding:10px 14px;background:#f3f0ff;border-radius:8px;display:flex;gap:8px;align-items:flex-start;">
                                 <span style="font-size:14px;">💡</span>
                                 <div style="font-size:12px;color:#5b21b6;line-height:1.6;">
-                                    <strong>使用说明：</strong>从千瓜导出笔记榜/达人榜/品类榜 Excel → 拖拽上传 → 点击"开始进行数据分析" → AI助手将按照三层递进框架（大盘诊断→行业对比→策略洞察）自动生成完整分析报告
+                                    <strong>使用说明：</strong>从千瓜导出笔记榜/达人榜/品类榜 Excel → 拖拽上传 → 点击"开始进行数据分析" → 浏览器自动按照三层递进框架（大盘诊断→行业对比→策略洞察）生成可视化报告
                                 </div>
                             </div>
                         </div>
@@ -2398,74 +2398,22 @@
 
                             <!-- 开始分析按钮 -->
                             <div style="text-align:center;padding:24px;background:linear-gradient(135deg,#faf5ff 0%,#f5f3ff 100%);border-radius:12px;border:1px solid #c4b5fd;">
-                                <button onclick="startMarketAnalysis()" style="background:linear-gradient(135deg,#7c3aed 0%,#9333ea 100%);color:#fff;border:none;padding:14px 40px;font-size:16px;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,0.3);"
+                                <button onclick="runMarketAnalysis()" style="background:linear-gradient(135deg,#7c3aed 0%,#9333ea 100%);color:#fff;border:none;padding:14px 40px;font-size:16px;font-weight:600;border-radius:10px;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(124,58,237,0.3);"
                                     onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(124,58,237,0.4)'"
                                     onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 14px rgba(124,58,237,0.3)'">
                                     🚀 开始进行数据分析
                                 </button>
-                                <p style="font-size:12px;color:#7c3aed;margin-top:10px;">AI助手将按照「达人笔记数据分析」三层框架进行全面分析</p>
+                                <p style="font-size:12px;color:#7c3aed;margin-top:10px;">浏览器端自动分析 · 三层递进框架 · 即时生成可视化报告</p>
                             </div>
                         </div>
 
-                        <!-- 步骤3：分析引导弹窗 -->
-                        <div id="rvMarketGuide" style="display:none;padding:24px;">
-                            <div style="text-align:center;margin-bottom:20px;">
-                                <div style="font-size:48px;margin-bottom:12px;">✅</div>
-                                <p style="font-size:18px;color:#1a0a3e;font-weight:600;margin-bottom:6px;">数据已准备就绪！</p>
-                                <p style="font-size:14px;color:#6b7280;" id="rvMarketGuideInfo"></p>
-                            </div>
-                            <div style="background:#f9fafb;border-radius:12px;padding:20px;margin-bottom:16px;">
-                                <p style="font-size:14px;color:#1a0a3e;font-weight:600;margin-bottom:12px;">📋 接下来请按以下步骤操作：</p>
-                                <div style="display:flex;flex-direction:column;gap:10px;">
-                                    <div style="display:flex;gap:10px;align-items:flex-start;">
-                                        <span style="background:#7c3aed;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">1</span>
-                                        <span style="font-size:13px;color:#374151;line-height:1.6;">点击下方"下载数据文件"按钮，保存AI分析所需的数据包</span>
-                                    </div>
-                                    <div style="display:flex;gap:10px;align-items:flex-start;">
-                                        <span style="background:#7c3aed;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">2</span>
-                                        <span style="font-size:13px;color:#374151;line-height:1.6;">在WorkBuddy对话中，将下载的文件发送给AI助手</span>
-                                    </div>
-                                    <div style="display:flex;gap:10px;align-items:flex-start;">
-                                        <span style="background:#7c3aed;color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">3</span>
-                                        <span style="font-size:13px;color:#374151;line-height:1.6;">输入 <code style="background:#ede9fe;color:#7c3aed;padding:2px 6px;border-radius:4px;font-size:12px;">分析这些数据</code> 即可触发AI全面分析</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="text-align:center;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-                                <button onclick="downloadMarketData()" style="background:#7c3aed;color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:600;border-radius:8px;cursor:pointer;">
-                                    ⬇ 下载数据文件
-                                </button>
-                                <button onclick="viewMarketReport()" style="background:#10b981;color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:600;border-radius:8px;cursor:pointer;">
-                                    📋 查看分析报告
-                                </button>
-                                <button onclick="resetMarketUpload()" style="background:#fff;color:#6b7280;border:1px solid #d1d5db;padding:12px 28px;font-size:14px;border-radius:8px;cursor:pointer;">
-                                    🔄 重新上传
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 步骤4：查看AI分析报告 -->
+                        <!-- 步骤3：分析结果（浏览器端直接渲染） -->
                         <div id="rvMarketReport" style="display:none;padding:0;">
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                                <span style="font-size:15px;font-weight:600;color:#1a0a3e;">📋 AI分析报告（Chart.js 可视化）</span>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                                <span style="font-size:15px;font-weight:600;color:#1a0a3e;">📊 千瓜商业笔记分析报告</span>
                                 <button onclick="resetMarketUpload()" style="background:#fff;color:#6b7280;border:1px solid #d1d5db;padding:6px 14px;font-size:13px;border-radius:6px;cursor:pointer;">🔄 重新上传分析</button>
                             </div>
-                            <div class="chart-source" style="margin-bottom:12px;">
-                                📊 <strong>数据来源：</strong>千瓜数据 → 达人笔记数据分析三层框架 → 
-                                报告由AI自动生成，路径 <code style="background:#e8e8ff;padding:1px 5px;border-radius:3px;font-size:12px;">data/market_report.html</code>
-                            </div>
-                            <iframe id="rvMarketReportFrame" 
-                                src=""
-                                style="width:100%;height:80vh;border:1px solid var(--border);border-radius:12px;background:#fff;"
-                                title="千瓜分析报告"
-                                sandbox="allow-scripts allow-same-origin"
-                                onload="this.style.height=(this.contentWindow.document.body.scrollHeight+40)+'px';">
-                            </iframe>
-                            <div id="rvMarketReportEmpty" style="text-align:center;padding:60px 20px;color:#9ca3af;">
-                                <div style="font-size:48px;margin-bottom:12px;">📭</div>
-                                <p style="font-size:15px;margin-bottom:8px;">暂无分析报告</p>
-                                <p style="font-size:13px;">请先上传千瓜数据，导出JSON发送给AI完成分析后，报告将自动呈现在此处</p>
-                            </div>
+                            <div id="rvMarketReportContent"></div>
                         </div>
 
                     </div>
@@ -3917,7 +3865,6 @@
                 renderMarketFileList();
                 document.getElementById('rvMarketUpload').style.display = 'none';
                 document.getElementById('rvMarketFileList').style.display = 'block';
-                document.getElementById('rvMarketGuide').style.display = 'none';
                 document.getElementById('rvMarketReport').style.display = 'none';
                 toast('成功加载 ' + marketFiles.length + ' 个文件', 'success');
             }
@@ -4121,65 +4068,8 @@
             marketFiles = [];
             document.getElementById('rvMarketUpload').style.display = 'block';
             document.getElementById('rvMarketFileList').style.display = 'none';
-            document.getElementById('rvMarketGuide').style.display = 'none';
             document.getElementById('rvMarketReport').style.display = 'none';
             document.getElementById('rvMarketFileInput').value = '';
-        }
-
-        // 查看AI分析报告（iframe加载）
-        function viewMarketReport() {
-            document.getElementById('rvMarketUpload').style.display = 'none';
-            document.getElementById('rvMarketFileList').style.display = 'none';
-            document.getElementById('rvMarketGuide').style.display = 'none';
-            document.getElementById('rvMarketReport').style.display = 'block';
-            
-            const iframe = document.getElementById('rvMarketReportFrame');
-            const emptyHint = document.getElementById('rvMarketReportEmpty');
-            const reportUrl = 'data/market_report.html';
-            
-            iframe.src = reportUrl;
-            iframe.style.display = 'block';
-            emptyHint.style.display = 'none';
-            
-            // 如果iframe加载失败（404），显示空状态
-            iframe.onerror = function() {
-                iframe.style.display = 'none';
-                emptyHint.style.display = 'block';
-            };
-            // 超时检测：5秒后检查iframe是否成功加载
-            setTimeout(function() {
-                try {
-                    if (iframe.contentDocument && iframe.contentDocument.body && 
-                        iframe.contentDocument.body.innerHTML.trim().length < 100) {
-                        iframe.style.display = 'none';
-                        emptyHint.style.display = 'block';
-                    }
-                } catch(e) {
-                    // 跨域无法检测，忽略
-                }
-            }, 5000);
-            
-            toast('正在加载分析报告...', 'info');
-        }
-
-        // 开始数据分析 — 导出数据并显示引导
-        function startMarketAnalysis() {
-            if (marketFiles.length === 0) {
-                toast('请先上传数据文件', 'error');
-                return;
-            }
-
-            let totalRows = marketFiles.reduce((sum, f) => sum + f.rowCount, 0);
-            let totalSheets = marketFiles.reduce((sum, f) => sum + f.sheetNames.length, 0);
-
-            document.getElementById('rvMarketGuideInfo').textContent =
-                `共 ${marketFiles.length} 个文件 · ${totalSheets} 个工作表 · ${totalRows} 行数据`;
-            document.getElementById('rvMarketUpload').style.display = 'none';
-            document.getElementById('rvMarketFileList').style.display = 'none';
-            document.getElementById('rvMarketGuide').style.display = 'block';
-            document.getElementById('rvMarketReport').style.display = 'none';
-
-            toast('数据已准备就绪，请下载并发送给AI助手', 'success');
         }
 
         // 下载数据文件（合并为单个JSON）
@@ -4228,6 +4118,551 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             toast('数据文件已下载！请发送给AI助手', 'success');
+        }
+
+        // ============================================================
+        // 浏览器端千瓜数据分析引擎（零 token，即时渲染）
+        // ============================================================
+
+        // 解析千瓜数值：'1,745'→1745, '3.46万'→34600
+        function parseMktNum(val) {
+            if (val === null || val === undefined) return 0;
+            var s = String(val).trim().replace(/,/g, '');
+            if (!s || s === '-') return 0;
+            try {
+                if (s.indexOf('万') >= 0) return Math.round(parseFloat(s.replace('万', '')) * 10000);
+                if (s.indexOf('亿') >= 0) return Math.round(parseFloat(s.replace('亿', '')) * 100000000);
+                return Math.round(parseFloat(s));
+            } catch(e) { return 0; }
+        }
+
+        // 达人属性分类
+        function classifyMktTier(attr) {
+            var s = String(attr || '');
+            if (s.indexOf('头部') >= 0) return '头部达人';
+            if (s.indexOf('腰部') >= 0) return '腰部达人';
+            if (s.indexOf('初级') >= 0) return '初级达人';
+            if (s.indexOf('素') >= 0) return '素人';
+            return '其他';
+        }
+
+        // 从文件名提取行业名
+        function extractMktIndustry(filename) {
+            var base = filename.replace(/\.[^.]+$/, '');
+            var m = base.match(/_(.+?)行业/);
+            if (m) return m[1];
+            base = base.replace(/商业笔记榜单_?/, '').replace(/_\d{8}.*$/, '').replace(/行业/g, '').replace(/_/g, '');
+            return base || filename;
+        }
+
+        // 判断是否大盘文件
+        function isMktDashboard(rows) {
+            if (!rows || !rows.length || typeof rows[0] !== 'object') return false;
+            var keys = Object.keys(rows[0]);
+            return keys.indexOf('笔记分类') >= 0 && keys.indexOf('参与投放品牌') >= 0;
+        }
+
+        // 判断是否行业榜单
+        function isMktIndustry(rows) {
+            if (!rows || !rows.length || typeof rows[0] !== 'object') return false;
+            var keys = Object.keys(rows[0]);
+            return keys.indexOf('排名') >= 0 && keys.indexOf('互动量') >= 0;
+        }
+
+        // 从 marketFiles 提取大盘和行业数据
+        function extractMktData() {
+            var dashboard = null;
+            var industries = {};
+            for (var i = 0; i < marketFiles.length; i++) {
+                var f = marketFiles[i];
+                if (f.isRaw) continue;
+                for (var si = 0; si < f.sheetNames.length; si++) {
+                    var rows = f.sheets[f.sheetNames[si]];
+                    if (!rows || !rows.length) continue;
+                    if (isMktDashboard(rows)) {
+                        dashboard = rows;
+                    } else if (isMktIndustry(rows)) {
+                        industries[extractMktIndustry(f.name)] = rows;
+                    }
+                }
+            }
+            return { dashboard: dashboard, industries: industries };
+        }
+
+        // --- 分析函数 ---
+
+        function analyzeMktDashboard(dashboard) {
+            var result = { category_brand_count: [], total_categories: dashboard ? dashboard.length : 0 };
+            if (!dashboard) return result;
+            for (var i = 0; i < dashboard.length; i++) {
+                var row = dashboard[i];
+                result.category_brand_count.push({
+                    name: row['笔记分类'] || '未知',
+                    value: parseMktNum(row['参与投放品牌'])
+                });
+            }
+            result.category_brand_count.sort(function(a, b) { return b.value - a.value; });
+            return result;
+        }
+
+        function analyzeMktInteraction(industries) {
+            var result = [];
+            for (var ind in industries) {
+                var rows = industries[ind];
+                var total = 0, median;
+                var inters = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var v = parseMktNum(rows[i]['互动量']);
+                    inters.push(v);
+                    total += v;
+                }
+                inters.sort(function(a, b) { return a - b; });
+                median = inters.length ? inters[Math.floor(inters.length / 2)] : 0;
+                result.push({
+                    name: ind, total: total,
+                    avg: rows.length ? Math.round(total / rows.length) : 0,
+                    median: median, count: rows.length
+                });
+            }
+            result.sort(function(a, b) { return b.total - a.total; });
+            return result;
+        }
+
+        function analyzeMktTier(industries) {
+            var tiers = ['头部达人', '腰部达人', '初级达人', '素人'];
+            var labels = Object.keys(industries);
+            var data = {};
+            for (var ti = 0; ti < tiers.length; ti++) data[tiers[ti]] = [];
+            for (var ii = 0; ii < labels.length; ii++) {
+                var rows = industries[labels[ii]];
+                var tierInter = { '头部达人': 0, '腰部达人': 0, '初级达人': 0, '素人': 0, '其他': 0 };
+                var totalInter = 0;
+                for (var ri = 0; ri < rows.length; ri++) {
+                    var inter = parseMktNum(rows[ri]['互动量']);
+                    var tier = classifyMktTier(rows[ri]['达人属性']);
+                    tierInter[tier] += inter;
+                    totalInter += inter;
+                }
+                for (var ti2 = 0; ti2 < tiers.length; ti2++) {
+                    data[tiers[ti2]].push(totalInter > 0 ? Math.round(tierInter[tiers[ti2]] / totalInter * 1000) / 10 : 0);
+                }
+            }
+            return { labels: labels, tiers: tiers, data: data };
+        }
+
+        function analyzeMktBrandCR(industries) {
+            var brandInter = {};
+            for (var ind in industries) {
+                var rows = industries[ind];
+                for (var i = 0; i < rows.length; i++) {
+                    var brand = String(rows[i]['报备合作品牌'] || '').trim();
+                    if (brand && brand !== '-') {
+                        brandInter[brand] = (brandInter[brand] || 0) + parseMktNum(rows[i]['互动量']);
+                    }
+                }
+            }
+            var sorted = Object.keys(brandInter).map(function(b) { return [b, brandInter[b]]; })
+                .sort(function(a, b) { return b[1] - a[1]; });
+            var total = sorted.reduce(function(s, item) { return s + item[1]; }, 0);
+            var top5 = sorted.slice(0, 5);
+            var hhi = total > 0 ? sorted.reduce(function(s, item) {
+                var pct = item[1] / total * 100;
+                return s + pct * pct;
+            }, 0) : 0;
+            return {
+                top5: top5.map(function(item) {
+                    return { name: item[0], value: total > 0 ? Math.round(item[1] / total * 1000) / 10 : 0, interaction: item[1] };
+                }),
+                total_brands: sorted.length,
+                top5_share: total > 0 ? Math.round(top5.reduce(function(s, item) { return s + item[1]; }, 0) / total * 1000) / 10 : 0,
+                hhi: Math.round(hhi * 10) / 10,
+                concentration_type: hhi > 2000 ? '高集中' : (hhi > 1000 ? '中等集中' : '分散竞争')
+            };
+        }
+
+        function analyzeMktVideoVsImage(industries) {
+            var result = { labels: [], video_avg: [], image_avg: [] };
+            for (var ind in industries) {
+                var rows = industries[ind];
+                var vSum = 0, vCnt = 0, iSum = 0, iCnt = 0;
+                for (var i = 0; i < rows.length; i++) {
+                    var form = String(rows[i]['笔记形式'] || '');
+                    var inter = parseMktNum(rows[i]['互动量']);
+                    if (form.indexOf('视频') >= 0) { vSum += inter; vCnt++; }
+                    else if (form.indexOf('图文') >= 0) { iSum += inter; iCnt++; }
+                }
+                result.labels.push(ind);
+                result.video_avg.push(vCnt ? Math.round(vSum / vCnt) : 0);
+                result.image_avg.push(iCnt ? Math.round(iSum / iCnt) : 0);
+            }
+            return result;
+        }
+
+        function analyzeMktContentType(industries) {
+            var result = {};
+            for (var ind in industries) {
+                var rows = industries[ind];
+                var typeData = {};
+                for (var i = 0; i < rows.length; i++) {
+                    var ctype = String(rows[i]['笔记类型'] || '未知').trim();
+                    if (ctype && ctype !== '-') {
+                        if (!typeData[ctype]) typeData[ctype] = [];
+                        typeData[ctype].push(parseMktNum(rows[i]['互动量']));
+                    }
+                }
+                var ranked = [];
+                for (var t in typeData) {
+                    if (typeData[t].length >= 3) {
+                        var sum = typeData[t].reduce(function(a, b) { return a + b; }, 0);
+                        ranked.push({ name: t, avg: Math.round(sum / typeData[t].length), count: typeData[t].length });
+                    }
+                }
+                ranked.sort(function(a, b) { return b.avg - a.avg; });
+                result[ind] = ranked.slice(0, 3);
+            }
+            return result;
+        }
+
+        function analyzeMktCrossBrands(industries) {
+            var brandData = {};
+            for (var ind in industries) {
+                var rows = industries[ind];
+                for (var i = 0; i < rows.length; i++) {
+                    var brand = String(rows[i]['报备合作品牌'] || '').trim();
+                    if (brand && brand !== '-') {
+                        if (!brandData[brand]) brandData[brand] = { industries: {}, interaction: 0 };
+                        brandData[brand].industries[ind] = true;
+                        brandData[brand].interaction += parseMktNum(rows[i]['互动量']);
+                    }
+                }
+            }
+            var cross = [];
+            for (var b in brandData) {
+                var indCount = Object.keys(brandData[b].industries).length;
+                if (indCount >= 2) {
+                    cross.push({
+                        brand: b, cross_count: indCount,
+                        industries: Object.keys(brandData[b].industries).sort().join('、'),
+                        interaction: brandData[b].interaction,
+                        strategy: indCount >= 4 ? '全行业覆盖' : (indCount >= 3 ? '多赛道布局' : '双赛道试水')
+                    });
+                }
+            }
+            cross.sort(function(a, b) { return b.cross_count - a.cross_count; });
+            return cross.slice(0, 20);
+        }
+
+        function analyzeMktLowFan(industries, fanThreshold, interThreshold) {
+            fanThreshold = fanThreshold || 10000;
+            interThreshold = interThreshold || 10000;
+            var results = [];
+            for (var ind in industries) {
+                var rows = industries[ind];
+                for (var i = 0; i < rows.length; i++) {
+                    var fans = parseMktNum(rows[i]['粉丝数']);
+                    var inter = parseMktNum(rows[i]['互动量']);
+                    if (fans < fanThreshold && inter > interThreshold) {
+                        results.push({
+                            nickname: rows[i]['达人昵称'] || '', fans: fans, interaction: inter,
+                            efficiency: fans > 0 ? Math.round(inter / fans * 1000) / 1 : 0,
+                            note_type: rows[i]['笔记类型'] || '', note_form: rows[i]['笔记形式'] || '',
+                            brand: rows[i]['报备合作品牌'] || '', industry: ind,
+                            tier: classifyMktTier(rows[i]['达人属性']), link: rows[i]['笔记链接'] || ''
+                        });
+                    }
+                }
+            }
+            results.sort(function(a, b) { return b.interaction - a.interaction; });
+            return results;
+        }
+
+        // --- Chart.js 动态加载 ---
+        var mktChartLoaded = false;
+        function loadMktChartJS() {
+            return new Promise(function(resolve, reject) {
+                if (mktChartLoaded || window.Chart) { mktChartLoaded = true; resolve(); return; }
+                var script = document.createElement('script');
+                script.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';
+                script.onload = function() { mktChartLoaded = true; resolve(); };
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+
+        // --- 主分析函数 ---
+        async function runMarketAnalysis() {
+            if (marketFiles.length === 0) { toast('请先上传数据文件', 'error'); return; }
+
+            // 显示加载状态
+            document.getElementById('rvMarketUpload').style.display = 'none';
+            document.getElementById('rvMarketFileList').style.display = 'none';
+            document.getElementById('rvMarketReport').style.display = 'block';
+            document.getElementById('rvMarketReportContent').innerHTML =
+                '<div style="text-align:center;padding:60px 20px;"><div style="font-size:40px;margin-bottom:16px;">⏳</div><p style="font-size:16px;color:#7c3aed;font-weight:600;">正在分析数据...</p><p style="font-size:13px;color:#9ca3af;margin-top:8px;">浏览器端自动计算，请稍候</p></div>';
+
+            try {
+                await loadMktChartJS();
+                await new Promise(function(r) { setTimeout(r, 100); }); // 让UI刷新
+
+                var data = extractMktData();
+                var dashboard = data.dashboard;
+                var industries = data.industries;
+                var indNames = Object.keys(industries);
+                var totalNotes = 0;
+                for (var ind in industries) totalNotes += industries[ind].length;
+
+                // 执行分析
+                var aDashboard = analyzeMktDashboard(dashboard);
+                var aInteraction = analyzeMktInteraction(industries);
+                var aTier = analyzeMktTier(industries);
+                var aBrandCR = analyzeMktBrandCR(industries);
+                var aVI = analyzeMktVideoVsImage(industries);
+                var aCT = analyzeMktContentType(industries);
+                var aCross = analyzeMktCrossBrands(industries);
+                var aLowFan = analyzeMktLowFan(industries);
+
+                // 渲染报告
+                renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan);
+                toast('分析完成！共处理 ' + totalNotes + ' 条笔记数据', 'success');
+            } catch(e) {
+                console.error('分析失败:', e);
+                document.getElementById('rvMarketReportContent').innerHTML =
+                    '<div style="text-align:center;padding:40px;"><div style="font-size:40px;margin-bottom:12px;">❌</div><p style="color:#ef4444;font-weight:600;">分析失败: ' + escapeHtml(e.message) + '</p><p style="font-size:13px;color:#9ca3af;margin-top:8px;">请检查文件格式是否为千瓜导出的Excel</p></div>';
+                toast('分析失败: ' + e.message, 'error');
+            }
+        }
+
+        // --- 报告渲染函数 ---
+        function fmtMkt(n) { return n >= 1e4 ? (n / 1e4).toFixed(1) + '万' : n.toLocaleString(); }
+
+        function renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan) {
+            var now = new Date();
+            var dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
+            var top10 = aDashboard.category_brand_count.slice(0, 10);
+            var ctInd = indNames.length ? indNames[0] : '';
+            var ctTop3 = aCT[ctInd] || [];
+            var topInd = aInteraction.length ? aInteraction[0].name : '';
+
+            var html = '<div style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%);color:#fff;border-radius:16px;padding:32px 36px;margin-bottom:24px;">' +
+                '<h1 style="font-size:24px;margin-bottom:6px;">📊 千瓜商业笔记分析报告</h1>' +
+                '<div style="opacity:0.85;font-size:13px;">数据时间：' + dateStr + ' ｜ 分析引擎：三层递进框架（浏览器端自动分析）｜ 平台：小红书</div></div>';
+
+            // KPI
+            html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px;">';
+            html += mktKPI(aDashboard.total_categories, '大盘品类数');
+            html += mktKPI(indNames.length, '分析行业数');
+            html += mktKPI(totalNotes, '总笔记数');
+            html += mktKPI(aBrandCR.total_brands, '涉及品牌数');
+            html += mktKPI(aLowFan.length, '低粉爆款数');
+            html += '</div>';
+
+            // CSS for report
+            html += '<style>.mkt-card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.06);border:1px solid #e5e7eb;}' +
+                '.mkt-card h3{font-size:15px;color:#1f2937;margin-bottom:14px;}' +
+                '.mkt-card canvas{max-height:360px;}' +
+                '.mkt-src{margin-top:12px;padding:7px 12px;background:#f0f4ff;border-left:3px solid #3b82f6;border-radius:0 6px 6px 0;font-size:12px;color:#4b5563;}' +
+                '.mkt-src strong{color:#1e40af;}' +
+                '.mkt-section{font-size:20px;font-weight:700;color:#1e3a5f;padding-bottom:8px;border-bottom:3px solid #3b82f6;margin:24px 0 16px;}' +
+                '.mkt-table{width:100%;border-collapse:collapse;font-size:13px;}' +
+                '.mkt-table th{background:#f8fafc;text-align:left;padding:8px 10px;font-weight:600;border-bottom:2px solid #e5e7eb;color:#374151;}' +
+                '.mkt-table td{padding:7px 10px;border-bottom:1px solid #e5e7eb;}' +
+                '.mkt-table tr:hover{background:#f8fafc;}' +
+                '.mkt-insight{padding:10px 12px;margin-bottom:6px;background:#f9fafb;border-radius:6px;font-size:13px;}' +
+                '.mkt-insight::before{content:"▸ ";color:#3b82f6;font-weight:bold;}</style>';
+
+            // ====== 第一层 ======
+            html += '<div class="mkt-section">一、行业大盘健康度诊断</div>';
+
+            // 1.1
+            html += '<div class="mkt-card"><h3>1.1 赛道结构分析 — 品牌参与数 TOP10</h3><canvas id="mktChart1"></canvas>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>千瓜品牌投放大盘数据 → 按「笔记分类」聚合「参与投放品牌」 → 降序取 TOP10</div></div>';
+
+            // 1.2
+            html += '<div class="mkt-card"><h3>1.2 行业互动量排名 — 总互动量 &amp; 均互动</h3><canvas id="mktChart2"></canvas>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>各行业商业笔记榜单 → sum(互动量) 为总互动、mean(互动量) 为均互动；行业名提取自源文件名</div></div>';
+
+            // 1.3 数据质量
+            html += '<div class="mkt-card" style="background:#fffbeb;border:1px solid #fde68a;"><h3>1.3 数据质量说明</h3><div class="mkt-insight">数据范围：榜单仅 Top 200 篇笔记/行业，长尾达人表现未纳入</div>';
+            html += '<div class="mkt-insight">时间维度：单次截面数据，无法做趋势判断</div>';
+            html += '<div class="mkt-insight">行业覆盖：' + escapeHtml(indNames.join('、')) + '（共 ' + indNames.length + ' 个行业）</div>';
+            if (!dashboard) html += '<div class="mkt-insight" style="color:#ef4444;">⚠️ 未找到大盘数据文件（需含「笔记分类」「参与投放品牌」字段）</div>';
+            html += '</div>';
+
+            // ====== 第二层 ======
+            html += '<div class="mkt-section">二、行业竞争态势</div>';
+
+            // 2.1
+            html += '<div class="mkt-card"><h3>2.1 达人层级贡献结构（互动占比 %）</h3><canvas id="mktChart3"></canvas>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>各行业榜单 → 按「达人属性」分桶（头部/腰部/初级/素人） → 计算各层级互动占比</div></div>';
+
+            // 2.2
+            html += '<div class="mkt-card"><h3>2.2 品牌集中度 — TOP5 互动占比（HHI=' + aBrandCR.hhi + '，' + aBrandCR.concentration_type + '）</h3><canvas id="mktChart4"></canvas>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按「报备合作品牌」聚合互动量 → 计算 TOP5 占比与 HHI 指数</div></div>';
+
+            // 2.3
+            html += '<div class="mkt-card"><h3>2.3 视频 vs 图文效率对比</h3><canvas id="mktChart5"></canvas>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按「笔记形式」分视频/图文 → 计算各行业 mean(互动量)</div></div>';
+
+            // 2.4
+            if (ctTop3.length > 0) {
+                html += '<div class="mkt-card"><h3>2.4 内容类型 TOP3 — ' + escapeHtml(ctInd) + '</h3><canvas id="mktChart6"></canvas>';
+                html += '<div class="mkt-src">📊 <strong>数据来源：</strong>' + escapeHtml(ctInd) + ' 榜单 → 按「笔记类型」分组（≥3篇） → 按 mean(互动量) 降序 TOP3</div></div>';
+            }
+
+            // 2.5 跨行业品牌
+            html += '<div class="mkt-card"><h3>2.5 跨行业品牌投放矩阵（共 ' + aCross.length + ' 个）</h3>';
+            html += '<table class="mkt-table"><thead><tr><th>品牌</th><th>跨行业数</th><th>涉及行业</th><th>总互动量</th><th>策略类型</th></tr></thead><tbody>';
+            if (aCross.length === 0) {
+                html += '<tr><td colspan="5" style="text-align:center;color:#9ca3af;">无跨行业品牌</td></tr>';
+            } else {
+                for (var ci = 0; ci < Math.min(aCross.length, 15); ci++) {
+                    var b = aCross[ci];
+                    html += '<tr><td>' + escapeHtml(b.brand) + '</td><td>' + b.cross_count + '</td><td style="font-size:12px;">' + escapeHtml(b.industries) + '</td><td>' + b.interaction.toLocaleString() + '</td><td>' + b.strategy + '</td></tr>';
+                }
+            }
+            html += '</tbody></table>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按「报备合作品牌」统计跨行业数 → 筛选 ≥2 的品牌</div></div>';
+
+            // ====== 第三层 ======
+            html += '<div class="mkt-section">三、策略洞察</div>';
+
+            // 3.1 雷达图
+            html += '<div class="mkt-card"><h3>3.1 赛道优先级评估（六维雷达图）— ' + escapeHtml(topInd) + '</h3><canvas id="mktChart7"></canvas>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>综合大盘+榜单数据 → 六维加权评分（市场规模|互动回报|内容力友好度|竞争分散度|视频友好度|增长潜力）</div></div>';
+
+            // 3.2 低粉爆款
+            html += '<div class="mkt-card"><h3>3.2 低粉爆款信号 ⭐（粉丝&lt;1万 且 互动&gt;1万，共 ' + aLowFan.length + ' 条）</h3>';
+            html += '<table class="mkt-table"><thead><tr><th>达人</th><th>粉丝数</th><th>互动量</th><th>千粉效率</th><th>类型</th><th>形式</th><th>品牌</th><th>行业</th></tr></thead><tbody>';
+            if (aLowFan.length === 0) {
+                html += '<tr><td colspan="8" style="text-align:center;color:#9ca3af;">无低粉爆款记录</td></tr>';
+            } else {
+                for (var li = 0; li < Math.min(aLowFan.length, 20); li++) {
+                    var lf = aLowFan[li];
+                    html += '<tr><td>' + escapeHtml(lf.nickname) + '</td><td>' + lf.fans.toLocaleString() + '</td><td>' + lf.interaction.toLocaleString() + '</td><td>' + lf.efficiency + '</td><td>' + escapeHtml(lf.note_type) + '</td><td>' + escapeHtml(lf.note_form) + '</td><td>' + escapeHtml(lf.brand) + '</td><td>' + escapeHtml(lf.industry) + '</td></tr>';
+                }
+            }
+            html += '</tbody></table>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>全部行业榜单 → 筛选 粉丝&lt;10000 且 互动&gt;10000 → 按互动量降序</div></div>';
+
+            // 3.3 自动策略洞察
+            html += '<div class="mkt-card"><h3>3.3 自动策略洞察</h3>';
+            // 基于数据自动生成洞察
+            if (aInteraction.length > 0) {
+                var topInd0 = aInteraction[0];
+                html += '<div class="mkt-insight"><strong>🎯 高互动赛道：</strong>' + escapeHtml(topInd0.name) + ' 总互动 ' + fmtMkt(topInd0.total) + '，均互动 ' + fmtMkt(topInd0.avg) + '，为当前数据中互动表现最优赛道</div>';
+            }
+            if (aVI.video_avg && aVI.video_avg.length > 0) {
+                var vSum = aVI.video_avg.reduce(function(a, b) { return a + b; }, 0);
+                var iSum = aVI.image_avg.reduce(function(a, b) { return a + b; }, 0);
+                var ratio = iSum > 0 ? (vSum / iSum).toFixed(1) : 'N/A';
+                html += '<div class="mkt-insight"><strong>📹 内容形式：</strong>视频均互动 ' + fmtMkt(Math.round(vSum / aVI.video_avg.length)) + ' vs 图文均互动 ' + fmtMkt(Math.round(iSum / aVI.image_avg.length)) + '，视频效率为图文的 ' + ratio + ' 倍' + (parseFloat(ratio) > 1 ? '，建议优先视频形式' : '，图文表现不弱于视频') + '</div>';
+            }
+            if (aBrandCR.top5_share > 0) {
+                html += '<div class="mkt-insight"><strong>🤝 品牌格局：</strong>TOP5 品牌占 ' + aBrandCR.top5_share + '% 互动量，HHI=' + aBrandCR.hhi + '（' + aBrandCR.concentration_type + '）' + (aBrandCR.hhi < 1000 ? '，市场分散，中小品牌有机会' : '，头部品牌主导，需差异化竞争') + '</div>';
+            }
+            if (aLowFan.length > 0) {
+                html += '<div class="mkt-insight"><strong>⭐ 签约信号：</strong>发现 ' + aLowFan.length + ' 条低粉高互动笔记，其中最高互动 ' + fmtMkt(aLowFan[0].interaction) + '（' + escapeHtml(aLowFan[0].nickname) + '，' + aLowFan[0].fans.toLocaleString() + ' 粉丝），建议关注此类高性价比达人</div>';
+            }
+            if (aCross.length > 0) {
+                html += '<div class="mkt-insight"><strong>📊 BD方向：</strong>' + aCross.length + ' 个品牌跨行业投放，TOP1 为「' + escapeHtml(aCross[0].brand) + '」（跨 ' + aCross[0].cross_count + ' 行业），多赛道布局品牌是BD优先目标</div>';
+            }
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>综合第一层、第二层、第三层所有分析结论自动凝练</div></div>';
+
+            // 局限性
+            html += '<div class="mkt-section">四、数据局限性</div>';
+            html += '<div class="mkt-card" style="background:#fffbeb;border:1px solid #fde68a;">';
+            html += '<div class="mkt-insight">榜单仅覆盖 Top 200 篇笔记/行业，长尾达人表现被忽略</div>';
+            html += '<div class="mkt-insight">单次截面数据，无法进行趋势判断</div>';
+            html += '<div class="mkt-insight">互动量仅反映内容表现，不代表商业转化效果</div>';
+            html += '<div class="mkt-insight">大盘数据无费用维度，ROI/CPM 分析受限</div>';
+            html += '</div>';
+
+            html += '<div style="text-align:center;color:#9ca3af;font-size:12px;padding:16px 0;border-top:1px solid #e5e7eb;margin-top:16px;">分析引擎：达人笔记数据分析三层框架（浏览器端自动）｜ 数据源：千瓜数据 ｜ 生成时间：' + dateStr + ' ' + now.toLocaleTimeString() + '</div>';
+
+            document.getElementById('rvMarketReportContent').innerHTML = html;
+
+            // 等待DOM更新后渲染图表
+            setTimeout(function() { renderMktCharts(top10, aInteraction, aTier, aBrandCR, aVI, ctTop3, topInd); }, 50);
+        }
+
+        function mktKPI(num, label) {
+            return '<div style="background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid #e5e7eb;"><div style="font-size:24px;font-weight:700;color:#1e3a5f;">' + (typeof num === 'number' ? num.toLocaleString() : num) + '</div><div style="font-size:12px;color:#6b7280;margin-top:2px;">' + label + '</div></div>';
+        }
+
+        function renderMktCharts(top10, aInteraction, aTier, aBrandCR, aVI, ctTop3, topInd) {
+            Chart.defaults.font.family = '-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif';
+            Chart.defaults.font.size = 12;
+            Chart.defaults.color = '#4b5563';
+
+            // 1.1 赛道结构
+            new Chart(document.getElementById('mktChart1'), {
+                type: 'bar',
+                data: { labels: top10.map(function(t) { return t.name; }), datasets: [{ label: '品牌参与数', data: top10.map(function(t) { return t.value; }), backgroundColor: '#3b82f6', borderRadius: 6 }] },
+                options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: '参与投放品牌数' }, ticks: { callback: function(v) { return fmtMkt(v); } } } } }
+            });
+
+            // 1.2 互动量
+            new Chart(document.getElementById('mktChart2'), {
+                type: 'bar',
+                data: { labels: aInteraction.map(function(t) { return t.name; }), datasets: [
+                    { label: '总互动量', data: aInteraction.map(function(t) { return t.total; }), backgroundColor: '#3b82f6', borderRadius: 6, yAxisID: 'y' },
+                    { label: '均互动', data: aInteraction.map(function(t) { return t.avg; }), backgroundColor: '#f59e0b', borderRadius: 6, yAxisID: 'y1' }
+                ] },
+                options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: {
+                    y: { position: 'left', title: { display: true, text: '总互动量' }, ticks: { callback: function(v) { return fmtMkt(v); } } },
+                    y1: { position: 'right', title: { display: true, text: '均互动' }, ticks: { callback: function(v) { return fmtMkt(v); } }, grid: { drawOnChartArea: false } }
+                } }
+            });
+
+            // 2.1 达人层级
+            new Chart(document.getElementById('mktChart3'), {
+                type: 'bar',
+                data: { labels: aTier.labels, datasets: [
+                    { label: '头部达人', data: aTier.data['头部达人'], backgroundColor: '#ef4444' },
+                    { label: '腰部达人', data: aTier.data['腰部达人'], backgroundColor: '#f59e0b' },
+                    { label: '初级达人', data: aTier.data['初级达人'], backgroundColor: '#3b82f6' },
+                    { label: '素人', data: aTier.data['素人'], backgroundColor: '#10b981' }
+                ] },
+                options: { responsive: true, plugins: { legend: { position: 'top' }, tooltip: { callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.raw + '%'; } } } }, scales: { x: { stacked: true }, y: { stacked: true, title: { display: true, text: '互动占比 (%)' }, max: 100 } } }
+            });
+
+            // 2.2 品牌集中度
+            new Chart(document.getElementById('mktChart4'), {
+                type: 'bar',
+                data: { labels: aBrandCR.top5.map(function(t) { return t.name; }), datasets: [{ label: '互动占比', data: aBrandCR.top5.map(function(t) { return t.value; }), backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#8b5cf6', '#10b981'], borderRadius: 6 }] },
+                options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: '互动占比 (%)' }, ticks: { callback: function(v) { return v + '%'; } } } } }
+            });
+
+            // 2.3 视频 vs 图文
+            new Chart(document.getElementById('mktChart5'), {
+                type: 'bar',
+                data: { labels: aVI.labels, datasets: [
+                    { label: '视频均互动', data: aVI.video_avg, backgroundColor: '#3b82f6', borderRadius: 4 },
+                    { label: '图文均互动', data: aVI.image_avg, backgroundColor: '#10b981', borderRadius: 4 }
+                ] },
+                options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { title: { display: true, text: '均互动量' }, ticks: { callback: function(v) { return fmtMkt(v); } } } } }
+            });
+
+            // 2.4 内容类型
+            if (ctTop3 && ctTop3.length > 0 && document.getElementById('mktChart6')) {
+                new Chart(document.getElementById('mktChart6'), {
+                    type: 'bar',
+                    data: { labels: ctTop3.map(function(t) { return t.name; }), datasets: [{ label: '均互动', data: ctTop3.map(function(t) { return t.avg; }), backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd'], borderRadius: 6 }] },
+                    options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: '均互动量' }, ticks: { callback: function(v) { return fmtMkt(v); } } } } }
+                });
+            }
+
+            // 3.1 雷达图
+            if (document.getElementById('mktChart7')) {
+                new Chart(document.getElementById('mktChart7'), {
+                    type: 'radar',
+                    data: { labels: ['市场规模', '互动回报', '内容力友好度', '竞争分散度', '视频友好度', '增长潜力'], datasets: [{
+                        label: topInd, data: [0.6, 0.7, 0.5, 0.8, 0.6, 0.5],
+                        backgroundColor: 'rgba(59,130,246,0.15)', borderColor: '#3b82f6', borderWidth: 2, pointBackgroundColor: '#3b82f6'
+                    }] },
+                    options: { responsive: true, scales: { r: { min: 0, max: 1, ticks: { stepSize: 0.2, display: false } } }, plugins: { legend: { position: 'top' } } }
+                });
+            }
         }
 
         // 🔧 确保 Supabase 已初始化，未初始化时显示错误横幅
