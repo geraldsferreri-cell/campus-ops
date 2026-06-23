@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千瓜分析报告 — 等待数据</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background: #f5f6f8; color: #6b7280; display:flex; align-items:center; justify-content:center;
+  min-height:400px; text-align:center;
+}
+.card {
+  background:#fff; border-radius:12px; padding:48px; max-width:500px;
+  box-shadow:0 1px 4px rgba(0,0,0,0.06); border:1px solid #e5e7eb;
+}
+.card .icon { font-size:56px; margin-bottom:16px; }
+.card h2 { font-size:20px; color:#1a1a2e; margin-bottom:8px; }
+.card p { font-size:14px; line-height:1.7; margin-bottom:6px; }
+.card .steps { text-align:left; background:#f9fafb; border-radius:8px; padding:16px 20px; margin-top:16px; }
+.card .steps li { font-size:13px; margin-bottom:6px; }
+.card .steps li span { color:#3b82f6; font-weight:600; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">📭</div>
+  <h2>暂无分析报告</h2>
+  <p>请先在校园运营系统「数据复盘 → 市场大盘分析」中上传千瓜数据，</p>
+  <p>导出JSON发送给WorkBuddy AI完成分析后，报告将自动呈现在此处。</p>
+  <div class="steps">
+    <ol>
+      <li><span>1.</span> 拖拽上传千瓜Excel/CVS文件</li>
+      <li><span>2.</span> 点击「开始进行数据分析」→ 下载JSON数据包</li>
+      <li><span>3.</span> 将JSON文件发送给WorkBuddy AI</li>
+      <li><span>4.</span> 输入「分析这些数据」触发分析</li>
+      <li><span>5.</span> AI自动生成HTML图表报告并部署到此页面</li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>

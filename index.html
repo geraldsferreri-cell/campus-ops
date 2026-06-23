@@ -2431,13 +2431,40 @@
                                     </div>
                                 </div>
                             </div>
-                            <div style="text-align:center;display:flex;gap:10px;justify-content:center;">
+                            <div style="text-align:center;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
                                 <button onclick="downloadMarketData()" style="background:#7c3aed;color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:600;border-radius:8px;cursor:pointer;">
                                     ⬇ 下载数据文件
+                                </button>
+                                <button onclick="viewMarketReport()" style="background:#10b981;color:#fff;border:none;padding:12px 28px;font-size:14px;font-weight:600;border-radius:8px;cursor:pointer;">
+                                    📋 查看分析报告
                                 </button>
                                 <button onclick="resetMarketUpload()" style="background:#fff;color:#6b7280;border:1px solid #d1d5db;padding:12px 28px;font-size:14px;border-radius:8px;cursor:pointer;">
                                     🔄 重新上传
                                 </button>
+                            </div>
+                        </div>
+
+                        <!-- 步骤4：查看AI分析报告 -->
+                        <div id="rvMarketReport" style="display:none;padding:0;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                                <span style="font-size:15px;font-weight:600;color:#1a0a3e;">📋 AI分析报告（Chart.js 可视化）</span>
+                                <button onclick="resetMarketUpload()" style="background:#fff;color:#6b7280;border:1px solid #d1d5db;padding:6px 14px;font-size:13px;border-radius:6px;cursor:pointer;">🔄 重新上传分析</button>
+                            </div>
+                            <div class="chart-source" style="margin-bottom:12px;">
+                                📊 <strong>数据来源：</strong>千瓜数据 → 达人笔记数据分析三层框架 → 
+                                报告由AI自动生成，路径 <code style="background:#e8e8ff;padding:1px 5px;border-radius:3px;font-size:12px;">data/market_report.html</code>
+                            </div>
+                            <iframe id="rvMarketReportFrame" 
+                                src=""
+                                style="width:100%;height:80vh;border:1px solid var(--border);border-radius:12px;background:#fff;"
+                                title="千瓜分析报告"
+                                sandbox="allow-scripts allow-same-origin"
+                                onload="this.style.height=(this.contentWindow.document.body.scrollHeight+40)+'px';">
+                            </iframe>
+                            <div id="rvMarketReportEmpty" style="text-align:center;padding:60px 20px;color:#9ca3af;">
+                                <div style="font-size:48px;margin-bottom:12px;">📭</div>
+                                <p style="font-size:15px;margin-bottom:8px;">暂无分析报告</p>
+                                <p style="font-size:13px;">请先上传千瓜数据，导出JSON发送给AI完成分析后，报告将自动呈现在此处</p>
                             </div>
                         </div>
 
@@ -3891,6 +3918,7 @@
                 document.getElementById('rvMarketUpload').style.display = 'none';
                 document.getElementById('rvMarketFileList').style.display = 'block';
                 document.getElementById('rvMarketGuide').style.display = 'none';
+                document.getElementById('rvMarketReport').style.display = 'none';
                 toast('成功加载 ' + marketFiles.length + ' 个文件', 'success');
             }
         }
@@ -4094,7 +4122,44 @@
             document.getElementById('rvMarketUpload').style.display = 'block';
             document.getElementById('rvMarketFileList').style.display = 'none';
             document.getElementById('rvMarketGuide').style.display = 'none';
+            document.getElementById('rvMarketReport').style.display = 'none';
             document.getElementById('rvMarketFileInput').value = '';
+        }
+
+        // 查看AI分析报告（iframe加载）
+        function viewMarketReport() {
+            document.getElementById('rvMarketUpload').style.display = 'none';
+            document.getElementById('rvMarketFileList').style.display = 'none';
+            document.getElementById('rvMarketGuide').style.display = 'none';
+            document.getElementById('rvMarketReport').style.display = 'block';
+            
+            const iframe = document.getElementById('rvMarketReportFrame');
+            const emptyHint = document.getElementById('rvMarketReportEmpty');
+            const reportUrl = 'data/market_report.html';
+            
+            iframe.src = reportUrl;
+            iframe.style.display = 'block';
+            emptyHint.style.display = 'none';
+            
+            // 如果iframe加载失败（404），显示空状态
+            iframe.onerror = function() {
+                iframe.style.display = 'none';
+                emptyHint.style.display = 'block';
+            };
+            // 超时检测：5秒后检查iframe是否成功加载
+            setTimeout(function() {
+                try {
+                    if (iframe.contentDocument && iframe.contentDocument.body && 
+                        iframe.contentDocument.body.innerHTML.trim().length < 100) {
+                        iframe.style.display = 'none';
+                        emptyHint.style.display = 'block';
+                    }
+                } catch(e) {
+                    // 跨域无法检测，忽略
+                }
+            }, 5000);
+            
+            toast('正在加载分析报告...', 'info');
         }
 
         // 开始数据分析 — 导出数据并显示引导
@@ -4112,6 +4177,7 @@
             document.getElementById('rvMarketUpload').style.display = 'none';
             document.getElementById('rvMarketFileList').style.display = 'none';
             document.getElementById('rvMarketGuide').style.display = 'block';
+            document.getElementById('rvMarketReport').style.display = 'none';
 
             toast('数据已准备就绪，请下载并发送给AI助手', 'success');
         }
