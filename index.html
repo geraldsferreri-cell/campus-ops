@@ -3871,7 +3871,7 @@
             for (const file of files) {
                 try {
                     // Excel/CSV 用SheetJS解析，其他文件直接读取为原始数据
-                    const isSpreadsheet = /\.(xlsx|xls|csv)$/i.test(f.name);
+                    const isSpreadsheet = /\.(xlsx|xls|csv)$/i.test(file.name);
                     if (isSpreadsheet) {
                         await loadSheetJS();
                         const result = await parseMarketFile(file);
@@ -3885,8 +3885,6 @@
                     toast('文件处理失败: ' + file.name, 'error');
                 }
             }
-
-            if (marketFiles.length > 0) {
 
             if (marketFiles.length > 0) {
                 renderMarketFileList();
@@ -3971,7 +3969,7 @@
                     }
                 };
                 reader.onerror = reject;
-                if (/\.(txt|csv|json|md|log|xml|html?|css|js|ts|py|sql)$/i.test(f.name)) {
+                if (/\.(txt|csv|json|md|log|xml|html?|css|js|ts|py|sql)$/i.test(file.name)) {
                     reader.readAsText(file, 'UTF-8');
                 } else {
                     reader.readAsDataURL(file); // 二进制文件用base64
