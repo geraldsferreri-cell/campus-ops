@@ -1,0 +1,488 @@
+{
+  "meta": {
+    "export_time": "2026-06-23T06:12:58.513Z",
+    "file_count": 6,
+    "industries": [
+      "民生资讯",
+      "赛事",
+      "生活经验",
+      "时尚潮流",
+      "影音娱乐"
+    ],
+    "total_categories": 29,
+    "total_notes": 1000
+  },
+  "layer1_dashboard": {
+    "top10_categories": [
+      {
+        "name": "美食饮品",
+        "value": 4757
+      },
+      {
+        "name": "家居家装",
+        "value": 3443
+      },
+      {
+        "name": "母婴育儿",
+        "value": 3064
+      },
+      {
+        "name": "生活经验",
+        "value": 2652
+      },
+      {
+        "name": "健身减肥",
+        "value": 2520
+      },
+      {
+        "name": "个护清洁",
+        "value": 2407
+      },
+      {
+        "name": "护肤",
+        "value": 2317
+      },
+      {
+        "name": "旅行住宿",
+        "value": 2280
+      },
+      {
+        "name": "教育",
+        "value": 2081
+      },
+      {
+        "name": "医疗养生",
+        "value": 1937
+      }
+    ],
+    "industry_interaction": [
+      {
+        "name": "影音娱乐",
+        "total": 2169527,
+        "avg": 10848,
+        "median": 4721,
+        "count": 200
+      },
+      {
+        "name": "生活经验",
+        "total": 1293418,
+        "avg": 6467,
+        "median": 2948,
+        "count": 200
+      },
+      {
+        "name": "时尚潮流",
+        "total": 693222,
+        "avg": 3466,
+        "median": 2019,
+        "count": 200
+      },
+      {
+        "name": "赛事",
+        "total": 346475,
+        "avg": 1732,
+        "median": 797,
+        "count": 200
+      },
+      {
+        "name": "民生资讯",
+        "total": 325288,
+        "avg": 1626,
+        "median": 466,
+        "count": 200
+      }
+    ]
+  },
+  "layer2_competition": {
+    "tier_contribution": {
+      "labels": [
+        "民生资讯",
+        "赛事",
+        "生活经验",
+        "时尚潮流",
+        "影音娱乐"
+      ],
+      "tiers": [
+        "头部达人",
+        "腰部达人",
+        "初级达人",
+        "素人"
+      ],
+      "data": {
+        "头部达人": [
+          8.0,
+          5.3,
+          19.8,
+          5.4,
+          24.0
+        ],
+        "腰部达人": [
+          71.1,
+          72.6,
+          57.8,
+          62.8,
+          33.4
+        ],
+        "初级达人": [
+          17.5,
+          17.5,
+          20.8,
+          25.8,
+          17.4
+        ],
+        "素人": [
+          3.3,
+          3.5,
+          0.8,
+          0.5,
+          21.9
+        ]
+      }
+    },
+    "brand_concentration": {
+      "top5": [
+        {
+          "name": "京东家电家居采销团",
+          "value": 13.8,
+          "interaction": 664814
+        },
+        {
+          "name": "京东数码大玩家",
+          "value": 4.1,
+          "interaction": 198809
+        },
+        {
+          "name": "天猫",
+          "value": 3.4,
+          "interaction": 162548
+        },
+        {
+          "name": "Cotti Coffee 库迪咖啡",
+          "value": 2.5,
+          "interaction": 121251
+        },
+        {
+          "name": "淘宝闪购",
+          "value": 2.3,
+          "interaction": 113212
+        }
+      ],
+      "total_brands": 419,
+      "top5_share": 26.1,
+      "hhi": 286.8,
+      "concentration_type": "分散竞争"
+    },
+    "video_vs_image": {
+      "labels": [
+        "民生资讯",
+        "赛事",
+        "生活经验",
+        "时尚潮流",
+        "影音娱乐"
+      ],
+      "video_avg": [
+        3530,
+        2286,
+        7194,
+        3798,
+        11656
+      ],
+      "image_avg": [
+        556,
+        810,
+        2917,
+        2674,
+        4630
+      ],
+      "video_count": [
+        72,
+        125,
+        166,
+        141,
+        177
+      ],
+      "image_count": [
+        128,
+        75,
+        34,
+        59,
+        23
+      ]
+    },
+    "content_type_top3": {
+      "民生资讯": [
+        {
+          "name": "资讯其他",
+          "avg": 3895,
+          "count": 10
+        },
+        {
+          "name": "金融理财",
+          "avg": 1980,
+          "count": 116
+        },
+        {
+          "name": "财经解读",
+          "avg": 900,
+          "count": 50
+        }
+      ],
+      "赛事": [
+        {
+          "name": "足球赛事",
+          "avg": 1742,
+          "count": 198
+        }
+      ],
+      "生活经验": [
+        {
+          "name": "生活记录",
+          "avg": 14416,
+          "count": 3
+        },
+        {
+          "name": "接地气生活",
+          "avg": 10144,
+          "count": 25
+        },
+        {
+          "name": "校园生活",
+          "avg": 9880,
+          "count": 17
+        }
+      ],
+      "时尚潮流": [
+        {
+          "name": "男士发型",
+          "avg": 5152,
+          "count": 20
+        },
+        {
+          "name": "潮流活动",
+          "avg": 3821,
+          "count": 32
+        },
+        {
+          "name": "时尚其他",
+          "avg": 3607,
+          "count": 49
+        }
+      ],
+      "影音娱乐": [
+        {
+          "name": "电视",
+          "avg": 28634,
+          "count": 6
+        },
+        {
+          "name": "搞笑其他",
+          "avg": 17550,
+          "count": 25
+        },
+        {
+          "name": "影视片段（视频）",
+          "avg": 15446,
+          "count": 20
+        }
+      ]
+    },
+    "cross_industry_brands": [
+      {
+        "brand": "Cotti Coffee 库迪咖啡",
+        "cross_count": 5,
+        "industries": "影音娱乐、时尚潮流、民生资讯、生活经验、赛事",
+        "interaction": 121251,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "华为终端",
+        "cross_count": 5,
+        "industries": "影音娱乐、时尚潮流、民生资讯、生活经验、赛事",
+        "interaction": 46220,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "淘宝闪购",
+        "cross_count": 5,
+        "industries": "影音娱乐、时尚潮流、民生资讯、生活经验、赛事",
+        "interaction": 113212,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "美团",
+        "cross_count": 4,
+        "industries": "影音娱乐、民生资讯、生活经验、赛事",
+        "interaction": 46275,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "京东家电家居采销团",
+        "cross_count": 4,
+        "industries": "影音娱乐、民生资讯、生活经验、赛事",
+        "interaction": 664814,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "美团拼好饭",
+        "cross_count": 4,
+        "industries": "影音娱乐、民生资讯、生活经验、赛事",
+        "interaction": 53734,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "京东",
+        "cross_count": 4,
+        "industries": "影音娱乐、民生资讯、生活经验、赛事",
+        "interaction": 54861,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "京东数码大玩家",
+        "cross_count": 4,
+        "industries": "影音娱乐、时尚潮流、民生资讯、生活经验",
+        "interaction": 198809,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "美团黑钻会员",
+        "cross_count": 4,
+        "industries": "影音娱乐、时尚潮流、生活经验、赛事",
+        "interaction": 112265,
+        "strategy": "全行业覆盖"
+      },
+      {
+        "brand": "万能的淘宝",
+        "cross_count": 4,
+        "industries": "影音娱乐、时尚潮流、生活经验、赛事",
+        "interaction": 56614,
+        "strategy": "全行业覆盖"
+      }
+    ]
+  },
+  "layer3_signals": {
+    "low_fan_explosion": [
+      {
+        "nickname": "最佳歌手",
+        "fans": 3202,
+        "interaction": 150437,
+        "efficiency": 46982.2,
+        "note_type": "电视",
+        "note_form": "视频",
+        "brand": "京东家电家居采销团",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a30bb2c000000000702fffe"
+      },
+      {
+        "nickname": "时光",
+        "fans": 2628,
+        "interaction": 87304,
+        "efficiency": 33220.7,
+        "note_type": "搞笑其他",
+        "note_form": "视频",
+        "brand": "京东家电家居采销团",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a2fc73c0000000011016e7f"
+      },
+      {
+        "nickname": "上岸",
+        "fans": 4457,
+        "interaction": 72633,
+        "efficiency": 16296.4,
+        "note_type": "音乐",
+        "note_form": "视频",
+        "brand": "京东家电家居采销团",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a3239aa000000000702e82a"
+      },
+      {
+        "nickname": "时光",
+        "fans": 2628,
+        "interaction": 35455,
+        "efficiency": 13491.2,
+        "note_type": "搞笑其他",
+        "note_form": "视频",
+        "brand": "京东汽车",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a3500fd00000000220185ac"
+      },
+      {
+        "nickname": "咪十七",
+        "fans": 3638,
+        "interaction": 24074,
+        "efficiency": 6617.4,
+        "note_type": "电影（图文）",
+        "note_form": "视频",
+        "brand": "京东数码大玩家",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a2fc8640000000022018472"
+      },
+      {
+        "nickname": "今天不上班",
+        "fans": 4574,
+        "interaction": 22883,
+        "efficiency": 5002.8,
+        "note_type": "搞笑其他",
+        "note_form": "视频",
+        "brand": "京东家电家居采销团",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a323c530000000011015ebb"
+      },
+      {
+        "nickname": "莓泥不行呀",
+        "fans": 1538,
+        "interaction": 17244,
+        "efficiency": 11212.0,
+        "note_type": "综艺（图文）",
+        "note_form": "视频",
+        "brand": "梦龙MAGNUM",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a338c9b000000000f02b9f5"
+      },
+      {
+        "nickname": "海边看雪落",
+        "fans": 2047,
+        "interaction": 12439,
+        "efficiency": 6076.7,
+        "note_type": "综艺（图文）",
+        "note_form": "视频",
+        "brand": "OSIM傲胜",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a311a45000000002103e793"
+      },
+      {
+        "nickname": "小饼干📸",
+        "fans": 8987,
+        "interaction": 12413,
+        "efficiency": 1381.2,
+        "note_type": "明星娱乐资讯",
+        "note_form": "视频",
+        "brand": "优酸乳",
+        "industry": "影音娱乐",
+        "tier": "初级达人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a2f6a2d000000000f0055d2"
+      },
+      {
+        "nickname": "luzing",
+        "fans": 4522,
+        "interaction": 10303,
+        "efficiency": 2278.4,
+        "note_type": "综艺片段",
+        "note_form": "视频",
+        "brand": "C咖",
+        "industry": "影音娱乐",
+        "tier": "素人",
+        "link": "https://www.xiaohongshu.com/discovery/item/6a2bd6d20000000016027344"
+      }
+    ],
+    "low_fan_count": 10
+  },
+  "ai_task": "请基于以上数据生成第三层策略洞察：1)赛道优先级排名 2)签约方向 3)BD方向 4)内容策略 5)达人筛选修正。将结果填入 market_report.html 的 #aiInsight 区域。"
+}

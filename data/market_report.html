@@ -3,41 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>千瓜分析报告 — 等待数据</title>
+<title>千瓜商业笔记分析报告 — 2026-06-23</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+:root {
+  --bg:#f5f6f8; --card-bg:#fff; --text:#1a1a2e; --muted:#6b7280; --border:#e5e7eb;
+  --blue:#3b82f6; --blue-light:#dbeafe; --green:#10b981; --green-light:#d1fae5;
+  --orange:#f59e0b; --orange-light:#fef3c7; --red:#ef4444; --red-light:#fee2e2; --purple:#8b5cf6;
+}
 * { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  background: #f5f6f8; color: #6b7280; display:flex; align-items:center; justify-content:center;
-  min-height:400px; text-align:center;
-}
-.card {
-  background:#fff; border-radius:12px; padding:48px; max-width:500px;
-  box-shadow:0 1px 4px rgba(0,0,0,0.06); border:1px solid #e5e7eb;
-}
-.card .icon { font-size:56px; margin-bottom:16px; }
-.card h2 { font-size:20px; color:#1a1a2e; margin-bottom:8px; }
-.card p { font-size:14px; line-height:1.7; margin-bottom:6px; }
-.card .steps { text-align:left; background:#f9fafb; border-radius:8px; padding:16px 20px; margin-top:16px; }
-.card .steps li { font-size:13px; margin-bottom:6px; }
-.card .steps li span { color:#3b82f6; font-weight:600; }
+body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; }
+.report-wrap { max-width:1100px; margin:0 auto; padding:24px 20px 60px; }
+.report-header { background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%); color:#fff; border-radius:16px; padding:36px 40px; margin-bottom:28px; }
+.report-header h1 { font-size:28px; margin-bottom:8px; }
+.report-header .meta { opacity:0.85; font-size:14px; }
+.section { margin-bottom:32px; }
+.section-title { font-size:22px; font-weight:700; color:#1e3a5f; padding-bottom:10px; border-bottom:3px solid var(--blue); margin-bottom:20px; }
+.chart-card,.table-card,.insight-card { background:var(--card-bg); border-radius:12px; padding:24px; margin-bottom:20px; box-shadow:0 1px 4px rgba(0,0,0,0.06); border:1px solid var(--border); }
+.chart-card h3,.table-card h3,.insight-card h3 { font-size:16px; color:#1f2937; margin-bottom:16px; }
+.chart-card canvas { max-height:380px; }
+.chart-source { margin-top:14px; padding:8px 14px; background:#f0f4ff; border-left:3px solid var(--blue); border-radius:0 6px 6px 0; font-size:13px; color:#4b5563; }
+.chart-source strong { color:#1e40af; }
+.data-table { width:100%; border-collapse:collapse; font-size:14px; }
+.data-table th { background:#f8fafc; text-align:left; padding:10px 12px; font-weight:600; border-bottom:2px solid var(--border); color:#374151; }
+.data-table td { padding:9px 12px; border-bottom:1px solid var(--border); }
+.data-table tr:hover { background:#f8fafc; }
+.tag { display:inline-block; padding:2px 10px; border-radius:12px; font-size:12px; font-weight:500; }
+.tag-blue { background:var(--blue-light); color:#1e40af; }
+.tag-green { background:var(--green-light); color:#065f46; }
+.tag-orange { background:var(--orange-light); color:#92400e; }
+.tag-red { background:var(--red-light); color:#991b1b; }
+.insight-list { list-style:none; }
+.insight-list li { padding:10px 14px; margin-bottom:8px; background:#f9fafb; border-radius:8px; font-size:14px; }
+.insight-list li::before { content:"▸ "; color:var(--blue); font-weight:bold; }
+.limitations { background:#fffbeb; border:1px solid #fde68a; }
+.kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:24px; }
+.kpi-card { background:#fff; border-radius:12px; padding:20px; text-align:center; border:1px solid var(--border); }
+.kpi-card .num { font-size:28px; font-weight:700; color:#1e3a5f; }
+.kpi-card .label { font-size:13px; color:var(--muted); margin-top:4px; }
+@media (max-width:768px) { .report-wrap{padding:12px;} .report-header{padding:24px 20px;} .chart-card{padding:16px;} }
 </style>
 </head>
 <body>
-<div class="card">
-  <div class="icon">📭</div>
-  <h2>暂无分析报告</h2>
-  <p>请先在校园运营系统「数据复盘 → 市场大盘分析」中上传千瓜数据，</p>
-  <p>导出JSON发送给WorkBuddy AI完成分析后，报告将自动呈现在此处。</p>
-  <div class="steps">
-    <ol>
-      <li><span>1.</span> 拖拽上传千瓜Excel/CVS文件</li>
-      <li><span>2.</span> 点击「开始进行数据分析」→ 下载JSON数据包</li>
-      <li><span>3.</span> 将JSON文件发送给WorkBuddy AI</li>
-      <li><span>4.</span> 输入「分析这些数据」触发分析</li>
-      <li><span>5.</span> AI自动生成HTML图表报告并部署到此页面</li>
-    </ol>
+<div class="report-wrap">
+
+<!-- Header -->
+<div class="report-header">
+  <h1>📊 千瓜商业笔记分析报告</h1>
+  <div class="meta">数据时间段：2026-06-23 ｜ 分析时间：2026-06-23 14:58 ｜ 方法论：三层递进分析框架 ｜ 平台：小红书</div>
+</div>
+
+<!-- KPI 概览 -->
+<div class="kpi-grid">
+  <div class="kpi-card"><div class="num">29</div><div class="label">大盘品类数</div></div>
+  <div class="kpi-card"><div class="num">5</div><div class="label">分析行业数</div></div>
+  <div class="kpi-card"><div class="num">1,000</div><div class="label">总笔记数</div></div>
+  <div class="kpi-card"><div class="num">419</div><div class="label">涉及品牌数</div></div>
+  <div class="kpi-card"><div class="num">10</div><div class="label">低粉爆款数</div></div>
+</div>
+
+<!-- ====== 第一层 ====== -->
+<div class="section">
+  <div class="section-title">一、行业大盘健康度诊断</div>
+
+  <div class="chart-card">
+    <h3>1.1 赛道结构分析 — 品牌参与数 TOP10</h3>
+    <canvas id="chartBrandCount"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>千瓜品牌投放大盘数据 → 按「笔记分类」聚合「参与投放品牌」字段 → 降序取 TOP10</div>
+  </div>
+
+  <div class="chart-card">
+    <h3>1.2 行业互动量排名 — 总互动量 &amp; 均互动</h3>
+    <canvas id="chartInteraction"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>各行业商业笔记榜单（每行业 Top 200） → sum(互动量) 为总互动、mean(互动量) 为均互动；行业名提取自源文件名</div>
+  </div>
+
+  <div class="chart-card limitations">
+    <h3>1.3 数据质量说明</h3>
+    <ul class="insight-list">
+      <li>数据范围: 榜单仅 Top 200 篇笔记/行业，长尾达人表现未纳入</li><li>时间维度: 单次截面数据，无法做趋势判断</li><li>行业覆盖: 民生资讯, 赛事, 生活经验, 时尚潮流, 影音娱乐（共 5 个行业）</li>
+    </ul>
   </div>
 </div>
+
+<!-- ====== 第二层 ====== -->
+<div class="section">
+  <div class="section-title">二、行业竞争态势</div>
+
+  <div class="chart-card">
+    <h3>2.1 达人层级贡献结构（互动占比 %）</h3>
+    <canvas id="chartTier"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>各行业商业笔记榜单（Top 200） → 按「达人属性」分桶（头部/腰部/初级/素人） → 计算各层级互动占比</div>
+  </div>
+
+  <div class="chart-card">
+    <h3>2.2 品牌集中度 — TOP5 品牌互动占比（HHI=286.8，分散竞争）</h3>
+    <canvas id="chartBrandCR"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按「报备合作品牌」聚合互动量 → 计算 TOP5 占比与 HHI 指数</div>
+  </div>
+
+  <div class="chart-card">
+    <h3>2.3 视频 vs 图文效率对比</h3>
+    <canvas id="chartVideoVsImage"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按「笔记形式」分视频/图文两组 → 计算各行业 mean(互动量)</div>
+  </div>
+
+  <div class="chart-card">
+    <h3>2.4 内容类型表现 TOP3 — 民生资讯</h3>
+    <canvas id="chartContentType"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>民生资讯 商业笔记榜单 → 按「笔记类型」分组（仅保留 ≥3 篇） → 按 mean(互动量) 降序取 TOP 3</div>
+  </div>
+
+  <div class="table-card">
+    <h3>2.5 跨行业品牌投放矩阵（共 20 个跨行业品牌）</h3>
+    <table class="data-table">
+      <thead><tr><th>品牌</th><th>跨行业数</th><th>涉及行业</th><th>总互动量</th><th>策略类型</th></tr></thead>
+      <tbody><tr><td>Cotti Coffee 库迪咖啡</td><td>5</td><td>影音娱乐、时尚潮流、民生资讯、生活经验、赛事</td><td>121,251</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>华为终端</td><td>5</td><td>影音娱乐、时尚潮流、民生资讯、生活经验、赛事</td><td>46,220</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>淘宝闪购</td><td>5</td><td>影音娱乐、时尚潮流、民生资讯、生活经验、赛事</td><td>113,212</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>美团</td><td>4</td><td>影音娱乐、民生资讯、生活经验、赛事</td><td>46,275</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>京东家电家居采销团</td><td>4</td><td>影音娱乐、民生资讯、生活经验、赛事</td><td>664,814</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>美团拼好饭</td><td>4</td><td>影音娱乐、民生资讯、生活经验、赛事</td><td>53,734</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>京东</td><td>4</td><td>影音娱乐、民生资讯、生活经验、赛事</td><td>54,861</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>京东数码大玩家</td><td>4</td><td>影音娱乐、时尚潮流、民生资讯、生活经验</td><td>198,809</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>美团黑钻会员</td><td>4</td><td>影音娱乐、时尚潮流、生活经验、赛事</td><td>112,265</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>万能的淘宝</td><td>4</td><td>影音娱乐、时尚潮流、生活经验、赛事</td><td>56,614</td><td><span class="tag tag-blue">全行业覆盖</span></td></tr>
+<tr><td>哩布哩布AI</td><td>3</td><td>影音娱乐、民生资讯、生活经验</td><td>105,652</td><td><span class="tag tag-blue">多赛道布局</span></td></tr>
+<tr><td>支付宝</td><td>3</td><td>民生资讯、生活经验、赛事</td><td>52,430</td><td><span class="tag tag-blue">多赛道布局</span></td></tr>
+<tr><td>美团闪购</td><td>3</td><td>影音娱乐、民生资讯、生活经验</td><td>63,951</td><td><span class="tag tag-blue">多赛道布局</span></td></tr>
+<tr><td>千问小花匠-智信</td><td>3</td><td>影音娱乐、生活经验、赛事</td><td>72,587</td><td><span class="tag tag-blue">多赛道布局</span></td></tr>
+<tr><td>淘宝直播福利社</td><td>3</td><td>影音娱乐、时尚潮流、赛事</td><td>19,687</td><td><span class="tag tag-blue">多赛道布局</span></td></tr>
+</tbody>
+    </table>
+    <div class="chart-source">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按「报备合作品牌」统计跨行业数 → 筛选跨行业 ≥ 2 的品牌</div>
+  </div>
+</div>
+
+<!-- ====== 第三层 ====== -->
+<div class="section">
+  <div class="section-title">三、策略洞察</div>
+
+  <div class="chart-card">
+    <h3>3.1 赛道优先级评估（六维雷达图）— 影音娱乐</h3>
+    <canvas id="chartPriority"></canvas>
+    <div class="chart-source">📊 <strong>数据来源：</strong>综合大盘 + 榜单数据 → 六维加权评分（注：雷达图数值为脚本默认估算，AI 分析时可修正）</div>
+  </div>
+
+  <div class="table-card">
+    <h3>3.2 低粉爆款信号 ⭐（粉丝&lt;1万 且 互动&gt;1万，共 10 条）</h3>
+    <table class="data-table">
+      <thead><tr><th>达人</th><th>粉丝数</th><th>互动量</th><th>千粉互动效率</th><th>笔记类型</th><th>内容形式</th><th>合作品牌</th><th>行业</th></tr></thead>
+      <tbody><tr><td>最佳歌手</td><td>3,202</td><td>150,437</td><td>46982.2</td><td>电视</td><td>视频</td><td>京东家电家居采销团</td><td>影音娱乐</td></tr>
+<tr><td>时光</td><td>2,628</td><td>87,304</td><td>33220.7</td><td>搞笑其他</td><td>视频</td><td>京东家电家居采销团</td><td>影音娱乐</td></tr>
+<tr><td>上岸</td><td>4,457</td><td>72,633</td><td>16296.4</td><td>音乐</td><td>视频</td><td>京东家电家居采销团</td><td>影音娱乐</td></tr>
+<tr><td>时光</td><td>2,628</td><td>35,455</td><td>13491.2</td><td>搞笑其他</td><td>视频</td><td>京东汽车</td><td>影音娱乐</td></tr>
+<tr><td>咪十七</td><td>3,638</td><td>24,074</td><td>6617.4</td><td>电影（图文）</td><td>视频</td><td>京东数码大玩家</td><td>影音娱乐</td></tr>
+<tr><td>今天不上班</td><td>4,574</td><td>22,883</td><td>5002.8</td><td>搞笑其他</td><td>视频</td><td>京东家电家居采销团</td><td>影音娱乐</td></tr>
+<tr><td>莓泥不行呀</td><td>1,538</td><td>17,244</td><td>11212.0</td><td>综艺（图文）</td><td>视频</td><td>梦龙MAGNUM</td><td>影音娱乐</td></tr>
+<tr><td>海边看雪落</td><td>2,047</td><td>12,439</td><td>6076.7</td><td>综艺（图文）</td><td>视频</td><td>OSIM傲胜</td><td>影音娱乐</td></tr>
+<tr><td>小饼干📸</td><td>8,987</td><td>12,413</td><td>1381.2</td><td>明星娱乐资讯</td><td>视频</td><td>优酸乳</td><td>影音娱乐</td></tr>
+<tr><td>luzing</td><td>4,522</td><td>10,303</td><td>2278.4</td><td>综艺片段</td><td>视频</td><td>C咖</td><td>影音娱乐</td></tr>
+</tbody>
+    </table>
+    <div class="chart-source">📊 <strong>数据来源：</strong>全部行业榜单 → 筛选 粉丝数 &lt; 10,000 且 互动量 &gt; 10,000 → 按互动量降序</div>
+  </div>
+
+  <div class="insight-card" id="aiInsight" style="border:2px dashed var(--blue);">
+    <h3>3.3 AI 策略洞察（待 AI 填充）</h3>
+    <div style="padding:16px;background:#f0f4ff;border-radius:8px;color:#4b5563;font-size:14px;">
+      💡 此区域由 AI 基于上方数据生成策略洞察。运行分析脚本后，将生成的 <code>analysis_summary.json</code> 发送给 AI，AI 读取后会输出签约方向、BD 方向、内容策略等建议，并注入此处。
+    </div>
+  </div>
+</div>
+
+<!-- ====== 数据局限性 ====== -->
+<div class="section">
+  <div class="section-title">四、数据局限性</div>
+  <div class="chart-card limitations">
+    <ul class="insight-list">
+      <li>榜单仅覆盖 Top 200 篇笔记/行业，长尾达人表现被忽略</li>
+      <li>单次截面数据，无法进行趋势判断</li>
+      <li>互动量仅反映内容表现，不代表商业转化效果</li>
+      <li>大盘数据无费用维度（预估投放费用字段与品牌数重复），ROI/CPM 分析受限</li>
+      <li>低粉爆款筛选阈值固定为粉丝&lt;1万且互动&gt;1万，可能遗漏部分有效案例</li>
+    </ul>
+  </div>
+</div>
+
+<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px 0;border-top:1px solid var(--border);margin-top:20px;">
+  分析引擎：达人笔记数据分析三层框架（脚本自动化）｜ 数据源：千瓜数据 ｜ 生成时间：2026-06-23 14:58
+</div>
+
+</div>
+
+<script>
+Chart.defaults.font.family='-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif';
+Chart.defaults.font.size=13; Chart.defaults.color='#4b5563';
+Chart.defaults.plugins.tooltip.backgroundColor='rgba(30,58,95,0.92)';
+Chart.defaults.plugins.tooltip.padding=12; Chart.defaults.plugins.tooltip.cornerRadius=8;
+
+function fmt(n){ return n>=1e4?(n/1e4).toFixed(1)+'万':n.toLocaleString(); }
+
+new Chart(document.getElementById('chartBrandCount'),{
+  type:'bar',
+  data:{ labels:["美食饮品", "家居家装", "母婴育儿", "生活经验", "健身减肥", "个护清洁", "护肤", "旅行住宿", "教育", "医疗养生"], datasets:[{label:'品牌参与数',data:[4757, 3443, 3064, 2652, 2520, 2407, 2317, 2280, 2081, 1937],backgroundColor:'#3b82f6',borderRadius:6}] },
+  options:{ indexAxis:'y', responsive:true, plugins:{legend:{display:false}},
+    scales:{ x:{title:{display:true,text:'参与投放品牌数'},ticks:{callback:v=>fmt(v)}}, y:{ticks:{font:{size:13}}} } }
+});
+
+new Chart(document.getElementById('chartInteraction'),{
+  type:'bar',
+  data:{ labels:["影音娱乐", "生活经验", "时尚潮流", "赛事", "民生资讯"], datasets:[
+    {label:'总互动量',data:[2169527, 1293418, 693222, 346475, 325288],backgroundColor:'#3b82f6',borderRadius:6,yAxisID:'y'},
+    {label:'均互动',data:[10848, 6467, 3466, 1732, 1626],backgroundColor:'#f59e0b',borderRadius:6,yAxisID:'y1'}
+  ] },
+  options:{ responsive:true, plugins:{legend:{position:'top'}},
+    scales:{ y:{position:'left',title:{display:true,text:'总互动量'},ticks:{callback:v=>fmt(v)}},
+      y1:{position:'right',title:{display:true,text:'均互动'},ticks:{callback:v=>fmt(v)},grid:{drawOnChartArea:false}},
+      x:{ticks:{font:{size:12}}} } }
+});
+
+new Chart(document.getElementById('chartTier'),{
+  type:'bar',
+  data:{ labels:["民生资讯", "赛事", "生活经验", "时尚潮流", "影音娱乐"], datasets:[
+    {label:'头部达人',data:[8.0, 5.3, 19.8, 5.4, 24.0],backgroundColor:'#ef4444'},
+    {label:'腰部达人',data:[71.1, 72.6, 57.8, 62.8, 33.4],backgroundColor:'#f59e0b'},
+    {label:'初级达人',data:[17.5, 17.5, 20.8, 25.8, 17.4],backgroundColor:'#3b82f6'},
+    {label:'素人',data:[3.3, 3.5, 0.8, 0.5, 21.9],backgroundColor:'#10b981'}
+  ] },
+  options:{ responsive:true,
+    plugins:{legend:{position:'top'},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.raw+'%'}}},
+    scales:{ x:{stacked:true,ticks:{font:{size:12}}}, y:{stacked:true,title:{display:true,text:'互动占比 (%)'},max:100} } }
+});
+
+new Chart(document.getElementById('chartBrandCR'),{
+  type:'bar',
+  data:{ labels:["京东家电家居采销团", "京东数码大玩家", "天猫", "Cotti Coffee 库迪咖啡", "淘宝闪购"], datasets:[{label:'互动占比',data:[13.8, 4.1, 3.4, 2.5, 2.3],backgroundColor:['#ef4444','#f59e0b','#3b82f6','#8b5cf6','#10b981'],borderRadius:6}] },
+  options:{ indexAxis:'y', responsive:true, plugins:{legend:{display:false}},
+    scales:{ x:{title:{display:true,text:'互动占比 (%)'},ticks:{callback:v=>v+'%'}}, y:{ticks:{font:{size:13}}} } }
+});
+
+new Chart(document.getElementById('chartVideoVsImage'),{
+  type:'bar',
+  data:{ labels:["民生资讯", "赛事", "生活经验", "时尚潮流", "影音娱乐"], datasets:[
+    {label:'视频均互动',data:[3530, 2286, 7194, 3798, 11656],backgroundColor:'#3b82f6',borderRadius:4},
+    {label:'图文均互动',data:[556, 810, 2917, 2674, 4630],backgroundColor:'#10b981',borderRadius:4}
+  ] },
+  options:{ responsive:true, plugins:{legend:{position:'top'}},
+    scales:{ y:{title:{display:true,text:'均互动量'},ticks:{callback:v=>fmt(v)}}, x:{ticks:{font:{size:12}}} } }
+});
+
+new Chart(document.getElementById('chartContentType'),{
+  type:'bar',
+  data:{ labels:["资讯其他", "金融理财", "财经解读"], datasets:[{label:'均互动',data:[3895, 1980, 900],backgroundColor:['#3b82f6','#60a5fa','#93c5fd'],borderRadius:6}] },
+  options:{ indexAxis:'y', responsive:true, plugins:{legend:{display:false}},
+    scales:{ x:{title:{display:true,text:'均互动量'},ticks:{callback:v=>fmt(v)}}, y:{ticks:{font:{size:13}}} } }
+});
+
+new Chart(document.getElementById('chartPriority'),{
+  type:'radar',
+  data:{ labels:["市场规模", "互动回报", "内容力友好度", "竞争分散度", "视频友好度", "增长潜力"], datasets:[{
+    label:'影音娱乐',
+    data:[0.6, 0.7, 0.5, 0.8, 0.6, 0.5],
+    backgroundColor:'rgba(59,130,246,0.15)',
+    borderColor:'#3b82f6', borderWidth:2,
+    pointBackgroundColor:'#3b82f6'
+  }] },
+  options:{ responsive:true,
+    scales:{ r:{min:0,max:1,ticks:{stepSize:0.2,display:false}} },
+    plugins:{legend:{position:'top'}} }
+});
+</script>
 </body>
 </html>
