@@ -55,6 +55,12 @@
         }
         *,*::before,*::after { margin:0; padding:0; box-sizing:border-box }
         html { scroll-behavior:smooth; font-size:16px; overflow-x:hidden }
+        
+              /* iPhone 底部安全区域 */
+              padding-bottom: env(safe-area-inset-bottom, 20px);
+              /* 去掉点击时的高亮 */
+              -webkit-tap-highlight-color: transparent;
+
         body {
             background: var(--bg);
             color: var(--cream);
@@ -601,6 +607,7 @@
         }
         .splash-calli-3 .char { font-size: min(2.4rem, 5.5vw); }
         @media (max-width: 768px) {
+              input, select, button, textarea { font-size: 16px !important; }
             .splash-calli-1 { top: 18%; left: 4%; }
             .splash-calli-1 .char { font-size: min(2.4rem, 8vw); }
             .splash-calli-2 { top: 38%; left: 4%; }
@@ -1227,6 +1234,7 @@
             .news-header { flex-direction: column; align-items: flex-start; }
         }
         @media (max-width: 480px) {
+            input, select, button, textarea { font-size: 16px !important; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
             .stat-value { font-size: 1.4rem; }
             .stat-card { padding: .8rem; }
