@@ -1,0 +1,79 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图标生成器 - Campus OPS</title>
+  <style>
+    body { font-family: system-ui; max-width: 600px; margin: 40px auto; padding: 20px; text-align: center; background:
+  #F5F3FF; }
+    canvas { display: none; }
+    .preview { display: flex; gap: 20px; justify-content: center; margin: 20px 0; flex-wrap: wrap; }
+    .preview div { text-align: center; }
+    .preview img { border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+    button { padding: 12px 28px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; background:
+  #4D00FF; color: #fff; margin: 8px; }
+    button:hover { background: #6B24FF; }
+    .size-label { font-weight: bold; margin-top: 8px; color: #1a0a3e; }
+    input { margin: 10px 0; }
+  </style>
+  </head>
+  <body>
+  <h1>🐯 方片校园 · App 图标生成器</h1>
+  <p>选择图片文件即可生成</p>
+  <input type="file" id="fileInput" accept="image/*">
+  <br><br>
+
+  <canvas id="c192" width="192" height="192"></canvas>
+  <canvas id="c512" width="512" height="512"></canvas>
+
+  <div class="preview">
+    <div>
+      <img id="preview192" src="" alt="192x192" width="120" height="120">
+      <div class="size-label">192×192</div>
+    </div>
+    <div>
+      <img id="preview512" src="" alt="512x512" width="120" height="120">
+      <div class="size-label">512×512</div>
+    </div>
+  </div>
+
+  <button onclick="download('c192','icon-192.png')">📥 下载 icon-192.png</button>
+  <button onclick="download('c512','icon-512.png')">📥 下载 icon-512.png</button>
+
+  <script>
+  document.getElementById('fileInput').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var img = new Image();
+      img.onload = function() {
+        [192, 512].forEach(function(size) {
+          var canvas = document.getElementById('c' + size);
+          var ctx = canvas.getContext('2d');
+          canvas.width = size;
+          canvas.height = size;
+          var s = Math.min(img.width, img.height);
+          var sx = (img.width - s) / 2;
+          var sy = (img.height - s) / 2;
+          ctx.drawImage(img, sx, sy, s, s, 0, 0, size, size);
+        });
+        document.getElementById('preview192').src = document.getElementById('c192').toDataURL();
+        document.getElementById('preview512').src = document.getElementById('c512').toDataURL();
+      };
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function download(canvasId, filename) {
+    var link = document.createElement('a');
+    link.download = filename;
+    link.href = document.getElementById(canvasId).toDataURL('image/png');
+    link.click();
+  }
+  </script>
+  </body>
+  </html>

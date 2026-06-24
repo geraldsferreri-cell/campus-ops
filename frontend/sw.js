@@ -1,8 +1,8 @@
 
   const CACHE_NAME = 'campus-ops-v1';
   const ASSETS = [
-    '/campus-ops/',
-    '/campus-ops/index.html'
+       '/campus-ops/frontend/',
+    '/campus-ops/frontend/index.html'
   ];
 
   self.addEventListener('install', (event) => {
