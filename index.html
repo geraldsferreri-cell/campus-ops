@@ -1496,6 +1496,9 @@
             transform: scale(1.15);
         }
     </style>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <!-- Video Splash Page -->
@@ -7549,5 +7552,11 @@
             renderLeaderboard();
         }
     </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
 </body>
 </html>

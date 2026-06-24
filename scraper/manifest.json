@@ -1,0 +1,24 @@
+
+  {
+    "name": "方片校园运营系统",
+    "short_name": "HuHu Campus",
+    "description": "校园视频账号运营管理系统",
+    "start_url": "/campus-ops/",
+    "scope": "/campus-ops/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#F5F3FF",
+    "theme_color": "#4D00FF",
+    "icons": [
+      {
+        "src": "icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
