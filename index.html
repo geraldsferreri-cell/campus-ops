@@ -2874,6 +2874,7 @@
 
         // 📱 Mobile menu
         function toggleMobileMenu() {
+            event.stopPropagation();
             const btn = document.getElementById('hamburgerBtn');
             const overlay = document.getElementById('mobileMenuOverlay');
             const drawer = document.getElementById('mobileMenuDrawer');
