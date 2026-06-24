@@ -56,10 +56,7 @@
         *,*::before,*::after { margin:0; padding:0; box-sizing:border-box }
         html { scroll-behavior:smooth; font-size:16px; overflow-x:hidden }
         
-              /* iPhone 底部安全区域 */
-              padding-bottom: env(safe-area-inset-bottom, 20px);
-              /* 去掉点击时的高亮 */
-              -webkit-tap-highlight-color: transparent;
+            
 
         body {
             background: var(--bg);
@@ -1649,10 +1646,12 @@
                 <a class="topnav-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
                 <a class="topnav-link" data-page="password">修改密码</a>
             </div>
-            <div class="topnav-actions">
-                <span class="topnav-user" id="topnavUser">欢迎</span>
-                <button class="topnav-btn" onclick="logout()">退出</button>
-                <button class="hamburger-btn" id="hamburgerBtn" aria-label="菜单" onclick="toggleMobileMenu()">
+            
+              <div class="topnav-actions">
+                  <span class="topnav-user" id="topnavUser">欢迎</span>
+                  <button class="topnav-btn" onclick="logout()">退出</button>
+              </div>
+              <button class="hamburger-btn"
                     <span></span><span></span><span></span>
                 </button>
             </div>
