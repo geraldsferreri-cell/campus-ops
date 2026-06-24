@@ -1,7 +1,7 @@
 {
-  "date": "2026-06-23",
-  "scrape_time": "2026-06-23 14:03 CST",
-  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+  "date": "2026-06-24",
+  "scrape_time": "2026-06-24 09:30 CST",
+  "data_source": "AI内参/AITNT/央视体育/新浪娱乐/JUKSY/KOTourLive/知乎/微博热搜",
   "categories": [
     {
       "id": "tech",
@@ -9,31 +9,31 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "华为宣布对智驾兜底",
-          "summary": "最新资讯：华为宣布对智驾兜底（热度43.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%8E%E4%B8%BA%E5%AE%A3%E5%B8%83%E5%AF%B9%E6%99%BA%E9%A9%BE%E5%85%9C%E5%BA%95",
+          "title": "豆包大模型2.1发布",
+          "summary": "字节火山引擎FORCE大会发布豆包2.1系列，编程能力跻身国际第一梯队，价格较Claude降80%",
+          "source": "AI内参",
+          "url": "https://www.neican.ai/morningnews/2026-06-24-ai-2026-06-24-/",
+          "time": "6/24"
+        },
+        {
+          "title": "英伟达发布机器人安全系统Halos",
+          "summary": "英伟达在Automate大会发布具身版安卓，核心框架开源，已有超43家合作伙伴",
+          "source": "AI内参",
+          "url": "https://www.neican.ai/morningnews/2026-06-24-ai-2026-06-24-/",
+          "time": "6/24"
+        },
+        {
+          "title": "微信推出AI助手小微",
+          "summary": "微信正式向灰度测试用户推出原生AI助手小微，依托14亿用户和社交场景优势",
+          "source": "Saiita科技",
+          "url": "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html",
           "time": "6/23"
         },
         {
-          "title": "如何看待懂车帝直播测试小米 SU7 和尚界 Z7 北京到上海 1300 公里续航？",
-          "summary": "[图片]",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052352706862388110",
-          "time": "6/23"
-        },
-        {
-          "title": "如何看待Steam Machine定价1049美元起？",
-          "summary": "Steam Machine | 官方定价公布，6月30日发售 ▪️512GB 无手柄：1049美元 ▪️512GB + 手柄套装：1128美元 ▪️2TB 无手柄：1349美元 ▪️2TB + 手柄套装：1428美元 ​​​",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052643077081321839",
-          "time": "6/23"
-        },
-        {
-          "title": "华为乾坤高阶智驾包自 7 月 1 日起调价， 一次性购买恢复至标准价 3.6 万元，你怎么看？",
-          "summary": "6月22日，引望发布公告称，华为乾崑智驾 ADS Max高阶功能包将从7月1日起调整价格。其中，一次性购买的建议销售价限时优惠将取消，由3.2万元恢复至标准价3.6万元。 【华为乾坤高阶智驾包自7月1日起涨价至15000元】财联社6月18日电，从经销商处获悉，自2026年7月1日起，华为乾崑智驾ADS高阶功能包优惠或将收窄，叠加车企新车购车补贴权益等后一次性买断价格或上涨3千元。据华为官方定价体系",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2050900350299852955",
+          "title": "京东发布AI智能体支付协议A2P2",
+          "summary": "国内首个Agent自主支付标准，定义L0-L5六个自主等级，电商交互转向Agent执行",
+          "source": "Saiita科技",
+          "url": "https://www.saiita.com.cn/technology-consulting/2026-june-tech-news.html",
           "time": "6/23"
         }
       ]
@@ -44,32 +44,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "武亮说峰学要拥抱AI带来的变化",
-          "summary": "最新资讯：武亮说峰学要拥抱AI带来的变化（热度21.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%AD%A6%E4%BA%AE%E8%AF%B4%E5%B3%B0%E5%AD%A6%E8%A6%81%E6%8B%A5%E6%8A%B1AI%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%8F%98%E5%8C%96",
-          "time": "6/23"
+          "title": "马斯克前联创创立River AI",
+          "summary": "前xAI联合创始人创立River AI，拟融资10亿美元，打造真正属于个人的AI",
+          "source": "AI内参",
+          "url": "https://www.neican.ai/morningnews/2026-06-24-ai-2026-06-24-/",
+          "time": "6/24"
         },
         {
-          "title": "DeepseekV4.1即将发布，网友期待「降价、打爆国外 AI」，它将如何改变AI市场格局？",
-          "summary": "快科技6月1日消息，DeepSeek在4月底发布V4 Flash/V4 Pro到现在已经过去一个月多了，此前消息称6月份会发布DeepSeek V4.1，当然具体日子是没确定的。 过去的一个月中，DeepSeek主要的动作是降价，发布没两天就25折优惠，后面缓存命中价格更是暴跌90%，最终在5月底将优惠价永久化，价格只有之前发布时定价的1/4。 DeepSeek这个定价也几乎成为AI大模型的一个斩",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2044875348719005741",
-          "time": "6/23"
+          "title": "OpenAI发布GPT-5.5-Cyber",
+          "summary": "网络安全专项模型CyberGym测试得分85.6%，同步推出Codex Security插件",
+          "source": "AI内参",
+          "url": "https://www.neican.ai/morningnews/2026-06-24-ai-2026-06-24-/",
+          "time": "6/24"
         },
         {
-          "title": "微博 CEO 讨论 WPS 背刺随后删除称为龙虾误发，如何看待这一操作？AI 这篇点评有道理吗？",
-          "summary": "6月21日，话题#被wps背刺了#登上热搜，话题核心内容聚焦在wps存储占用、数据安全与商业策略这几个核心痛点上。 微博CEO@来去之间也参与到这个热搜话题，相关博文表示“被WPS背刺了？我们真正被背刺的，是对「国产替代」的幻觉。” 文章表示，“金山早已不是那个小作坊了，它是一家市值几百亿的上市公司，对股东负有责任，而股东要的是用户生命周期价值最大化。当初那个「让老百姓用得起Office」的叙事，",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052439090260178506",
-          "time": "6/23"
+          "title": "三星全员配发ChatGPT Enterprise",
+          "summary": "三星为韩国全员及全球DX部门采购OpenAI服务，堪称最大企业级AI部署",
+          "source": "AI内参",
+          "url": "https://www.neican.ai/morningnews/2026-06-24-ai-2026-06-24-/",
+          "time": "6/24"
         },
         {
-          "title": "这届网友的AI周星驰太上头",
-          "summary": "最新资讯：这届网友的AI周星驰太上头（热度769.0万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%BF%99%E5%B1%8A%E7%BD%91%E5%8F%8B%E7%9A%84AI%E5%91%A8%E6%98%9F%E9%A9%B0%E5%A4%AA%E4%B8%8A%E5%A4%B4",
-          "time": "6/23"
+          "title": "陶哲轩：AI数学形式化已突破临界点",
+          "summary": "菲尔兹奖得主称原需数周的任务AI几小时搞定，但全局重构仍需人类",
+          "source": "AI内参",
+          "url": "https://www.neican.ai/morningnews/2026-06-24-ai-2026-06-24-/",
+          "time": "6/24"
         }
       ]
     },
@@ -79,32 +79,32 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "韩国世越号惨案一名幸存学生死亡",
-          "summary": "最新资讯：韩国世越号惨案一名幸存学生死亡（热度45.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E4%B8%96%E8%B6%8A%E5%8F%B7%E6%83%A8%E6%A1%88%E4%B8%80%E5%90%8D%E5%B9%B8%E5%AD%98%E5%AD%A6%E7%94%9F%E6%AD%BB%E4%BA%A1",
+          "title": "C罗连续六届世界杯进球",
+          "summary": "41岁C罗独中两元，葡萄牙5-0大胜乌兹别克斯坦，创造连续六届世界杯进球纪录",
+          "source": "央视体育",
+          "url": "https://sports.cctv.com/2026/06/24/VIDEEBXEr1YvCXNLIAm5vEGf260624.shtml",
+          "time": "6/24"
+        },
+        {
+          "title": "姆巴佩率法国3-0胜伊拉克",
+          "summary": "美加墨世界杯I组小组赛，姆巴佩首发领衔法国队3-0轻松取胜",
+          "source": "新华社",
+          "url": "https://www.xinhuanet.com/sports/20260623/3b57d8c6f9424d86bc85a3d96d58df38/c.html",
           "time": "6/23"
         },
         {
-          "title": "NBA交易",
-          "summary": "最新资讯：NBA交易（热度43.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=NBA%E4%BA%A4%E6%98%93",
-          "time": "6/23"
+          "title": "梅西首轮上演帽子戏法",
+          "summary": "梅西带领阿根廷3-0完胜阿尔及利亚，成世界杯首个完成帽子戏法的球员",
+          "source": "新浪体育",
+          "url": "https://sports.sina.com.cn/g/2026-06-17/doc-inictaet3855592.shtml",
+          "time": "6/17"
         },
         {
-          "title": "世界杯32强已产生6席",
-          "summary": "最新资讯：世界杯32强已产生6席（热度38.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF32%E5%BC%BA%E5%B7%B2%E4%BA%A7%E7%94%9F6%E5%B8%AD",
-          "time": "6/23"
-        },
-        {
-          "title": "姆巴佩吐槽世界杯补水暂停规则",
-          "summary": "最新资讯：姆巴佩吐槽世界杯补水暂停规则（热度34.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A7%86%E5%B7%B4%E4%BD%A9%E5%90%90%E6%A7%BD%E4%B8%96%E7%95%8C%E6%9D%AF%E8%A1%A5%E6%B0%B4%E6%9A%82%E5%81%9C%E8%A7%84%E5%88%99",
-          "time": "6/23"
+          "title": "世界杯第二轮激战正酣",
+          "summary": "2026美加墨世界杯小组赛第二轮多场焦点对决，32强争夺淘汰赛席位",
+          "source": "腾讯体育",
+          "url": "https://m.2026fifa-worldcup-qq.com.cn/",
+          "time": "6/24"
         }
       ]
     },
@@ -114,18 +114,67 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "夏日穿搭显贵公式",
-          "summary": "最新资讯：夏日穿搭显贵公式（热度1115.3万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%A4%8F%E6%97%A5%E7%A9%BF%E6%90%AD%E6%98%BE%E8%B4%B5%E5%85%AC%E5%BC%8F",
-          "time": "6/23"
+          "title": "张颂文获金爵奖最佳男演员",
+          "summary": "凭《纸盒藏迷》获第28届上海国际电影节最佳男演员，感言择一事终一生",
+          "source": "新浪明星",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079g0w.html",
+          "time": "6/24"
         },
         {
-          "title": "拿捏夏日高能运动穿搭",
-          "summary": "最新资讯：拿捏夏日高能运动穿搭（热度966.3万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8B%BF%E6%8D%8F%E5%A4%8F%E6%97%A5%E9%AB%98%E8%83%BD%E8%BF%90%E5%8A%A8%E7%A9%BF%E6%90%AD",
-          "time": "6/23"
+          "title": "白玉兰视后：杨幂杨紫争冠",
+          "summary": "杨幂凭《生万物》、杨紫凭《生命树》入围白玉兰，杨紫成首位连续三年提名演员",
+          "source": "新浪明星",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079g0w.html",
+          "time": "6/24"
+        },
+        {
+          "title": "迪丽热巴获CMG最佳女演员",
+          "summary": "凭打拐剧《利剑玫瑰》撕掉花瓶标签，剪短发素颜练格斗获年度推荐",
+          "source": "新浪明星",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079g0w.html",
+          "time": "6/24"
+        },
+        {
+          "title": "马嘉祺二战高考成功上中戏",
+          "summary": "专业课全国第三，今年365分成功上岸，去年307分遭群嘲后逆袭",
+          "source": "新浪明星",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079g0w.html",
+          "time": "6/24"
+        }
+      ]
+    },
+    {
+      "id": "fashion",
+      "name": "👗 时尚",
+      "color": "#f43f5e",
+      "items": [
+        {
+          "title": "GD x Nike世界杯联名鞋款",
+          "summary": "PEACEMINUSONE与Nike推出CryoShot足球联名鞋，透明中底冰封鞋钉设计",
+          "source": "JUKSY",
+          "url": "https://www.juksy.com/article/146249",
+          "time": "6/19"
+        },
+        {
+          "title": "Mizuno鞋王联名款重磅发布",
+          "summary": "Mizuno携手小林节正推出WAVE PROPHECY RING MOC，6月19日正式发售",
+          "source": "JUKSY",
+          "url": "https://www.juksy.com/article/146249",
+          "time": "6/19"
+        },
+        {
+          "title": "BAPE x adidas不对称跑鞋",
+          "summary": "BAPE联名adidas Adizero EVO SL，左右脚不同配色，融合迷彩元素",
+          "source": "JUKSY",
+          "url": "https://www.juksy.com/article/146249",
+          "time": "6/24"
+        },
+        {
+          "title": "618撞世界杯，球衣卖成C位",
+          "summary": "618年中大促撞上世界杯热潮，足球球衣球鞋成最畅销品类",
+          "source": "网易新闻",
+          "url": "https://www.163.com/dy/article/KVIBVJ2B05118MCQ.html",
+          "time": "6/16"
         }
       ]
     },
@@ -135,11 +184,32 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "李金铭综艺导演组走访2000户选家庭",
-          "summary": "最新资讯：李金铭综艺导演组走访2000户选家庭（热度23.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9D%8E%E9%87%91%E9%93%AD%E7%BB%BC%E8%89%BA%E5%AF%BC%E6%BC%94%E7%BB%84%E8%B5%B0%E8%AE%BF2000%E6%88%B7%E9%80%89%E5%AE%B6%E5%BA%AD",
-          "time": "6/23"
+          "title": "《乘风2026》五公淘汰引争议",
+          "summary": "万千惠何宣林意外淘汰未提前告知，孙怡张月震惊，王濛眼眶发红",
+          "source": "新浪综艺",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079hyy.html",
+          "time": "6/24"
+        },
+        {
+          "title": "浪姐跑调三人组顶峰相见",
+          "summary": "唐艺昕李小冉王濛兑现约定，确认合体录制新综艺《不想睡的星期五》",
+          "source": "新浪综艺",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079hyy.html",
+          "time": "6/24"
+        },
+        {
+          "title": "《地球超新鲜2》阵容官宣",
+          "summary": "孙红雷李乃文郭京飞刘宇宁龚俊等八位嘉宾加盟，全员阵容正式揭晓",
+          "source": "新浪综艺",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079hyy.html",
+          "time": "6/24"
+        },
+        {
+          "title": "李金铭综艺风波再上热搜",
+          "summary": "《明星到我家》假婆婆账号被抖音永久封禁，引发真人秀边界讨论",
+          "source": "新浪明星",
+          "url": "https://kandian.sina.cn/article_7857201856_1d45362c0019079g0w.html",
+          "time": "6/24"
         }
       ]
     },
@@ -149,25 +219,32 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "周星驰官宣新电影《功夫女足》7 月上映，目前后期制作中，你期待周氏喜剧回归吗？",
-          "summary": "周星驰生日当天，透露新片正在后期制作，针对大家都很关心的上映时间问题，他表示暂定7月10日或7月17日上映。",
+          "title": "暑期档超50部影片定档",
+          "summary": "2026暑期档已有超50部中外影片定档，《四渡》6月26日率先上映",
+          "source": "同花顺财经",
+          "url": "https://stock.10jqka.com.cn/20260624/c677665396.shtml",
+          "time": "6/24"
+        },
+        {
+          "title": "周星驰《功夫女足》定档7月",
+          "summary": "星爷生日当天官宣新片后期制作中，暂定7月10日或17日上映",
           "source": "知乎",
           "url": "https://www.zhihu.com/question/2052334858995594599",
           "time": "6/23"
         },
         {
-          "title": "电影抓特务台词好戳人",
-          "summary": "最新资讯：电影抓特务台词好戳人（热度779.9万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%8A%93%E7%89%B9%E5%8A%A1%E5%8F%B0%E8%AF%8D%E5%A5%BD%E6%88%B3%E4%BA%BA",
-          "time": "6/23"
+          "title": "《给阿嬷的情书》票房破18亿",
+          "summary": "五一档口碑之作持续发力，累计票房突破18.55亿元，年度第三",
+          "source": "同花顺财经",
+          "url": "https://stock.10jqka.com.cn/20260624/c677665396.shtml",
+          "time": "6/24"
         },
         {
-          "title": "电影抓特务观后感",
-          "summary": "最新资讯：电影抓特务观后感（热度769.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%8A%93%E7%89%B9%E5%8A%A1%E8%A7%82%E5%90%8E%E6%84%9F",
-          "time": "6/23"
+          "title": "《玩具5》夺端午档票房冠军",
+          "summary": "端午档总票房近4亿，《玩具总动员5》档期冠军，为暑期档注入强心针",
+          "source": "同花顺财经",
+          "url": "https://stock.10jqka.com.cn/20260624/c677665396.shtml",
+          "time": "6/24"
         }
       ]
     },
@@ -177,60 +254,32 @@
       "color": "#14b8a6",
       "items": [
         {
-          "title": "减脂人有属于自己的主打歌",
-          "summary": "最新资讯：减脂人有属于自己的主打歌（热度784.2万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%87%8F%E8%84%82%E4%BA%BA%E6%9C%89%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%BB%E6%89%93%E6%AD%8C",
-          "time": "6/23"
-        }
-      ]
-    },
-    {
-      "id": "marketing",
-      "name": "📊 营销",
-      "color": "#f97316",
-      "items": [
+          "title": "MAMAMOO睽違四年合體回归",
+          "summary": "MAMAMOO时隔四年完整合体，6月发行新专辑，引发全球粉丝期待",
+          "source": "beauty321",
+          "url": "https://www.beauty321.com/post/72386",
+          "time": "6/24"
+        },
         {
-          "title": "李金铭已签约MCN",
-          "summary": "最新资讯：李金铭已签约MCN（热度42.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9D%8E%E9%87%91%E9%93%AD%E5%B7%B2%E7%AD%BE%E7%BA%A6MCN",
-          "time": "6/23"
-        }
-      ]
-    },
-    {
-      "id": "fun",
-      "name": "🎮 好玩有趣",
-      "color": "#22c55e",
-      "items": [
-        {
-          "title": "高考成绩",
-          "summary": "最新资讯：高考成绩（热度343.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%AB%98%E8%80%83%E6%88%90%E7%BB%A9",
+          "title": "NCT马克穿极右翼T恤引争议",
+          "summary": "马克因穿着带有极右翼象征图案T恤引发争议，成韩网当日最热话题",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news",
           "time": "6/23"
         },
         {
-          "title": "哈兰德偷喝对方门将的水",
-          "summary": "最新资讯：哈兰德偷喝对方门将的水（热度142.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%93%88%E5%85%B0%E5%BE%B7%E5%81%B7%E5%96%9D%E5%AF%B9%E6%96%B9%E9%97%A8%E5%B0%86%E7%9A%84%E6%B0%B4",
+          "title": "BTS J-Hope爱心袜机场穿搭",
+          "summary": "J-Hope机场时尚再引热议，爱心袜成穿搭亮点，展现独特品味",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news",
           "time": "6/23"
         },
         {
-          "title": "7省区市大到暴雨",
-          "summary": "最新资讯：7省区市大到暴雨（热度87.7万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=7%E7%9C%81%E5%8C%BA%E5%B8%82%E5%A4%A7%E5%88%B0%E6%9A%B4%E9%9B%A8",
-          "time": "6/23"
-        },
-        {
-          "title": "只喝水不喝饮料的朋友",
-          "summary": "最新资讯：只喝水不喝饮料的朋友（热度79.7万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8F%AA%E5%96%9D%E6%B0%B4%E4%B8%8D%E5%96%9D%E9%A5%AE%E6%96%99%E7%9A%84%E6%9C%8B%E5%8F%8B",
-          "time": "6/23"
+          "title": "aespa新曲Dirty Work将回归",
+          "summary": "aespa将于6月27日携新曲《Dirty Work》回归，预告引发期待",
+          "source": "Kpann",
+          "url": "https://kpoppann.com/5156.html",
+          "time": "6/24"
         }
       ]
     }
