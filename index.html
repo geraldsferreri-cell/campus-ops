@@ -1654,7 +1654,7 @@
                   <span class="topnav-user" id="topnavUser">欢迎</span>
                   <button class="topnav-btn" onclick="logout()">退出</button>
               </div>
-              <button class="hamburger-btn"
+              <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileMenu(event)">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -2900,8 +2900,8 @@
         }
 
         // 📱 Mobile menu
-        function toggleMobileMenu() {
-            event.stopPropagation();
+        function toggleMobileMenu(e) {
+            if (e) e.stopPropagation();
             const btn = document.getElementById('hamburgerBtn');
             const overlay = document.getElementById('mobileMenuOverlay');
             const drawer = document.getElementById('mobileMenuDrawer');
