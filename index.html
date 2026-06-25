@@ -4368,6 +4368,94 @@
             return cross.slice(0, 20);
         }
 
+        // 品牌投放策略四型分类
+        function analyzeMktBrandStrategy(industries, aInteraction) {
+            var brandData = {};
+            // 聚合每个品牌在各行业的数据
+            for (var ind in industries) {
+                var rows = industries[ind];
+                for (var i = 0; i < rows.length; i++) {
+                    var brand = String(rows[i]['报备合作品牌'] || '').trim();
+                    if (!brand || brand === '-') continue;
+                    var inter = parseMktNum(rows[i]['互动量']);
+                    if (!brandData[brand]) {
+                        brandData[brand] = { total_interaction: 0, industries: {} };
+                    }
+                    if (!brandData[brand].industries[ind]) {
+                        brandData[brand].industries[ind] = { count: 0, interaction: 0 };
+                    }
+                    brandData[brand].industries[ind].count++;
+                    brandData[brand].industries[ind].interaction += inter;
+                    brandData[brand].total_interaction += inter;
+                }
+            }
+            // 行业均互动速查表
+            var indAvg = {};
+            for (var j = 0; j < aInteraction.length; j++) {
+                indAvg[aInteraction[j].name] = aInteraction[j].avg;
+            }
+            // 分类
+            var results = [];
+            for (var b in brandData) {
+                var bd = brandData[b];
+                var indKeys = Object.keys(bd.industries);
+                var crossCount = indKeys.length;
+                var strategy, insight;
+                // 计算总笔记数和最大单行业占比
+                var totalNotes = 0, maxSingleShare = 0, maxSingleInd = '';
+                for (var k = 0; k < indKeys.length; k++) {
+                    var ind = indKeys[k];
+                    var cnt = bd.industries[ind].count;
+                    totalNotes += cnt;
+                    var indTotal = industries[ind] ? industries[ind].length : 200;
+                    var share = cnt / indTotal;
+                    if (share > maxSingleShare) { maxSingleShare = share; maxSingleInd = ind; }
+                }
+                var avgInter = totalNotes > 0 ? bd.total_interaction / totalNotes : 0;
+                // 计算该品牌涉及行业的平均均互动
+                var peerAvgs = [], peerSum = 0;
+                for (var m = 0; m < indKeys.length; m++) {
+                    if (indAvg[indKeys[m]]) peerAvgs.push(indAvg[indKeys[m]]);
+                }
+                var peerAvg = peerAvgs.length ? peerAvgs.reduce(function(a,b){return a+b;},0) / peerAvgs.length : 0;
+
+                if (crossCount >= 4) {
+                    strategy = '🔵 跨行业铺量型';
+                    insight = '需要大量不同垂类达人，BD优先目标';
+                } else if (maxSingleShare > 0.10) {
+                    strategy = '🟢 单行业深耕型';
+                    insight = '需要' + maxSingleInd + '垂类深度达人';
+                } else if (peerAvg > 0 && avgInter > peerAvg * 3) {
+                    strategy = '🟡 爆款狙击型';
+                    insight = '对内容质量要求极高，达人筛选标准需调整';
+                } else if (crossCount >= 2 && totalNotes < 5) {
+                    strategy = '🟠 多行业试探型';
+                    insight = '正在寻找高效赛道，可主动提案争取预算';
+                } else if (crossCount >= 2) {
+                    strategy = '🟠 多行业试探型';
+                    insight = '可主动提案争取预算';
+                } else {
+                    strategy = '🟢 单行业深耕型';
+                    insight = '需要该垂类深度达人';
+                }
+                results.push({
+                    brand: b, cross_count: crossCount, total_interaction: bd.total_interaction,
+                    total_notes: totalNotes, avg_inter: Math.round(avgInter),
+                    strategy: strategy, insight: insight,
+                    industries: indKeys.join('、')
+                });
+            }
+            // 排序：跨行业铺量型 > 爆款狙击型 > 其他，同类型按互动量降序
+            var order = { '🔵 跨行业铺量型': 0, '🟡 爆款狙击型': 1, '🟢 单行业深耕型': 2, '🟠 多行业试探型': 3 };
+            results.sort(function(a, b) {
+                var oa = order[a.strategy] !== undefined ? order[a.strategy] : 9;
+                var ob = order[b.strategy] !== undefined ? order[b.strategy] : 9;
+                if (oa !== ob) return oa - ob;
+                return b.total_interaction - a.total_interaction;
+            });
+            return results.slice(0, 15);
+        }
+
         function analyzeMktLowFan(industries, fanThreshold, interThreshold) {
             fanThreshold = fanThreshold || 10000;
             interThreshold = interThreshold || 10000;
@@ -4390,6 +4478,29 @@
             }
             results.sort(function(a, b) { return b.interaction - a.interaction; });
             return results;
+        }
+
+        // 各赛道 TOP5 账号提取
+        function analyzeMktCategoryTop5(industries) {
+            var result = {};
+            for (var ind in industries) {
+                var rows = industries[ind];
+                var sorted = rows.slice().sort(function(a, b) {
+                    return parseMktNum(b['互动量']) - parseMktNum(a['互动量']);
+                });
+                result[ind] = sorted.slice(0, 5).map(function(row) {
+                    return {
+                        nickname: row['达人昵称'] || '',
+                        fans: parseMktNum(row['粉丝数']),
+                        interaction: parseMktNum(row['互动量']),
+                        link: row['笔记链接'] || '',
+                        note_type: row['笔记类型'] || '',
+                        note_form: row['笔记形式'] || '',
+                        brand: row['报备合作品牌'] || ''
+                    };
+                });
+            }
+            return result;
         }
 
         // --- Chart.js 动态加载 ---
@@ -4436,9 +4547,11 @@
                 var aCT = analyzeMktContentType(industries);
                 var aCross = analyzeMktCrossBrands(industries);
                 var aLowFan = analyzeMktLowFan(industries);
+                var aStrategy = analyzeMktBrandStrategy(industries, aInteraction);
+                var aCatTop5 = analyzeMktCategoryTop5(industries);
 
                 // 渲染报告
-                renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan);
+                renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan, aStrategy, aCatTop5);
                 toast('分析完成！共处理 ' + totalNotes + ' 条笔记数据', 'success');
             } catch(e) {
                 console.error('分析失败:', e);
@@ -4451,21 +4564,28 @@
         // --- 报告渲染函数 ---
         function fmtMkt(n) { return n >= 1e4 ? (n / 1e4).toFixed(1) + '万' : n.toLocaleString(); }
 
-        function renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan) {
+        function renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan, aStrategy, aCategoryTop5) {
             var now = new Date();
             var dateStr = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-            var top10 = aDashboard.category_brand_count.slice(0, 10);
+            var hasDashboard = dashboard && dashboard.length > 0;
+            var top10 = hasDashboard ? aDashboard.category_brand_count.slice(0, 10) : [];
             var ctInd = indNames.length ? indNames[0] : '';
             var ctTop3 = aCT[ctInd] || [];
             var topInd = aInteraction.length ? aInteraction[0].name : '';
+            var modeLabel = hasDashboard ? '三层递进框架（浏览器端自动分析）' : '横向对比 + 纵向深挖（纯榜单分析模式）';
+            var reportTitle = hasDashboard ? '📊 千瓜商业笔记分析报告' : '📊 千瓜商业笔记分析报告（纯榜单模式）';
 
             var html = '<div style="background:linear-gradient(135deg,#1e3a5f 0%,#2d5a87 100%);color:#fff;border-radius:16px;padding:32px 36px;margin-bottom:24px;">' +
-                '<h1 style="font-size:24px;margin-bottom:6px;">📊 千瓜商业笔记分析报告</h1>' +
-                '<div style="opacity:0.85;font-size:13px;">数据时间：' + dateStr + ' ｜ 分析引擎：三层递进框架（浏览器端自动分析）｜ 平台：小红书</div></div>';
+                '<h1 style="font-size:24px;margin-bottom:6px;">' + reportTitle + '</h1>' +
+                '<div style="opacity:0.85;font-size:13px;">数据时间：' + dateStr + ' ｜ 分析引擎：' + modeLabel + ' ｜ 平台：小红书</div></div>';
 
             // KPI
             html += '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px;">';
-            html += mktKPI(aDashboard.total_categories, '大盘品类数');
+            if (hasDashboard) {
+                html += mktKPI(aDashboard.total_categories, '大盘品类数');
+            } else {
+                html += mktKPI(indNames.length, '覆盖赛道数');
+            }
             html += mktKPI(indNames.length, '分析行业数');
             html += mktKPI(totalNotes, '总笔记数');
             html += mktKPI(aBrandCR.total_brands, '涉及品牌数');
@@ -4487,25 +4607,72 @@
                 '.mkt-insight::before{content:"▸ ";color:#3b82f6;font-weight:bold;}</style>';
 
             // ====== 第一层 ======
-            html += '<div class="mkt-section">一、行业大盘健康度诊断</div>';
+            if (hasDashboard) {
+                html += '<div class="mkt-section">一、行业大盘健康度诊断</div>';
+                // 1.1 赛道结构（仅有大盘数据时显示）
+                html += '<div class="mkt-card"><h3>1.1 赛道结构分析 — 品牌参与数 TOP10</h3><canvas id="mktChart1"></canvas>';
+                html += '<div class="mkt-src">📊 <strong>数据来源：</strong>千瓜品牌投放大盘数据 → 按「笔记分类」聚合「参与投放品牌」 → 降序取 TOP10</div></div>';
+            } else {
+                html += '<div class="mkt-section">一、横向对比：赛道竞争格局</div>';
+                // 无大盘时：横向分析结论卡片
+                html += '<div class="mkt-card" style="background:#f0f9ff;border:1px solid #bae6fd;"><h3>🔍 横向对比分析结论</h3>';
+                if (aInteraction.length >= 2) {
+                    var top1 = aInteraction[0], top2 = aInteraction[1];
+                    var ratio = top2.avg > 0 ? (top1.avg / top2.avg).toFixed(1) : 'N/A';
+                    html += '<div class="mkt-insight"><strong>🏆 互动效率冠军：</strong>' + escapeHtml(top1.name) + ' 总互动 ' + fmtMkt(top1.total) + '、均互动 ' + fmtMkt(top1.avg) + '，效率为第2名「' + escapeHtml(top2.name) + '」的 ' + ratio + ' 倍</div>';
+                }
+                // 达人友好度对比
+                if (aTier && aTier.labels && aTier.labels.length >= 2) {
+                    var bestInd = '', bestPct = 0;
+                    for (var ti = 0; ti < aTier.labels.length; ti++) {
+                        var pct = aTier.data['素人'][ti] || 0;
+                        if (pct > bestPct) { bestPct = pct; bestInd = aTier.labels[ti]; }
+                    }
+                    if (bestPct > 5) {
+                        html += '<div class="mkt-insight"><strong>🤝 达人友好度：</strong>' + escapeHtml(bestInd) + ' 素人互动占比 ' + bestPct + '%，是素人最有机会出头的赛道 → 内容力可替代粉丝量，低粉达人签约风险更低</div>';
+                    } else {
+                        html += '<div class="mkt-insight"><strong>🤝 达人友好度：</strong>各赛道素人互动占比均 < 5%，整体偏向头部+腰部驱动 → 签约应优先有粉丝基础的达人</div>';
+                    }
+                }
+                // 视频效率对比
+                if (aVI && aVI.labels && aVI.labels.length >= 2) {
+                    var allVideo = true, maxGap = 0, maxGapInd = '';
+                    for (var vi = 0; vi < aVI.labels.length; vi++) {
+                        var vAvg = aVI.video_avg[vi] || 0, iAvg = aVI.image_avg[vi] || 0;
+                        if (iAvg > vAvg) allVideo = false;
+                        var gap = iAvg > 0 ? vAvg / iAvg : 999;
+                        if (gap > maxGap && iAvg > 0) { maxGap = gap; maxGapInd = aVI.labels[vi]; }
+                    }
+                    if (allVideo) {
+                        html += '<div class="mkt-insight"><strong>📹 内容形式：</strong>全赛道视频效率均 > 图文 → 所有赛道均建议视频优先</div>';
+                    }
+                    if (maxGapInd && maxGap > 3) {
+                        html += '<div class="mkt-insight"><strong>⚡ 效率悬殊：</strong>' + escapeHtml(maxGapInd) + ' 视频效率为图文的 ' + maxGap.toFixed(1) + ' 倍 → 该赛道图文策略极低效，应完全转向视频</div>';
+                    }
+                }
+                // 品牌竞争格局
+                if (aBrandCR.concentration_type) {
+                    var crLabel = aBrandCR.hhi < 1000 ? '分散竞争，品牌和达人都有机会' : (aBrandCR.hhi > 2000 ? '头部品牌主导，需差异化竞争' : '中等集中，有分散化机会');
+                    html += '<div class="mkt-insight"><strong>🏢 品牌格局：</strong>TOP5 品牌占 ' + aBrandCR.top5_share + '% 互动量，' + crLabel + '</div>';
+                }
+                html += '<div class="mkt-src">📊 <strong>数据来源：</strong>各行业商业笔记榜单 → 横向交叉对比（互动效率/达人结构/视频优势/品牌集中度）</div></div>';
+            }
 
-            // 1.1
-            html += '<div class="mkt-card"><h3>1.1 赛道结构分析 — 品牌参与数 TOP10</h3><canvas id="mktChart1"></canvas>';
-            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>千瓜品牌投放大盘数据 → 按「笔记分类」聚合「参与投放品牌」 → 降序取 TOP10</div></div>';
-
-            // 1.2
-            html += '<div class="mkt-card"><h3>1.2 行业互动量排名 — 总互动量 &amp; 均互动</h3><canvas id="mktChart2"></canvas>';
+            // 1.2 行业互动量排名（有大盘时是1.2，无大盘时是唯一图表）
+            var interChartNum = hasDashboard ? '1.2' : '1.1';
+            html += '<div class="mkt-card"><h3>' + interChartNum + ' 行业互动量排名 — 总互动量 &amp; 均互动</h3><canvas id="mktChart2"></canvas>';
             html += '<div class="mkt-src">📊 <strong>数据来源：</strong>各行业商业笔记榜单 → sum(互动量) 为总互动、mean(互动量) 为均互动；行业名提取自源文件名</div></div>';
 
-            // 1.3 数据质量
-            html += '<div class="mkt-card" style="background:#fffbeb;border:1px solid #fde68a;"><h3>1.3 数据质量说明</h3><div class="mkt-insight">数据范围：榜单仅 Top 200 篇笔记/行业，长尾达人表现未纳入</div>';
+            // 1.3 / 1.2 数据质量
+            var qualityNum = hasDashboard ? '1.3' : '1.2';
+            html += '<div class="mkt-card" style="background:#fffbeb;border:1px solid #fde68a;"><h3>' + qualityNum + ' 数据质量说明</h3><div class="mkt-insight">数据范围：榜单仅 Top 200 篇笔记/行业，长尾达人表现未纳入</div>';
             html += '<div class="mkt-insight">时间维度：单次截面数据，无法做趋势判断</div>';
             html += '<div class="mkt-insight">行业覆盖：' + escapeHtml(indNames.join('、')) + '（共 ' + indNames.length + ' 个行业）</div>';
-            if (!dashboard) html += '<div class="mkt-insight" style="color:#ef4444;">⚠️ 未找到大盘数据文件（需含「笔记分类」「参与投放品牌」字段）</div>';
+            if (!hasDashboard) html += '<div class="mkt-insight" style="color:#f59e0b;">⚠️ 未找到大盘数据文件 — 已自动切换为纯榜单分析模式（横向对比+纵向深挖），品牌-笔记比、市场规模维度不可用</div>';
             html += '</div>';
 
             // ====== 第二层 ======
-            html += '<div class="mkt-section">二、行业竞争态势</div>';
+            html += '<div class="mkt-section">二、' + (hasDashboard ? '行业竞争态势' : '纵向深挖：行业竞争态势') + '</div>';
 
             // 2.1
             html += '<div class="mkt-card"><h3>2.1 达人层级贡献结构（互动占比 %）</h3><canvas id="mktChart3"></canvas>';
@@ -4542,12 +4709,26 @@
             // ====== 第三层 ======
             html += '<div class="mkt-section">三、策略洞察</div>';
 
-            // 3.1 雷达图
-            html += '<div class="mkt-card"><h3>3.1 赛道优先级评估（六维雷达图）— ' + escapeHtml(topInd) + '</h3><canvas id="mktChart7"></canvas>';
+            // 3.1 品牌投放策略四型分类
+            html += '<div class="mkt-card"><h3>3.1 品牌投放策略四型分类 🎯</h3>';
+            html += '<table class="mkt-table"><thead><tr><th>品牌</th><th>策略类型</th><th>跨行业数</th><th>涉及行业</th><th>总互动量</th><th>达人签约启示</th></tr></thead><tbody>';
+            if (!aStrategy || aStrategy.length === 0) {
+                html += '<tr><td colspan="6" style="text-align:center;color:#9ca3af;">品牌数据不足，无法分类</td></tr>';
+            } else {
+                for (var si = 0; si < Math.min(aStrategy.length, 15); si++) {
+                    var s = aStrategy[si];
+                    html += '<tr><td><b>' + escapeHtml(s.brand) + '</b></td><td>' + s.strategy + '</td><td>' + s.cross_count + '</td><td style="font-size:12px;">' + escapeHtml(s.industries) + '</td><td>' + s.total_interaction.toLocaleString() + '</td><td style="font-size:12px;">' + escapeHtml(s.insight) + '</td></tr>';
+                }
+            }
+            html += '</tbody></table>';
+            html += '<div class="mkt-src">📊 <strong>数据来源：</strong>全部行业榜单合并 → 按品牌聚合 → 四型分类（跨行业铺量≥4行业 | 单行业深耕占比>10% | 爆款狙击均互动>行业3x | 多行业试探2-3行业少量投放）</div></div>';
+
+            // 3.2 雷达图
+            html += '<div class="mkt-card"><h3>3.2 赛道优先级评估（六维雷达图）— ' + escapeHtml(topInd) + '</h3><canvas id="mktChart7"></canvas>';
             html += '<div class="mkt-src">📊 <strong>数据来源：</strong>综合大盘+榜单数据 → 六维加权评分（市场规模|互动回报|内容力友好度|竞争分散度|视频友好度|增长潜力）</div></div>';
 
-            // 3.2 低粉爆款
-            html += '<div class="mkt-card"><h3>3.2 低粉爆款信号 ⭐（粉丝&lt;1万 且 互动&gt;1万，共 ' + aLowFan.length + ' 条）</h3>';
+            // 3.3 低粉爆款
+            html += '<div class="mkt-card"><h3>3.3 低粉爆款信号 ⭐（粉丝&lt;1万 且 互动&gt;1万，共 ' + aLowFan.length + ' 条）</h3>';
             html += '<table class="mkt-table"><thead><tr><th>达人</th><th>粉丝数</th><th>互动量</th><th>千粉效率</th><th>类型</th><th>形式</th><th>品牌</th><th>行业</th></tr></thead><tbody>';
             if (aLowFan.length === 0) {
                 html += '<tr><td colspan="8" style="text-align:center;color:#9ca3af;">无低粉爆款记录</td></tr>';
@@ -4560,8 +4741,8 @@
             html += '</tbody></table>';
             html += '<div class="mkt-src">📊 <strong>数据来源：</strong>全部行业榜单 → 筛选 粉丝&lt;10000 且 互动&gt;10000 → 按互动量降序</div></div>';
 
-            // 3.3 自动策略洞察
-            html += '<div class="mkt-card"><h3>3.3 自动策略洞察</h3>';
+            // 3.4 自动策略洞察
+            html += '<div class="mkt-card"><h3>3.4 自动策略洞察</h3>';
             // 基于数据自动生成洞察
             if (aInteraction.length > 0) {
                 var topInd0 = aInteraction[0];
@@ -4584,16 +4765,44 @@
             }
             html += '<div class="mkt-src">📊 <strong>数据来源：</strong>综合第一层、第二层、第三层所有分析结论自动凝练</div></div>';
 
+            // ====== 各赛道 TOP5 账号明细（纯榜单模式固定输出） ======
+            if (!hasDashboard && aCategoryTop5) {
+                html += '<div class="mkt-section">四、各赛道 TOP5 账号明细</div>';
+                var catNames = Object.keys(aCategoryTop5).sort();
+                for (var ci = 0; ci < catNames.length; ci++) {
+                    var cat = catNames[ci];
+                    var top5 = aCategoryTop5[cat];
+                    html += '<div class="mkt-card"><h3>🏷 ' + escapeHtml(cat) + ' — TOP5 账号</h3>';
+                    html += '<table class="mkt-table"><thead><tr><th>排名</th><th>账号名称</th><th>分类</th><th>互动量</th><th>视频链接</th></tr></thead><tbody>';
+                    if (top5.length === 0) {
+                        html += '<tr><td colspan="5" style="text-align:center;color:#9ca3af;">该赛道无数据</td></tr>';
+                    } else {
+                        for (var ri = 0; ri < top5.length; ri++) {
+                            var r = top5[ri];
+                            var linkHtml = r.link ? '<a href="' + escapeHtml(r.link) + '" target="_blank" style="color:#3b82f6;text-decoration:underline;">📎 查看笔记</a>' : '<span style="color:#9ca3af;">无链接</span>';
+                            html += '<tr><td>' + (ri + 1) + '</td><td><b>' + escapeHtml(r.nickname) + '</b></td><td>' + escapeHtml(cat) + '</td><td>' + r.interaction.toLocaleString() + '</td><td>' + linkHtml + '</td></tr>';
+                        }
+                    }
+                    html += '</tbody></table>';
+                    html += '<div class="mkt-src">📊 <strong>数据来源：</strong>' + escapeHtml(cat) + ' 商业笔记榜单 → 按「互动量」降序 → 取 TOP5 → 提取「达人昵称」「互动量」「笔记链接」</div></div>';
+                }
+            }
+
             // 局限性
-            html += '<div class="mkt-section">四、数据局限性</div>';
+            var limitSectionNum = (!hasDashboard && aCategoryTop5) ? '五' : '四';
+            html += '<div class="mkt-section">' + limitSectionNum + '、数据局限性</div>';
             html += '<div class="mkt-card" style="background:#fffbeb;border:1px solid #fde68a;">';
             html += '<div class="mkt-insight">榜单仅覆盖 Top 200 篇笔记/行业，长尾达人表现被忽略</div>';
             html += '<div class="mkt-insight">单次截面数据，无法进行趋势判断</div>';
             html += '<div class="mkt-insight">互动量仅反映内容表现，不代表商业转化效果</div>';
-            html += '<div class="mkt-insight">大盘数据无费用维度，ROI/CPM 分析受限</div>';
+            if (hasDashboard) {
+                html += '<div class="mkt-insight">大盘数据无费用维度，ROI/CPM 分析受限</div>';
+            } else {
+                html += '<div class="mkt-insight">缺少品牌投放大盘数据，市场规模、品牌-笔记比等维度不可用</div>';
+            }
             html += '</div>';
 
-            html += '<div style="text-align:center;color:#9ca3af;font-size:12px;padding:16px 0;border-top:1px solid #e5e7eb;margin-top:16px;">分析引擎：达人笔记数据分析三层框架（浏览器端自动）｜ 数据源：千瓜数据 ｜ 生成时间：' + dateStr + ' ' + now.toLocaleTimeString() + '</div>';
+            html += '<div style="text-align:center;color:#9ca3af;font-size:12px;padding:16px 0;border-top:1px solid #e5e7eb;margin-top:16px;">分析引擎：达人笔记数据分析' + (hasDashboard ? '三层框架' : '横向对比+纵向深挖') + '（浏览器端自动）｜ 数据源：千瓜数据 ｜ 生成时间：' + dateStr + ' ' + now.toLocaleTimeString() + '</div>';
 
             document.getElementById('rvMarketReportContent').innerHTML = html;
 
@@ -4610,12 +4819,14 @@
             Chart.defaults.font.size = 12;
             Chart.defaults.color = '#4b5563';
 
-            // 1.1 赛道结构
-            new Chart(document.getElementById('mktChart1'), {
-                type: 'bar',
-                data: { labels: top10.map(function(t) { return t.name; }), datasets: [{ label: '品牌参与数', data: top10.map(function(t) { return t.value; }), backgroundColor: '#3b82f6', borderRadius: 6 }] },
-                options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: '参与投放品牌数' }, ticks: { callback: function(v) { return fmtMkt(v); } } } } }
-            });
+            // 1.1 赛道结构（仅有大盘数据时图表存在）
+            if (document.getElementById('mktChart1') && top10.length > 0) {
+                new Chart(document.getElementById('mktChart1'), {
+                    type: 'bar',
+                    data: { labels: top10.map(function(t) { return t.name; }), datasets: [{ label: '品牌参与数', data: top10.map(function(t) { return t.value; }), backgroundColor: '#3b82f6', borderRadius: 6 }] },
+                    options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: '参与投放品牌数' }, ticks: { callback: function(v) { return fmtMkt(v); } } } } }
+                });
+            }
 
             // 1.2 互动量
             new Chart(document.getElementById('mktChart2'), {
