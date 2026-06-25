@@ -54,7 +54,8 @@
             --neon-stroke: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
         *,*::before,*::after { margin:0; padding:0; box-sizing:border-box }
-        html { scroll-behavior:smooth; font-size:16px; overflow-x:hidden }
+        html { scroll-behavior:smooth; font-size:16px; overflow-x:hidden; -webkit-tap-highlight-color: transparent; }
+        a, button, input, select, textarea, [onclick] { touch-action: manipulation; }
         
             
 
@@ -67,12 +68,15 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        /* Grain overlay */
+        /* Grain overlay — desktop only (GPU killer on mobile) */
         body::after {
             content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
             background-repeat: repeat; background-size: 200px;
             opacity: .5; mix-blend-mode: overlay;
+        }
+        @media (max-width: 768px) {
+            body::after { display: none !important; }
         }
         /* ─── TOP NAV ─── */
         .app { min-height: 100vh; }
@@ -1520,14 +1524,13 @@
                playsinline
                webkit-playsinline
                x5-video-player-type="h5"
-               x5-video-player-fullscreen="true"
-               x5-video-orientation="portraint"
-               preload="auto"
-               poster="splash-overlay.png"
+               x5-video-player-fullscreen="false"
+               x5-video-orientation="portrait"
+               preload="metadata"
                disableRemotePlayback>
         </video>
         <canvas id="splashCanvas"></canvas>
-        <img id="splashOverlay" class="splash-overlay-image" src="splash-overlay.png" alt="✨" style="display:none">
+        <img id="splashOverlay" class="splash-overlay-image" src="splash-overlay.webp" alt="✨" loading="lazy" decoding="async" style="display:none" onerror="this.src='splash-overlay.png'">
         <div class="splash-calli-group splash-calli-1" id="splashCalli1"></div>
         <div class="splash-calli-group splash-calli-2" id="splashCalli2"></div>
         <div class="splash-calli-group splash-calli-3" id="splashCalli3"></div>
@@ -1579,7 +1582,7 @@
                 </div>
                 <!-- 嘟嘴老虎 -->
                 <div class="tiger-pout-wrapper">
-                    <img src="tiger1.png" alt="方片IP形象" class="ip-image tiger-pout" onerror="this.style.display='none'">
+                    <img src="tiger1.webp" alt="方片IP形象" class="ip-image tiger-pout" loading="lazy" decoding="async" onerror="this.src='tiger1.png';this.onerror=function(){this.style.display='none'}">
                     <!-- 嘟嘴气泡 -->
                     <span class="pout-bubble">💋</span>
                     <span class="pout-bubble">💕</span>
@@ -1590,7 +1593,7 @@
                 <div class="login-logo-area">
                     <!-- 方片 Logo -->
                     <div class="logo-wrapper">
-                        <img src="tiger3.png" alt="方片Logo" class="logo-diamond-large" onerror="this.style.display='none'">
+                        <img src="tiger3.webp" alt="方片Logo" class="logo-diamond-large" loading="lazy" decoding="async" onerror="this.src='tiger3.png';this.onerror=function(){this.style.display='none'}">
                     </div>
                     <h1 class="login-title" id="loginTitle">
                         <span class="char-reveal"><span class="char-inner">🐯</span><span class="char-particle"></span></span>
@@ -1628,7 +1631,7 @@
         <!-- Top Navigation -->
         <nav class="topnav" id="topnav">
             <a class="topnav-brand" onclick="showPage('dashboard')">
-                <img src="tiger3.png" alt="方片" onerror="this.style.display='none'">
+                <img src="tiger3.webp" alt="方片" loading="lazy" decoding="async" onerror="this.src='tiger3.png';this.onerror=function(){this.style.display='none'}">
                 <span>虎 虎</span>
             </a>
             <div class="topnav-links" id="topnavLinks">
@@ -1698,7 +1701,7 @@
                             </a>
                         </div>
                         <div class="brand-hero-visual tiger-eye-glow tiger-stripe-border">
-                            <img src="tiger2.png" alt="方片品牌形象" onerror="this.style.opacity='0'">
+                            <img src="tiger2.webp" alt="方片品牌形象" loading="lazy" decoding="async" onerror="this.src='tiger2.png';this.onerror=function(){this.style.opacity='0'}">
                             <div class="brand-hero-visual-badge">
                                 <p>「以虎之姿，创不凡之作」</p>
                             </div>
@@ -2763,20 +2766,24 @@
         let allSalaries = [];
 
         // 🔧 Supabase SDK 多CDN加载（中国用户jsDelivr可能不可用）
-        // 每个CDN限时6秒，全部失败后返回false；不阻塞页面渲染
+        // 每个CDN限时，全部失败后返回false；不阻塞页面渲染
         async function loadSupabaseSDK() {
             if (window._createClient) return true;
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const CDN_TIMEOUT = isMobile ? 4000 : 6000; // 移动端超时更短，快速失败
             const CDN_LIST = [
+                // 🔧 中国用户优先：bootcdn + 阿里镜像，再尝试海外CDN
+                'https://cdn.bootcdn.net/ajax/libs/supabase-js/2.39.0/supabase.min.js',
+                'https://registry.npmmirror.com/@supabase/supabase-js/2/latest/files/dist/umd/supabase.min.js',
                 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm',
-                'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js',
-                'https://esm.sh/@supabase/supabase-js@2'
+                'https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.min.js'
             ];
-            // 🔧 每个CDN限时6秒，逐个尝试（不并行，避免同时触发GFW封锁）
+            // 🔧 逐个尝试（不并行，避免同时触发GFW封锁）
             for (const cdn of CDN_LIST) {
                 try {
                     const result = await Promise.race([
                         (async () => {
-                            if (cdn.includes('unpkg.com')) {
+                            if (cdn.includes('unpkg.com') || cdn.includes('bootcdn.net') || cdn.includes('npmmirror.com')) {
                                 await new Promise((resolve, reject) => {
                                     const s = document.createElement('script');
                                     s.src = cdn;
@@ -2797,7 +2804,7 @@
                             }
                             return true;
                         })(),
-                        new Promise((_, reject) => setTimeout(() => reject(new Error('CDN超时(6s)')), 6000))
+                        new Promise((_, reject) => setTimeout(() => reject(new Error('CDN超时(' + (CDN_TIMEOUT/1000) + 's)')), CDN_TIMEOUT))
                     ]);
                     if (result && window._createClient) {
                         console.log('✅ Supabase SDK 加载成功 via', cdn);
@@ -3194,15 +3201,24 @@
                     overlay.classList.add('reveal');
                 }
 
-                // Step 2: 画面碎裂为粒子消散
-                setTimeout(function() {
-                    triggerDissolve(canvas);
-                }, 800);
+                // Step 2: 画面碎裂为粒子消散 (🔧 移动端跳过 — 粒子效果消耗大量GPU/内存，低端机直接崩溃)
+                if (!isMobile) {
+                    setTimeout(function() {
+                        triggerDissolve(canvas);
+                    }, 800);
+                } else {
+                    // 移动端：直接展示overlay然后淡出，跳过粒子消散
+                    setTimeout(function() {
+                        if (!hasEnded) finishSplash();
+                    }, 1500);
+                }
 
                 // Safety: force-finish after 4s (overlay image may be slow to load)
-                setTimeout(function() {
-                    if (!hasEnded) finishSplash();
-                }, 4000);
+                if (!isMobile) {
+                    setTimeout(function() {
+                        if (!hasEnded) finishSplash();
+                    }, 4000);
+                }
             }
 
             // ── Video ended → show overlay image → dissolve → finish ──
@@ -3236,21 +3252,27 @@
                 }
             }, 500);
 
-            // ── 绝对最大超时：8秒后强制跳过 ──
+            // ── 绝对最大超时：移动端6s/桌面端8s后强制跳过 ──
             setTimeout(function() {
                 if (!hasEnded) {
                     console.warn('Video splash max timeout reached, forcing skip.');
                     finishSplash();
                 }
-            }, 8000);
+            }, isMobile ? 6000 : 8000);
 
-            // Safety timeout: if video never starts within 4s (mobile) / 3s (desktop), skip
+            // Safety timeout: if video never starts within 3s (mobile) / 3s (desktop), skip
             setTimeout(function() {
                 if (!hasEnded && video.paused && video.currentTime === 0) {
                     console.warn('Video never started, skipping to login.');
                     finishSplash();
                 }
-            }, isMobile ? 4000 : 3000);
+            }, isMobile ? 3000 : 3000);
+
+            // 🔧 移动端：立即显示跳过按钮（视频可能加载很慢），桌面端延迟显示
+            if (isMobile) {
+                var skipBtn = document.getElementById('splashSkipBtn');
+                if (skipBtn) { skipBtn.style.opacity = '1'; skipBtn.style.pointerEvents = 'auto'; }
+            }
 
             // Start playback
             var playPromise = video.play();
