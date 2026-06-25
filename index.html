@@ -2377,6 +2377,19 @@
                     </div>
                     <div id="rvMarketAnalysis">
 
+                        <!-- 已保存报告区 -->
+                        <div id="rvMarketSaved" style="display:none;padding:24px;">
+                            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                                <span style="font-size:15px;color:#1a0a3e;font-weight:600;">📋 上次分析报告</span>
+                                <button class="btn btn-sm" onclick="resetMarketUpload()" style="color:#ef4444;">🗑 清除</button>
+                            </div>
+                            <div style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border:1px solid #bae6fd;border-radius:12px;padding:20px;" id="rvMarketSavedInfo"></div>
+                            <div style="display:flex;gap:12px;margin-top:16px;">
+                                <button onclick="viewSavedReport()" style="background:linear-gradient(135deg,#7c3aed 0%,#9333ea 100%);color:#fff;border:none;padding:12px 32px;font-size:15px;font-weight:600;border-radius:10px;cursor:pointer;box-shadow:0 4px 14px rgba(124,58,237,0.3);">📊 查看报告</button>
+                                <button onclick="startNewAnalysis()" style="background:#fff;color:#6b7280;border:1px solid #d1d5db;padding:12px 24px;font-size:14px;border-radius:10px;cursor:pointer;">🔄 重新分析</button>
+                            </div>
+                        </div>
+
                         <!-- 步骤1：拖拽上传区 -->
                         <div id="rvMarketUpload" style="padding:24px;">
                             <div id="rvMarketDropZone" style="border:2px dashed #c4b5fd;border-radius:16px;padding:48px 24px;text-align:center;cursor:pointer;transition:all .25s;background:linear-gradient(135deg,#faf5ff 0%,#f5f3ff 100%);"
@@ -3611,6 +3624,7 @@
                 sel.innerHTML = '<option value="">全部分组</option>' + groups.map(g => `<option value="${g}">${g}</option>`).join('');
             }
             queryReview();
+            loadLatestMarketReport();
         }
 
         // 设置上周时间范围
@@ -4082,10 +4096,43 @@
         // 重置上传区域
         function resetMarketUpload() {
             marketFiles = [];
+            document.getElementById('rvMarketSaved').style.display = 'none';
             document.getElementById('rvMarketUpload').style.display = 'block';
             document.getElementById('rvMarketFileList').style.display = 'none';
             document.getElementById('rvMarketReport').style.display = 'none';
             document.getElementById('rvMarketFileInput').value = '';
+            savedMarketReport = null;
+        }
+
+        function startNewAnalysis() {
+            document.getElementById('rvMarketSaved').style.display = 'none';
+            document.getElementById('rvMarketUpload').style.display = 'block';
+            document.getElementById('rvMarketFileList').style.display = 'none';
+            document.getElementById('rvMarketReport').style.display = 'none';
+            marketFiles = [];
+            savedMarketReport = null;
+            document.getElementById('rvMarketFileInput').value = '';
+        }
+
+        var savedMarketReport = null;
+        async function viewSavedReport() {
+            if (!savedMarketReport) return;
+            try {
+                await loadMktChartJS();
+                document.getElementById('rvMarketSaved').style.display = 'none';
+                document.getElementById('rvMarketUpload').style.display = 'none';
+                document.getElementById('rvMarketFileList').style.display = 'none';
+                document.getElementById('rvMarketReport').style.display = 'block';
+                document.getElementById('rvMarketReportContent').innerHTML = savedMarketReport.report_html;
+                setTimeout(function() {
+                    if (window.Chart && savedMarketReport.chart_data) {
+                        renderMktChartsFromSaved(savedMarketReport.chart_data);
+                    }
+                }, 200);
+            } catch(e) {
+                console.error('加载报告失败:', e);
+                toast('加载报告失败', 'error');
+            }
         }
 
         // 下载数据文件（合并为单个JSON）
@@ -4503,6 +4550,69 @@
             return result;
         }
 
+        // ============ 报告持久化 (Supabase) ============
+
+        async function saveMarketReport(reportHTML, fileNames, industryCount, totalNotes, hasDashboard) {
+            if (!supabase) return;
+            try {
+                var chartData = window._mktChartData || {};
+                var record = { report_html: reportHTML, file_names: fileNames, industry_count: industryCount, total_notes: totalNotes, has_dashboard: hasDashboard, chart_data: JSON.stringify(chartData) };
+                var e = await supabase.from('market_reports').insert(record);
+                if (e.error) throw e.error;
+                toast('💾 报告已保存，手机端可同步查看', 'success');
+                deleteOldMarketReports(5);
+                loadLatestMarketReport();
+            } catch(ex) { console.error('保存报告失败:', ex); }
+        }
+
+        async function loadLatestMarketReport() {
+            if (!supabase) return;
+            try {
+                var r = await supabase.from('market_reports').select('*').order('created_at', { ascending: false }).limit(1);
+                if (r.error) throw r.error;
+                if (r.data && r.data.length > 0) {
+                    savedMarketReport = r.data[0];
+                    if (typeof savedMarketReport.chart_data === 'string') {
+                        try { savedMarketReport.chart_data = JSON.parse(savedMarketReport.chart_data); } catch(e) {}
+                    }
+                    renderSavedReportCard();
+                }
+            } catch(ex) { console.error('加载报告失败:', ex); }
+        }
+
+        async function deleteOldMarketReports(keepCount) {
+            if (!supabase) return;
+            try {
+                var r = await supabase.from('market_reports').select('id').order('created_at', { ascending: false });
+                if (r.data && r.data.length > keepCount) {
+                    for (var i = keepCount; i < r.data.length; i++) {
+                        await supabase.from('market_reports').delete().eq('id', r.data[i].id);
+                    }
+                }
+            } catch(ex) {}
+        }
+
+        function renderSavedReportCard() {
+            if (!savedMarketReport) return;
+            var el = document.getElementById('rvMarketSavedInfo');
+            if (!el) return;
+            var d = savedMarketReport.created_at ? new Date(savedMarketReport.created_at).toLocaleString('zh-CN') : '未知';
+            el.innerHTML = '<span style="font-size:14px;color:#1e40af;font-weight:600;">🕐 ' + d + '</span><br><span style="font-size:13px;color:#374151;">📁 文件：' + escapeHtml(savedMarketReport.file_names || '未知') + '</span><br><span style="font-size:13px;color:#6b7280;">🏷 ' + (savedMarketReport.industry_count || 0) + ' 个行业 | 📝 ' + (savedMarketReport.total_notes || 0).toLocaleString() + ' 条笔记 | ' + (savedMarketReport.has_dashboard ? '📊完整模式' : '📋纯榜单模式') + '</span>';
+            document.getElementById('rvMarketSaved').style.display = 'block';
+            document.getElementById('rvMarketUpload').style.display = 'none';
+        }
+
+        function renderMktChartsFromSaved(chartData) {
+            if (!window.Chart || !chartData) return;
+            Chart.defaults.font.family = '-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif';
+            Chart.defaults.font.size = 12; Chart.defaults.color = '#4b5563';
+            if (document.getElementById('mktChart1') && chartData.top10 && chartData.top10.length > 0) {
+                new Chart(document.getElementById('mktChart1'), { type: 'bar', data: { labels: chartData.top10.map(function(t){return t.name;}), datasets: [{ label: '品牌参与数', data: chartData.top10.map(function(t){return t.value;}), backgroundColor: '#3b82f6', borderRadius: 6 }] }, options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false } }, scales: { x: { title: { display: true, text: '参与投放品牌数' }, ticks: { callback: function(v){return fmtMkt(v);} } } } } });
+            }
+            if (document.getElementById('mktChart2') && chartData.interaction && chartData.interaction.length > 0) {
+                new Chart(document.getElementById('mktChart2'), { type: 'bar', data: { labels: chartData.interaction.map(function(t){return t.name;}), datasets: [{ label: '总互动量', data: chartData.interaction.map(function(t){return t.total;}), backgroundColor: '#3b82f6', borderRadius: 6, yAxisID: 'y' }, { label: '均互动', data: chartData.interaction.map(function(t){return t.avg;}), backgroundColor: '#f59e0b', borderRadius: 6, yAxisID: 'y1' }] }, options: { responsive: true, plugins: { legend: { position: 'top' } }, scales: { y: { position: 'left', title: { display: true, text: '总互动量' }, ticks: { callback: function(v){return fmtMkt(v);} } }, y1: { position: 'right', title: { display: true, text: '均互动' }, ticks: { callback: function(v){return fmtMkt(v);} }, grid: { drawOnChartArea: false } } } } });
+            }
+        }
         // --- Chart.js 动态加载 ---
         var mktChartLoaded = false;
         function loadMktChartJS() {
@@ -4552,6 +4662,11 @@
 
                 // 渲染报告
                 renderMktReport(dashboard, industries, indNames, totalNotes, aDashboard, aInteraction, aTier, aBrandCR, aVI, aCT, aCross, aLowFan, aStrategy, aCatTop5);
+                window._mktChartData = { top10: aDashboard.category_brand_count.slice(0, 10), interaction: aInteraction, tier: aTier, brandCR: { top5: aBrandCR.top5, top5_share: aBrandCR.top5_share, hhi: aBrandCR.hhi, concentration_type: aBrandCR.concentration_type }, vi: aVI, ctTop3: (aCT[indNames.length?indNames[0]:""]||[]), topInd: (aInteraction.length?aInteraction[0].name:"") };
+                var hasDash = dashboard && dashboard.length > 0;
+                var fileNames = marketFiles.map(function(f){return f.name;}).join(', ');
+                var reportHTML = document.getElementById('rvMarketReportContent').innerHTML;
+                saveMarketReport(reportHTML, fileNames, indNames.length, totalNotes, hasDash);
                 toast('分析完成！共处理 ' + totalNotes + ' 条笔记数据', 'success');
             } catch(e) {
                 console.error('分析失败:', e);
@@ -7255,13 +7370,14 @@
                 const sqls = [
                     `CREATE TABLE IF NOT EXISTS groups (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, leader TEXT, member_count INTEGER DEFAULT 0, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
                     `CREATE TABLE IF NOT EXISTS salary_configs (id BIGSERIAL PRIMARY KEY, role TEXT NOT NULL, thousand_bonus NUMERIC DEFAULT 0, ten_thousand_bonus NUMERIC DEFAULT 0, tier1_min INTEGER DEFAULT 0, tier1_max INTEGER DEFAULT 2, tier1_salary NUMERIC DEFAULT 20, tier2_min INTEGER DEFAULT 3, tier2_max INTEGER DEFAULT 5, tier2_salary NUMERIC DEFAULT 25, tier3_min INTEGER DEFAULT 6, tier3_salary NUMERIC DEFAULT 30, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
+                    market_reports (id BIGSERIAL PRIMARY KEY, report_html TEXT NOT NULL, file_names TEXT, industry_count INTEGER DEFAULT 0, total_notes INTEGER DEFAULT 0, has_dashboard BOOLEAN DEFAULT false, chart_data TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
                     `CREATE TABLE IF NOT EXISTS salaries (id BIGSERIAL PRIMARY KEY, user_id INTEGER, user_name TEXT, role TEXT, group_name TEXT, month TEXT, video_count INTEGER DEFAULT 0, thousand_count INTEGER DEFAULT 0, ten_thousand_count INTEGER DEFAULT 0, base_salary NUMERIC DEFAULT 0, bonus NUMERIC DEFAULT 0, deduction NUMERIC DEFAULT 0, total NUMERIC DEFAULT 0, status TEXT DEFAULT '待结算', created_at TIMESTAMPTZ DEFAULT NOW())`
                 ];
                 for (const sql of sqls) {
                     try { await supabase.rpc('pgio', { query: sql }); } catch (e) { console.log('SQL执行:', e.message); }
                 }
                 // RLS
-                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`];
+                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE market_reports ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON market_reports; CREATE POLICY "pub" ON market_reports FOR ALL USING (true) WITH CHECK (true);`];
                 for (const r of rls) { try { await supabase.rpc('pgio', { query: r }); } catch (e) { console.log('RLS:', e.message); } }
                 toast('数据库初始化完成！', 'success');
                 loadAllData();
