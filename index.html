@@ -1094,37 +1094,44 @@
 
         /* ─── HAMBURGER MENU (Mobile) ─── */
         .hamburger-btn {
-           display: none;
-              background: none;
-              border: none;
-              cursor: pointer;
-              padding: 10px;
-              z-index: 110;
-              flex-direction: column;
-              gap: 5px;
-              width: 40px;
-              height: 40px;
-              -webkit-appearance: none;
-              touch-action: manipulation;
-              position: relative;
-              pointer-events: auto;
+            display: none;
+            position: fixed;
+            top: 68px;
+            right: 12px;
+            z-index: 150;
+            width: 48px;
+            height: 48px;
+            background: rgba(243,240,248,.92);
+            border: 1px solid rgba(77,0,255,.15);
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 11px 12px;
+            flex-direction: column;
+            gap: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+            pointer-events: auto;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 16px rgba(0,0,0,.12);
+            outline: none;
         }
         .hamburger-btn span {
             display: block;
             width: 100%;
-            height: 3px;
-            background: var(--cream);
+            height: 4px;
+            background: #1a0a3e;
             border-radius: 2px;
             transition: all 0.3s cubic-bezier(.25,.8,.25,1);
         }
         .hamburger-btn.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
+            transform: translateY(10px) rotate(45deg);
         }
         .hamburger-btn.open span:nth-child(2) {
             opacity: 0;
         }
         .hamburger-btn.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
+            transform: translateY(-10px) rotate(-45deg);
         }
         /* Mobile Menu Drawer */
         .mobile-menu-overlay {
@@ -1654,13 +1661,14 @@
                   <span class="topnav-user" id="topnavUser">欢迎</span>
                   <button class="topnav-btn" onclick="logout()">退出</button>
               </div>
-              <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleMobileMenu(event)">
-                    <span></span><span></span><span></span>
-                </button>
             </div>
         </nav>
+        <!-- 📱 Hamburger button — 独立固定定位，不在nav内 -->
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="菜单">
+            <span></span><span></span><span></span>
+        </button>
         <!-- Mobile Menu Drawer -->
-        <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
         <div class="mobile-menu-drawer" id="mobileMenuDrawer">
             <div class="mobile-menu-user" id="mobileMenuUser">欢迎</div>
             <a class="mobile-menu-link active" data-page="dashboard" onclick="mobileNavTo('dashboard')">数据看板</a>
@@ -2858,6 +2866,20 @@
             });
             // Tiger mascot interaction
             initTigerMascot();
+            // 📱 Hamburger menu — addEventListener比inline onclick更可靠（兼容所有手机浏览器）
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            if (hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', function() {
+                    toggleMobileMenu();
+                });
+            }
+            // 📱 点击overlay关闭菜单
+            const menuOverlay = document.getElementById('mobileMenuOverlay');
+            if (menuOverlay) {
+                menuOverlay.addEventListener('click', function() {
+                    toggleMobileMenu();
+                });
+            }
             // Paw trail on click — 📱 移动端跳过（频繁创建DOM元素影响性能）
             if (!isMobile) {
                 document.addEventListener('click', function(e) {
@@ -2900,11 +2922,11 @@
         }
 
         // 📱 Mobile menu
-        function toggleMobileMenu(e) {
-            if (e) e.stopPropagation();
+        function toggleMobileMenu() {
             const btn = document.getElementById('hamburgerBtn');
             const overlay = document.getElementById('mobileMenuOverlay');
             const drawer = document.getElementById('mobileMenuDrawer');
+            if (!btn || !overlay || !drawer) return;
             const isOpen = drawer.classList.contains('open');
             if (isOpen) {
                 btn.classList.remove('open');
