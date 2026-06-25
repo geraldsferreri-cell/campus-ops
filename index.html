@@ -2827,6 +2827,7 @@
             });
 
             const savedUser = localStorage.getItem('campus_user');
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
             if (savedUser) {
                 // 已登录：直接进 App，跳过视频
                 currentUser = JSON.parse(savedUser);
@@ -2838,8 +2839,12 @@
                 showPage('dashboard');
                 // 等待 SDK 就绪后加载数据（最多等15秒）
                 waitForSDKAndLoadData();
+            } else if (isMobile) {
+                // 📱 移动端：跳过视频开屏，直接显示登录页（视频在手机上加载慢/被阻止autoplay，严重影响体验）
+                document.getElementById('videoSplash').style.display = 'none';
+                document.getElementById('loginPage').style.display = 'flex';
             } else {
-                // 未登录：播放开屏视频，视频层(z-index:200)覆盖登录页(z-index:100)
+                // 桌面端：播放开屏视频，视频层(z-index:200)覆盖登录页(z-index:100)
                 // 登录页保持渲染（不用display:none），视频播完淡出后自然露出
                 playVideoSplash();
             }
@@ -2853,10 +2858,12 @@
             });
             // Tiger mascot interaction
             initTigerMascot();
-            // Paw trail on click
-            document.addEventListener('click', function(e) {
-                createPawTrail(e.pageX, e.pageY);
-            });
+            // Paw trail on click — 📱 移动端跳过（频繁创建DOM元素影响性能）
+            if (!isMobile) {
+                document.addEventListener('click', function(e) {
+                    createPawTrail(e.pageX, e.pageY);
+                });
+            }
             } catch(e) {
                 console.error('init() error:', e);
                 // 确保登录页至少可见
@@ -7392,7 +7399,7 @@
                 const sqls = [
                     `CREATE TABLE IF NOT EXISTS groups (id BIGSERIAL PRIMARY KEY, name TEXT NOT NULL, leader TEXT, member_count INTEGER DEFAULT 0, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
                     `CREATE TABLE IF NOT EXISTS salary_configs (id BIGSERIAL PRIMARY KEY, role TEXT NOT NULL, thousand_bonus NUMERIC DEFAULT 0, ten_thousand_bonus NUMERIC DEFAULT 0, tier1_min INTEGER DEFAULT 0, tier1_max INTEGER DEFAULT 2, tier1_salary NUMERIC DEFAULT 20, tier2_min INTEGER DEFAULT 3, tier2_max INTEGER DEFAULT 5, tier2_salary NUMERIC DEFAULT 25, tier3_min INTEGER DEFAULT 6, tier3_salary NUMERIC DEFAULT 30, note TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
-                    market_reports (id BIGSERIAL PRIMARY KEY, report_html TEXT NOT NULL, file_names TEXT, industry_count INTEGER DEFAULT 0, total_notes INTEGER DEFAULT 0, has_dashboard BOOLEAN DEFAULT false, chart_data TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
+                    `CREATE TABLE IF NOT EXISTS market_reports (id BIGSERIAL PRIMARY KEY, report_html TEXT NOT NULL, file_names TEXT, industry_count INTEGER DEFAULT 0, total_notes INTEGER DEFAULT 0, has_dashboard BOOLEAN DEFAULT false, chart_data TEXT, created_at TIMESTAMPTZ DEFAULT NOW())`,
                     `CREATE TABLE IF NOT EXISTS salaries (id BIGSERIAL PRIMARY KEY, user_id INTEGER, user_name TEXT, role TEXT, group_name TEXT, month TEXT, video_count INTEGER DEFAULT 0, thousand_count INTEGER DEFAULT 0, ten_thousand_count INTEGER DEFAULT 0, base_salary NUMERIC DEFAULT 0, bonus NUMERIC DEFAULT 0, deduction NUMERIC DEFAULT 0, total NUMERIC DEFAULT 0, status TEXT DEFAULT '待结算', created_at TIMESTAMPTZ DEFAULT NOW())`
                 ];
                 for (const sql of sqls) {
