@@ -1,6 +1,6 @@
 {
-  "date": "2026-06-24",
-  "scrape_time": "2026-06-24 14:03 CST",
+  "date": "2026-06-25",
+  "scrape_time": "2026-06-25 14:02 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,32 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "特斯拉 豆包",
-          "summary": "最新资讯：特斯拉 豆包（热度39.1万）",
+          "title": "存储芯片涨价",
+          "summary": "最新资讯：存储芯片涨价（热度19.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%89%B9%E6%96%AF%E6%8B%89%20%E8%B1%86%E5%8C%85",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E6%B6%A8%E4%BB%B7",
+          "time": "6/25"
         },
         {
-          "title": "逆水寒王者荣耀",
-          "summary": "最新资讯：逆水寒王者荣耀（热度38.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%80%86%E6%B0%B4%E5%AF%92%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80",
-          "time": "6/24"
-        },
-        {
-          "title": "老外问我这是相机还是手机",
-          "summary": "最新资讯：老外问我这是相机还是手机（热度25.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%80%81%E5%A4%96%E9%97%AE%E6%88%91%E8%BF%99%E6%98%AF%E7%9B%B8%E6%9C%BA%E8%BF%98%E6%98%AF%E6%89%8B%E6%9C%BA",
-          "time": "6/24"
-        },
-        {
-          "title": "如何看待网传比亚迪海豹08 定价 25 万？如果属实会对 30 万以下的轿车市场带来哪些影响？",
-          "summary": "最近看到网上有人传比亚迪海豹08 的价格可能在 25 万元左右，从目前露出的信息来看，它主打的是旗舰轿车定位。如果比亚迪海豹08 最终真的落在 25 万级，它是否会成为 30 万以内轿车市场的「新标杆」？",
+          "title": "美飞行员曝伊朗「创新武器」，简直是外星来的东西，具体情况如何？伊朗无人机研发是什么水平？",
+          "summary": "据参考消息报道，据俄新社6月23日转引美国有线电视新闻网消息报道称，4月在伊朗上空被击落的美军F-15战斗机的飞行员遭遇的是德黑兰的“创新武器”。 这名飞行员称：“大量无人机彼此连接，作为一个整体移动，其中较小的无人机处在大型无人机下方，就像腿一样。这简直就是外星来的东西。” 报道指出，如果飞行员的说法属实，那么伊朗在无人机研发方面已向前迈出“令人不安的一步”。 https://mp.weixin",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052704788622602395",
-          "time": "6/24"
+          "url": "https://www.zhihu.com/question/2053109056487822677",
+          "time": "6/25"
+        },
+        {
+          "title": "新能源车让很多精妙的机械结构退出了历史舞台，其中哪些技术值得被记住？",
+          "summary": "旧能源汽车",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2050234299232641923",
+          "time": "6/25"
+        },
+        {
+          "title": "委内瑞拉 1 分钟内连发 7.1 级 7.5 级强震，美发布海啸预警，有居民楼倒塌，目前当地情况如何？",
+          "summary": "中国地震台网正式测定：6月25日6时04分在委内瑞拉（北纬10.35度，西经68.35度）发生7.1级地震，震源深度10千米。 更多资讯请下载央视新闻客户端 △地震发生后，委内瑞拉首都加拉加斯街头 当地时间6月24日，委内瑞拉北部海岸附近发生7.5级地震。委内瑞拉首都加拉加斯有明显震感。 根据哥伦比亚地质局发布的最新地震通报，地震发生的具体时间为格林尼治时间24日22时4分（北京时间25日6时4分",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2053380936624862329",
+          "time": "6/25"
         }
       ]
     },
@@ -44,32 +44,25 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "AI时代如何让高考分数花在刀刃上",
-          "summary": "最新资讯：AI时代如何让高考分数花在刀刃上（热度31.6万）",
+          "title": "谷歌前CEO批中国AI开源",
+          "summary": "最新资讯：谷歌前CEO批中国AI开源（热度31.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=AI%E6%97%B6%E4%BB%A3%E5%A6%82%E4%BD%95%E8%AE%A9%E9%AB%98%E8%80%83%E5%88%86%E6%95%B0%E8%8A%B1%E5%9C%A8%E5%88%80%E5%88%83%E4%B8%8A",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E8%B0%B7%E6%AD%8C%E5%89%8DCEO%E6%89%B9%E4%B8%AD%E5%9B%BDAI%E5%BC%80%E6%BA%90",
+          "time": "6/25"
         },
         {
-          "title": "全球AI概念股暴跌",
-          "summary": "最新资讯：全球AI概念股暴跌（热度25.2万）",
+          "title": "Anthropic指控阿里AI蒸馏攻击",
+          "summary": "最新资讯：Anthropic指控阿里AI蒸馏攻击（热度19.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%85%A8%E7%90%83AI%E6%A6%82%E5%BF%B5%E8%82%A1%E6%9A%B4%E8%B7%8C",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=Anthropic%E6%8C%87%E6%8E%A7%E9%98%BF%E9%87%8CAI%E8%92%B8%E9%A6%8F%E6%94%BB%E5%87%BB",
+          "time": "6/25"
         },
         {
-          "title": "马斯克称中国大模型可能明年Q1追上Fable，智谱唐杰称不用这么久，智谱股价大涨26%，如何解读？",
-          "summary": "中国大模型巨头智谱创始人唐杰和特斯拉创始人马斯克就中国AI展开一场“辩论”。 6月18日，有网友在社交平台向马斯克提问,“中国大模型预计何时能够达到Anthropic的Fable水平？智谱GLM-5.2无疑缩小了差距。” 马斯克对此回复称，“可能在（2027年）一季度。（Probably Q1）” 之后，清华大学教授、智谱AI创始人唐杰回复马斯克：“用不了这么久。（Won’t take that ",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2051760828471308790",
-          "time": "6/24"
-        },
-        {
-          "title": "如何评价Sakana AI发布的Fugu Ultra/Fugu，号称多模型编排智能超越Mythos？",
-          "summary": "如题：https://sakana.ai/fugu/ Sakana AI 今日正式发布Sakana Fugu一套以单一基础模型形态呈现的完整多智能体编排系统。Fugu 能够动态调度全球顶尖模型，通过单一模型 API 处理复杂的多步骤任务，在无需任何单一供应商依赖、也无需用户自行搭建传统多智能体系统的前提下，提供真正的前沿级性能。 Sakana Fugu 本身是一个语言模型，经过专项训练，可调用智能",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052418588053594631",
-          "time": "6/24"
+          "title": "用AI制作一部玄幻短片",
+          "summary": "最新资讯：用AI制作一部玄幻短片（热度926.2万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%94%A8AI%E5%88%B6%E4%BD%9C%E4%B8%80%E9%83%A8%E7%8E%84%E5%B9%BB%E7%9F%AD%E7%89%87",
+          "time": "6/25"
         }
       ]
     },
@@ -79,60 +72,109 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "C罗回应对决阿根廷",
-          "summary": "最新资讯：C罗回应对决阿根廷（热度34.2万）",
+          "title": "韩国输球众生相",
+          "summary": "最新资讯：韩国输球众生相（热度123.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E5%9B%9E%E5%BA%94%E5%AF%B9%E5%86%B3%E9%98%BF%E6%A0%B9%E5%BB%B7",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E8%BE%93%E7%90%83%E4%BC%97%E7%94%9F%E7%9B%B8",
+          "time": "6/25"
         },
         {
-          "title": "特朗普将出席世界杯决赛",
-          "summary": "最新资讯：特朗普将出席世界杯决赛（热度28.0万）",
+          "title": "韩国出线形势",
+          "summary": "最新资讯：韩国出线形势（热度38.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%89%B9%E6%9C%97%E6%99%AE%E5%B0%86%E5%87%BA%E5%B8%AD%E4%B8%96%E7%95%8C%E6%9D%AF%E5%86%B3%E8%B5%9B",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E5%87%BA%E7%BA%BF%E5%BD%A2%E5%8A%BF",
+          "time": "6/25"
         },
         {
-          "title": "C罗成为葡萄牙世界杯射手王",
-          "summary": "最新资讯：C罗成为葡萄牙世界杯射手王（热度25.5万）",
+          "title": "韩国爆冷不敌南非",
+          "summary": "最新资讯：韩国爆冷不敌南非（热度34.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E6%88%90%E4%B8%BA%E8%91%A1%E8%90%84%E7%89%99%E4%B8%96%E7%95%8C%E6%9D%AF%E5%B0%84%E6%89%8B%E7%8E%8B",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E7%88%86%E5%86%B7%E4%B8%8D%E6%95%8C%E5%8D%97%E9%9D%9E",
+          "time": "6/25"
         },
         {
-          "title": "C 罗梅开二度，成葡萄牙世界杯射手王，如何评价他的近期表现？你觉得他有望带领葡萄牙杀出重围吗？",
-          "summary": "世界杯小组赛K组第二轮，葡萄牙在NRG体育场对阵乌兹别克斯坦。最终葡萄牙5-0乌兹别克斯坦。积分榜方面，葡萄牙4分领跑，次轮未赛的哥伦比亚3分排名第二，民主刚果1分第三，乌兹别克0分垫底。 上半场，C罗首开记录连续参加6届世界杯都有进球，门德斯任意球破门，加尼耶夫破球但犯规在先进球无效，C罗再下一城超越尤西比奥独享队史世界杯射手王。半场战罢，葡萄牙暂3-0领先乌兹别克斯坦。下半场，B费右路角球造门",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053009986955867156",
-          "time": "6/24"
+          "title": "韩国打平即出线结果输了",
+          "summary": "最新资讯：韩国打平即出线结果输了（热度31.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E6%89%93%E5%B9%B3%E5%8D%B3%E5%87%BA%E7%BA%BF%E7%BB%93%E6%9E%9C%E8%BE%93%E4%BA%86",
+          "time": "6/25"
         }
       ]
     },
     {
-      "id": "variety",
-      "name": "📺 综艺",
-      "color": "#f59e0b",
+      "id": "show",
+      "name": "🌟 秀场",
+      "color": "#ec4899",
       "items": [
         {
-          "title": "迪班萨当选2026NBA选秀状元",
-          "summary": "最新资讯：迪班萨当选2026NBA选秀状元（热度900.5万）",
+          "title": "杨幂粉丝团维权",
+          "summary": "最新资讯：杨幂粉丝团维权（热度34.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%9D%A8%E5%B9%82%E7%B2%89%E4%B8%9D%E5%9B%A2%E7%BB%B4%E6%9D%83",
+          "time": "6/25"
+        }
+      ]
+    },
+    {
+      "id": "film",
+      "name": "🎬 影视",
+      "color": "#6366f1",
+      "items": [
+        {
+          "title": "百花杀定档",
+          "summary": "最新资讯：百花杀定档（热度84.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%99%BE%E8%8A%B1%E6%9D%80%E5%AE%9A%E6%A1%A3",
+          "time": "6/25"
+        },
+        {
+          "title": "番位排序 观众分不清主角",
+          "summary": "最新资讯：番位排序 观众分不清主角（热度34.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%95%AA%E4%BD%8D%E6%8E%92%E5%BA%8F%20%E8%A7%82%E4%BC%97%E5%88%86%E4%B8%8D%E6%B8%85%E4%B8%BB%E8%A7%92",
+          "time": "6/25"
+        },
+        {
+          "title": "番位新规 大男主回车",
+          "summary": "最新资讯：番位新规 大男主回车（热度32.0万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%95%AA%E4%BD%8D%E6%96%B0%E8%A7%84%20%E5%A4%A7%E7%94%B7%E4%B8%BB%E5%9B%9E%E8%BD%A6",
+          "time": "6/25"
+        },
+        {
+          "title": "如何看待周星驰新电影《功夫女足》？",
+          "summary": "今年暑期档周星驰筹备多年的电影终于要上映了，弹性上映时间七月份，具体哪天不固定，目前还没有看到放出的预告片，电影上映在即，你期待吗？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2053067286899058574",
+          "time": "6/25"
+        }
+      ]
+    },
+    {
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
+      "items": [
+        {
+          "title": "用胜利之舞庆祝内马尔回归",
+          "summary": "最新资讯：用胜利之舞庆祝内马尔回归（热度781.7万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%BF%AA%E7%8F%AD%E8%90%A8%E5%BD%93%E9%80%892026NBA%E9%80%89%E7%A7%80%E7%8A%B6%E5%85%83",
-          "time": "6/24"
-        }
-      ]
-    },
-    {
-      "id": "marketing",
-      "name": "📊 营销",
-      "color": "#f97316",
-      "items": [
+          "url": "https://www.douyin.com/search/%E7%94%A8%E8%83%9C%E5%88%A9%E4%B9%8B%E8%88%9E%E5%BA%86%E7%A5%9D%E5%86%85%E9%A9%AC%E5%B0%94%E5%9B%9E%E5%BD%92",
+          "time": "6/25"
+        },
         {
-          "title": "腾讯市值跌破 4 万亿港元，年内股价累计跌 27.72%，是什么原因？哪些业务能打开新的估值增长空间？",
-          "summary": "6月23日盘中，腾讯控股股价跌近2%，市值跌破4万亿港元，此前腾讯股价已连续五个交易日下跌。 今年3月，腾讯市值曾跌破5万亿港元，今年以来腾讯股价已累计下跌27.72%。近日微信AI助手小微开始小范围灰度测试，仍未大规模推出。https://mp.weixin.qq.com/s/mVFe3o5kp0QfF95qIZFLRQ",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052712338256565845",
-          "time": "6/24"
+          "title": "张诗尧为内马尔回归首秀献舞",
+          "summary": "最新资讯：张诗尧为内马尔回归首秀献舞（热度769.2万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%BC%A0%E8%AF%97%E5%B0%A7%E4%B8%BA%E5%86%85%E9%A9%AC%E5%B0%94%E5%9B%9E%E5%BD%92%E9%A6%96%E7%A7%80%E7%8C%AE%E8%88%9E",
+          "time": "6/25"
+        },
+        {
+          "title": "爱的主打歌转身变装",
+          "summary": "最新资讯：爱的主打歌转身变装（热度768.0万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%88%B1%E7%9A%84%E4%B8%BB%E6%89%93%E6%AD%8C%E8%BD%AC%E8%BA%AB%E5%8F%98%E8%A3%85",
+          "time": "6/25"
         }
       ]
     },
@@ -142,32 +184,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "高考分数线",
-          "summary": "最新资讯：高考分数线（热度159.9万）",
+          "title": "给毕业生的人事档案转递指南",
+          "summary": "最新资讯：给毕业生的人事档案转递指南（热度70.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%AB%98%E8%80%83%E5%88%86%E6%95%B0%E7%BA%BF",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E7%BB%99%E6%AF%95%E4%B8%9A%E7%94%9F%E7%9A%84%E4%BA%BA%E4%BA%8B%E6%A1%A3%E6%A1%88%E8%BD%AC%E9%80%92%E6%8C%87%E5%8D%97",
+          "time": "6/25"
         },
         {
-          "title": "哈兰德 恋与深空",
-          "summary": "最新资讯：哈兰德 恋与深空（热度138.7万）",
+          "title": "张钧甯原名更难认了",
+          "summary": "最新资讯：张钧甯原名更难认了（热度68.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%93%88%E5%85%B0%E5%BE%B7%20%E6%81%8B%E4%B8%8E%E6%B7%B1%E7%A9%BA",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E5%BC%A0%E9%92%A7%E7%94%AF%E5%8E%9F%E5%90%8D%E6%9B%B4%E9%9A%BE%E8%AE%A4%E4%BA%86",
+          "time": "6/25"
         },
         {
-          "title": "万千气象看重庆",
-          "summary": "最新资讯：万千气象看重庆（热度107.3万）",
+          "title": "打开了一本名为刻薄的书",
+          "summary": "最新资讯：打开了一本名为刻薄的书（热度45.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%87%E5%8D%83%E6%B0%94%E8%B1%A1%E7%9C%8B%E9%87%8D%E5%BA%86",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E6%89%93%E5%BC%80%E4%BA%86%E4%B8%80%E6%9C%AC%E5%90%8D%E4%B8%BA%E5%88%BB%E8%96%84%E7%9A%84%E4%B9%A6",
+          "time": "6/25"
         },
         {
-          "title": "千万不要买路边切好的半个西瓜",
-          "summary": "最新资讯：千万不要买路边切好的半个西瓜（热度105.5万）",
+          "title": "父母爱情 翻车",
+          "summary": "最新资讯：父母爱情 翻车（热度37.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%83%E4%B8%87%E4%B8%8D%E8%A6%81%E4%B9%B0%E8%B7%AF%E8%BE%B9%E5%88%87%E5%A5%BD%E7%9A%84%E5%8D%8A%E4%B8%AA%E8%A5%BF%E7%93%9C",
-          "time": "6/24"
+          "url": "https://s.weibo.com/weibo?q=%E7%88%B6%E6%AF%8D%E7%88%B1%E6%83%85%20%E7%BF%BB%E8%BD%A6",
+          "time": "6/25"
         }
       ]
     }
