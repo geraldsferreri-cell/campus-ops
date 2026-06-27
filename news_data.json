@@ -1,7 +1,7 @@
 {
-  "date": "2026-06-26",
-  "scrape_time": "2026-06-26 14:06 CST",
-  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+  "date": "2026-06-27",
+  "scrape_time": "2026-06-27 09:18 CST",
+  "data_source": "微博热搜/新浪科技/腾讯新闻/搜狐/快科技/央视/知乎",
   "categories": [
     {
       "id": "tech",
@@ -9,31 +9,31 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "苹果店员也被涨价整懵了",
-          "summary": "最新资讯：苹果店员也被涨价整懵了（热度118.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%8B%B9%E6%9E%9C%E5%BA%97%E5%91%98%E4%B9%9F%E8%A2%AB%E6%B6%A8%E4%BB%B7%E6%95%B4%E6%87%B5%E4%BA%86",
+          "title": "苹果市值一夜蒸发1.8万亿",
+          "summary": "iPad/Mac涨价致苹果股价暴跌6.1%，创2025年4月来最大单日跌幅",
+          "source": "快科技",
+          "url": "https://finance.sina.com.cn/tech/discovery/2026-06-26/doc-inietsps5214031.shtml",
           "time": "6/26"
         },
         {
-          "title": "苹果大涨价黄牛疯狂囤货",
-          "summary": "最新资讯：苹果大涨价黄牛疯狂囤货（热度27.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%8B%B9%E6%9E%9C%E5%A4%A7%E6%B6%A8%E4%BB%B7%E9%BB%84%E7%89%9B%E7%96%AF%E7%8B%82%E5%9B%A4%E8%B4%A7",
+          "title": "华为昇腾等国产芯片占八成",
+          "summary": "TrendForce：华为寒武纪领衔国产AI芯片份额升至56%，英伟达腰斩",
+          "source": "新浪科技",
+          "url": "https://finance.sina.com.cn/tech/discovery/2026-06-26/doc-inietsps5214031.shtml",
           "time": "6/26"
         },
         {
-          "title": "疑似小米员工发文《置身米内》，将雷军比作项羽，有哪些看点？",
-          "summary": "置身X内已经成为一种流行的形式了。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052883811151745057",
+          "title": "DeepSeek大规模扩招",
+          "summary": "宣布所有部门规模扩大至少一倍，覆盖算法/研发/产品等7大类岗位",
+          "source": "观察者网",
+          "url": "https://www.guancha.cn/economy/2026_06_26_821720.shtml",
           "time": "6/26"
         },
         {
-          "title": "苹果官宣涨价，Mac 及 iPad 多款产品调价幅度达 20%，此次涨价影响有多大？你能接受吗？",
-          "summary": "苹果公司6月25日宣布上调Mac、iPad及家居设备价格，以应对AI数据中心扩张引发的内存芯片及存储器空前短缺所带来的成本压力。 具体涨价幅度：MacBook Neo起售价从599美元升至699美元，MacBook Air从1099美元升至1299美元，14英寸入门款MacBook Pro从1699美元升至1999美元，11英寸iPad Pro从999美元升至1199美元，iPad Air从599",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053590927633900087",
+          "title": "存储芯片涨价冲击科技股",
+          "summary": "美光暴涨15%，微软苹果官宣涨价反被砸盘，科技七巨头集体下挫",
+          "source": "新浪财经",
+          "url": "https://news.sohu.com/a/1041761233_114984",
           "time": "6/26"
         }
       ]
@@ -44,25 +44,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "DeepSeek大规模招聘",
-          "summary": "最新资讯：DeepSeek大规模招聘（热度31.6万）",
+          "title": "OpenAI发布GPT-5.6系列",
+          "summary": "旗舰Sol/均衡Terra/轻量Luna三档，应美政府要求限量预览",
+          "source": "IT之家",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_8456a3f0bd648752",
+          "time": "6/27"
+        },
+        {
+          "title": "美政府要求GPT-5.6分阶段发布",
+          "summary": "特朗普政府要求OpenAI先向可信伙伴预览，数周后再全面开放",
+          "source": "财联社",
+          "url": "https://news.qq.com/rain/a/20260626A027CJ00",
+          "time": "6/26"
+        },
+        {
+          "title": "Claude Fable 5登顶AI榜",
+          "summary": "Anthropic新模型击败GPT，Kimi K2.7/GLM-5.2国产三强突围",
+          "source": "搜狐科技",
+          "url": "https://www.sohu.com/a/1037991307_122893087",
+          "time": "6/26"
+        },
+        {
+          "title": "谷歌前CEO批中国AI开源",
+          "summary": "施密特批评中国AI开源策略，微博热搜热度达31.6万",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=DeepSeek%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%8B%9B%E8%81%98",
-          "time": "6/26"
-        },
-        {
-          "title": "网传Google 内部称 Gemini 模型竞争力下降至行业第四，具体情况如何？下降原因可能有哪些？",
-          "summary": "Google DeepMind 内部爆料显示, 该团队对模型竞争力下滑感到沮丧, 认为其在 AI 竞赛中已跌至第三甚至第四名。据X 用户 @synthwavedd 披露,DeepMind 内部对无法发布真正的前沿模型感到不满, 甚至认为领导层已在 AGI 竞赛中向 Anthropic 和 OpenAI 妥协。 Gemini 3.5 Pro 爆料：或无法实现性能跨越 据公司内部人士透露, 原定于6 ",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052444159282082405",
-          "time": "6/26"
-        },
-        {
-          "title": "七部门发文加快培育 AI 一人公司，专家称「有助于让人才以极低成本创业」，当代年轻人如何抓住政策机遇？",
-          "summary": "6月18日，工业和信息化部、中央网信办、国家发展改革委等七部门联合印发《促进平台经济大中小企业协同发展行动方案（2026—2028年）》（以下简称《方案》）。 平台经济是以互联网平台为载体、大中小企业共生的新型经济形态，在促进创新创业、推动产业升级、培育发展新动能等方面发挥重要作用。 在强化创新协同引领方面，《方案》提出，要增强科技创新发展能力。引导平台企业加强通用大模型、行业大模型和智能体等人工",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053149752162890384",
-          "time": "6/26"
+          "url": "https://s.weibo.com/weibo?q=%E8%B0%B7%E6%AD%8C%E5%89%8DCEO%E6%89%B9%E4%B8%AD%E5%9B%BDAI%E5%BC%80%E6%BA%90",
+          "time": "6/25"
         }
       ]
     },
@@ -72,52 +79,101 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "当真C罗看到假C罗",
-          "summary": "最新资讯：当真C罗看到假C罗（热度148.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%BD%93%E7%9C%9FC%E7%BD%97%E7%9C%8B%E5%88%B0%E5%81%87C%E7%BD%97",
+          "title": "日本淘汰赛对阵巴西",
+          "summary": "日本1-1战平瑞典小组第二，连续三届晋级，32强对决桑巴军团",
+          "source": "腾讯体育",
+          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_9826a3dd0e593952",
           "time": "6/26"
         },
         {
-          "title": "韩国日本网友对骂",
-          "summary": "最新资讯：韩国日本网友对骂（热度52.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E6%97%A5%E6%9C%AC%E7%BD%91%E5%8F%8B%E5%AF%B9%E9%AA%82",
+          "title": "德国1-2遭厄瓜多尔逆转",
+          "summary": "德国隔空报复韩国？8年前韩国送德国出局，如今间接阻韩晋级",
+          "source": "凤凰体育",
+          "url": "https://sports.ifeng.com/c/8uGb7BKLGfK",
           "time": "6/26"
         },
         {
-          "title": "韩国遭三连暴击",
-          "summary": "最新资讯：韩国遭三连暴击（热度50.4万）",
+          "title": "世界杯32强已确定18席",
+          "summary": "小组赛接近尾声，科特迪瓦队史首进淘汰赛，韩国濒临出局",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E9%81%AD%E4%B8%89%E8%BF%9E%E6%9A%B4%E5%87%BB",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF32%E5%BC%BA%E5%B7%B2%E7%A1%AE%E5%AE%9A18%E5%B8%AD",
           "time": "6/26"
         },
         {
-          "title": "德国 报复韩国",
-          "summary": "最新资讯：德国 报复韩国（热度32.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%BE%B7%E5%9B%BD%20%E6%8A%A5%E5%A4%8D%E9%9F%A9%E5%9B%BD",
+          "title": "法国4-1挪威全胜晋级",
+          "summary": "登贝莱25分钟帽子戏法，法国三战全胜昂首挺进淘汰赛",
+          "source": "新华社",
+          "url": "https://www.news.cn/sports/topic/fifa2026/index.htm",
           "time": "6/26"
         }
       ]
     },
     {
-      "id": "show",
+      "id": "ent",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
-          "title": "姜乘澜夏日伪素颜妆容教学",
-          "summary": "最新资讯：姜乘澜夏日伪素颜妆容教学（热度917.2万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%A7%9C%E4%B9%98%E6%BE%9C%E5%A4%8F%E6%97%A5%E4%BC%AA%E7%B4%A0%E9%A2%9C%E5%A6%86%E5%AE%B9%E6%95%99%E5%AD%A6",
+          "title": "杨紫获白玉兰最佳女主角",
+          "summary": "凭《生命树》成首位90后白玉兰视后，四提终圆梦改写历史",
+          "source": "新浪娱乐",
+          "url": "https://finance.sina.com.cn/wm/2026-06-26/doc-inieuccq1912810.shtml",
           "time": "6/26"
         },
         {
-          "title": "世界杯一起尝试街头穿搭",
-          "summary": "最新资讯：世界杯一起尝试街头穿搭（热度764.0万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E4%B8%96%E7%95%8C%E6%9D%AF%E4%B8%80%E8%B5%B7%E5%B0%9D%E8%AF%95%E8%A1%97%E5%A4%B4%E7%A9%BF%E6%90%AD",
+          "title": "于和伟二封白玉兰视帝",
+          "summary": "凭《沉默的荣耀》摘得最佳男主，《太平年》获最佳中国电视剧",
+          "source": "央视新闻",
+          "url": "https://view.inews.qq.com/a/20260626A0BF0F00",
+          "time": "6/26"
+        },
+        {
+          "title": "691分广州学霸拒清北",
+          "summary": "以174.3万热度登顶热搜榜首，引发教育选择大讨论",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-06-26",
+          "time": "6/26"
+        },
+        {
+          "title": "TF家族运动会热度飙升",
+          "summary": "肖战地表最强183.6引热议，TF家族运动会成粉丝狂欢",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-06-26",
+          "time": "6/26"
+        }
+      ]
+    },
+    {
+      "id": "fashion",
+      "name": "👗 时尚",
+      "color": "#f43f5e",
+      "items": [
+        {
+          "title": "adidas×可口可乐世界杯联名",
+          "summary": "两大品牌借世界杯推出跨界联名单品，致敬2002年首次合作",
+          "source": "搜狐时尚",
+          "url": "https://www.sohu.com/a/1032737344_121119286",
+          "time": "6/26"
+        },
+        {
+          "title": "CASETiFY世界杯限定系列",
+          "summary": "推出FIFA WORLD CUP 2026联名手机壳全线发售",
+          "source": "网易时尚",
+          "url": "https://www.163.com/dy/article/KV7G61JN05535FYG.html",
+          "time": "6/26"
+        },
+        {
+          "title": "6月球鞋盲盒发售热潮",
+          "summary": "世界杯球鞋集中登场，GD×Nike联名与Mizuno鞋王新款引关注",
+          "source": "JUKSY",
+          "url": "https://www.juksy.com/article/146249",
+          "time": "6/26"
+        },
+        {
+          "title": "足球×时尚联动全面升级",
+          "summary": "世界杯成为全球最大时尚文化舞台，品牌跨界营销爆发",
+          "source": "King's Sleeve",
+          "url": "https://kingssleeve.com/2026/06/03/fashion-fifa-world-cup-2026-collaborations/",
           "time": "6/26"
         }
       ]
@@ -128,10 +184,31 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "日本队小组赛不放水将在淘汰赛硬刚巴西，怎样看待这一选择？日本有赢球晋级的可能吗？",
-          "summary": "新华社美国达拉斯6月25日电（记者丁文娴、肖世尧）25日在达拉斯体育场进行的美加墨世界杯F组最后一轮小组赛中，日本队1:1战平瑞典队，以小组第二晋级32强，成为首支晋级淘汰赛的亚洲球队，淘汰赛首轮将对阵巴西队。 当天同时进行的同组另一场比赛中，荷兰队以3:1战胜已提前出局的突尼斯队，积7分位列小组头名，晋级32强。瑞典队则以八个成绩最好的小组第三名之一的身份进入淘汰赛。 根据赛程，日本队将在32强",
+          "title": "《花少8》阵容曝光确定",
+          "summary": "吴君如/殷桃/周冬雨/林依晨/邓为/王星越，远赴拉美旅行",
+          "source": "新浪综艺",
+          "url": "https://ent.sina.cn/2026-06-26/detail-inieszry5225407.d.html",
+          "time": "6/26"
+        },
+        {
+          "title": "《乘风2026》总决赛直播",
+          "summary": "今晚19:30成团夜全开麦直播，33位姐姐终极对决",
+          "source": "芒果TV",
+          "url": "https://k.sina.cn/article_7879776328_1d5abd84806801o170.html",
+          "time": "6/27"
+        },
+        {
+          "title": "孙怡面试《花少8》花絮曝出",
+          "summary": "导演到《乘风》后台面谈，孙怡称自己主打不内耗",
+          "source": "MSN娱乐",
+          "url": "https://www.msn.cn/zh-cn/news/other/%E6%9B%9D%E5%AD%99%E6%80%A1-%E8%8A%B1%E5%B0%918-%E9%9D%A2%E8%AF%95/ar-AA266yFw",
+          "time": "6/26"
+        },
+        {
+          "title": "《刘在石营地》热播中",
+          "summary": "刘在石/李光洙/边佑锡固定嘉宾，爆笑综艺持续更新",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053788614824129085",
+          "url": "https://zhuanlan.zhihu.com/p/2043075576722887375",
           "time": "6/26"
         }
       ]
@@ -142,66 +219,66 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "凡人动画大电影《凡人修仙传之瀚海迷踪》的票房能破20亿吗？",
-          "summary": "最新资讯：凡人动画大电影《凡人修仙传之瀚海迷踪》的票房能破20亿吗？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053435015258804659",
+          "title": "《四渡》今日全国上映",
+          "summary": "刘烨/王雷主演，献礼长征胜利90周年，还原四渡赤水经典战役",
+          "source": "快科技",
+          "url": "https://finance.sina.com.cn/tech/roll/2026-06-16/doc-inicpzzz7749427.shtml",
           "time": "6/26"
         },
         {
-          "title": "2026 年国内票房遇冷，北美院线却恢复到疫情前最好成绩，两地市场为何出现巨大反差？",
-          "summary": "美国东部时间 2026 年 6 月 21 日，《华尔街日报》（The Wall Street Journal）刊发题为《好莱坞的票房表现达到了疫情前的最佳水平》的文章，以下为部分摘要： 据 Rentrak 的数据，今年迄今为止，美国国内电影票房总额约为 44.6 亿美元，这一数字是 2019 年以来的最高水平。通货膨胀确实对票房有一定影响，但相比观众人数的增加，其影响要小得多。根据研究机构 Ent",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053495824634437802",
+          "title": "暑期档票房突破12亿",
+          "summary": "超60部影片锁定暑期档，端午档近20部上映创近十年新高",
+          "source": "央视新闻",
+          "url": "https://news.qq.com/rain/a/20260624A080AW00",
           "time": "6/26"
         },
         {
-          "title": "中年再品《父母爱情》，看见全网大量批判之声，这份争议究竟源于观众苛责，还是剧集本身存在叙事局限？",
-          "summary": "人到中年重看《父母爱情》，年少时只看见江德福对安杰半生无微不至的包容守护，如今网上却满是批判争议。想问问大家：这些争议是观众脱离时代过度吹毛求疵，还是剧集本身叙事立意本就存在无法回避的短板？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2053380323078099637",
+          "title": "《给阿嬷的情书》超18亿",
+          "summary": "豆瓣9.3分口碑持续走高，延长放映至7月31日",
+          "source": "IT之家",
+          "url": "https://www.ithome.com/0/966/336.htm",
           "time": "6/26"
         },
         {
-          "title": "电影《抓特务》肖大力为什么会这么确信冯静波有问题？",
-          "summary": "几乎是用了半辈子的时间和他斗",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2051364215009681790",
+          "title": "《玩具总动员5》领跑端午档",
+          "summary": "端午档首日票房破亿，《玩具5》以1.22亿周票房领跑",
+          "source": "猫眼专业版",
+          "url": "https://finance.sina.com.cn/roll/2026-06-19/doc-inicwaip2092396.shtml",
           "time": "6/26"
         }
       ]
     },
     {
-      "id": "fun",
-      "name": "🎮 好玩有趣",
-      "color": "#22c55e",
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
       "items": [
         {
-          "title": "你我共参与无毒向未来",
-          "summary": "最新资讯：你我共参与无毒向未来（热度68.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BD%A0%E6%88%91%E5%85%B1%E5%8F%82%E4%B8%8E%E6%97%A0%E6%AF%92%E5%90%91%E6%9C%AA%E6%9D%A5",
+          "title": "I.O.I新单登顶Instiz榜首",
+          "summary": "《忽然之间》以34,081分强势夺冠，ILLIT/CORTIS紧随其后",
+          "source": "搜狐韩娱",
+          "url": "https://www.sohu.com/a/1037075072_122507509",
           "time": "6/26"
         },
         {
-          "title": "土耳其3比2绝杀美国",
-          "summary": "最新资讯：土耳其3比2绝杀美国（热度57.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%9C%9F%E8%80%B3%E5%85%B63%E6%AF%942%E7%BB%9D%E6%9D%80%E7%BE%8E%E5%9B%BD",
+          "title": "aespa《LEMONADE》蝉联冠军",
+          "summary": "连续两周高居Soompi K-Pop榜首，舞曲风潮席卷夏日",
+          "source": "Soompi",
+          "url": "https://www.sohu.com/a/1039671893_122507509",
           "time": "6/26"
         },
         {
-          "title": "曝花少8阵容已确定",
-          "summary": "最新资讯：曝花少8阵容已确定（热度42.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9B%9D%E8%8A%B1%E5%B0%918%E9%98%B5%E5%AE%B9%E5%B7%B2%E7%A1%AE%E5%AE%9A",
+          "title": "苏志燮《金特务》热播",
+          "summary": "韩剧六月神仙打架，苏志燮/崔显旭等多位男神携新作回归",
+          "source": "搜狐韩娱",
+          "url": "https://www.sohu.com/a/1029050681_121983867",
           "time": "6/26"
         },
         {
-          "title": "原神",
-          "summary": "最新资讯：原神（热度33.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8E%9F%E7%A5%9E",
+          "title": "FIFTY FIFTY六月回归",
+          "summary": "迷你4辑《Imperfect-I'mperfect》全专发布，夏日女团大战",
+          "source": "Kpann",
+          "url": "https://kpoppann.com/6327.html",
           "time": "6/26"
         }
       ]
