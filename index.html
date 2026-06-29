@@ -5761,12 +5761,15 @@
         }
 
         async function saveVideo() {
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             const getEl = (id) => document.getElementById(id);
             const id = getEl('videoId') ? getEl('videoId').value : '';
             const now = new Date().toISOString();
             const getVal = (id) => {
                 const el = getEl(id);
-                return el ? parseInt(el.value) || null : null;
+                if (!el || el.value === '') return null;
+                const v = parseInt(el.value);
+                return isNaN(v) ? null : v;
             };
             const getText = (id) => {
                 const el = getEl(id);
@@ -5808,18 +5811,22 @@
             if (data.views_day7 !== null && data.views_day7 !== undefined) data.stats_day7_at = now;
             
             try {
+                let result;
                 if (id) {
-                    const { error } = await supabase.from('videos').update(data).eq('id', id);
-                    if (error) throw error;
-                    toast('更新成功');
+                    result = await supabase.from('videos').update(data).eq('id', id);
+                    if (result.error) throw result.error;
+                    toast('✅ 更新成功');
                 } else {
-                    const { error } = await supabase.from('videos').insert(data);
-                    if (error) throw error;
-                    toast('添加成功');
+                    result = await supabase.from('videos').insert(data);
+                    if (result.error) throw result.error;
+                    toast('✅ 添加成功');
                 }
                 closeModal('videoModal');
-                loadVideos();
-            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+                await loadVideos();
+            } catch (e) {
+                console.error('[saveVideo] 保存失败:', e);
+                toast('❌ 保存失败: ' + (e.message || e), 'error');
+            }
         }
 
         async function deleteVideo(id) {
@@ -5893,6 +5900,7 @@
         }
 
         async function saveAccount() {
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             const id = document.getElementById('accountId').value;
             const data = {
                 name: document.getElementById('accountName').value,
@@ -5903,18 +5911,22 @@
                 active: true
             };
             try {
+                let result;
                 if (id) {
-                    const { error } = await supabase.from('accounts').update(data).eq('id', id);
-                    if (error) throw error;
-                    toast('更新成功');
+                    result = await supabase.from('accounts').update(data).eq('id', id);
+                    if (result.error) throw result.error;
+                    toast('✅ 更新成功');
                 } else {
-                    const { error } = await supabase.from('accounts').insert(data);
-                    if (error) throw error;
-                    toast('添加成功');
+                    result = await supabase.from('accounts').insert(data);
+                    if (result.error) throw result.error;
+                    toast('✅ 添加成功');
                 }
                 closeModal('accountModal');
-                loadAccounts();
-            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+                await loadAccounts();
+            } catch (e) {
+                console.error('[saveAccount] 保存失败:', e);
+                toast('❌ 保存失败: ' + (e.message || e), 'error');
+            }
         }
 
         async function deleteAccount(id) {
@@ -5972,24 +5984,29 @@
         }
 
         async function saveUser() {
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             const id = document.getElementById('userId').value;
             const realName = document.getElementById('userName').value.trim();
             if (!realName) { toast('姓名不能为空', 'error'); return; }
             const username = realName; // 用户名默认等于姓名
             const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, active: true, password: '123456' };
             try {
+                let result;
                 if (id) {
-                    const { error } = await supabase.from('users').update(data).eq('id', id);
-                    if (error) throw error;
-                    toast('更新成功');
+                    result = await supabase.from('users').update(data).eq('id', id);
+                    if (result.error) throw result.error;
+                    toast('✅ 更新成功');
                 } else {
-                    const { error } = await supabase.from('users').insert(data);
-                    if (error) throw error;
-                    toast('添加成功');
+                    result = await supabase.from('users').insert(data);
+                    if (result.error) throw result.error;
+                    toast('✅ 添加成功');
                 }
                 closeModal('userModal');
-                loadUsers();
-            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+                await loadUsers();
+            } catch (e) {
+                console.error('[saveUser] 保存失败:', e);
+                toast('❌ 保存失败: ' + (e.message || e), 'error');
+            }
         }
 
         async function deleteUser(id) {
@@ -6109,16 +6126,18 @@
         }
 
         async function saveGroup() {
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             const id = document.getElementById('groupId').value;
             const name = document.getElementById('groupName').value.trim();
             if (!name) { toast('分组名称不能为空', 'error'); return; }
             const data = { name, leader: document.getElementById('groupLeader').value, note: document.getElementById('groupNote').value };
             try {
-                if (id) { const { error } = await supabase.from('groups').update(data).eq('id', id); if (error) throw error; toast('更新成功'); }
-                else { const { error } = await supabase.from('groups').insert(data); if (error) throw error; toast('添加成功'); }
+                let result;
+                if (id) { result = await supabase.from('groups').update(data).eq('id', id); if (result.error) throw result.error; toast('✅ 更新成功'); }
+                else { result = await supabase.from('groups').insert(data); if (result.error) throw result.error; toast('✅ 添加成功'); }
                 closeModal('groupModal');
-                loadGroups();
-            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+                await loadGroups();
+            } catch (e) { console.error('[saveGroup]', e); toast('❌ 保存失败: ' + (e.message || e), 'error'); }
         }
 
         async function deleteGroup(id) {
@@ -6229,6 +6248,7 @@
         }
 
         async function saveSalaryConfig() {
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             const id = document.getElementById('salaryConfigId').value;
             const role = document.getElementById('salaryConfigRole').value;
             let data = { role: role };
@@ -6257,11 +6277,12 @@
             }
             
             try {
-                if (id) { const { error } = await supabase.from('salary_configs').update(data).eq('id', id); if (error) throw error; toast('更新成功'); }
-                else { const { error } = await supabase.from('salary_configs').insert(data); if (error) throw error; toast('添加成功'); }
+                let result;
+                if (id) { result = await supabase.from('salary_configs').update(data).eq('id', id); if (result.error) throw result.error; toast('✅ 更新成功'); }
+                else { result = await supabase.from('salary_configs').insert(data); if (result.error) throw result.error; toast('✅ 添加成功'); }
                 closeModal('salaryConfigModal');
-                loadSalaryConfigs();
-            } catch (e) { toast('保存失败: ' + e.message, 'error'); }
+                await loadSalaryConfigs();
+            } catch (e) { console.error('[saveSalaryConfig]', e); toast('❌ 保存失败: ' + (e.message || e), 'error'); }
         }
 
         async function deleteSalaryConfig(id) {
