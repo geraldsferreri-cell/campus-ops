@@ -5831,12 +5831,16 @@
 
         async function deleteVideo(id) {
             if (!confirm('确定要删除吗？')) return;
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             try {
                 const { error } = await supabase.from('videos').delete().eq('id', id);
                 if (error) throw error;
-                toast('删除成功');
-                loadVideos();
-            } catch (e) { toast('删除失败', 'error'); }
+                toast('✅ 删除成功');
+                await loadVideos();
+            } catch (e) {
+                console.error('[deleteVideo] 删除失败:', e);
+                toast('❌ 删除失败: ' + (e.message || e), 'error');
+            }
         }
 
         // ============ Accounts ============
@@ -5931,7 +5935,8 @@
 
         async function deleteAccount(id) {
             if (!confirm('确定要删除吗？')) return;
-            try { const { error } = await supabase.from('accounts').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadAccounts(); } catch (e) { toast('删除失败', 'error'); }
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
+            try { const { error } = await supabase.from('accounts').delete().eq('id', id); if (error) throw error; toast('✅ 删除成功'); await loadAccounts(); } catch (e) { console.error('[deleteAccount] 删除失败:', e); toast('❌ 删除失败: ' + (e.message || e), 'error'); }
         }
 
         // ============ Users ============
@@ -6011,7 +6016,8 @@
 
         async function deleteUser(id) {
             if (!confirm('确定要删除吗？')) return;
-            try { const { error } = await supabase.from('users').delete().eq('id', id); if (error) throw error; toast('删除成功'); loadUsers(); } catch (e) { toast('删除失败', 'error'); }
+            if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
+            try { const { error } = await supabase.from('users').delete().eq('id', id); if (error) throw error; toast('✅ 删除成功'); await loadUsers(); } catch (e) { console.error('[deleteUser] 删除失败:', e); toast('❌ 删除失败: ' + (e.message || e), 'error'); }
         }
 
         // ============ Groups ============
@@ -7449,7 +7455,7 @@
                     try { await supabase.rpc('pgio', { query: sql }); } catch (e) { console.log('SQL执行:', e.message); }
                 }
                 // RLS
-                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE market_reports ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON market_reports; CREATE POLICY "pub" ON market_reports FOR ALL USING (true) WITH CHECK (true);`];
+                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE market_reports ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON market_reports; CREATE POLICY "pub" ON market_reports FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE videos ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON videos; CREATE POLICY "pub" ON videos FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE accounts ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON accounts; CREATE POLICY "pub" ON accounts FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE users ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON users; CREATE POLICY "pub" ON users FOR ALL USING (true) WITH CHECK (true);`];
                 for (const r of rls) { try { await supabase.rpc('pgio', { query: r }); } catch (e) { console.log('RLS:', e.message); } }
                 toast('数据库初始化完成！', 'success');
                 loadAllData();
