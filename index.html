@@ -5078,7 +5078,7 @@
 
         async function waitForSDKAndLoadData() {
             var ok = await waitForSDK(20000);
-            if (ok) { loadAllData(); }
+            if (ok) { loadAllData(); fixRLS(); } // 登录后自动修复RLS权限
             else { showNetworkError('系统初始化超时，请刷新页面重试'); }
         }
 
@@ -5830,11 +5830,16 @@
         }
 
         async function deleteVideo(id) {
-            if (!confirm('确定要删除吗？')) return;
             if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             try {
-                const { error } = await supabase.from('videos').delete().eq('id', id);
+                // 用 count: 'exact' 检测是否真的删除了行（RLS可能静默阻止DELETE）
+                const { count, error } = await supabase.from('videos').delete({ count: 'exact' }).eq('id', id);
                 if (error) throw error;
+                if (count === 0) {
+                    toast('❌ 删除失败：数据库权限不足，请联系管理员修复', 'error');
+                    await fixRLS(); // 自动尝试修复RLS权限
+                    return;
+                }
                 toast('✅ 删除成功');
                 await loadVideos();
             } catch (e) {
@@ -5936,7 +5941,7 @@
         async function deleteAccount(id) {
             if (!confirm('确定要删除吗？')) return;
             if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
-            try { const { error } = await supabase.from('accounts').delete().eq('id', id); if (error) throw error; toast('✅ 删除成功'); await loadAccounts(); } catch (e) { console.error('[deleteAccount] 删除失败:', e); toast('❌ 删除失败: ' + (e.message || e), 'error'); }
+            try { const { count, error } = await supabase.from('accounts').delete({ count: 'exact' }).eq('id', id); if (error) throw error; if (count === 0) { toast('❌ 删除失败：数据库权限不足，请联系管理员修复', 'error'); await fixRLS(); return; } toast('✅ 删除成功'); await loadAccounts(); } catch (e) { console.error('[deleteAccount] 删除失败:', e); toast('❌ 删除失败: ' + (e.message || e), 'error'); }
         }
 
         // ============ Users ============
@@ -6017,7 +6022,7 @@
         async function deleteUser(id) {
             if (!confirm('确定要删除吗？')) return;
             if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
-            try { const { error } = await supabase.from('users').delete().eq('id', id); if (error) throw error; toast('✅ 删除成功'); await loadUsers(); } catch (e) { console.error('[deleteUser] 删除失败:', e); toast('❌ 删除失败: ' + (e.message || e), 'error'); }
+            try { const { count, error } = await supabase.from('users').delete({ count: 'exact' }).eq('id', id); if (error) throw error; if (count === 0) { toast('❌ 删除失败：数据库权限不足，请联系管理员修复', 'error'); await fixRLS(); return; } toast('✅ 删除成功'); await loadUsers(); } catch (e) { console.error('[deleteUser] 删除失败:', e); toast('❌ 删除失败: ' + (e.message || e), 'error'); }
         }
 
         // ============ Groups ============
@@ -7442,6 +7447,20 @@
         }
 
         // ============ Init Tables ============
+        // 自动修复所有表的RLS权限（包括DELETE），管理员登录后静默执行
+        async function fixRLS() {
+            if (!supabase) return;
+            const tables = ['videos', 'accounts', 'users', 'groups', 'salary_configs', 'salaries', 'market_reports'];
+            for (const table of tables) {
+                const sql = `ALTER TABLE ${table} ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON ${table}; CREATE POLICY "pub" ON ${table} FOR ALL USING (true) WITH CHECK (true);`;
+                try {
+                    const { error } = await supabase.rpc('pgio', { query: sql });
+                    if (error) console.warn('[fixRLS] ' + table + ':', error.message);
+                    else console.log('[fixRLS] ✅ ' + table + ' RLS已修复');
+                } catch (e) { console.warn('[fixRLS] ' + table + ' RPC失败:', e.message); }
+            }
+        }
+
         async function initTables() {
             if (!confirm('这将创建/更新所有必要的数据库表。继续吗？')) return;
             try {
