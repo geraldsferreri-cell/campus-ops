@@ -1,7 +1,7 @@
 {
-  "date": "2026-06-30",
-  "scrape_time": "2026-06-30 17:14 CST",
-  "data_source": "WebSearch/ZOL/7M体育/网易娱乐/STARNEWS/Hypebeast",
+  "date": "2026-07-01",
+  "scrape_time": "2026-07-01 14:21 CST",
+  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
       "id": "tech",
@@ -9,32 +9,18 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "Redmi K90系列新品发布",
-          "summary": "K90系列6月30日19:00发布，搭载魔改散热与3K游戏屏。",
-          "source": "ZOL中关村在线",
-          "url": "https://mobile.zol.com.cn/1207/12077040.html",
-          "time": "6/30"
+          "title": "机器人伴侣价格11.98万至99万",
+          "summary": "最新资讯：机器人伴侣价格11.98万至99万（热度55.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%9C%BA%E5%99%A8%E4%BA%BA%E4%BC%B4%E4%BE%A3%E4%BB%B7%E6%A0%BC11.98%E4%B8%87%E8%87%B399%E4%B8%87",
+          "time": "7/1"
         },
         {
-          "title": "苹果iPhone Ultra渲染图曝光",
-          "summary": "iPhone Ultra钛合金框体、双摄布局，全新设计引发关注。",
-          "source": "ZOL中关村在线",
-          "url": "https://mobile.zol.com.cn/1207/12077850.html",
-          "time": "6/30"
-        },
-        {
-          "title": "三星Galaxy Z Slide滑盖手机曝光",
-          "summary": "三星新形态滑盖折叠机曝光，预计2028年随S28发布。",
-          "source": "ZOL中关村在线",
-          "url": "https://mobile.zol.com.cn/1207/12077028.html",
-          "time": "6/30"
-        },
-        {
-          "title": "iPhone 18e确认搭载60Hz屏幕",
-          "summary": "苹果iPhone 18e配6.12英寸60Hz OLED，刷新率引发争议。",
-          "source": "ZOL中关村在线",
-          "url": "https://mobile.zol.com.cn/1207/12076893.html",
-          "time": "6/30"
+          "title": "我闭眼都能找到金苹果",
+          "summary": "最新资讯：我闭眼都能找到金苹果（热度770.6万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%88%91%E9%97%AD%E7%9C%BC%E9%83%BD%E8%83%BD%E6%89%BE%E5%88%B0%E9%87%91%E8%8B%B9%E6%9E%9C",
+          "time": "7/1"
         }
       ]
     },
@@ -44,32 +30,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "OpenAI发布自研AI芯片Jalapeno",
-          "summary": "OpenAI与博通联合开发首款AI推理芯片，9个月完成流片。",
-          "source": "西网",
-          "url": "https://www.weste.net/2026/06-25/OpenAI-Jalapeno.html",
-          "time": "6/25"
+          "title": "Claude偷偷给中国用户打水印",
+          "summary": "最新资讯：Claude偷偷给中国用户打水印（热度37.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=Claude%E5%81%B7%E5%81%B7%E7%BB%99%E4%B8%AD%E5%9B%BD%E7%94%A8%E6%88%B7%E6%89%93%E6%B0%B4%E5%8D%B0",
+          "time": "7/1"
         },
         {
-          "title": "世界人工智能大会7月上海举办",
-          "summary": "2026世界人工智能大会将于7月17-20日在上海举办。",
-          "source": "澎湃新闻",
-          "url": "https://www.thepaper.cn/newsDetail_forward_33400001",
-          "time": "6/17"
+          "title": "网传Claude通过原生消息传递获取用户位置，再以隐写术隐蔽回传封杀中国大陆用户，什么情况？你怎么看？",
+          "summary": "根据网络安全专家 Alexander Hanff的公开爆料。他发现 Anthropic 在用户完全不知情的情况下，通过 Claude Desktop 客户端向系统中的多个独立浏览器静默注入配置文件。由于该行为具备“未经授权篡改第三方软件”、“隐藏运行”等特征，因此在安全社区被许多人斥为秘密植入“间谍软件”或“后门”。 这套机制专门用来秘密获取当前用户的系统时区，并以此推断其是否在中国以及具体的网络",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055348161544295141",
+          "time": "7/1"
         },
         {
-          "title": "6月AI全景：智能体时代全面开启",
-          "summary": "6月AI行业从百模大战转向智能体落地，国产力量加速崛起。",
-          "source": "搜狐",
-          "url": "https://www.sohu.com/a/1035472711_122558976",
-          "time": "6/12"
+          "title": "香港演员吴启华卖20岁肖像权拍AI电影，如何看待这一选择？对行业意味着什么？",
+          "summary": "近日，62岁香港实力派男演员吴启华出席剧集宣传活动时，向媒体分享全新影视尝试，宣布正式入局AI数字影视赛道，将自己20岁青年时期肖像权授权影视制作团队，由AI复刻其年轻样貌拍摄电影，全程无需本人出镜参演。 采访中吴启华介绍，本次合作签订完整法律合约，清晰限定肖像仅用于单部AI影片，杜绝肖像私自挪用风险。制作团队依托人工智能技术还原他二十岁时的样貌、神态，以数字化形象担任影片男主角。他已提前观看成片",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055055883843925167",
+          "time": "7/1"
         },
         {
-          "title": "2026年6月AI最新趋势总结",
-          "summary": "百万上下文、原生多模态成标配，应用形态全面变革。",
-          "source": "CSDN",
-          "url": "https://blog.csdn.net/2603_96229802/article/details/162132895",
-          "time": "6/30"
+          "title": "如何评价Anthropic最新发布的Claude Sonnet5？",
+          "summary": "就在刚刚，Claude Sonnet 5来了！ 代号Fennec，耳廓狐，撒哈拉沙漠里体型最小的狐狸。 这是Anthropic迄今为止，Agent能力最强的Sonnet模型，并且性能直逼旗舰Opus 4.8。 即日起，Sonnet 5成为所有Free和Pro用户的默认模型。 它能自主规划、调用浏览器和终端工具。 就在几个月前，这还需要花大价钱调用超大模型才能做到，现在，Sonnet轻松拿下。 相较",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055567821904547893",
+          "time": "7/1"
         }
       ]
     },
@@ -79,67 +65,53 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "荷兰点球3-4不敌摩洛哥",
-          "summary": "世界杯1/16决赛荷兰点球大战落败，近三届均倒在点球。",
-          "source": "7M体育",
-          "url": "https://www.7m.com.cn/2026worldcup/news/730152",
-          "time": "6/30"
+          "title": "曝詹姆斯已确定离开湖人将继续职业生涯，如何看待詹姆斯的这一决定和未来前景？",
+          "summary": "北京时间7月1日，据NBA知名记者Shams Charania报道，詹姆斯已告知湖人他将在下赛季延续自己的职业生涯，但他将离开湖人，前往其他球队继续效力。 来自Shams的突发消息，詹姆斯将在2026/27赛季继续其NBA职业生涯，并已告知湖人，球队可以在没有他的情况下继续前进，因为他将前往其他球队效力。在效力湖人八个赛季，包括带领球队夺得2020年NBA总冠军后，詹姆斯将离队并进入自由球员市场，",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055447736917481097",
+          "time": "7/1"
         },
         {
-          "title": "巴西95分钟绝杀2-1战胜日本",
-          "summary": "F组死亡之组出线的日本遭巴西逆转绝杀，止步淘汰赛首轮。",
-          "source": "7M体育",
-          "url": "https://www.7m.com.cn/2026worldcup/news/730150",
-          "time": "6/30"
+          "title": "世界杯赛后日本球迷在现场清理垃圾，被嘲「每四年表演一次文明」，你怎么看？这种行为真的是有组织的吗？",
+          "summary": "在对阵巴西的世界杯比赛后，日本球迷现场清理垃圾 大量海外网友撕开反差真相，据OECD权威数据，日本男性在家务方面的贡献处于全球最低水平之一，并主张应在家庭中分担无偿照料劳动。 评论区： “每四年日本人表演一次文明” “我知道有些人故意扔垃圾，就是为了能做这个，看起来够忙，好让摄像头拍到他们。 ”",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055329815301813727",
+          "time": "7/1"
         },
         {
-          "title": "德国点球不敌巴拉圭爆冷出局",
-          "summary": "德国队点球负于巴拉圭，沃勒尔表态支持纳帅继续留任。",
-          "source": "7M体育",
-          "url": "https://www.7m.com.cn/2026worldcup/news/730148",
-          "time": "6/30"
+          "title": "世界杯 1/16 决赛，法国 3-0 淘汰瑞典，姆巴佩双响、世界杯 18 场18球，如何评价本场比赛？",
+          "summary": "世界杯 1/16 决赛，法国 vs 瑞典，如何评价本场比赛？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055237822475408966",
+          "time": "7/1"
         },
         {
-          "title": "世界杯科特迪瓦VS挪威前瞻",
-          "summary": "7月1日凌晨1点，两队小组第二出线将展开淘汰赛对决。",
-          "source": "7M体育",
-          "url": "https://www.7m.com.cn/2026worldcup/news/730153",
-          "time": "6/30"
+          "title": "WTT美国大满贯，王曼昱0-3不敌削球选手佐藤瞳，无缘下一轮，如何评价这场比赛？",
+          "summary": "最新资讯：WTT美国大满贯，王曼昱0-3不敌削球选手佐藤瞳，无缘下一轮，如何评价这场比赛？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055587834388537861",
+          "time": "7/1"
         }
       ]
     },
     {
-      "id": "ent",
+      "id": "show",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
-          "title": "于和伟二封白玉兰视帝",
-          "summary": "于和伟再度荣获白玉兰奖视帝，新剧《抓特务》演反派。",
-          "source": "网易娱乐",
-          "url": "https://www.163.com/dy/article/L0M5PN640517WCAS.html",
-          "time": "6/30"
+          "title": "张凌赫田曦薇迪丽热巴等都曾被敲诈",
+          "summary": "最新资讯：张凌赫田曦薇迪丽热巴等都曾被敲诈（热度33.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%BC%A0%E5%87%8C%E8%B5%AB%E7%94%B0%E6%9B%A6%E8%96%87%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E7%AD%89%E9%83%BD%E6%9B%BE%E8%A2%AB%E6%95%B2%E8%AF%88",
+          "time": "7/1"
         },
         {
-          "title": "杨紫获奖后涨粉近17万",
-          "summary": "杨紫获奖后社交媒体粉丝迅速增长近17万，引发广泛关注。",
-          "source": "网易娱乐",
-          "url": "https://www.163.com/dy/article/L0LV5LQU0539ARRF.html",
-          "time": "6/30"
-        },
-        {
-          "title": "吴倩回应：没复婚不是恋爱脑",
-          "summary": "34岁吴倩首次公开回应复婚传言，明确否认并澄清态度。",
-          "source": "网易娱乐",
-          "url": "https://www.163.com/dy/article/L0MCSPGA052699SJ.html",
-          "time": "6/30"
-        },
-        {
-          "title": "谢娜遭遇惨痛教训引关注",
-          "summary": "谢娜近期经历引发热议，相关文章热度持续攀升。",
-          "source": "网易娱乐",
-          "url": "https://www.163.com/dy/article/L0MA2DDS0553CIYD.html",
-          "time": "6/30"
+          "title": "伯德小姐面试穿搭",
+          "summary": "最新资讯：伯德小姐面试穿搭（热度777.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E4%BC%AF%E5%BE%B7%E5%B0%8F%E5%A7%90%E9%9D%A2%E8%AF%95%E7%A9%BF%E6%90%AD",
+          "time": "7/1"
         }
       ]
     },
@@ -149,32 +121,11 @@
       "color": "#f43f5e",
       "items": [
         {
-          "title": "JS x NEEDLES SS26联名",
-          "summary": "JOURNAL STANDARD携手NEEDLES推出SS26联名运动裤。",
-          "source": "Hypebeast",
-          "url": "https://hypebeast.cn/2026/6/journal-standard-needles-deliver-custom-ss26-track-pants-2",
-          "time": "6/17"
-        },
-        {
-          "title": "Post Malone品牌春夏系列亮相",
-          "summary": "Austin Post 2026春夏系列以70年代美式风情诠释夏日。",
-          "source": "Hypebeast",
-          "url": "https://hypebeast.cn/2026/6/austin-post-malone-ss26-lookbook-release-info",
-          "time": "6/16"
-        },
-        {
-          "title": "Kappa x WIND AND SEA联名",
-          "summary": "Kappa与WIND AND SEA推出「SECOND HALF」胶囊系列。",
-          "source": "Hypebeast",
-          "url": "https://hypebeast.cn/2026/6/kappa-and-wind-and-sea-ready-second-half-capsule-collection",
-          "time": "6/9"
-        },
-        {
-          "title": "赵今麦娇兰总裁LV太子妃合照",
-          "summary": "赵今麦与娇兰全球总裁、LV太子妃同框合影引发热议。",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%B5%B5%E4%BB%8A%E9%BA%A6%E5%A8%87%E5%85%B0%E5%85%A8%E7%90%83%E6%80%BB%E8%A3%81LV%E5%A4%AA%E5%AD%90%E5%A6%83%E5%90%88%E7%85%A7",
-          "time": "6/29"
+          "title": "哈兰德赛后发牛仔OOTD",
+          "summary": "最新资讯：哈兰德赛后发牛仔OOTD（热度778.2万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%93%88%E5%85%B0%E5%BE%B7%E8%B5%9B%E5%90%8E%E5%8F%91%E7%89%9B%E4%BB%94OOTD",
+          "time": "7/1"
         }
       ]
     },
@@ -184,32 +135,11 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "乘风2026曾沛慈断层夺冠",
-          "summary": "《乘风2026》总决赛全开麦直播，曾沛慈拿下年度总冠军。",
-          "source": "新浪娱乐",
-          "url": "https://ent.sina.cn/2026-06-28/detail-iniewssh4353694.d.html",
-          "time": "6/27"
-        },
-        {
-          "title": "乘风2026以真实破圈收官",
-          "summary": "节目采用直播、零修音、无后期剪辑，总决赛于6月27日收官。",
-          "source": "文艺报",
-          "url": "https://wenyi.gmw.cn/2026-06/29/content_38853713.htm",
-          "time": "6/29"
-        },
-        {
-          "title": "说唱巅峰对决2026热播",
-          "summary": "爱奇艺《说唱巅峰对决2026》持续热播，成为今夏热门综艺。",
-          "source": "爱奇艺",
-          "url": "https://www.iqiyi.com/zongyi/",
-          "time": "6/30"
-        },
-        {
-          "title": "哈兰德抖音备战淘汰赛",
-          "summary": "哈兰德发抖音视频全力备战世界杯淘汰赛，热度飙升。",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%93%88%E5%85%B0%E5%BE%B7%E5%8F%91%E6%8A%96%E9%9F%B3%E5%85%A8%E5%8A%9B%E5%A4%87%E6%88%98%E6%B7%98%E6%B1%B0%E8%B5%9B",
-          "time": "6/29"
+          "title": "随着德国荷兰被淘汰，法国是不是已经稳进决赛了？决赛能否重现法国VS阿根廷？",
+          "summary": "法国这个半区唯一潜在堪称有实力的对手只剩西班牙，阿根廷那个半区似乎强队也不是很多，梅西早早进入状态。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055296699611066931",
+          "time": "7/1"
         }
       ]
     },
@@ -219,67 +149,53 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "2026年度票房突破170亿元",
-          "summary": "年度票房超170亿，《飞驰人生3》《给阿嬷的情书》领跑。",
-          "source": "百度百家",
-          "url": "https://baijiahao.baidu.com/s?id=1868881862322035932",
-          "time": "6/30"
+          "title": "由周星驰导演即将上映的《功夫女足》为何多人唱衰？",
+          "summary": "7月10号或7月17号即将上映的由周星驰主导的电影《女足》即将上映，没有任何宣发也没有任何路透。演员表中张小斐饰演女足队长，迪丽热巴饰演王牌前锋，张艺兴饰演带队教练，少林足球老搭档也悉数回归，周星驰甚至时隔多年再次本人出演。你期待吗？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2053120824966750361",
+          "time": "7/1"
         },
         {
-          "title": "中金：暑期档带动票房弹性",
-          "summary": "中金指出暑期档片单可见度提升，重点关注内容带动弹性。",
-          "source": "证券时报",
-          "url": "https://finance.sina.cn/2026-06-30/detail-inifcvua1670835.d.html",
-          "time": "6/30"
-        },
-        {
-          "title": "暑期档《四渡》连夺日冠",
-          "summary": "《四渡》上映后连续保持单日票房冠军，暑期档票房超15亿。",
-          "source": "新浪影视",
-          "url": "http://k.sina.com.cn/article_7857201856_1d45362c001907j9ki.html",
-          "time": "6/28"
-        },
-        {
-          "title": "《给阿嬷的情书》票房超15亿",
-          "summary": "影片口碑票房持续走高，已官宣延长放映至7月31日。",
-          "source": "澎湃新闻",
-          "url": "https://m.thepaper.cn/newsDetail_forward_33326693",
-          "time": "6/6"
+          "title": "电影抓特务对白含金量",
+          "summary": "最新资讯：电影抓特务对白含金量（热度768.9万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%8A%93%E7%89%B9%E5%8A%A1%E5%AF%B9%E7%99%BD%E5%90%AB%E9%87%91%E9%87%8F",
+          "time": "7/1"
         }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "fun",
+      "name": "🎮 好玩有趣",
+      "color": "#22c55e",
       "items": [
         {
-          "title": "BTS Jin获巴西SEC Awards三冠王",
-          "summary": "防弹少年团Jin在巴西SEC Awards 2026中斩获三项大奖。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/star/2026/06/30/2026063006541317472",
-          "time": "6/30"
+          "title": "欧洲人自豪举报20户邻居用空调",
+          "summary": "最新资讯：欧洲人自豪举报20户邻居用空调（热度124.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%AC%A7%E6%B4%B2%E4%BA%BA%E8%87%AA%E8%B1%AA%E4%B8%BE%E6%8A%A520%E6%88%B7%E9%82%BB%E5%B1%85%E7%94%A8%E7%A9%BA%E8%B0%83",
+          "time": "7/1"
         },
         {
-          "title": "防弹少年团马德里公演获好评",
-          "summary": "西班牙媒体盛赞BTS马德里公演，称是13年的等待。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/music/2026/06/30/2026063017552482219",
-          "time": "6/30"
+          "title": "泰山疑被135公里刀片铁丝网围住",
+          "summary": "最新资讯：泰山疑被135公里刀片铁丝网围住（热度121.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%B3%B0%E5%B1%B1%E7%96%91%E8%A2%AB135%E5%85%AC%E9%87%8C%E5%88%80%E7%89%87%E9%93%81%E4%B8%9D%E7%BD%91%E5%9B%B4%E4%BD%8F",
+          "time": "7/1"
         },
         {
-          "title": "RESCENE预告7月8日回归",
-          "summary": "组合RESCENE公开翻唱单曲《Pretty Girl》概念照，预告回归。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/music/2026/06/30/2026063008021250391",
-          "time": "6/30"
+          "title": "这是10128.6万分之一的回答",
+          "summary": "最新资讯：这是10128.6万分之一的回答（热度92.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%99%E6%98%AF10128.6%E4%B8%87%E5%88%86%E4%B9%8B%E4%B8%80%E7%9A%84%E5%9B%9E%E7%AD%94",
+          "time": "7/1"
         },
         {
-          "title": "智旻6月品牌评价双冠王",
-          "summary": "防弹少年团智旻包揽6月偶像合并与男子组合个人第一名。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/music/2026/06/30/2026063007443728502",
-          "time": "6/30"
+          "title": "hr问我为什么有两个毕业证",
+          "summary": "最新资讯：hr问我为什么有两个毕业证（热度89.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=hr%E9%97%AE%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E4%B8%A4%E4%B8%AA%E6%AF%95%E4%B8%9A%E8%AF%81",
+          "time": "7/1"
         }
       ]
     }
