@@ -5666,26 +5666,9 @@
                     const va = el('videoAccount'); if (va) va.value = '';
                     const vg = el('videoGroup'); if (vg) vg.value = '';
                 } else {
-                    const video = allVideos.find(v => v.id === id);
-                    if (video) {
-                        el('videoViewsDay3').value = video.views_day3 ?? '';
-                        el('videoLikesDay3').value = video.likes_day3 ?? '';
-                        el('videoViewsDay7').value = video.views_day7 ?? '';
-                        el('videoLikesDay7').value = video.likes_day7 ?? '';
-                        el('videoViewsMonthEnd').value = video.views_month_end ?? '';
-                        el('videoLikesMonthEnd').value = video.likes_month_end ?? '';
-                        if (video.created_at) {
-                            const today = new Date(); today.setHours(0,0,0,0);
-                            const day3Date = getDayDate(video.created_at, 3);
-                            const day7Date = getDayDate(video.created_at, 7);
-                            if (today >= day3Date) {
-                                el('day3Hint').textContent = (video.views_day3 !== null && video.views_day3 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
-                            }
-                            if (today >= day7Date) {
-                                el('day7Hint').textContent = (video.views_day7 !== null && video.views_day7 !== undefined) ? '✓ 已填写' : '⚠️ 待填写';
-                            }
-                        }
-                    }
+                    // 编辑模式：复用 editVideo 逻辑，避免字段回填不一致
+                    editVideo(id);
+                    return;
                 }
                 updateVideoAccountSelect();
                 updateVideoGroupSelect();
@@ -5730,7 +5713,15 @@
                 const e_title = el('videoModalTitle'); if (e_title) e_title.textContent = '编辑视频记录';
                 const e_plat = el('videoPlatform'); if (e_plat) e_plat.value = v.platform || '抖音';
                 updateVideoAccountSelect();
-                const e_acct = el('videoAccount'); if (e_acct) e_acct.value = v.account_name || '';
+                const e_acct = el('videoAccount');
+                if (e_acct) {
+                    // 如果当前账号不在allAccounts中，添加一个临时option保证回填显示
+                    const acctExists = Array.from(e_acct.options).some(o => o.value === v.account_name);
+                    if (v.account_name && !acctExists) {
+                        e_acct.add(new Option((v.platform || '') + ' - ' + v.account_name, v.account_name));
+                    }
+                    e_acct.value = v.account_name || '';
+                }
                 const e_time = el('videoTime'); if (e_time) e_time.value = v.created_at ? utcToLocalDateTime(v.created_at) : '';
                 const e_status = el('videoStatus'); if (e_status) e_status.value = v.status || '待发布';
                 const e_link = el('videoLink'); if (e_link) e_link.value = v.video_link || '';
@@ -5763,7 +5754,8 @@
         async function saveVideo() {
             if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
             const getEl = (id) => document.getElementById(id);
-            const id = getEl('videoId') ? getEl('videoId').value : '';
+            const rawId = getEl('videoId') ? getEl('videoId').value : '';
+            const id = rawId ? parseInt(rawId) : null; // 确保id是数字，避免空字符串执行insert
             const now = new Date().toISOString();
             const getVal = (id) => {
                 const el = getEl(id);
@@ -5813,8 +5805,14 @@
             try {
                 let result;
                 if (id) {
-                    result = await supabase.from('videos').update(data).eq('id', id);
+                    // count:exact 检测是否真正更新了行（RLS可能静默阻止UPDATE）
+                    result = await supabase.from('videos').update(data, { count: 'exact' }).eq('id', id);
                     if (result.error) throw result.error;
+                    if (result.count === 0) {
+                        toast('❌ 更新失败：数据库权限不足，请刷新页面重试', 'error');
+                        await fixRLS();
+                        return;
+                    }
                     toast('✅ 更新成功');
                 } else {
                     result = await supabase.from('videos').insert(data);
