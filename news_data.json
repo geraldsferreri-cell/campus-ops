@@ -1,7 +1,7 @@
 {
   "date": "2026-07-02",
-  "scrape_time": "2026-07-02 09:47 CST",
-  "data_source": "WebSearch/IT之家/CNMO/中国新闻网/腾讯新闻/STARNEWS/Hypebeast/中工网/无矩AI/知乎/电视猫/新浪娱乐/爱奇艺/VOGUE/钛媒体/潮流新闻",
+  "scrape_time": "2026-07-02 13:54 CST",
+  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
       "id": "tech",
@@ -9,31 +9,31 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "REDMI Note17本月发布",
-          "summary": "小米REDMI Note系列销量破5亿，Note17本月登场。",
-          "source": "IT之家",
-          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_8106a45bcaf07552",
+          "title": "苹果信息泄露 你也能手搓苹果开发板",
+          "summary": "最新资讯：苹果信息泄露 你也能手搓苹果开发板（热度24.0万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%8B%B9%E6%9E%9C%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%20%E4%BD%A0%E4%B9%9F%E8%83%BD%E6%89%8B%E6%90%93%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E6%9D%BF",
           "time": "7/2"
         },
         {
-          "title": "HarmonyOS6用户破7000万",
-          "summary": "华为宣布鸿蒙6终端设备数突破7000万台大关。",
-          "source": "CNMO",
-          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_0636a45b63461852",
+          "title": "存储芯片涨价",
+          "summary": "最新资讯：存储芯片涨价（热度17.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E6%B6%A8%E4%BB%B7",
           "time": "7/2"
         },
         {
-          "title": "iPhone Ultra折叠占比29%",
-          "summary": "CounterPoint预估苹果首款折叠机2026年占29%份额。",
-          "source": "IT之家",
-          "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_3596a45a63083452",
+          "title": "机器人伴侣价格 11.98 万至 99 万，不同价格之间有啥区别？定价合理吗？你看好它的市场前景吗？",
+          "summary": "优必选旗下消费级品牌优世界（UWORLD）在6月30日年度全球发布会上正式推出U1系列全尺寸超仿生人形机器人，全渠道订单量已突破1.1万台。 公司称，这是目前全球唯一具备规模化量产能力的全尺寸超仿生人形机器人产品，并力争于今年内完成全部交付。 这一数字与其工业端形成鲜明对比——2025年全年，优必选全尺寸具身智能人形机器人总销量仅为1079台。消费级路线的启动，令订单量在短时间内实现数量级跨越。 ",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055620022316131446",
           "time": "7/2"
         },
         {
-          "title": "华为开发者大会2026启幕",
-          "summary": "HDC2026在东莞松山湖举办，鸿蒙生态全新进化。",
-          "source": "华为",
-          "url": "https://developer.huawei.com/consumer/cn/hdc/2026",
+          "title": "怎么看待「小米辟谣」正式上线？这一举动可能会为小米带来哪些影响？",
+          "summary": "小米集团官方辟谣阵地「小米辟谣」正式上线！ 感谢社会各界和米粉长期以来对小米集团的关心及爱护，向大家汇报一下，「小米辟谣」官方辟谣阵地今天在中央网信办违法和不良信息举报中心的指导下，正式上线了。 目前「小米辟谣」已正式开通官方微博，大家可以通过「小米辟谣」官方账号核实并查阅我司的辟谣声明，反馈有关我司的各类谣言线索。我们也将通过「小米辟谣」持续与各方互动，持续使用法律武器维护我司合法商誉。 守护网",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055340835823212244",
           "time": "7/2"
         }
       ]
@@ -44,32 +44,18 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "AI产业扶持政策落地",
-          "summary": "国常会AI产业扶持政策7月1日正式执行，配套万卡智算中心。",
-          "source": "无矩AI",
-          "url": "https://iaipie.com/2026-%E5%B9%B4-7-%E6%9C%88-1-%E6%97%A5-ai-%E8%A1%8C%E4%B8%9A%E8%B5%84%E8%AE%AF%E9%80%9F%E8%A7%88/",
-          "time": "7/1"
-        },
-        {
-          "title": "全球数字经济大会启幕",
-          "summary": "2026全球数字经济大会7月2日在国家会议中心举行。",
-          "source": "中工网",
-          "url": "https://www.workercn.cn/c/2026-06-26/8833061.shtml",
+          "title": "Meta 拟对外出售剩余 AI 算力，引发美股芯片及光通信重挫，对此你怎么看，会是 AI 退潮信号么？",
+          "summary": "据彭博社报道，Meta Platforms正计划构建云计算业务，向外界出售其过剩的人工智能算力。此举旨在从庞大的AI基础设施投入中寻找商业回报，缓解市场对科技巨头过度支出的担忧，并进一步降低对传统广告业务的依赖。 受此消息推动，Meta股价盘中大涨，与此同时，CoreWeave和Nebius等独立云服务商的股价则大跌，市场普遍担忧Meta这一重要客户不仅会减少对其服务的采购，还将直接成为强劲的行业",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055934590297150773",
           "time": "7/2"
         },
         {
-          "title": "48小时连发5款大模型",
-          "summary": "阿里、谷歌、微软、智谱AI相继发布5款重磅模型。",
-          "source": "腾讯云",
-          "url": "https://cloud.tencent.com.cn/developer/article/2650738",
-          "time": "6/30"
-        },
-        {
-          "title": "2026年AI大模型全景解析",
-          "summary": "大模型行业从野蛮生长迈入精细化竞争新阶段。",
+          "title": "好多人为啥根本意识不到，就算AI崩盘，消费级DDR内存也不会暴跌至远低于2024年的低位价格？",
+          "summary": "矿潮结束后，显卡都没有非常暴跌，更何况此次内存涨价是因为产能主要用于解决HBM颗粒紧缺的问题了，而HBM颗粒在二手内存市场几乎毫无用处，仅靠中间JS清货影响十分有限。",
           "source": "知乎",
-          "url": "https://zhuanlan.zhihu.com/p/2022324254427940644",
-          "time": "6/30"
+          "url": "https://www.zhihu.com/question/2052018919150450628",
+          "time": "7/2"
         }
       ]
     },
@@ -79,67 +65,53 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "比利时3-2绝杀塞内加尔",
-          "summary": "世界杯1/16决赛，比利时点球绝杀逆转晋级16强。",
-          "source": "中国新闻网",
-          "url": "https://www.chinanews.com/ty/2026/07-02/10651044.shtml",
+          "title": "世界杯16强已确定10席",
+          "summary": "最新资讯：世界杯16强已确定10席（热度28.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF16%E5%BC%BA%E5%B7%B2%E7%A1%AE%E5%AE%9A10%E5%B8%AD",
           "time": "7/2"
         },
         {
-          "title": "英格兰2-1逆转刚果金",
-          "summary": "世界杯1/16决赛，英格兰逆转取胜，与比利时同晋级。",
-          "source": "中国宁波网",
-          "url": "http://news.cnnb.com.cn/system/2026/07/02/030788387.shtml",
+          "title": "世界杯淘汰赛德国与巴拉圭比赛看台出现大量空座，具体原因是什么，对此你怎么看？",
+          "summary": "[图片]",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055271796257939479",
           "time": "7/2"
         },
         {
-          "title": "世界杯32强球队出炉",
-          "summary": "小组赛全部结束，32强确定，淘汰赛对阵正式出炉。",
-          "source": "央视网",
-          "url": "https://sports.cctv.com/2026/06/28/ARTISofXdG4BrmyxOCY1uwQ8260628.shtml",
-          "time": "6/28"
+          "title": "徐亮怒斥世界杯奥地利vs 阿尔及利亚最后五分钟在踢假球，世界杯真的有假球吗？",
+          "summary": "2026美加墨世界杯J组收官战，阿尔及利亚与奥地利踢出极具争议的3-3平局，两队携手晋级淘汰赛，三战不败的伊朗因净胜球劣势遗憾出局。这场充满反转的比赛赛后争议不断，前国脚徐亮在直播连线中，耗时整整四分钟直言本场存在假球，观点迅速引爆体育圈，篮球评论员杨毅也打趣点评认可其专业眼光。 本场进球时间清晰充满戏剧感：第28分钟阿瑙托维奇为奥地利破门，第45分钟贝尔加利扳平比分；下半场55分钟萨比策再度领先",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055112420578928579",
+          "time": "7/2"
         },
         {
-          "title": "美国VS波黑淘汰赛开战",
-          "summary": "7月2日8点，美国与波黑展开1/16决赛较量。",
-          "source": "新浪",
-          "url": "https://news.sina.cn/zt_d/subject-1774997568",
+          "title": "世界杯 1/16 决赛，美国 2-0 波黑，如何评价本场比赛？",
+          "summary": "相关问题美国世界杯负责人称考虑申办 2038 年世界杯，并称办赛花费会「少很多」，其优势体现在哪些方面？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055662320273942290",
           "time": "7/2"
         }
       ]
     },
     {
-      "id": "ent",
+      "id": "show",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
-          "title": "白鹿虞书欣角色对比热议",
-          "summary": "两人\"蚌精\"角色对比引发网友讨论，成为娱乐热点。",
-          "source": "腾讯新闻",
-          "url": "https://view.inews.qq.com/a/20260701A01ETU00",
-          "time": "7/1"
-        },
-        {
-          "title": "陈翔六点半演员去世",
-          "summary": "演员离世消息引发追忆热潮，网友悼念经典角色。",
-          "source": "腾讯新闻",
-          "url": "https://view.inews.qq.com/a/20260701A01ETU00",
-          "time": "7/1"
-        },
-        {
-          "title": "演员署名须用法定姓名",
-          "summary": "大陆规定演员署名必须使用法定姓名，7月10日执行。",
-          "source": "中时新闻网",
-          "url": "https://www.chinatimes.com/cn/star/",
+          "title": "网友称白鹿打戏疑为替身",
+          "summary": "最新资讯：网友称白鹿打戏疑为替身（热度38.9万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%BD%91%E5%8F%8B%E7%A7%B0%E7%99%BD%E9%B9%BF%E6%89%93%E6%88%8F%E7%96%91%E4%B8%BA%E6%9B%BF%E8%BA%AB",
           "time": "7/2"
         },
         {
-          "title": "于和伟二封白玉兰视帝",
-          "summary": "于和伟再度荣获白玉兰奖视帝，新剧演反派引关注。",
-          "source": "网易娱乐",
-          "url": "https://www.163.com/dy/article/L0M5PN640517WCAS.html",
-          "time": "6/30"
+          "title": "伯德小姐面试穿搭",
+          "summary": "最新资讯：伯德小姐面试穿搭（热度773.2万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E4%BC%AF%E5%BE%B7%E5%B0%8F%E5%A7%90%E9%9D%A2%E8%AF%95%E7%A9%BF%E6%90%AD",
+          "time": "7/2"
         }
       ]
     },
@@ -149,32 +121,11 @@
       "color": "#f43f5e",
       "items": [
         {
-          "title": "PUMA联名MondaySleeping",
-          "summary": "PUMA与国内潮牌Monday Sleeping Club推出联名系列。",
-          "source": "潮流新闻",
-          "url": "http://www.chaoliunews.com/qiuxie/yundongxie/25549.html",
-          "time": "6/24"
-        },
-        {
-          "title": "观夏联名IsabelMarant",
-          "summary": "国产香氛观夏联名法国时装品牌Isabel Marant。",
-          "source": "钛媒体",
-          "url": "https://www.tmtpost.com/8042830.html",
-          "time": "6/27"
-        },
-        {
-          "title": "2026春夏时装周8大趋势",
-          "summary": "巴黎时装周落幕，2026春夏呈现八大流行趋势。",
-          "source": "知乎",
-          "url": "https://zhuanlan.zhihu.com/p/1969679407502308701",
-          "time": "6/30"
-        },
-        {
-          "title": "VOGUE时尚网发布新趋势",
-          "summary": "国际权威时尚媒体VOGUE发布最新潮流趋势与大片。",
-          "source": "VOGUE",
-          "url": "https://www.vogue.com.cn/",
-          "time": "7/1"
+          "title": "潮流舞蹈这票到底投给谁",
+          "summary": "最新资讯：潮流舞蹈这票到底投给谁（热度1181.6万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%BD%AE%E6%B5%81%E8%88%9E%E8%B9%88%E8%BF%99%E7%A5%A8%E5%88%B0%E5%BA%95%E6%8A%95%E7%BB%99%E8%B0%81",
+          "time": "7/2"
         }
       ]
     },
@@ -184,32 +135,11 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "腾讯视频发布2026综艺片单",
-          "summary": "多档热门新综待播，包括《现在就出发4》等。",
-          "source": "电视猫",
-          "url": "https://www.tvcn.com.cn/ent/3610659.html",
+          "title": "佛得角总统称能1比0淘汰阿根廷队",
+          "summary": "最新资讯：佛得角总统称能1比0淘汰阿根廷队（热度19.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E4%BD%9B%E5%BE%97%E8%A7%92%E6%80%BB%E7%BB%9F%E7%A7%B0%E8%83%BD1%E6%AF%940%E6%B7%98%E6%B1%B0%E9%98%BF%E6%A0%B9%E5%BB%B7%E9%98%9F",
           "time": "7/2"
-        },
-        {
-          "title": "乘风2026曾沛慈夺冠",
-          "summary": "《乘风2026》总决赛直播，曾沛慈拿下年度总冠军。",
-          "source": "新浪娱乐",
-          "url": "https://ent.sina.cn/2026-06-28/detail-iniewssh4353694.d.html",
-          "time": "6/28"
-        },
-        {
-          "title": "说唱巅峰对决2026热播",
-          "summary": "爱奇艺《说唱巅峰对决2026》持续热播，成为热门综艺。",
-          "source": "爱奇艺",
-          "url": "https://www.iqiyi.com/zongyi/",
-          "time": "6/30"
-        },
-        {
-          "title": "哈兰德发抖音备战淘汰赛",
-          "summary": "哈兰德发抖音全力备战世界杯淘汰赛，热度飙升。",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%93%88%E5%85%B0%E5%BE%B7%E5%8F%91%E6%8A%96%E9%9F%B3%E5%85%A8%E5%8A%9B%E5%A4%87%E6%88%98%E6%B7%98%E6%B1%B0%E8%B5%9B",
-          "time": "6/29"
         }
       ]
     },
@@ -219,67 +149,67 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "暑期档票房突破16亿元",
-          "summary": "截至7月1日，2026暑期档电影票房已达16.71亿元。",
-          "source": "腾讯新闻",
-          "url": "https://news.qq.com/rain/a/20260701A0482J00",
-          "time": "7/1"
+          "title": "用水墨动画致敬七一勋章获得者",
+          "summary": "最新资讯：用水墨动画致敬七一勋章获得者（热度165.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%94%A8%E6%B0%B4%E5%A2%A8%E5%8A%A8%E7%94%BB%E8%87%B4%E6%95%AC%E4%B8%83%E4%B8%80%E5%8B%8B%E7%AB%A0%E8%8E%B7%E5%BE%97%E8%80%85",
+          "time": "7/2"
         },
         {
-          "title": "年度票房突破170亿元",
-          "summary": "2026年度电影总票房突破170亿元，多部影片表现亮眼。",
-          "source": "百度百家",
-          "url": "https://baijiahao.baidu.com/s?id=1868881963705071122&wfr=spider&for=pc",
-          "time": "6/24"
+          "title": "如何评价《一人之下》漫画第766话重置版预告？",
+          "summary": "如何评价《一人之下》漫画第766话重置版预告？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055669586939458610",
+          "time": "7/2"
         },
         {
-          "title": "《四渡》连夺日冠",
-          "summary": "《四渡》上映后连续保持单日票房冠军，暑期档火热。",
-          "source": "新浪影视",
-          "url": "http://k.sina.com.cn/article_7857201856_1d45362c001907j9ki.html",
-          "time": "6/28"
+          "title": "2026上半年总票房 173.54 亿，7 部影片破 5 亿，如何看待这一数据？暑期档会力挽狂澜吗？",
+          "summary": "据猫眼专业版，截至 6 月 30 日 21 时，2026 上半年（2026 年 1 月 1 日 - 6 月 30 日）累计总票房报收 173.54 亿，观影人次 4.21 亿，放映场次 7331.2 万，平均票价 41.1 元，7 部影片破 5 亿，《飞驰人生 3》领跑上半年票房榜，《给阿嬷的情书》以豆瓣9.3分的惊人评价成为近二十年华语电影最佳。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055587968098596395",
+          "time": "7/2"
         },
         {
-          "title": "《给阿嬷的情书》票房超15亿",
-          "summary": "影片口碑票房持续走高，已官宣延长放映至7月31日。",
-          "source": "澎湃新闻",
-          "url": "https://m.thepaper.cn/newsDetail_forward_33326693",
-          "time": "6/6"
+          "title": "德国队被淘汰出局，主帅称不会主动辞职，炮轰裁判吹掉加时赛进球是「彻头彻尾的丑闻」，如何评价此番发言？",
+          "summary": "北京时间6月30日，美加墨世界杯德国队点球大战不敌巴拉圭队，止步32强，主帅纳格尔斯曼在赛后发布会上明确表态不会主动卸任，将帅位决定权抛给了德国足协，此外，他还炮轰了裁判的判罚，称是“彻头彻尾的丑闻”。 发布会上，纳格尔斯曼首先主动承担全部责任，他开场便向全德国球迷致歉：“这是我执教生涯最痛苦的夜晚之一，更衣室里的失望与痛苦无法用语言形容，我们怀揣着把冠军带回德国的梦想而来，最终只能心碎离场。作为",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2055292634025944831",
+          "time": "7/2"
         }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "fun",
+      "name": "🎮 好玩有趣",
+      "color": "#22c55e",
       "items": [
         {
-          "title": "BTS Jin获巴西三冠王",
-          "summary": "防弹少年团Jin在巴西SEC Awards 2026斩获三项大奖。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/star/2026/06/30/2026063006541317472",
-          "time": "6/30"
+          "title": "官方通报西安赛格商场一男子坠楼",
+          "summary": "最新资讯：官方通报西安赛格商场一男子坠楼（热度1171.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%AE%98%E6%96%B9%E9%80%9A%E6%8A%A5%E8%A5%BF%E5%AE%89%E8%B5%9B%E6%A0%BC%E5%95%86%E5%9C%BA%E4%B8%80%E7%94%B7%E5%AD%90%E5%9D%A0%E6%A5%BC",
+          "time": "7/2"
         },
         {
-          "title": "BTS马德里公演获盛赞",
-          "summary": "西班牙媒体盛赞BTS马德里公演，称是13年的等待。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/music/2026/06/30/2026063017552482219",
-          "time": "6/30"
+          "title": "西安赛格商场正常营业",
+          "summary": "最新资讯：西安赛格商场正常营业（热度214.9万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%A5%BF%E5%AE%89%E8%B5%9B%E6%A0%BC%E5%95%86%E5%9C%BA%E6%AD%A3%E5%B8%B8%E8%90%A5%E4%B8%9A",
+          "time": "7/2"
         },
         {
-          "title": "RESCENE预告7月8日回归",
-          "summary": "组合RESCENE公开概念照，预告7月8日携新专回归。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/music/2026/06/30/2026063008021250391",
-          "time": "6/30"
+          "title": "脱下长衫才发现打工有多爽",
+          "summary": "最新资讯：脱下长衫才发现打工有多爽（热度159.0万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%84%B1%E4%B8%8B%E9%95%BF%E8%A1%AB%E6%89%8D%E5%8F%91%E7%8E%B0%E6%89%93%E5%B7%A5%E6%9C%89%E5%A4%9A%E7%88%BD",
+          "time": "7/2"
         },
         {
-          "title": "智旻6月品牌评价双冠",
-          "summary": "防弹少年团智旻包揽6月偶像合并与男子组合个人第一。",
-          "source": "STARNEWS",
-          "url": "https://www.starnewskorea.com/music/2026/06/30/2026063007443728502",
-          "time": "6/30"
+          "title": "蒙脱石散止泻的原理 勾芡",
+          "summary": "最新资讯：蒙脱石散止泻的原理 勾芡（热度78.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%92%99%E8%84%B1%E7%9F%B3%E6%95%A3%E6%AD%A2%E6%B3%BB%E7%9A%84%E5%8E%9F%E7%90%86%20%E5%8B%BE%E8%8A%A1",
+          "time": "7/2"
         }
       ]
     }
