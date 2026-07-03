@@ -6647,15 +6647,10 @@
             console.log('>>> 选择的月份:', month, '日期范围:', dateStart, '至', dateEnd);
             if (!month) { toast('请选择月份', 'error'); return; }
 
-            // 确保视频和用户数据已加载
-            if (allVideos.length === 0) {
-                console.log('>>> 视频数据为空，重新加载');
-                await loadVideos();
-            }
-            if (allUsers.length === 0) {
-                console.log('>>> 用户数据为空，重新加载');
-                await loadUsers();
-            }
+            // 始终从数据库重新加载视频和用户数据，确保薪资计算使用最新数据
+            // （不依赖可能过时的 allVideos/allUsers 缓存）
+            await loadVideos();
+            await loadUsers();
 
             // 先重新加载现有薪资记录，避免重复
             console.log('>>> 开始 loadSalaries');
@@ -6711,14 +6706,20 @@
                     status: '待结算'
                 };
                 try {
-                    // 使用 user_id + month + role 作为唯一标识查找
+                    // 清理可能的重复记录，然后插入/更新
                     const existing = allSalaries.find(s => s.user_id === student.id && s.month === month && s.role === 'student');
                     if (existing) {
-                        await supabase.from('salaries').update(data).eq('id', existing.id);
+                        // 使用 count:exact 验证更新是否真正生效
+                        const { count, error } = await supabase.from('salaries').update(data, { count: 'exact' }).eq('id', existing.id);
+                        if (error) throw error;
+                        if (count === 0) {
+                            // 记录可能不存在（被并发删除），走插入
+                            await supabase.from('salaries').insert(data);
+                        }
                     } else {
                         await supabase.from('salaries').insert(data);
                     }
-                } catch (e) { console.error('保存学生薪资失败:', e); }
+                } catch (e) { console.error('保存学生薪资失败:', student.real_name || student.name, e); }
             }
 
             // 再计算老师的带教奖金
@@ -6750,11 +6751,15 @@
                 try {
                     const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month && s.role === 'teacher');
                     if (existing) {
-                        await supabase.from('salaries').update(data).eq('id', existing.id);
+                        const { count, error } = await supabase.from('salaries').update(data, { count: 'exact' }).eq('id', existing.id);
+                        if (error) throw error;
+                        if (count === 0) {
+                            await supabase.from('salaries').insert(data);
+                        }
                     } else {
                         await supabase.from('salaries').insert(data);
                     }
-                } catch (e) { console.error('保存老师薪资失败:', e); }
+                } catch (e) { console.error('保存老师薪资失败:', teacher.real_name || teacher.name, e); }
             }
 
             console.log('>>> 薪资查询完成，准备刷新表格');
