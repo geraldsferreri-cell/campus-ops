@@ -1,7 +1,7 @@
 {
-  "date": "2026-07-02",
-  "scrape_time": "2026-07-02 13:54 CST",
-  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+  "date": "2026-07-03",
+  "scrape_time": "2026-07-03 09:16 CST",
+  "data_source": "WebSearch/36氪/量子位/CSDN/新华社/新浪娱乐/微博热搜/KOTourLive/腾讯新闻/FlightClub/电视猫/网易娱乐",
   "categories": [
     {
       "id": "tech",
@@ -9,32 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "苹果信息泄露 你也能手搓苹果开发板",
-          "summary": "最新资讯：苹果信息泄露 你也能手搓苹果开发板（热度24.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%8B%B9%E6%9E%9C%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2%20%E4%BD%A0%E4%B9%9F%E8%83%BD%E6%89%8B%E6%90%93%E8%8B%B9%E6%9E%9C%E5%BC%80%E5%8F%91%E6%9D%BF",
+          "title": "宇树科技IPO注册获批",
+          "summary": "证监会同意宇树科技科创板上市注册，具身智能商业化落地标志性节点。",
+          "source": "36氪",
+          "url": "https://www.36kr.com/p/3878403259019526",
           "time": "7/2"
         },
         {
-          "title": "存储芯片涨价",
-          "summary": "最新资讯：存储芯片涨价（热度17.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%AD%98%E5%82%A8%E8%8A%AF%E7%89%87%E6%B6%A8%E4%BB%B7",
-          "time": "7/2"
+          "title": "美团发布LongCat-2.0",
+          "summary": "万亿参数MoE模型，原生支持1M超长上下文，推理侧跑通零英伟达路径。",
+          "source": "36氪",
+          "url": "https://www.36kr.com/p/3878407689089282",
+          "time": "6/30"
         },
         {
-          "title": "机器人伴侣价格 11.98 万至 99 万，不同价格之间有啥区别？定价合理吗？你看好它的市场前景吗？",
-          "summary": "优必选旗下消费级品牌优世界（UWORLD）在6月30日年度全球发布会上正式推出U1系列全尺寸超仿生人形机器人，全渠道订单量已突破1.1万台。 公司称，这是目前全球唯一具备规模化量产能力的全尺寸超仿生人形机器人产品，并力争于今年内完成全部交付。 这一数字与其工业端形成鲜明对比——2025年全年，优必选全尺寸具身智能人形机器人总销量仅为1079台。消费级路线的启动，令订单量在短时间内实现数量级跨越。 ",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055620022316131446",
-          "time": "7/2"
+          "title": "英伟达登顶交换机市场",
+          "summary": "2026年Q1英伟达首次登顶全球数据中心以太网交换机收入榜首。",
+          "source": "CSDN",
+          "url": "https://happyprince.blog.csdn.net/article/details/162531418",
+          "time": "7/3"
         },
         {
-          "title": "怎么看待「小米辟谣」正式上线？这一举动可能会为小米带来哪些影响？",
-          "summary": "小米集团官方辟谣阵地「小米辟谣」正式上线！ 感谢社会各界和米粉长期以来对小米集团的关心及爱护，向大家汇报一下，「小米辟谣」官方辟谣阵地今天在中央网信办违法和不良信息举报中心的指导下，正式上线了。 目前「小米辟谣」已正式开通官方微博，大家可以通过「小米辟谣」官方账号核实并查阅我司的辟谣声明，反馈有关我司的各类谣言线索。我们也将通过「小米辟谣」持续与各方互动，持续使用法律武器维护我司合法商誉。 守护网",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055340835823212244",
-          "time": "7/2"
+          "title": "寒武纪市值破万亿元",
+          "summary": "寒武纪总市值盘中突破1万亿元，成为科创板首只万亿市值股票。",
+          "source": "CSDN",
+          "url": "https://happyprince.blog.csdn.net/article/details/162531418",
+          "time": "7/3"
         }
       ]
     },
@@ -44,17 +44,31 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "Meta 拟对外出售剩余 AI 算力，引发美股芯片及光通信重挫，对此你怎么看，会是 AI 退潮信号么？",
-          "summary": "据彭博社报道，Meta Platforms正计划构建云计算业务，向外界出售其过剩的人工智能算力。此举旨在从庞大的AI基础设施投入中寻找商业回报，缓解市场对科技巨头过度支出的担忧，并进一步降低对传统广告业务的依赖。 受此消息推动，Meta股价盘中大涨，与此同时，CoreWeave和Nebius等独立云服务商的股价则大跌，市场普遍担忧Meta这一重要客户不仅会减少对其服务的采购，还将直接成为强劲的行业",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055934590297150773",
-          "time": "7/2"
+          "title": "Together AI融资8亿美元",
+          "summary": "估值升至83亿美元，通过模型路由与量化优化帮企业少烧Token。",
+          "source": "36氪",
+          "url": "https://www.36kr.com/p/3878418994376964",
+          "time": "7/3"
         },
         {
-          "title": "好多人为啥根本意识不到，就算AI崩盘，消费级DDR内存也不会暴跌至远低于2024年的低位价格？",
-          "summary": "矿潮结束后，显卡都没有非常暴跌，更何况此次内存涨价是因为产能主要用于解决HBM颗粒紧缺的问题了，而HBM颗粒在二手内存市场几乎毫无用处，仅靠中间JS清货影响十分有限。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2052018919150450628",
+          "title": "OpenAI推理成本减半",
+          "summary": "外媒披露OpenAI找到系统优化方案，可将模型推理成本砍掉一半以上。",
+          "source": "36氪",
+          "url": "https://www.36kr.com/p/3878306748971650",
+          "time": "7/3"
+        },
+        {
+          "title": "智谱GLM-5.2上榜Anthropic",
+          "summary": "Anthropic在Claude Fable 5系统卡中点名对比智谱GLM-5.2。",
+          "source": "36氪",
+          "url": "https://www.36kr.com/p/3878436638339077",
+          "time": "7/3"
+        },
+        {
+          "title": "天工AI ARR突破8亿美元",
+          "summary": "昆仑万维宣布天工AI二季度ARR超8亿美元，冲刺10亿ARR里程碑。",
+          "source": "量子位",
+          "url": "https://www.qbitai.com/2026/07/441786.html",
           "time": "7/2"
         }
       ]
@@ -65,53 +79,67 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "世界杯16强已确定10席",
-          "summary": "最新资讯：世界杯16强已确定10席（热度28.1万）",
+          "title": "葡萄牙2-1淘汰克罗地亚",
+          "summary": "C罗与莫德里奇世界杯首次直接对话，葡萄牙挺进16强将战西班牙。",
+          "source": "新华社",
+          "url": "https://www.news.cn/sports/20260703/f42a3b44d56d4f92bbece9239736aded/c.html",
+          "time": "7/2"
+        },
+        {
+          "title": "比利时3-2绝杀塞内加尔",
+          "summary": "世界杯1/16决赛，比利时点球绝杀逆转晋级16强。",
+          "source": "中国新闻网",
+          "url": "https://www.chinanews.com/ty/2026/07-02/10651044.shtml",
+          "time": "7/2"
+        },
+        {
+          "title": "英格兰2-1逆转刚果金",
+          "summary": "世界杯1/16决赛，英格兰逆转取胜，与比利时同晋级。",
+          "source": "中国宁波网",
+          "url": "http://news.cnnb.com.cn/system/2026/07/02/030788387.shtml",
+          "time": "7/2"
+        },
+        {
+          "title": "王楚钦孙颖莎混双出战",
+          "summary": "混双赛场王楚钦孙颖莎对阵雨果高桥布鲁娜组合，引发热议。",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF16%E5%BC%BA%E5%B7%B2%E7%A1%AE%E5%AE%9A10%E5%B8%AD",
-          "time": "7/2"
-        },
-        {
-          "title": "世界杯淘汰赛德国与巴拉圭比赛看台出现大量空座，具体原因是什么，对此你怎么看？",
-          "summary": "[图片]",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055271796257939479",
-          "time": "7/2"
-        },
-        {
-          "title": "徐亮怒斥世界杯奥地利vs 阿尔及利亚最后五分钟在踢假球，世界杯真的有假球吗？",
-          "summary": "2026美加墨世界杯J组收官战，阿尔及利亚与奥地利踢出极具争议的3-3平局，两队携手晋级淘汰赛，三战不败的伊朗因净胜球劣势遗憾出局。这场充满反转的比赛赛后争议不断，前国脚徐亮在直播连线中，耗时整整四分钟直言本场存在假球，观点迅速引爆体育圈，篮球评论员杨毅也打趣点评认可其专业眼光。 本场进球时间清晰充满戏剧感：第28分钟阿瑙托维奇为奥地利破门，第45分钟贝尔加利扳平比分；下半场55分钟萨比策再度领先",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055112420578928579",
-          "time": "7/2"
-        },
-        {
-          "title": "世界杯 1/16 决赛，美国 2-0 波黑，如何评价本场比赛？",
-          "summary": "相关问题美国世界杯负责人称考虑申办 2038 年世界杯，并称办赛花费会「少很多」，其优势体现在哪些方面？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055662320273942290",
-          "time": "7/2"
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
         }
       ]
     },
     {
-      "id": "show",
+      "id": "ent",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
-          "title": "网友称白鹿打戏疑为替身",
-          "summary": "最新资讯：网友称白鹿打戏疑为替身（热度38.9万）",
+          "title": "网传白鹿出演李清照",
+          "summary": "白鹿或将出演李清照一角，引发网友对选角适配度热议。",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%BD%91%E5%8F%8B%E7%A7%B0%E7%99%BD%E9%B9%BF%E6%89%93%E6%88%8F%E7%96%91%E4%B8%BA%E6%9B%BF%E8%BA%AB",
-          "time": "7/2"
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
         },
         {
-          "title": "伯德小姐面试穿搭",
-          "summary": "最新资讯：伯德小姐面试穿搭（热度773.2万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E4%BC%AF%E5%BE%B7%E5%B0%8F%E5%A7%90%E9%9D%A2%E8%AF%95%E7%A9%BF%E6%90%AD",
-          "time": "7/2"
+          "title": "黄子韬海关颜值回归",
+          "summary": "黄子韬留在海关的颜值回来了，造型状态引发粉丝热议。",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
+        },
+        {
+          "title": "蔡文静回应赵一博",
+          "summary": "蔡文静回应与赵一博相关话题，互动内容登上热搜。",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
+        },
+        {
+          "title": "BTS Jungkook腹肌公开",
+          "summary": "BTS成员Jungkook公开腹肌身材，美食面前自控力崩溃引热议。",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news/bts-jungkook-shows-off-abs-loses-self-control-in-front-of",
+          "time": "7/1"
         }
       ]
     },
@@ -121,11 +149,32 @@
       "color": "#f43f5e",
       "items": [
         {
-          "title": "潮流舞蹈这票到底投给谁",
-          "summary": "最新资讯：潮流舞蹈这票到底投给谁（热度1181.6万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%BD%AE%E6%B5%81%E8%88%9E%E8%B9%88%E8%BF%99%E7%A5%A8%E5%88%B0%E5%BA%95%E6%8A%95%E7%BB%99%E8%B0%81",
-          "time": "7/2"
+          "title": "虞书欣连体衣造型",
+          "summary": "虞书欣连体衣造型亮相，成为当日时尚话题焦点。",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
+        },
+        {
+          "title": "茉莉奶白换彩色头像",
+          "summary": "茶饮品牌茉莉奶白更换彩色头像，视觉焕新引发网友关注。",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
+        },
+        {
+          "title": "BTS Jimin Dior系列",
+          "summary": "BTS成员Jimin以Dior系列造型亮相巴黎，被赞完美化身。",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news/bts-jimin-captivates-paris-with-the-dior-collections",
+          "time": "7/1"
+        },
+        {
+          "title": "张元英同款不同感",
+          "summary": "张元英与模特穿同款展现不同清纯气质，11字腿线引关注。",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news/jang-won-young-same-outfit-as-the-model-but-with-a",
+          "time": "6/30"
         }
       ]
     },
@@ -135,11 +184,32 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "佛得角总统称能1比0淘汰阿根廷队",
-          "summary": "最新资讯：佛得角总统称能1比0淘汰阿根廷队（热度19.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BD%9B%E5%BE%97%E8%A7%92%E6%80%BB%E7%BB%9F%E7%A7%B0%E8%83%BD1%E6%AF%940%E6%B7%98%E6%B1%B0%E9%98%BF%E6%A0%B9%E5%BB%B7%E9%98%9F",
+          "title": "现在就出发4阵容网传",
+          "summary": "网传第四季将大幅换血，新增喜剧人，官方尚未回应。",
+          "source": "新浪娱乐",
+          "url": "https://ent.sina.cn/2026-07-02/detail-inifmmmu2601369.d.html?vt=4",
           "time": "7/2"
+        },
+        {
+          "title": "我讨好领导就白敬亭这样",
+          "summary": "白敬亭综艺表现登上热搜，讨好领导式互动引发模仿。",
+          "source": "微博热搜",
+          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "time": "7/3"
+        },
+        {
+          "title": "乘风2026曾沛慈夺冠",
+          "summary": "《乘风2026》总决赛直播，曾沛慈拿下年度总冠军。",
+          "source": "新浪娱乐",
+          "url": "https://ent.sina.cn/2026-06-28/detail-iniewssh4353694.d.html",
+          "time": "6/28"
+        },
+        {
+          "title": "说唱巅峰对决2026热播",
+          "summary": "爱奇艺《说唱巅峰对决2026》持续热播，成为热门综艺。",
+          "source": "爱奇艺",
+          "url": "https://www.iqiyi.com/zongyi/",
+          "time": "6/30"
         }
       ]
     },
@@ -149,67 +219,67 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "用水墨动画致敬七一勋章获得者",
-          "summary": "最新资讯：用水墨动画致敬七一勋章获得者（热度165.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%94%A8%E6%B0%B4%E5%A2%A8%E5%8A%A8%E7%94%BB%E8%87%B4%E6%95%AC%E4%B8%83%E4%B8%80%E5%8B%8B%E7%AB%A0%E8%8E%B7%E5%BE%97%E8%80%85",
-          "time": "7/2"
+          "title": "小黄人与大怪兽上映",
+          "summary": "《小黄人与大怪兽》7月3日在中国大陆上映，北美7月1日已映。",
+          "source": "百度百科",
+          "url": "https://baike.baidu.com/item/%E5%B0%8F%E9%BB%84%E4%BA%BA%E4%B8%8E%E5%A4%A7%E6%80%AA%E5%85%BD/67358221",
+          "time": "7/3"
         },
         {
-          "title": "如何评价《一人之下》漫画第766话重置版预告？",
-          "summary": "如何评价《一人之下》漫画第766话重置版预告？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055669586939458610",
-          "time": "7/2"
+          "title": "特立独行今日上映",
+          "summary": "白敬亭、魏翔主演喜剧《特立独行》定档7月3日全国上映。",
+          "source": "新浪电影",
+          "url": "http://k.sina.com.cn/article_7857201856_1d45362c001907kgoy.html",
+          "time": "7/3"
         },
         {
-          "title": "2026上半年总票房 173.54 亿，7 部影片破 5 亿，如何看待这一数据？暑期档会力挽狂澜吗？",
-          "summary": "据猫眼专业版，截至 6 月 30 日 21 时，2026 上半年（2026 年 1 月 1 日 - 6 月 30 日）累计总票房报收 173.54 亿，观影人次 4.21 亿，放映场次 7331.2 万，平均票价 41.1 元，7 部影片破 5 亿，《飞驰人生 3》领跑上半年票房榜，《给阿嬷的情书》以豆瓣9.3分的惊人评价成为近二十年华语电影最佳。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055587968098596395",
-          "time": "7/2"
+          "title": "暑期档票房超16亿",
+          "summary": "2026暑期档电影票房持续走高，多部新片集结上映。",
+          "source": "腾讯新闻",
+          "url": "https://news.qq.com/rain/a/20260701A0482J00",
+          "time": "7/1"
         },
         {
-          "title": "德国队被淘汰出局，主帅称不会主动辞职，炮轰裁判吹掉加时赛进球是「彻头彻尾的丑闻」，如何评价此番发言？",
-          "summary": "北京时间6月30日，美加墨世界杯德国队点球大战不敌巴拉圭队，止步32强，主帅纳格尔斯曼在赛后发布会上明确表态不会主动卸任，将帅位决定权抛给了德国足协，此外，他还炮轰了裁判的判罚，称是“彻头彻尾的丑闻”。 发布会上，纳格尔斯曼首先主动承担全部责任，他开场便向全德国球迷致歉：“这是我执教生涯最痛苦的夜晚之一，更衣室里的失望与痛苦无法用语言形容，我们怀揣着把冠军带回德国的梦想而来，最终只能心碎离场。作为",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055292634025944831",
-          "time": "7/2"
+          "title": "年度票房突破170亿",
+          "summary": "2026年度电影总票房突破170亿元，多部影片表现亮眼。",
+          "source": "百度百家",
+          "url": "https://baijiahao.baidu.com/s?id=1868881963705071122&wfr=spider&for=pc",
+          "time": "6/24"
         }
       ]
     },
     {
-      "id": "fun",
-      "name": "🎮 好玩有趣",
-      "color": "#22c55e",
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
       "items": [
         {
-          "title": "官方通报西安赛格商场一男子坠楼",
-          "summary": "最新资讯：官方通报西安赛格商场一男子坠楼（热度1171.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%AE%98%E6%96%B9%E9%80%9A%E6%8A%A5%E8%A5%BF%E5%AE%89%E8%B5%9B%E6%A0%BC%E5%95%86%E5%9C%BA%E4%B8%80%E7%94%B7%E5%AD%90%E5%9D%A0%E6%A5%BC",
-          "time": "7/2"
+          "title": "Stray Kids Spotify纪录",
+          "summary": "6张专辑在Spotify累计突破10亿播放量，K-pop组合第2位。",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news/stray-kids-six-albums-reach-1-billion-spotify-streams",
+          "time": "7/1"
         },
         {
-          "title": "西安赛格商场正常营业",
-          "summary": "最新资讯：西安赛格商场正常营业（热度214.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%A5%BF%E5%AE%89%E8%B5%9B%E6%A0%BC%E5%95%86%E5%9C%BA%E6%AD%A3%E5%B8%B8%E8%90%A5%E4%B8%9A",
-          "time": "7/2"
+          "title": "aespa情侣肚脐穿孔",
+          "summary": "Giselle与Ningning公开情侣肚脐穿孔，蚂蚁腰身材引关注。",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news/aespas-giselle-and-ningning-reveal-matching-belly-button",
+          "time": "7/1"
         },
         {
-          "title": "脱下长衫才发现打工有多爽",
-          "summary": "最新资讯：脱下长衫才发现打工有多爽（热度159.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%84%B1%E4%B8%8B%E9%95%BF%E8%A1%AB%E6%89%8D%E5%8F%91%E7%8E%B0%E6%89%93%E5%B7%A5%E6%9C%89%E5%A4%9A%E7%88%BD",
-          "time": "7/2"
+          "title": "LE SSERAFIM Sakura机场时尚",
+          "summary": "Sakura机场穿搭被赞看似随意却精心搭配的完美时尚。",
+          "source": "KOTourLive",
+          "url": "https://www.kotourlive.com/zh-CN/news/le-sserafim-sakuras-effortlessly-perfect-airport-fashion",
+          "time": "6/30"
         },
         {
-          "title": "蒙脱石散止泻的原理 勾芡",
-          "summary": "最新资讯：蒙脱石散止泻的原理 勾芡（热度78.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%92%99%E8%84%B1%E7%9F%B3%E6%95%A3%E6%AD%A2%E6%B3%BB%E7%9A%84%E5%8E%9F%E7%90%86%20%E5%8B%BE%E8%8A%A1",
-          "time": "7/2"
+          "title": "UAU 7月1日回归",
+          "summary": "Dreamcatcher相关企划UAU发行第二张迷你专辑正式回归。",
+          "source": "Kpann",
+          "url": "https://kpoppann.com/kpop-comeback-schedule",
+          "time": "7/1"
         }
       ]
     }
