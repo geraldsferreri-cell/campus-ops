@@ -1,7 +1,7 @@
 {
   "date": "2026-07-03",
-  "scrape_time": "2026-07-03 09:16 CST",
-  "data_source": "WebSearch/36氪/量子位/CSDN/新华社/新浪娱乐/微博热搜/KOTourLive/腾讯新闻/FlightClub/电视猫/网易娱乐",
+  "scrape_time": "2026-07-03 13:48 CST",
+  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
       "id": "tech",
@@ -9,31 +9,31 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "宇树科技IPO注册获批",
-          "summary": "证监会同意宇树科技科创板上市注册，具身智能商业化落地标志性节点。",
-          "source": "36氪",
-          "url": "https://www.36kr.com/p/3878403259019526",
-          "time": "7/2"
-        },
-        {
-          "title": "美团发布LongCat-2.0",
-          "summary": "万亿参数MoE模型，原生支持1M超长上下文，推理侧跑通零英伟达路径。",
-          "source": "36氪",
-          "url": "https://www.36kr.com/p/3878407689089282",
-          "time": "6/30"
-        },
-        {
-          "title": "英伟达登顶交换机市场",
-          "summary": "2026年Q1英伟达首次登顶全球数据中心以太网交换机收入榜首。",
-          "source": "CSDN",
-          "url": "https://happyprince.blog.csdn.net/article/details/162531418",
+          "title": "霉霉婚礼全员禁手机",
+          "summary": "最新资讯：霉霉婚礼全员禁手机（热度42.2万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E9%9C%89%E9%9C%89%E5%A9%9A%E7%A4%BC%E5%85%A8%E5%91%98%E7%A6%81%E6%89%8B%E6%9C%BA",
           "time": "7/3"
         },
         {
-          "title": "寒武纪市值破万亿元",
-          "summary": "寒武纪总市值盘中突破1万亿元，成为科创板首只万亿市值股票。",
-          "source": "CSDN",
-          "url": "https://happyprince.blog.csdn.net/article/details/162531418",
+          "title": "半导体暴跌信仰崩塌",
+          "summary": "最新资讯：半导体暴跌信仰崩塌（热度42.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%8D%8A%E5%AF%BC%E4%BD%93%E6%9A%B4%E8%B7%8C%E4%BF%A1%E4%BB%B0%E5%B4%A9%E5%A1%8C",
+          "time": "7/3"
+        },
+        {
+          "title": "国家发改委价格监测中心副主任刘刚带队赴小米集团开展工作调研，哪些信息值得关注？",
+          "summary": "IT之家 7 月 2 日消息，据财联社今日报道，国家发改委价格监测中心副主任刘刚带队赴小米集团开展工作调研，调研新能源汽车和手机市场价格运行情况，了解行业所面临的主要问题，征求规范汽车行业行为、推动行业有序竞争的意见和建议。 国家发改委 6 月 25 日宣布，今年第三批 625 亿元超长期特别国债支持消费品以旧换新资金已下达。 IT之家从公告获悉，今年以来，国家发展改革委会同财政部等部门，按季度分",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2056094088609390914",
+          "time": "7/3"
+        },
+        {
+          "title": "小鹏 MONA L03 首秀发布，14.38 万起，有哪些技术亮点？预计销量如何？",
+          "summary": "[2 张图片]",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2056034391034262100",
           "time": "7/3"
         }
       ]
@@ -44,32 +44,11 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "Together AI融资8亿美元",
-          "summary": "估值升至83亿美元，通过模型路由与量化优化帮企业少烧Token。",
-          "source": "36氪",
-          "url": "https://www.36kr.com/p/3878418994376964",
+          "title": "全球AI疯狂重创千元机市场",
+          "summary": "最新资讯：全球AI疯狂重创千元机市场（热度32.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%85%A8%E7%90%83AI%E7%96%AF%E7%8B%82%E9%87%8D%E5%88%9B%E5%8D%83%E5%85%83%E6%9C%BA%E5%B8%82%E5%9C%BA",
           "time": "7/3"
-        },
-        {
-          "title": "OpenAI推理成本减半",
-          "summary": "外媒披露OpenAI找到系统优化方案，可将模型推理成本砍掉一半以上。",
-          "source": "36氪",
-          "url": "https://www.36kr.com/p/3878306748971650",
-          "time": "7/3"
-        },
-        {
-          "title": "智谱GLM-5.2上榜Anthropic",
-          "summary": "Anthropic在Claude Fable 5系统卡中点名对比智谱GLM-5.2。",
-          "source": "36氪",
-          "url": "https://www.36kr.com/p/3878436638339077",
-          "time": "7/3"
-        },
-        {
-          "title": "天工AI ARR突破8亿美元",
-          "summary": "昆仑万维宣布天工AI二季度ARR超8亿美元，冲刺10亿ARR里程碑。",
-          "source": "量子位",
-          "url": "https://www.qbitai.com/2026/07/441786.html",
-          "time": "7/2"
         }
       ]
     },
@@ -79,102 +58,53 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "葡萄牙2-1淘汰克罗地亚",
-          "summary": "C罗与莫德里奇世界杯首次直接对话，葡萄牙挺进16强将战西班牙。",
-          "source": "新华社",
-          "url": "https://www.news.cn/sports/20260703/f42a3b44d56d4f92bbece9239736aded/c.html",
-          "time": "7/2"
-        },
-        {
-          "title": "比利时3-2绝杀塞内加尔",
-          "summary": "世界杯1/16决赛，比利时点球绝杀逆转晋级16强。",
-          "source": "中国新闻网",
-          "url": "https://www.chinanews.com/ty/2026/07-02/10651044.shtml",
-          "time": "7/2"
-        },
-        {
-          "title": "英格兰2-1逆转刚果金",
-          "summary": "世界杯1/16决赛，英格兰逆转取胜，与比利时同晋级。",
-          "source": "中国宁波网",
-          "url": "http://news.cnnb.com.cn/system/2026/07/02/030788387.shtml",
-          "time": "7/2"
-        },
-        {
-          "title": "王楚钦孙颖莎混双出战",
-          "summary": "混双赛场王楚钦孙颖莎对阵雨果高桥布鲁娜组合，引发热议。",
+          "title": "C罗哭了",
+          "summary": "最新资讯：C罗哭了（热度151.9万）",
           "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E5%93%AD%E4%BA%86",
+          "time": "7/3"
+        },
+        {
+          "title": "足球内置芯片救了葡萄牙",
+          "summary": "最新资讯：足球内置芯片救了葡萄牙（热度80.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%B6%B3%E7%90%83%E5%86%85%E7%BD%AE%E8%8A%AF%E7%89%87%E6%95%91%E4%BA%86%E8%91%A1%E8%90%84%E7%89%99",
+          "time": "7/3"
+        },
+        {
+          "title": "C罗siu一半被吹了",
+          "summary": "最新资讯：C罗siu一半被吹了（热度42.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97siu%E4%B8%80%E5%8D%8A%E8%A2%AB%E5%90%B9%E4%BA%86",
+          "time": "7/3"
+        },
+        {
+          "title": "wtt",
+          "summary": "最新资讯：wtt（热度42.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=wtt",
           "time": "7/3"
         }
       ]
     },
     {
-      "id": "ent",
+      "id": "show",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
         {
+          "title": "蔡依林兰蔻亚太区护肤代言人",
+          "summary": "最新资讯：蔡依林兰蔻亚太区护肤代言人（热度42.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%94%A1%E4%BE%9D%E6%9E%97%E5%85%B0%E8%94%BB%E4%BA%9A%E5%A4%AA%E5%8C%BA%E6%8A%A4%E8%82%A4%E4%BB%A3%E8%A8%80%E4%BA%BA",
+          "time": "7/3"
+        },
+        {
           "title": "网传白鹿出演李清照",
-          "summary": "白鹿或将出演李清照一角，引发网友对选角适配度热议。",
+          "summary": "最新资讯：网传白鹿出演李清照（热度42.2万）",
           "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "url": "https://s.weibo.com/weibo?q=%E7%BD%91%E4%BC%A0%E7%99%BD%E9%B9%BF%E5%87%BA%E6%BC%94%E6%9D%8E%E6%B8%85%E7%85%A7",
           "time": "7/3"
-        },
-        {
-          "title": "黄子韬海关颜值回归",
-          "summary": "黄子韬留在海关的颜值回来了，造型状态引发粉丝热议。",
-          "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
-          "time": "7/3"
-        },
-        {
-          "title": "蔡文静回应赵一博",
-          "summary": "蔡文静回应与赵一博相关话题，互动内容登上热搜。",
-          "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
-          "time": "7/3"
-        },
-        {
-          "title": "BTS Jungkook腹肌公开",
-          "summary": "BTS成员Jungkook公开腹肌身材，美食面前自控力崩溃引热议。",
-          "source": "KOTourLive",
-          "url": "https://www.kotourlive.com/zh-CN/news/bts-jungkook-shows-off-abs-loses-self-control-in-front-of",
-          "time": "7/1"
-        }
-      ]
-    },
-    {
-      "id": "fashion",
-      "name": "👗 时尚",
-      "color": "#f43f5e",
-      "items": [
-        {
-          "title": "虞书欣连体衣造型",
-          "summary": "虞书欣连体衣造型亮相，成为当日时尚话题焦点。",
-          "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
-          "time": "7/3"
-        },
-        {
-          "title": "茉莉奶白换彩色头像",
-          "summary": "茶饮品牌茉莉奶白更换彩色头像，视觉焕新引发网友关注。",
-          "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
-          "time": "7/3"
-        },
-        {
-          "title": "BTS Jimin Dior系列",
-          "summary": "BTS成员Jimin以Dior系列造型亮相巴黎，被赞完美化身。",
-          "source": "KOTourLive",
-          "url": "https://www.kotourlive.com/zh-CN/news/bts-jimin-captivates-paris-with-the-dior-collections",
-          "time": "7/1"
-        },
-        {
-          "title": "张元英同款不同感",
-          "summary": "张元英与模特穿同款展现不同清纯气质，11字腿线引关注。",
-          "source": "KOTourLive",
-          "url": "https://www.kotourlive.com/zh-CN/news/jang-won-young-same-outfit-as-the-model-but-with-a",
-          "time": "6/30"
         }
       ]
     },
@@ -184,32 +114,25 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "现在就出发4阵容网传",
-          "summary": "网传第四季将大幅换血，新增喜剧人，官方尚未回应。",
-          "source": "新浪娱乐",
-          "url": "https://ent.sina.cn/2026-07-02/detail-inifmmmu2601369.d.html?vt=4",
-          "time": "7/2"
-        },
-        {
-          "title": "我讨好领导就白敬亭这样",
-          "summary": "白敬亭综艺表现登上热搜，讨好领导式互动引发模仿。",
+          "title": "恋综何书桓刘亦菲互相挂脸",
+          "summary": "最新资讯：恋综何书桓刘亦菲互相挂脸（热度21.3万）",
           "source": "微博热搜",
-          "url": "https://www.weibotop.cn/daily/2026-07-03",
+          "url": "https://s.weibo.com/weibo?q=%E6%81%8B%E7%BB%BC%E4%BD%95%E4%B9%A6%E6%A1%93%E5%88%98%E4%BA%A6%E8%8F%B2%E4%BA%92%E7%9B%B8%E6%8C%82%E8%84%B8",
           "time": "7/3"
         },
         {
-          "title": "乘风2026曾沛慈夺冠",
-          "summary": "《乘风2026》总决赛直播，曾沛慈拿下年度总冠军。",
-          "source": "新浪娱乐",
-          "url": "https://ent.sina.cn/2026-06-28/detail-iniewssh4353694.d.html",
-          "time": "6/28"
+          "title": "C罗打破淘汰赛零进球纪录",
+          "summary": "最新资讯：C罗打破淘汰赛零进球纪录（热度773.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/C%E7%BD%97%E6%89%93%E7%A0%B4%E6%B7%98%E6%B1%B0%E8%B5%9B%E9%9B%B6%E8%BF%9B%E7%90%83%E7%BA%AA%E5%BD%95",
+          "time": "7/3"
         },
         {
-          "title": "说唱巅峰对决2026热播",
-          "summary": "爱奇艺《说唱巅峰对决2026》持续热播，成为热门综艺。",
-          "source": "爱奇艺",
-          "url": "https://www.iqiyi.com/zongyi/",
-          "time": "6/30"
+          "title": "全网恭喜C罗世界杯淘汰赛首球",
+          "summary": "最新资讯：全网恭喜C罗世界杯淘汰赛首球（热度771.6万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%85%A8%E7%BD%91%E6%81%AD%E5%96%9CC%E7%BD%97%E4%B8%96%E7%95%8C%E6%9D%AF%E6%B7%98%E6%B1%B0%E8%B5%9B%E9%A6%96%E7%90%83",
+          "time": "7/3"
         }
       ]
     },
@@ -219,67 +142,74 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "小黄人与大怪兽上映",
-          "summary": "《小黄人与大怪兽》7月3日在中国大陆上映，北美7月1日已映。",
-          "source": "百度百科",
-          "url": "https://baike.baidu.com/item/%E5%B0%8F%E9%BB%84%E4%BA%BA%E4%B8%8E%E5%A4%A7%E6%80%AA%E5%85%BD/67358221",
+          "title": "如何看待本届枫丹千灵节芙宁娜导演新片《归乡》失利，芙宁娜奖由《大侦探赫尔洛克》夺得？",
+          "summary": "真是太不对劲了，芙宁娜大人拍摄的作品居然都拿不到芙宁娜奖！这还有天理吗？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2056136881767764204",
           "time": "7/3"
         },
         {
-          "title": "特立独行今日上映",
-          "summary": "白敬亭、魏翔主演喜剧《特立独行》定档7月3日全国上映。",
-          "source": "新浪电影",
-          "url": "http://k.sina.com.cn/article_7857201856_1d45362c001907kgoy.html",
+          "title": "电影特立独行今日上映",
+          "summary": "最新资讯：电影特立独行今日上映（热度777.1万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E7%89%B9%E7%AB%8B%E7%8B%AC%E8%A1%8C%E4%BB%8A%E6%97%A5%E4%B8%8A%E6%98%A0",
           "time": "7/3"
         },
         {
-          "title": "暑期档票房超16亿",
-          "summary": "2026暑期档电影票房持续走高，多部新片集结上映。",
-          "source": "腾讯新闻",
-          "url": "https://news.qq.com/rain/a/20260701A0482J00",
-          "time": "7/1"
-        },
-        {
-          "title": "年度票房突破170亿",
-          "summary": "2026年度电影总票房突破170亿元，多部影片表现亮眼。",
-          "source": "百度百家",
-          "url": "https://baijiahao.baidu.com/s?id=1868881963705071122&wfr=spider&for=pc",
-          "time": "6/24"
+          "title": "黄子韬未来纪元巡演首站定档成都",
+          "summary": "最新资讯：黄子韬未来纪元巡演首站定档成都（热度769.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E9%BB%84%E5%AD%90%E9%9F%AC%E6%9C%AA%E6%9D%A5%E7%BA%AA%E5%85%83%E5%B7%A1%E6%BC%94%E9%A6%96%E7%AB%99%E5%AE%9A%E6%A1%A3%E6%88%90%E9%83%BD",
+          "time": "7/3"
         }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "marketing",
+      "name": "📊 营销",
+      "color": "#f97316",
       "items": [
         {
-          "title": "Stray Kids Spotify纪录",
-          "summary": "6张专辑在Spotify累计突破10亿播放量，K-pop组合第2位。",
-          "source": "KOTourLive",
-          "url": "https://www.kotourlive.com/zh-CN/news/stray-kids-six-albums-reach-1-billion-spotify-streams",
-          "time": "7/1"
+          "title": "曾经很火却已消失了的品牌有哪些？",
+          "summary": "比如： 万能充 美特斯邦威 快播",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/597974671",
+          "time": "7/3"
+        }
+      ]
+    },
+    {
+      "id": "fun",
+      "name": "🎮 好玩有趣",
+      "color": "#22c55e",
+      "items": [
+        {
+          "title": "FIFA官方证实克罗地亚绝平球无效",
+          "summary": "最新资讯：FIFA官方证实克罗地亚绝平球无效（热度133.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=FIFA%E5%AE%98%E6%96%B9%E8%AF%81%E5%AE%9E%E5%85%8B%E7%BD%97%E5%9C%B0%E4%BA%9A%E7%BB%9D%E5%B9%B3%E7%90%83%E6%97%A0%E6%95%88",
+          "time": "7/3"
         },
         {
-          "title": "aespa情侣肚脐穿孔",
-          "summary": "Giselle与Ningning公开情侣肚脐穿孔，蚂蚁腰身材引关注。",
-          "source": "KOTourLive",
-          "url": "https://www.kotourlive.com/zh-CN/news/aespas-giselle-and-ningning-reveal-matching-belly-button",
-          "time": "7/1"
+          "title": "发给1921年的电报",
+          "summary": "最新资讯：发给1921年的电报（热度112.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%8F%91%E7%BB%991921%E5%B9%B4%E7%9A%84%E7%94%B5%E6%8A%A5",
+          "time": "7/3"
         },
         {
-          "title": "LE SSERAFIM Sakura机场时尚",
-          "summary": "Sakura机场穿搭被赞看似随意却精心搭配的完美时尚。",
-          "source": "KOTourLive",
-          "url": "https://www.kotourlive.com/zh-CN/news/le-sserafim-sakuras-effortlessly-perfect-airport-fashion",
-          "time": "6/30"
+          "title": "清华教授举报蒋方舟论文造假",
+          "summary": "最新资讯：清华教授举报蒋方舟论文造假（热度105.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%B8%85%E5%8D%8E%E6%95%99%E6%8E%88%E4%B8%BE%E6%8A%A5%E8%92%8B%E6%96%B9%E8%88%9F%E8%AE%BA%E6%96%87%E9%80%A0%E5%81%87",
+          "time": "7/3"
         },
         {
-          "title": "UAU 7月1日回归",
-          "summary": "Dreamcatcher相关企划UAU发行第二张迷你专辑正式回归。",
-          "source": "Kpann",
-          "url": "https://kpoppann.com/kpop-comeback-schedule",
-          "time": "7/1"
+          "title": "时代少年团沈阳音乐节",
+          "summary": "最新资讯：时代少年团沈阳音乐节（热度84.3万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%97%B6%E4%BB%A3%E5%B0%91%E5%B9%B4%E5%9B%A2%E6%B2%88%E9%98%B3%E9%9F%B3%E4%B9%90%E8%8A%82",
+          "time": "7/3"
         }
       ]
     }
