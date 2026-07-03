@@ -6581,27 +6581,46 @@
                 if (!ok) return;
             }
 
-            // 获取当前筛选条件用于文件名
+            // 获取当前筛选条件
             const month = document.getElementById('salaryMonth')?.value || 'all';
             const nameFilter = document.getElementById('salaryNameFilter')?.value || '';
+            const dateStart = document.getElementById('salaryDateStart')?.value || '';
+            const dateEnd = document.getElementById('salaryDateEnd')?.value || '';
 
-            // 构建数据（对象数组 → SheetJS json_to_sheet）
-            const data = filtered.map(s => ({
-                '姓名': s.user_name || '',
-                '角色': s.role === 'teacher' ? '老师' : '学生',
-                '分组': s.group_name || '',
-                '发片数': s.video_count || 0,
-                '千赞数': s.thousand_count || 0,
-                '万赞数': s.ten_thousand_count || 0,
-                '底薪(元)': s.base_salary || 0,
-                '奖金(元)': s.bonus || 0,
-                '实发(元)': s.total || 0,
-                '状态': s.status || '待结算'
-            }));
+            // 构建完整表格数组（信息行 + 空行 + 表头 + 数据）
+            const aoa = [];
+
+            // 信息行：月份 + 日期区间
+            let infoLine = `结算月份: ${month}`;
+            if (dateStart || dateEnd) {
+                infoLine += `    统计区间: ${dateStart || '起始'} ~ ${dateEnd || '截止'}`;
+            }
+            if (nameFilter) infoLine += `    筛选人员: ${nameFilter}`;
+            infoLine += `    共 ${filtered.length} 条`;
+            aoa.push([infoLine]);
+            aoa.push([]); // 空行分隔
+
+            // 表头
+            aoa.push(['姓名', '角色', '分组', '发片数', '千赞数', '万赞数', '底薪(元)', '奖金(元)', '实发(元)', '状态']);
+
+            // 数据行
+            filtered.forEach(s => {
+                aoa.push([
+                    s.user_name || '',
+                    s.role === 'teacher' ? '老师' : '学生',
+                    s.group_name || '',
+                    s.video_count || 0,
+                    s.thousand_count || 0,
+                    s.ten_thousand_count || 0,
+                    s.base_salary || 0,
+                    s.bonus || 0,
+                    s.total || 0,
+                    s.status || '待结算'
+                ]);
+            });
 
             // 创建工作簿
-            const ws = XLSX.utils.json_to_sheet(data);
-            // 设置列宽（中文字符约等于2个英文字符宽度）
+            const ws = XLSX.utils.aoa_to_sheet(aoa);
             ws['!cols'] = [
                 { wch: 10 }, { wch: 6 }, { wch: 10 },
                 { wch: 8 }, { wch: 8 }, { wch: 8 },
