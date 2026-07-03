@@ -6567,68 +6567,56 @@
             return { total, studentBonus: totalStudentBonus, qualified, groupVideoCount };
         }
 
-        // 导出薪资数据为 CSV（Excel可直接打开）
-        function exportSalaryData() {
+        // 导出薪资数据为 XLSX（Excel格式）
+        async function exportSalaryData() {
             const filtered = getFilteredSalaries();
             if (filtered.length === 0) {
                 toast('暂无数据可导出，请先执行查询', 'error');
                 return;
             }
 
+            // 确保 SheetJS 已加载
+            if (typeof XLSX === 'undefined') {
+                const ok = await loadSheetJS();
+                if (!ok) return;
+            }
+
             // 获取当前筛选条件用于文件名
             const month = document.getElementById('salaryMonth')?.value || 'all';
             const nameFilter = document.getElementById('salaryNameFilter')?.value || '';
 
-            // CSV 表头
-            const headers = ['姓名', '角色', '分组', '发片数', '千赞数', '万赞数', '底薪(元)', '奖金(元)', '实发(元)', '状态'];
-            
-            // CSV 数据行
-            const rows = filtered.map(s => {
-                const roleLabel = s.role === 'teacher' ? '老师' : '学生';
-                return [
-                    s.user_name || '',
-                    roleLabel,
-                    s.group_name || '',
-                    s.video_count || 0,
-                    s.thousand_count || 0,
-                    s.ten_thousand_count || 0,
-                    s.base_salary || 0,
-                    s.bonus || 0,
-                    s.total || 0,
-                    s.status || '待结算'
-                ];
-            });
+            // 构建数据（对象数组 → SheetJS json_to_sheet）
+            const data = filtered.map(s => ({
+                '姓名': s.user_name || '',
+                '角色': s.role === 'teacher' ? '老师' : '学生',
+                '分组': s.group_name || '',
+                '发片数': s.video_count || 0,
+                '千赞数': s.thousand_count || 0,
+                '万赞数': s.ten_thousand_count || 0,
+                '底薪(元)': s.base_salary || 0,
+                '奖金(元)': s.bonus || 0,
+                '实发(元)': s.total || 0,
+                '状态': s.status || '待结算'
+            }));
 
-            // 构建 CSV 内容（BOM + 转义处理）
-            const escapeCSV = (val) => {
-                const str = String(val);
-                // 如果包含逗号、引号或换行，需要用引号包裹
-                if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
-                    return '"' + str.replace(/"/g, '""') + '"';
-                }
-                return str;
-            };
-
-            const BOM = '\uFEFF'; // UTF-8 BOM，确保 Excel 正确识别中文
-            const csvContent = BOM + headers.map(escapeCSV).join(',') + '\n' 
-                + rows.map(row => row.map(escapeCSV).join(',')).join('\n');
+            // 创建工作簿
+            const ws = XLSX.utils.json_to_sheet(data);
+            // 设置列宽（中文字符约等于2个英文字符宽度）
+            ws['!cols'] = [
+                { wch: 10 }, { wch: 6 }, { wch: 10 },
+                { wch: 8 }, { wch: 8 }, { wch: 8 },
+                { wch: 10 }, { wch: 10 }, { wch: 10 }, { wch: 8 }
+            ];
+            const wb = XLSX.utils.book_new();
+            const sheetName = month ? month.replace('-', '年') + '月' : '薪资结算';
+            XLSX.utils.book_append_sheet(wb, ws, sheetName);
 
             // 生成文件名
             let fileName = `薪资结算_${month}`;
             if (nameFilter) fileName += `_${nameFilter}`;
-            fileName += '.csv';
+            fileName += '.xlsx';
 
-            // 触发下载
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
+            XLSX.writeFile(wb, fileName);
             toast(`✅ 已导出 ${filtered.length} 条数据`);
         }
 
