@@ -1,34 +1,15 @@
 {
-  "date": "2026-07-05",
-  "scrape_time": "2026-07-05 14:00 CST",
-  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
+  "date": "2026-07-06",
   "categories": [
     {
       "id": "tech",
       "name": "🤖 科技",
       "color": "#3b82f6",
       "items": [
-        {
-          "title": "赛琳娜在霉霉婚礼上用手机",
-          "summary": "最新资讯：赛琳娜在霉霉婚礼上用手机（热度31.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%B5%9B%E7%90%B3%E5%A8%9C%E5%9C%A8%E9%9C%89%E9%9C%89%E5%A9%9A%E7%A4%BC%E4%B8%8A%E7%94%A8%E6%89%8B%E6%9C%BA",
-          "time": "7/5"
-        },
-        {
-          "title": "寒门女孩高考 699 分报考清华却被网暴，劝学生别沉迷手机为何引来几十万点赞的负面评论？",
-          "summary": "近日，河南郏县姑娘韩雅平高考考出物理类699分的优异成绩，全网刷屏！她的母亲患强直性脊柱炎卧床，全家的生计仅靠父亲务农和打零工来勉强支撑，她从小到大从未上过任何补习班，全靠极致的自律和刻苦一路拼搏出好成绩，励志奋斗的经历让无数人泪目，也让人看见，努力的意义在熠熠生辉。 然而，接下来事情的发展却让人始料未及，女孩决定报考清华大学“卓医班”，被铺天盖地的质疑和嘲讽包围，甚至被“骂”上了热搜。 起因有两",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2056771003376722999",
-          "time": "7/5"
-        },
-        {
-          "title": "如何看待苹果手机信息泄露，程度堪比马圣开源？",
-          "summary": "2026年6月底，苹果在印度的核心制造合作伙伴塔塔电子（Tata Electronics）遭到勒索软件组织“World Leaks”入侵。黑客窃取了超过20万份、总容量达630GB的机密文件，并自6月10日起陆续在暗网公开传播。此次泄露不仅涵盖尚未发布的iPhone 18 Pro系列敏感资料，还波及了塔塔电子的另一大客户特斯拉的工程图纸。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2055966649900183829",
-          "time": "7/5"
-        }
+        { "title": "北大首款神经动力学芯片问世", "summary": "基于相变忆阻器，运算提速50至478倍", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_3876a4ae4aa01452", "time": "7/4" },
+        { "title": "Anthropic联手三星自研AI芯片", "summary": "追赶OpenAI，拟与三星洽谈代工合作", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_8746a4afeae74452", "time": "7/5" },
+        { "title": "前5个月我国机器人出口近200亿", "summary": "出口1037.7万台，远销150多个国家和地区", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_3876a4ae4aa01452", "time": "7/5" },
+        { "title": "WWDC26苹果AI全面战争打响", "summary": "Siri由Gemini重构，iOS27性能翻新", "source": "AI工具实验室", "url": "https://www.aitoollab.cn/articles/wwdc-2026-apple-siri-gemini-ios-27-ai-open-ecosystem/", "time": "7/5" }
       ]
     },
     {
@@ -36,27 +17,10 @@
       "name": "🧠 AI",
       "color": "#8b5cf6",
       "items": [
-        {
-          "title": "AI都进入吃播时代了",
-          "summary": "最新资讯：AI都进入吃播时代了（热度19.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=AI%E9%83%BD%E8%BF%9B%E5%85%A5%E5%90%83%E6%92%AD%E6%97%B6%E4%BB%A3%E4%BA%86",
-          "time": "7/5"
-        },
-        {
-          "title": "亚历山大王称 Meta 下代模型性能追平 GPT-5.5，这意味着什么？",
-          "summary": "亚历山大王：Meta下代新模型性能已追平GPT-5.5，仍在训练阶段 AI普瑞斯Pro 2026-07-03 11:28发布于 亚历山大王：meta下代新模型性能已追平gpt-5.5，仍在训练阶段",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2056351202930062305",
-          "time": "7/5"
-        },
-        {
-          "title": "为什么现在DeepSeek快速模式豆包化？",
-          "summary": "多了讨好的语气，有时像豆包一样谄媚。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2050992107284964141",
-          "time": "7/5"
-        }
+        { "title": "GPT-5.6三大模型曝光", "summary": "Codex代码现Sol/Terra/Luna标识，或7/7发布", "source": "36氪", "url": "https://www.36kr.com/p/3880971920584962", "time": "7/6" },
+        { "title": "OpenAI发布GPT-5.6", "summary": "旗舰模型Sol先向可信合作伙伴开放", "source": "网易科技", "url": "https://www.163.com/tech/article/L0DP0TVR00097U7T.html", "time": "7/6" },
+        { "title": "2026中国互联网大会将举行", "summary": "北京开幕，AI大模型与产业融合成焦点", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_4116a4ae8ac55752", "time": "7/6" },
+        { "title": "7月AI大模型进展全景盘点", "summary": "GPT-5.6内测、Anthropic估值冲AI第一股", "source": "IAI派", "url": "https://iaipie.com/ai%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%9C%80%E6%96%B0%E8%BF%9B%E5%B1%95%E6%B7%B1%E5%BA%A6%E7%9B%98%E7%82%B9%EF%BC%882026%E5%B9%B47%E6%9C%88%E7%AF%87%EF%BC%89%EF%BC%9Agpt-5-6%E5%86%85%E6%B5%8B%E3%80%81anthro/", "time": "7/1" }
       ]
     },
     {
@@ -64,69 +28,32 @@
       "name": "⚽ 体育",
       "color": "#10b981",
       "items": [
-        {
-          "title": "韩国股民A股买入额大增130%",
-          "summary": "最新资讯：韩国股民A股买入额大增130%（热度42.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E8%82%A1%E6%B0%91A%E8%82%A1%E4%B9%B0%E5%85%A5%E9%A2%9D%E5%A4%A7%E5%A2%9E130%25",
-          "time": "7/5"
-        },
-        {
-          "title": "詹姆斯称在湖人缺乏尊重",
-          "summary": "最新资讯：詹姆斯称在湖人缺乏尊重（热度19.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%A9%B9%E5%A7%86%E6%96%AF%E7%A7%B0%E5%9C%A8%E6%B9%96%E4%BA%BA%E7%BC%BA%E4%B9%8F%E5%B0%8A%E9%87%8D",
-          "time": "7/5"
-        },
-        {
-          "title": "火药味拉满！世界杯1/8决赛，法国1-0巴拉圭，双方冲突不断，姆巴佩点射杜埃造点，如何评价本场比赛？",
-          "summary": "2026美加墨世界杯1/8决赛，法国队1比0战胜巴拉圭队，晋级世界杯8强。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2056707285326325305",
-          "time": "7/5"
-        },
-        {
-          "title": "世界杯 1/8 决赛，摩洛哥 3-0 加拿大，乌纳希双响迪亚斯两助，如何评价本场比赛？",
-          "summary": "摩洛哥队凭借欧纳希的两粒进球，以3:0完胜加拿大队，成为首支连续两届晋级世界杯八强的非洲球队。加拿大队则成为本届赛事中首支被淘汰的东道主球队。",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2056707078798799209",
-          "time": "7/5"
-        }
+        { "title": "挪威2-1爆冷淘汰巴西", "summary": "哈兰德梅开二度，挪威首进世界杯八强", "source": "财联社", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_5986a4ad63d59452", "time": "7/6" },
+        { "title": "巴西创36年最差战绩", "summary": "连续6届无缘冠军，淘汰赛遭欧洲7连杀", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_7966a4ad8c919152", "time": "7/6" },
+        { "title": "世界杯1/8决赛对阵出炉", "summary": "阿根廷vs埃及，西班牙迎战挪威/巴西胜者", "source": "央视网", "url": "https://sports.cctv.com/2026/07/04/ARTIB9HZqPtoLrsnUTqm804t260704.shtml", "time": "7/4" },
+        { "title": "哈兰德独进两球追平梅西", "summary": "射手榜并驾齐驱，C罗承认最后一舞", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_7756a4af09748752", "time": "7/6" }
       ]
     },
     {
-      "id": "show",
+      "id": "ent",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
-        {
-          "title": "HYROX穿搭赢一半",
-          "summary": "最新资讯：HYROX穿搭赢一半（热度782.6万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/HYROX%E7%A9%BF%E6%90%AD%E8%B5%A2%E4%B8%80%E5%8D%8A",
-          "time": "7/5"
-        },
-        {
-          "title": "迪丽热巴开启地球夏日Online",
-          "summary": "最新资讯：迪丽热巴开启地球夏日Online（热度772.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E5%BC%80%E5%90%AF%E5%9C%B0%E7%90%83%E5%A4%8F%E6%97%A5Online",
-          "time": "7/5"
-        },
-        {
-          "title": "梅雨季穿搭",
-          "summary": "最新资讯：梅雨季穿搭（热度769.0万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%A2%85%E9%9B%A8%E5%AD%A3%E7%A9%BF%E6%90%AD",
-          "time": "7/5"
-        },
-        {
-          "title": "谈恋爱之前的穿搭",
-          "summary": "最新资讯：谈恋爱之前的穿搭（热度768.8万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%B0%88%E6%81%8B%E7%88%B1%E4%B9%8B%E5%89%8D%E7%9A%84%E7%A9%BF%E6%90%AD",
-          "time": "7/5"
-        }
+        { "title": "周汤豪金曲奖后赶录说唱", "summary": "刚结束金曲奖表演，立刻飞无锡参加会外赛", "source": "中时新闻网", "url": "https://www.chinatimes.com/cn/newspapers/260112", "time": "7/5" },
+        { "title": "徐良巡演重庆站三场落幕", "summary": "唱响山城掀热潮，现场反响热烈", "source": "中国娱乐网", "url": "http://news.yule.com.cn/index.html", "time": "7/4" },
+        { "title": "白鹿虞书欣角色对比引热议", "summary": "两人新剧角色风格差异成社交平台话题", "source": "腾讯新闻", "url": "https://view.inews.qq.com/a/20260701A01ETU00", "time": "7/1" },
+        { "title": "2026娱乐圈热点汇总出炉", "summary": "综艺封神剧集领跑，名场面刷爆全网", "source": "TVCN", "url": "https://www.tvcn.com.cn/ent/4002044.html", "time": "7/5" }
+      ]
+    },
+    {
+      "id": "fashion",
+      "name": "👗 时尚",
+      "color": "#f43f5e",
+      "items": [
+        { "title": "Supreme x Nike新三方联名曝光", "summary": "国区即将发售，配色设计引发关注", "source": "网易球鞋", "url": "https://www.163.com/dy/media/T1609665527571.html", "time": "7/5" },
+        { "title": "Palace x Nike世界杯联名来了", "summary": "足球主题设计，预计近期正式发售", "source": "网易球鞋", "url": "https://www.163.com/dy/media/T1609665527571.html", "time": "7/5" },
+        { "title": "Kobe 5即将发售", "summary": "期待已久的经典鞋款终于要回归市场", "source": "FLIGHTCLUB", "url": "https://www.163.com/dy/media/T1457437018151.html", "time": "7/4" },
+        { "title": "Burberry逃离乡村夏日大片", "summary": "拥抱英伦夏日精髓，全新广告宣传上线", "source": "Notizie.it", "url": "https://www.notizie.it/zh-CN/2026%E5%B9%B4%E5%A4%8F%E5%AD%A3%E6%97%B6%E5%B0%9A%EF%BC%9A%E6%9C%80%E6%96%B0%E6%BD%AE%E6%B5%81%E5%92%8C%E7%8B%AC%E5%AE%B6%E5%90%88%E4%BD%9C/", "time": "7/4" }
       ]
     },
     {
@@ -134,13 +61,10 @@
       "name": "📺 综艺",
       "color": "#f59e0b",
       "items": [
-        {
-          "title": "2026年MSI季中冠军赛淘汰赛TSW VS TES，如何评价这场比赛？",
-          "summary": "最新资讯：2026年MSI季中冠军赛淘汰赛TSW VS TES，如何评价这场比赛？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2057042851272320635",
-          "time": "7/5"
-        }
+        { "title": "说唱巅峰对决2026开播", "summary": "十周年IP回归，中文说唱终极对决", "source": "爱奇艺", "url": "https://www.iqiyi.com/a_12aqygzz3i1.html", "time": "7/4" },
+        { "title": "周汤豪参加我要上巅峰", "summary": "说唱巅峰会外赛，冲关争夺正赛名额", "source": "中时新闻网", "url": "https://www.chinatimes.com/cn/newspapers/260112", "time": "7/5" },
+        { "title": "喜剧之王单口季第3季热播", "summary": "爱奇艺热播综艺持续更新，话题不断", "source": "爱奇艺", "url": "https://www.iqiyi.com/zongyi/", "time": "7/5" },
+        { "title": "中餐厅首播黄晓明带队", "summary": "全新季开播，嘉宾阵容和首期看点引关注", "source": "电视猫", "url": "https://www.tvmao.com/tvshow", "time": "7/5" }
       ]
     },
     {
@@ -148,62 +72,21 @@
       "name": "🎬 影视",
       "color": "#6366f1",
       "items": [
-        {
-          "title": "如何看待 2026 年 7 月 3 日正式上映的喜剧电影《特立独行》获得点映评分 9.6 分？",
-          "summary": "白敬亭领衔主演，众多喜人倾力加盟。 2026年7月3日（周五）正式上映。 --- 《特立独行》预告片链接：【超人也得拍领导马屁！国产超英喜剧《特立独行》新预告，白敬亭+魏翔+张国强+苏小玎】",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2054241838614197404",
-          "time": "7/5"
-        },
-        {
-          "title": "罗永浩称「没必要对电影人阴阳怪气，市场不行是因为流媒体长短视频、游戏等分流 」，如何看待这一说法？",
-          "summary": "罗永浩 7 月 2 日那条微博又炸了锅，他说电影市场走下坡是因为长短视频、短剧、游戏分流了观众，电影公司拍不出好东西只是表面说辞。 这个判断听上去很为行业说话——钱难赚了是形势不好，不怪自己。但拆开来细想，另一层意思或许更接近真相：市场没有变差，只是回到了它本该有的样子。 罗永浩称电影市场惨淡因被长短视频分流，呼吁勿对电影人阴阳怪气",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2056128289513666049",
-          "time": "7/5"
-        },
-        {
-          "title": "择日飞升动画定档0718",
-          "summary": "最新资讯：择日飞升动画定档0718（热度768.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8B%A9%E6%97%A5%E9%A3%9E%E5%8D%87%E5%8A%A8%E7%94%BB%E5%AE%9A%E6%A1%A30718",
-          "time": "7/5"
-        }
+        { "title": "暑期档票房破20亿", "summary": "92天档期持续升温，多部大片扎堆上映", "source": "猫眼", "url": "https://piaofang.maoyan.com/i/xuanfa/schedule-honor?showTab=0", "time": "7/6" },
+        { "title": "2026年度票房破175亿", "summary": "《飞驰人生3》《给阿嬷的情书》领跑", "source": "百度百家", "url": "https://baijiahao.baidu.com/s?id=1869670766614107474", "time": "7/3" },
+        { "title": "7月80部新片集中上映", "summary": "科幻喜剧悬疑全品类，暑期档神仙打架", "source": "新浪娱乐", "url": "https://ent.sina.cn/2026-07-04/detail-inifrana2236854.d.html", "time": "7/4" },
+        { "title": "易烊千玺主演票房破220亿", "summary": "暑期档大事件，主演累计票房再创新高", "source": "猫眼", "url": "https://piaofang.maoyan.com/i/xuanfa/schedule-honor?showTab=0", "time": "7/6" }
       ]
     },
     {
-      "id": "fun",
-      "name": "🎮 好玩有趣",
-      "color": "#22c55e",
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
       "items": [
-        {
-          "title": "密逃8官宣阵容",
-          "summary": "最新资讯：密逃8官宣阵容（热度136.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%AF%86%E9%80%838%E5%AE%98%E5%AE%A3%E9%98%B5%E5%AE%B9",
-          "time": "7/5"
-        },
-        {
-          "title": "巴拉圭门将用球砸姆巴佩",
-          "summary": "最新资讯：巴拉圭门将用球砸姆巴佩（热度91.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B7%B4%E6%8B%89%E5%9C%AD%E9%97%A8%E5%B0%86%E7%94%A8%E7%90%83%E7%A0%B8%E5%A7%86%E5%B7%B4%E4%BD%A9",
-          "time": "7/5"
-        },
-        {
-          "title": "中国人造太阳有重大进展",
-          "summary": "最新资讯：中国人造太阳有重大进展（热度81.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%AD%E5%9B%BD%E4%BA%BA%E9%80%A0%E5%A4%AA%E9%98%B3%E6%9C%89%E9%87%8D%E5%A4%A7%E8%BF%9B%E5%B1%95",
-          "time": "7/5"
-        },
-        {
-          "title": "儿媳妇脾气反常婆婆发现小孙子非亲生",
-          "summary": "最新资讯：儿媳妇脾气反常婆婆发现小孙子非亲生（热度73.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%84%BF%E5%AA%B3%E5%A6%87%E8%84%BE%E6%B0%94%E5%8F%8D%E5%B8%B8%E5%A9%86%E5%A9%86%E5%8F%91%E7%8E%B0%E5%B0%8F%E5%AD%99%E5%AD%90%E9%9D%9E%E4%BA%B2%E7%94%9F",
-          "time": "7/5"
-        }
+        { "title": "i-dle迷你9辑今日回归", "summary": "《We made》发行，主打曲Gimme Dat Love", "source": "PopoNote", "url": "https://www.poponote.com/note/6a3a27698ea5f90008d404f4", "time": "7/6" },
+        { "title": "aespa日本首张迷你专辑", "summary": "《KISS N TELL》定档7月24日发行", "source": "KpopOfficial", "url": "https://kpopofficial.com/kpop-comeback-schedule-july-2026/", "time": "7/24" },
+        { "title": "YEONJUN第二张迷你专辑", "summary": "《NO LABELS: PART 02》主打ICE CREAM", "source": "KpopOfficial", "url": "https://kpopofficial.com/kpop-comeback-schedule-july-2026/", "time": "7/10" },
+        { "title": "BABYMONSTER新MV今日公开", "summary": "《I Like It》MV于7月6日正式发布", "source": "KpopOfficial", "url": "https://kpopofficial.com/kpop-comeback-schedule-july-2026/", "time": "7/6" }
       ]
     }
   ]
