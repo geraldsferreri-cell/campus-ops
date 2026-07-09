@@ -2175,12 +2175,12 @@
                     <h2>📡 资讯热点</h2>
                     <div class="tophub-date-row">
                         <span class="news-date" id="newsDate"></span>
-                        <button class="tophub-toggle" id="tophubToggle" onclick="toggleTophubPanel()" title="来自 tophub.today 的8平台实时热榜">
-                            🔥 实时热榜
+                        <button class="tophub-toggle" id="tophubToggle" onclick="toggleTophubPanel()" title="8平台每日热榜">
+                            🔥 每日热榜
                         </button>
                     </div>
                 </div>
-                <!-- Tophub 实时热榜面板 -->
+                <!-- 每日热榜面板 -->
                 <div class="tophub-panel" id="tophubPanel">
                     <div class="th-meta" id="tophubMeta"></div>
                     <!-- 第一层：平台标签 -->
@@ -7613,12 +7613,10 @@
             if (tophubPanelVisible) {
                 panel.classList.add("show");
                 btn.classList.add("active");
-                btn.textContent = "🔥 收起热榜";
                 if (!TOPHUB_DATA) await loadTophubData();
             } else {
                 panel.classList.remove("show");
                 btn.classList.remove("active");
-                btn.textContent = "🔥 实时热榜";
             }
         }
 
