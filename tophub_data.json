@@ -1,0 +1,872 @@
+{
+  "meta": {
+    "date": "2026-07-09",
+    "source": "tophub.today",
+    "platform_count": 8,
+    "top_n": 3
+  },
+  "platforms": {
+    "知乎": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "中国有哪些行业打破了西方的技术封锁？",
+          "link": "https://www.zhihu.com/question/52916148",
+          "heat": "1082 万热度"
+        },
+        {
+          "rank": 2,
+          "title": "广西一动物园灾前将猛兽区锁死致三只狮子溺亡，如何看待这一做法？这类紧急情况动物园应有哪些科学应急措施？",
+          "link": "https://www.zhihu.com/question/2058257889240643458",
+          "heat": "704 万热度"
+        },
+        {
+          "rank": 3,
+          "title": "台风巴威登陆地基本锁定闽浙，可能还会对哪些地区有影响？大家应对台风需要注意什么？",
+          "link": "https://www.zhihu.com/question/2058114629109118552",
+          "heat": "623 万热度"
+        }
+      ]
+    },
+    "微博": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "台风巴威可能正面登陆",
+          "link": "https://s.weibo.com/weibo?q=%E5%8F%B0%E9%A3%8E%E5%B7%B4%E5%A8%81%E5%8F%AF%E8%83%BD%E6%AD%A3%E9%9D%A2%E7%99%BB%E9%99%86",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "巴威",
+          "link": "https://s.weibo.com/weibo?q=%E5%B7%B4%E5%A8%81",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "当寂静的广西街头响起子弟兵口号",
+          "link": "https://s.weibo.com/weibo?q=%E5%BD%93%E5%AF%82%E9%9D%99%E7%9A%84%E5%B9%BF%E8%A5%BF%E8%A1%97%E5%A4%B4%E5%93%8D%E8%B5%B7%E5%AD%90%E5%BC%9F%E5%85%B5%E5%8F%A3%E5%8F%B7",
+          "heat": ""
+        }
+      ],
+      "社会": [
+        {
+          "rank": 1,
+          "title": "32岁程序员猝死抢救仍被拉入工作群",
+          "link": "https://s.weibo.com/weibo?q=%2332%E5%B2%81%E7%A8%8B%E5%BA%8F%E5%91%98%E7%8C%9D%E6%AD%BB%E6%8A%A2%E6%95%91%E4%BB%8D%E8%A2%AB%E6%8B%89%E5%85%A5%E5%B7%A5%E4%BD%9C%E7%BE%A4%23&t=769&Refer=top",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "台风巴威到哪了",
+          "link": "https://s.weibo.com/weibo?q=%23%E5%8F%B0%E9%A3%8E%E5%B7%B4%E5%A8%81%E5%88%B0%E5%93%AA%E4%BA%86%23&t=769&Refer=top",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "横州16年蛇类养殖户发声",
+          "link": "https://s.weibo.com/weibo?q=%23%E6%A8%AA%E5%B7%9E16%E5%B9%B4%E8%9B%87%E7%B1%BB%E5%85%BB%E6%AE%96%E6%88%B7%E5%8F%91%E5%A3%B0%23&t=769&Refer=top",
+          "heat": ""
+        }
+      ],
+      "生活": [
+        {
+          "rank": 1,
+          "title": "兰州机场捕鼠办",
+          "link": "https://s.weibo.com/weibo?q=%E5%85%B0%E5%B7%9E%E6%9C%BA%E5%9C%BA%E6%8D%95%E9%BC%A0%E5%8A%9E&t=736&Refer=top",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "才知道宝贝回家是给本人看的",
+          "link": "https://s.weibo.com/weibo?q=%E6%89%8D%E7%9F%A5%E9%81%93%E5%AE%9D%E8%B4%9D%E5%9B%9E%E5%AE%B6%E6%98%AF%E7%BB%99%E6%9C%AC%E4%BA%BA%E7%9C%8B%E7%9A%84&t=736&Refer=top",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "累到不想上班穷到无法辞职",
+          "link": "https://s.weibo.com/weibo?q=%E7%B4%AF%E5%88%B0%E4%B8%8D%E6%83%B3%E4%B8%8A%E7%8F%AD%E7%A9%B7%E5%88%B0%E6%97%A0%E6%B3%95%E8%BE%9E%E8%81%8C&t=736&Refer=top",
+          "heat": ""
+        }
+      ],
+      "影视": [
+        {
+          "rank": 1,
+          "title": "小虎墩大英雄",
+          "link": "http://weibo.com/p/100120188621",
+          "heat": "梁达伟 / 王肖兵 / 唐雅菁"
+        },
+        {
+          "rank": 2,
+          "title": "奇迹·笨小孩",
+          "link": "http://weibo.com/p/100120188591",
+          "heat": "易烊千玺 / 田雨 / 陈哈琳 / 齐溪 / 公磊 / 许君聪 / 王宁 / 黄尧 / 巩金国 / 王传君 / 章宇 / 张志坚 / 杨新鸣"
+        },
+        {
+          "rank": 3,
+          "title": "长津湖之水门桥（2022）",
+          "link": "http://weibo.com/p/100120188646",
+          "heat": "吴京 / 易烊千玺 / 段奕宏 / 张涵予 / 朱亚文 / 李晨 / 韩东君 / 耿乐 / 杜淳"
+        }
+      ]
+    },
+    "微信": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "世界杯8强，全部产生！（附对阵图、比赛时间）",
+          "link": "https://mp.weixin.qq.com/s/FZj1z9tSdpTFlXFHJZAHbg",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "台风“巴威”可能正面登陆我国东南地区！",
+          "link": "https://mp.weixin.qq.com/s/dKJ4iF_ICwULLDTBZ-lhag",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "价格持续飙涨，一天三个价，商家都劝“先不要买”，网友：刚需，咬着牙也得下手",
+          "link": "https://mp.weixin.qq.com/s/WnU4PtztV8ennR9E1PEayQ",
+          "heat": ""
+        }
+      ],
+      "社会": [
+        {
+          "rank": 1,
+          "title": "人最多感染8次新冠",
+          "link": "https://vp.fact.qq.com/article?id=cc4630d08b5553666e885c0e19804fac",
+          "heat": "谣言"
+        },
+        {
+          "rank": 2,
+          "title": "新冠痊愈标准是能憋气40秒",
+          "link": "https://vp.fact.qq.com/article?id=9441f7d2b72798e717f3f8d4edafed1c",
+          "heat": "谣言"
+        },
+        {
+          "rank": 3,
+          "title": "XBB病毒主攻拉肚子，要准备蒙脱石散",
+          "link": "https://vp.fact.qq.com/article?id=58a7cd0b6f4d5bab94cfcd20085e37be",
+          "heat": "谣言"
+        }
+      ],
+      "资讯": [
+        {
+          "rank": 1,
+          "title": "𝑆ℎ𝑎𝑟𝑒 | 韩味女生头像 100 张 （直存）",
+          "link": "https://mp.weixin.qq.com/s/Pex7hsOShcyrDfYmZk0fXQ",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "沈 星 回",
+          "link": "https://mp.weixin.qq.com/s/xcRxcmwbL2egTkP4tUQqLg",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "特朗普炮轰盟友又称“感受到爱”！梅洛尼：不后悔",
+          "link": "https://mp.weixin.qq.com/s/vlhtiaDnDOpIYFYsRPiYUw",
+          "heat": ""
+        }
+      ],
+      "生活": [
+        {
+          "rank": 1,
+          "title": "火车站出现了“新骗局”，10个人9个人上当，可惜很多人都不知道！",
+          "link": "https://mp.weixin.qq.com/s?__biz=MzkwMDc5OTgzNg==&mid=2247490832&idx=1&sn=e64a6441b8a7f92821ebdafe7e95d098#rd",
+          "heat": ""
+        }
+      ],
+      "影视": [
+        {
+          "rank": 1,
+          "title": "贪财好色、嗜酒如命，香港乐坛一代鬼才，2000多首歌撑起整个武林：风流有何不可？",
+          "link": "https://mp.weixin.qq.com/s?__biz=MzA5ODAyOTU2NA==&mid=2652192154&idx=1&sn=795732c12843b00b7674b849714df0a0&chksm=8afd5e84003c227711d97abb2d1510d783c6693b4e1e091a519535d790647d2016947cefb7ff&scene=0&xtrack=1#rd",
+          "heat": ""
+        }
+      ],
+      "搞笑": [
+        {
+          "rank": 1,
+          "title": "网友惊呆了！蒋方舟硕士论文封面的校对错误",
+          "link": "https://mp.weixin.qq.com/s?__biz=MjM5MjQ3OTk0MA==&mid=2654873362&idx=3&sn=61c0cf6fcc8717245700ac32a88b533c&chksm=240314#rd",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "前几天发工资了，到账8900 💰 立马还房贷3600 🏦 还信用卡1800 💳 给老婆转了2000 👩 给老妈转了600， 往儿子电话手表里转账50。 下班后决定犒劳自己，[愉快] 路边摊点了10串羊肉带回家。 到家的时候， 老婆看到我手里",
+          "link": "https://mp.weixin.qq.com/s/Rg8nMvxtBFYOxA4pADrAhw",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "浙江女子以190万把房子卖给租客，租客觉得贵拒绝了，随后女子找其他人170万成交，租客知道后起诉女子，要求赔偿20万！法院判了",
+          "link": "https://mp.weixin.qq.com/s/hy1lQ_Xm79jlcnxc3rI9rQ",
+          "heat": ""
+        }
+      ],
+      "娱乐": [
+        {
+          "rank": 1,
+          "title": "7·7中国禁娱公告",
+          "link": "https://mp.weixin.qq.com/s?__biz=MzkzNTQzMzU4MQ==&mid=2247485926&idx=1&sn=f21ce3363c2b81822cbff92cfa9f1677&chksm=394823#rd",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "舆论风向突变！传巴扎黑与小冠军和好，遭节奏反噬。深夜醉酒致电方丈拜托向外界传话帮澄清！",
+          "link": "https://mp.weixin.qq.com/s/wc0B2uE84vdxMLez-Zgadg",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "大赞！超模与富豪老公出手，$5.5 亿债务一笔勾销，26 万美国人医疗债务清零，这神仙操作绝了！",
+          "link": "https://mp.weixin.qq.com/s/Y6pg1YsMwt8dH3wRZPmGvg",
+          "heat": ""
+        }
+      ],
+      "宠物": [
+        {
+          "rank": 1,
+          "title": "海淀中等生逆袭真相：别挤六小强，也许这几所“低进高出”校才是普娃的跳板！",
+          "link": "https://mp.weixin.qq.com/s?__biz=MzI1MjY3NjI5MQ==&mid=2247492663&idx=1&sn=576967296cffc59a806ad50cb9558aff&chksm=373026#rd",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "张庭试管9次生下的女儿，如今已经15岁，颜值逆袭成“高级模特脸”，这长相可以吗？",
+          "link": "https://mp.weixin.qq.com/s/nvX_UZlT4Y95Ib6NT0IliA",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "农村俗称“野鸡脖子”，也叫它虎斑锦草蛇，一种最容易背人忽视的毒蛇，遇到要远离！",
+          "link": "https://mp.weixin.qq.com/s?__biz=Mzg4NDY2MDU4Mg==&mid=2247496751&idx=1&sn=f7141a3c3156cdbe1c27b4ccee699fea&chksm=705749#rd",
+          "heat": ""
+        }
+      ],
+      "时尚": [
+        {
+          "rank": 1,
+          "title": "【意·社会】草坪打牌，13名移民每人被罚200欧元！引发种族歧视争议",
+          "link": "https://mp.weixin.qq.com/s/60vcCNhCzzB0uiONJ5KFpg",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "一次出俩不绑定极品大八星，属性条还一模一样，技巧难道是这个？天龙玩家这波赚麻了，最少几万元宝到手！",
+          "link": "https://mp.weixin.qq.com/s/Nvt4zPV5F-3jxzWN0YhobA",
+          "heat": ""
+        }
+      ],
+      "游戏": [
+        {
+          "rank": 1,
+          "title": "台风“巴威”预计11日白天登陆或擦过台湾岛北部沿海，然后向福建中部到浙江南部沿海靠近",
+          "link": "https://mp.weixin.qq.com/s/d9WaE6ezPvIYwcuRbXQh3Q",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "理想livis扯了蛋，还能在这条路上走多远",
+          "link": "https://mp.weixin.qq.com/s?__biz=MzU1ODcyNDQ0OA==&mid=2247486799&idx=1&sn=aef0153c666fbc2bc85949f0f87afccb&chksm=230850#rd",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "穷人才用粮食券？未必！杂货铺明目张胆“对半套现” 刷$2900得$1450 有人被抓",
+          "link": "https://mp.weixin.qq.com/s/n98kj5hTJg-M-d4iS1pnYA",
+          "heat": ""
+        }
+      ],
+      "星座": [
+        {
+          "rank": 1,
+          "title": "甘肃天水市政府发布搬迁公告：机关办公楼鉴定为D级危楼，存在较大安全隐患",
+          "link": "https://mp.weixin.qq.com/s/f3gdIfVYG6ib-aE65RQYHQ",
+          "heat": ""
+        }
+      ],
+      "体育": [
+        {
+          "rank": 1,
+          "title": "来封我！方丈醉酒“变身”闯祸，叼烟朝ks官方叫嚣。老葛、天佑、刘二狗及各大网红全受波及！",
+          "link": "https://mp.weixin.qq.com/s/cCNH9tsPDzLz865FpxmWog",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "说到中国乒乓球最有眼光的伯乐，肯定得是王涛了",
+          "link": "https://mp.weixin.qq.com/s?__biz=MzIyMTQzNDA4Nw==&mid=2247505950&idx=1&sn=8c511c803c15bad848dbdf74f6cc9b32&chksm=825019#rd",
+          "heat": ""
+        }
+      ],
+      "综艺": [
+        {
+          "rank": 1,
+          "title": "奔跑吧 第10季",
+          "link": "https://v.qq.com/x/search/?q=%E5%A5%94%E8%B7%91%E5%90%A7%20%E7%AC%AC10%E5%AD%A3&stag=12",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "开始推理吧 第4季",
+          "link": "https://v.qq.com/x/search/?q=%E5%BC%80%E5%A7%8B%E6%8E%A8%E7%90%86%E5%90%A7%20%E7%AC%AC4%E5%AD%A3&stag=12",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "地球超新鲜 第2季",
+          "link": "https://v.qq.com/x/search/?q=%E5%9C%B0%E7%90%83%E8%B6%85%E6%96%B0%E9%B2%9C%20%E7%AC%AC2%E5%AD%A3&stag=12",
+          "heat": ""
+        }
+      ]
+    },
+    "澎湃": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "马上评｜足球自带纯粹，世界杯容不下“脏”",
+          "link": "https://www.thepaper.cn/newsDetail_forward_33541610",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "超强台风“巴威”可能正面登陆，防汛形势严峻复杂",
+          "link": "https://www.thepaper.cn/newsDetail_forward_33543132",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "1/4决赛前瞻：巴西德国缺席，新王黑马谁是赢家？",
+          "link": "https://www.thepaper.cn/newsDetail_forward_33541075",
+          "heat": ""
+        }
+      ],
+      "社会": [
+        {
+          "rank": 1,
+          "title": "中美关系剧透警告｜李成：若能维持10年和平，中美关系会有崭新面貌",
+          "link": "https://www.thepaper.cn/newsDetail_forward_32254146",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "“剧透”2026中美关系？冷战至今“二轨外交”中的那些趣事｜907编辑部",
+          "link": "https://www.thepaper.cn/newsDetail_forward_32247938",
+          "heat": ""
+        }
+      ],
+      "资讯": [
+        {
+          "rank": 1,
+          "title": "智能眼镜发令枪已打响：跑对方向比抢跑更重要",
+          "link": "https://www.thepaper.cn/newsDetail_forward_32244911",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "AI工具极大提升科学产出，但论文质量却有所下降",
+          "link": "https://www.thepaper.cn/newsDetail_forward_32256608",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "无糖甜味剂可能会损害肝脏",
+          "link": "https://www.thepaper.cn/newsDetail_forward_32256599",
+          "heat": ""
+        }
+      ]
+    },
+    "百度": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "向着建成科技强国的目标坚定迈进",
+          "link": "https://www.baidu.com/s?wd=%E5%90%91%E7%9D%80%E5%BB%BA%E6%88%90%E7%A7%91%E6%8A%80%E5%BC%BA%E5%9B%BD%E7%9A%84%E7%9B%AE%E6%A0%87%E5%9D%9A%E5%AE%9A%E8%BF%88%E8%BF%9B",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "台风巴威可能正面登陆",
+          "link": "https://www.baidu.com/s?wd=%E5%8F%B0%E9%A3%8E%E5%B7%B4%E5%A8%81%E5%8F%AF%E8%83%BD%E6%AD%A3%E9%9D%A2%E7%99%BB%E9%99%86",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "新华社：国足成绩再不好 也不能造谣",
+          "link": "https://www.baidu.com/s?wd=%E6%96%B0%E5%8D%8E%E7%A4%BE%EF%BC%9A%E5%9B%BD%E8%B6%B3%E6%88%90%E7%BB%A9%E5%86%8D%E4%B8%8D%E5%A5%BD+%E4%B9%9F%E4%B8%8D%E8%83%BD%E9%80%A0%E8%B0%A3",
+          "heat": ""
+        }
+      ],
+      "社会": [
+        {
+          "rank": 1,
+          "title": "村民在养猪场旁挖出1400年前佛首",
+          "link": "https://www.baidu.com/s?wd=%E6%9D%91%E6%B0%91%E5%9C%A8%E5%85%BB%E7%8C%AA%E5%9C%BA%E6%97%81%E6%8C%96%E5%87%BA1400%E5%B9%B4%E5%89%8D%E4%BD%9B%E9%A6%96",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "台风巴威可能正面登陆",
+          "link": "https://www.baidu.com/s?wd=%E5%8F%B0%E9%A3%8E%E5%B7%B4%E5%A8%81%E5%8F%AF%E8%83%BD%E6%AD%A3%E9%9D%A2%E7%99%BB%E9%99%86",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "丹顶鹤被抱走 其他鹤“一键跟随”",
+          "link": "https://www.baidu.com/s?wd=%E4%B8%B9%E9%A1%B6%E9%B9%A4%E8%A2%AB%E6%8A%B1%E8%B5%B0+%E5%85%B6%E4%BB%96%E9%B9%A4%E2%80%9C%E4%B8%80%E9%94%AE%E8%B7%9F%E9%9A%8F%E2%80%9D",
+          "heat": ""
+        }
+      ],
+      "资讯": [
+        {
+          "rank": 1,
+          "title": "养“光伏羊”每年收入近10万元",
+          "link": "https://www.baidu.com/s?wd=%E5%85%BB%E2%80%9C%E5%85%89%E4%BC%8F%E7%BE%8A%E2%80%9D%E6%AF%8F%E5%B9%B4%E6%94%B6%E5%85%A5%E8%BF%9110%E4%B8%87%E5%85%83",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "雷军正式公布小米汽车新系列",
+          "link": "https://www.baidu.com/s?wd=%E9%9B%B7%E5%86%9B%E6%AD%A3%E5%BC%8F%E5%85%AC%E5%B8%83%E5%B0%8F%E7%B1%B3%E6%B1%BD%E8%BD%A6%E6%96%B0%E7%B3%BB%E5%88%97",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "千亿市值民企被曝全员停薪",
+          "link": "https://www.baidu.com/s?wd=%E5%8D%83%E4%BA%BF%E5%B8%82%E5%80%BC%E6%B0%91%E4%BC%81%E8%A2%AB%E6%9B%9D%E5%85%A8%E5%91%98%E5%81%9C%E8%96%AA",
+          "heat": ""
+        }
+      ],
+      "影视": [
+        {
+          "rank": 1,
+          "title": "寒战1994",
+          "link": "https://www.baidu.com/s?wd=%E5%AF%92%E6%88%981994",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "10间敢死队",
+          "link": "https://www.baidu.com/s?wd=10%E9%97%B4%E6%95%A2%E6%AD%BB%E9%98%9F",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "消失的人",
+          "link": "https://www.baidu.com/s?wd=%E6%B6%88%E5%A4%B1%E7%9A%84%E4%BA%BA",
+          "heat": ""
+        }
+      ],
+      "游戏": [
+        {
+          "rank": 1,
+          "title": "原神",
+          "link": "https://www.baidu.com/s?wd=%E5%8E%9F%E7%A5%9E",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "王者荣耀",
+          "link": "https://www.baidu.com/s?wd=%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "和平精英",
+          "link": "https://www.baidu.com/s?wd=%E5%92%8C%E5%B9%B3%E7%B2%BE%E8%8B%B1",
+          "heat": ""
+        }
+      ],
+      "综艺": [
+        {
+          "rank": 1,
+          "title": "乘风破浪的姐姐",
+          "link": "http://v.xiaodutv.com/show/23753.htm",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "极限挑战",
+          "link": "http://v.xiaodutv.com/show/24374.htm",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "魔方新世界",
+          "link": "http://v.xiaodutv.com/show/24874.htm",
+          "heat": ""
+        }
+      ]
+    },
+    "B站": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "挑战中考多少分就马叫多少次",
+          "link": "https://www.bilibili.com/video/av116872586462090/",
+          "heat": "401.8万"
+        },
+        {
+          "rank": 2,
+          "title": "《崩坏：星穹铁道》即兴巡演PV——「致仰望者」",
+          "link": "https://www.bilibili.com/video/av116882032036633/",
+          "heat": "314.7万"
+        },
+        {
+          "rank": 3,
+          "title": "本片放弃所有版权！",
+          "link": "https://www.bilibili.com/video/av116867318421040/",
+          "heat": "260.4万"
+        }
+      ],
+      "资讯": [
+        {
+          "rank": 1,
+          "title": "摄影新手要学会的人像构图【摄影教程】",
+          "link": "https://www.bilibili.com/video/av116837186541167/",
+          "heat": "621.6万"
+        },
+        {
+          "rank": 2,
+          "title": "广西暴雨扫街，我拍到了不一样的画面",
+          "link": "https://www.bilibili.com/video/av116874650065067/",
+          "heat": "103.8万"
+        },
+        {
+          "rank": 3,
+          "title": "【雷军】武汉小米青年公寓 已经正式启用",
+          "link": "https://www.bilibili.com/video/av116872787788865/",
+          "heat": "97.9万"
+        }
+      ],
+      "游戏": [
+        {
+          "rank": 1,
+          "title": "《崩坏：星穹铁道》即兴巡演PV——「致仰望者」",
+          "link": "https://www.bilibili.com/video/av116882032036633/",
+          "heat": "312.1万"
+        },
+        {
+          "rank": 2,
+          "title": "PC预下载开启！Alan Walker x 张韶涵演绎《遗忘之海》主题曲",
+          "link": "https://www.bilibili.com/video/av116870740973568/",
+          "heat": "721.7万"
+        },
+        {
+          "rank": 3,
+          "title": "中式志怪搜打撤游戏《诡影藏锋》首曝PV&实机演示",
+          "link": "https://www.bilibili.com/video/av116872301387311/",
+          "heat": "576.5万"
+        }
+      ],
+      "影视": [
+        {
+          "rank": 1,
+          "title": "一口气看完《末日山宿》4K 超清完整版，爆肝千小时耗资上万！",
+          "link": "https://www.bilibili.com/video/av116860305542484/",
+          "heat": "289.2万"
+        },
+        {
+          "rank": 2,
+          "title": "这些人情世故你看懂了吗",
+          "link": "https://www.bilibili.com/video/av116871495946582/",
+          "heat": "75.7万"
+        },
+        {
+          "rank": 3,
+          "title": "2026超爽悬疑美剧！男人因谋杀入狱，五年后死者离奇复活，背后真相令人毛骨悚然！",
+          "link": "https://www.bilibili.com/video/av116866093681015/",
+          "heat": "289.3万"
+        }
+      ],
+      "生活": [
+        {
+          "rank": 1,
+          "title": "今天吃火热版“石狮子”",
+          "link": "https://www.bilibili.com/video/av116876176788429/",
+          "heat": "236.9万"
+        },
+        {
+          "rank": 2,
+          "title": "特厨探店|为什么开水白菜是开水白菜？—尘香餐厅",
+          "link": "https://www.bilibili.com/video/av116868425779489/",
+          "heat": "133.6万"
+        },
+        {
+          "rank": 3,
+          "title": "脆皮五花肉",
+          "link": "https://www.bilibili.com/video/av116856530669842/",
+          "heat": "427.8万"
+        }
+      ],
+      "娱乐": [
+        {
+          "rank": 1,
+          "title": "【TF家族练习生】《全世界陪我出发》集训特别版MV",
+          "link": "https://www.bilibili.com/video/av116872032880326/",
+          "heat": "66.1万"
+        },
+        {
+          "rank": 2,
+          "title": "司晓迪再“锤”鹿晗疑似出轨，内娱梦女粉丝迎来最严厉的嫂子！",
+          "link": "https://www.bilibili.com/video/av116873005897369/",
+          "heat": "203.7万"
+        },
+        {
+          "rank": 3,
+          "title": "艺人岳明辉被私生追到登机口 直接气到扔了杯咖啡 波及路人后立刻道歉 还打扫了地面 出道8年长期受私生骚扰 曾被跟踪到厕所",
+          "link": "https://www.bilibili.com/video/av116867469411919/",
+          "heat": "293.4万"
+        }
+      ],
+      "时尚": [
+        {
+          "rank": 1,
+          "title": "广西儿女驰援家乡，我们始终在一起！",
+          "link": "https://www.bilibili.com/video/av116878441715617/",
+          "heat": "93.3万"
+        },
+        {
+          "rank": 2,
+          "title": "大概是史上最强的一次开箱。。。",
+          "link": "https://www.bilibili.com/video/av116873089780603/",
+          "heat": "86.9万"
+        },
+        {
+          "rank": 3,
+          "title": "挑战带公司中老登集体染发！叛逆的风还是吹到了南方！",
+          "link": "https://www.bilibili.com/video/av116878156499042/",
+          "heat": "95.9万"
+        }
+      ],
+      "宠物": [
+        {
+          "rank": 1,
+          "title": "停猫位",
+          "link": "https://www.bilibili.com/video/av116866395676335/",
+          "heat": "121.5万"
+        },
+        {
+          "rank": 2,
+          "title": "给你们看看这只猫是怎么来的...!",
+          "link": "https://www.bilibili.com/video/av116865170937140/",
+          "heat": "251.2万"
+        },
+        {
+          "rank": 3,
+          "title": "未必船长的冒险故事 （大合集）",
+          "link": "https://www.bilibili.com/video/av116866093683149/",
+          "heat": "99.8万"
+        }
+      ],
+      "体育": [
+        {
+          "rank": 1,
+          "title": "学校操场三千人月跑👍👍",
+          "link": "https://www.bilibili.com/video/av116872351651111/",
+          "heat": "275.4万"
+        },
+        {
+          "rank": 2,
+          "title": "足坛真神TOP：41岁C罗告别世界杯！狂澜已尽，游龙当归！",
+          "link": "https://www.bilibili.com/video/av116876059346878/",
+          "heat": "257.8万"
+        },
+        {
+          "rank": 3,
+          "title": "当“顶级”反应遇到“顶级”快枪手时…",
+          "link": "https://www.bilibili.com/video/av116873257623241/",
+          "heat": "418.8万"
+        }
+      ]
+    },
+    "抖音": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "饭店的暑假工，工伤！",
+          "link": "https://www.douyin.com/video/7659958511359606004",
+          "heat": "周小闹"
+        },
+        {
+          "rank": 2,
+          "title": "破浪！解放军已全速抵达，贵港高中被困师生欢呼“解放军来了！”（总监制：车欣欣 监制：李伟国 初审：张颖婷 摄像：王希 梁凯昌 后期：覃显钧 广西日报社视频部出品）#解放军 #人民子弟兵 #正能量 #人间大爱",
+          "link": "https://www.douyin.com/video/7659726018973830438",
+          "heat": "广西云"
+        },
+        {
+          "rank": 3,
+          "title": "四川宜宾市高县7月8日发生5.0级地震，当地震感强烈。持续关注！",
+          "link": "https://www.douyin.com/video/7659946535232245007",
+          "heat": "央视新闻"
+        }
+      ],
+      "生活": [
+        {
+          "rank": 1,
+          "title": "cube到底何意味，凭啥不给宋雨琦和叶舒华提前看成片！ #宋雨琦 #叶舒华 #gidle #cube #MV",
+          "link": "https://www.douyin.com/video/7660021845692812587",
+          "heat": "全民嗑代表"
+        },
+        {
+          "rank": 2,
+          "title": "#助力广西 #海莉姐#广西加油",
+          "link": "https://www.douyin.com/video/7660002204262790117",
+          "heat": "叔卜跳7月4~5七周年活动庆典 助理"
+        },
+        {
+          "rank": 3,
+          "title": "染了一个彩虹头发，来做一件重要的事情#重庆主持人李佳岷 #李佳岷彩虹头发 #8090叛逆期 @DOU+小助手 @抖音小助手",
+          "link": "https://www.douyin.com/video/7660010947364450290",
+          "heat": "重庆主持人李佳岷 全国约档"
+        }
+      ],
+      "娱乐": [
+        {
+          "rank": 1,
+          "title": "《悬案》结局太细节。徐亮隐藏了22年的秘密， 最终还是因为妻子而彻底暴露#看悬案酷酷下猛料 #剧集悬案",
+          "link": "https://www.douyin.com/video/7659831966052797734",
+          "heat": "电影总裁"
+        },
+        {
+          "rank": 2,
+          "title": "上天入地 我再也找不出你这么勇敢的女孩#关晓彤 #考古 #成长 #晴也 #心疼",
+          "link": "https://www.douyin.com/video/7659825663973870501",
+          "heat": "我是豹子姐"
+        },
+        {
+          "rank": 3,
+          "title": "六月癫剧之最《炽夏》：拍成这样应该留到春晚看的！ #影娱热点团 #有点东西月刊企划 #炽夏 #包上恩 #周柯宇",
+          "link": "https://www.douyin.com/video/7659995378088578314",
+          "heat": "话很多的小姐姐们"
+        }
+      ],
+      "体育": [
+        {
+          "rank": 1,
+          "title": "日本选手半场开香槟，中国小将顶住压力，上演惊天逆转！ #体育 #花样滑冰 #陈虹伊",
+          "link": "https://www.douyin.com/video/7659649134525640177",
+          "heat": "牧人体育"
+        },
+        {
+          "rank": 2,
+          "title": "暴雨洪水泛滥被困家中，这几个家用物品能救命，一定要转发给身边的家人朋友！保护好自己，减少意外的发生！#洪水 #汛期 #暴雨 #防溺水 #溺水自救",
+          "link": "https://www.douyin.com/video/7659354203936034098",
+          "heat": "世界冠军杨丽娜"
+        },
+        {
+          "rank": 3,
+          "title": "夏天的第一杯奶茶",
+          "link": "https://www.douyin.com/video/7659940437863772025",
+          "heat": "张国伟_国家伟大"
+        }
+      ],
+      "资讯": [
+        {
+          "rank": 1,
+          "title": "探访河南90后通讯夫妻：全国500家营业厅，藏着一座私家城堡。#别墅 #创业#人物故事 @李嘉馨Sarah @老谭不吃酸菜（老谭本谭）",
+          "link": "https://www.douyin.com/video/7659709298540942821",
+          "heat": "欢姐探别墅"
+        },
+        {
+          "rank": 2,
+          "title": "【台风中的巨无霸】巴威，来势汹汹... #台风巴威 #热点解读看财经 #媒体精选计划 #精选主播说",
+          "link": "https://www.douyin.com/video/7660061321081244974",
+          "heat": "N小黑财经"
+        },
+        {
+          "rank": 3,
+          "title": "中国：框框拍蛇片，老美：框框拍鲨鱼片 #夺命六头鲨 #鲨鱼 #猎奇 #万万没想到 #搞笑",
+          "link": "https://www.douyin.com/video/7659726658827521306",
+          "heat": "小熊爱摸娱"
+        }
+      ],
+      "游戏": [
+        {
+          "rank": 1,
+          "title": "“我想挑战KPL所有的打野前辈”#大司命FMVP皮肤来了 #钟意大司命FMVP意贯长戈 #2026KPL夏季赛 #成都AG超玩会钟意 #钟意FMVP皮肤即将上线",
+          "link": "https://www.douyin.com/video/7660074209574890594",
+          "heat": "KPL王者荣耀职业联赛"
+        },
+        {
+          "rank": 2,
+          "title": "“水友”说自己被误封了 #cs2#cs2监管#TES",
+          "link": "https://www.douyin.com/video/7659758923385146662",
+          "heat": "我就是监管"
+        },
+        {
+          "rank": 3,
+          "title": "#假面骑士甲斗 #银色虞姬 #小衣又 @小衣又",
+          "link": "https://www.douyin.com/video/7660078521087786048",
+          "heat": "银色虞姬（世一装）"
+        }
+      ],
+      "时尚": [
+        {
+          "rank": 1,
+          "title": "爱人如养花，最好的花匠就是父母。#惊喜 #毕业 #父母 #真实生活分享计划 #人间观察计划",
+          "link": "https://www.douyin.com/video/7654124438938763938",
+          "heat": "琳的精神世界"
+        },
+        {
+          "rank": 2,
+          "title": "秀场直击 SIUF文化周",
+          "link": "https://www.douyin.com/video/7659807902258012342",
+          "heat": "中国超模"
+        },
+        {
+          "rank": 3,
+          "title": "我真的不是故意的 太太太太尴尬了 对不住了🙏#尴尬",
+          "link": "https://www.douyin.com/video/7660014373747308393",
+          "heat": "艾玛 子西"
+        }
+      ],
+      "明星": [
+        {
+          "rank": 1,
+          "title": "广西加油",
+          "link": "https://www.douyin.com/video/7659793058300529962",
+          "heat": "黄子韬"
+        },
+        {
+          "rank": 2,
+          "title": "王心凌就这么水灵灵地跟我聊天#王心凌 #甜心教主 #王心凌嘉兴商演",
+          "link": "https://www.douyin.com/video/7659871826550312890",
+          "heat": "王心凌FM"
+        },
+        {
+          "rank": 3,
+          "title": "合作曲一录完我们的翻脸速度 我们的合作曲 7/10 号就要发布啦！ #亚当刘柏辛歌手节目后再合作新歌 #精神状态 #adamlambert #活人感一夏 #炙热计划",
+          "link": "https://www.douyin.com/video/7659986604479490420",
+          "heat": "刘柏辛Lexie"
+        }
+      ]
+    },
+    "今日头条": {
+      "今日热榜": [
+        {
+          "rank": 1,
+          "title": "超强台风“巴威”确认影响杭州",
+          "link": "https://so.toutiao.com/search?keyword=%23%E8%B6%85%E5%BC%BA%E5%8F%B0%E9%A3%8E%E2%80%9C%E5%B7%B4%E5%A8%81%E2%80%9D%E7%A1%AE%E8%AE%A4%E5%BD%B1%E5%93%8D%E6%9D%AD%E5%B7%9E%23",
+          "heat": ""
+        },
+        {
+          "rank": 2,
+          "title": "新华社：国足成绩再不好也不能造谣",
+          "link": "https://so.toutiao.com/search?keyword=%23%E6%96%B0%E5%8D%8E%E7%A4%BE%EF%BC%9A%E5%9B%BD%E8%B6%B3%E6%88%90%E7%BB%A9%E5%86%8D%E4%B8%8D%E5%A5%BD%E4%B9%9F%E4%B8%8D%E8%83%BD%E9%80%A0%E8%B0%A3%23",
+          "heat": ""
+        },
+        {
+          "rank": 3,
+          "title": "9部门支持加快零售业创新发展",
+          "link": "https://so.toutiao.com/search?keyword=%239%E9%83%A8%E9%97%A8%E6%94%AF%E6%8C%81%E5%8A%A0%E5%BF%AB%E9%9B%B6%E5%94%AE%E4%B8%9A%E5%88%9B%E6%96%B0%E5%8F%91%E5%B1%95%23",
+          "heat": ""
+        }
+      ]
+    }
+  }
+}
