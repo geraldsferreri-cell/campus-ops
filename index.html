@@ -1240,6 +1240,7 @@
             .brand-hero-visual-badge { padding: .8rem; }
             .brand-hero-visual-badge p { font-size: .8rem; }
             .news-header { flex-direction: column; align-items: flex-start; }
+            .th-cards { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
             input, select, button, textarea { font-size: 16px !important; }
@@ -1279,42 +1280,29 @@
         /* ── 资讯热点页 ── */
         .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
         .news-date { font-size: 13px; color: var(--gray-500); }
-        .tophub-panel { display: none; }
-        .tophub-panel.show { display: block; }
-        .tophub-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; border: 2px solid var(--gold); background: var(--gold-gradient); color: #1a0a3e; transition: all .25s; white-space: nowrap; }
-        .tophub-toggle:hover { box-shadow: 0 4px 20px rgba(255,230,0,.4); transform: translateY(-1px); }
-        .tophub-toggle.active { background: var(--gold); }
-        .tophub-date-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-        /* 第一层：平台标签栏 */
-        .th-platform-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 2px solid var(--gray-200); }
-        .th-platform-tab { display: flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; border: 2px solid transparent; background: var(--gray-100); color: var(--cream); transition: all .2s; white-space: nowrap; }
+        /* 每日热榜 */
+        .th-platform-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--gray-200); }
+        .th-platform-tab { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border: 2px solid transparent; background: var(--gray-100); color: var(--cream); transition: all .2s; white-space: nowrap; }
         .th-platform-tab:hover { background: var(--gray-200); }
         .th-platform-tab.active { background: var(--amber); color: #fff; border-color: var(--amber); box-shadow: 0 2px 12px var(--amber-glow); }
         .th-platform-tab .th-count { font-size: 11px; opacity: .65; font-weight: 500; }
-        /* 第二层：赛道标签栏 */
-        .th-cat-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; padding: 10px 0; }
-        .th-cat-tab { padding: 7px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--gray-200); background: var(--bg-card); color: var(--cream); transition: all .2s; white-space: nowrap; }
-        .th-cat-tab:hover { border-color: var(--amber); color: var(--amber-bright); background: var(--gray-100); }
-        .th-cat-tab.active { background: var(--gold-gradient-dark); color: #1a0a3e; border-color: var(--gold); font-weight: 700; }
-        .th-cat-tab .th-badge { margin-left: 4px; font-size: 11px; opacity: .7; }
-        /* 第三层：条目列表 */
-        .th-items { background: var(--bg-card); border-radius: 14px; padding: 16px 20px; border: 1px solid var(--gray-200); box-shadow: var(--shadow); }
-        .th-items-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-200); }
-        .th-items-title { font-size: 15px; font-weight: 700; color: var(--amber-bright); }
-        .th-items-link { font-size: 12px; color: var(--gray-500); cursor: pointer; }
-        .th-items-link:hover { color: var(--amber-bright); }
-        .th-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--gray-100); }
-        .th-item:last-child { border-bottom: none; }
-        .th-rank { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+        /* 赛道卡片网格 */
+        .th-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+        .th-card { background: var(--bg-card); border-radius: 12px; padding: 14px 18px; border: 1px solid var(--gray-200); box-shadow: var(--shadow); }
+        .th-card-head { font-size: 13px; font-weight: 700; color: var(--amber-bright); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
+        .th-card-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--gray-100); }
+        .th-card-item:last-child { border-bottom: none; }
+        .th-rank { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
         .th-rank.r1 { background: #FFE600; color: #1a0a3e; }
         .th-rank.r2 { background: var(--gray-300); color: var(--cream); }
         .th-rank.r3 { background: var(--gray-200); color: var(--cream); }
-        .th-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--cream); }
-        .th-title a { color: inherit; text-decoration: none; }
-        .th-title a:hover { color: var(--amber-bright); text-decoration: underline; }
+        .th-card-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .th-card-title a { color: var(--cream); text-decoration: none; }
+        .th-card-title a:hover { color: var(--amber-bright); }
         .th-heat { font-size: 11px; color: var(--gray-500); flex-shrink: 0; }
-        .th-empty { text-align: center; padding: 40px 20px; color: var(--gray-500); }
-        .th-meta { font-size: 12px; color: var(--gray-500); margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+        .th-empty { text-align: center; padding: 60px 20px; color: var(--gray-500); }
+        .th-empty-icon { font-size: 48px; margin-bottom: 12px; }
+        .news-date { font-size: 13px; color: var(--gray-500); }
 
         /* ============ Topics Page ============ */
         .topics-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
@@ -2172,25 +2160,14 @@
             <!-- News Page -->
             <div id="page-news" class="page">
                 <div class="news-header">
-                    <h2>📡 资讯热点</h2>
-                    <div class="tophub-date-row">
-                        <span class="news-date" id="newsDate"></span>
-                        <button class="tophub-toggle" id="tophubToggle" onclick="toggleTophubPanel()" title="8平台每日热榜">
-                            🔥 每日热榜
-                        </button>
-                    </div>
+                    <h2>📡 资讯热点 · 每日热榜</h2>
+                    <span class="news-date" id="newsDate"></span>
                 </div>
-                <!-- 每日热榜面板 -->
-                <div class="tophub-panel" id="tophubPanel">
-                    <div class="th-meta" id="tophubMeta"></div>
-                    <!-- 第一层：平台标签 -->
-                    <div class="th-platform-tabs" id="thPlatformTabs"></div>
-                    <!-- 第二层：赛道标签 -->
-                    <div class="th-cat-tabs" id="thCatTabs"></div>
-                    <!-- 第三层：条目列表 -->
-                    <div id="thItems"></div>
-                </div>
-                    </div>
+                <!-- 平台标签 -->
+                <div class="th-platform-tabs" id="thPlatformTabs"></div>
+                <!-- 赛道卡片区 -->
+                <div id="thItems"></div>
+            </div>
 
             <!-- Topics Page -->
             <div id="page-topics" class="page">
@@ -3671,6 +3648,7 @@
             if (page === 'groups') { loadUsers(); loadGroups(); }
             if (page === 'salaryConfig') loadSalaryConfigs();
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
+            if (page === 'news') loadDailyRank();
             if (page === 'password') initPasswordPage();
             if (page === 'topics') { loadTopicData().then(() => renderTopics()); }
             if (page === 'review') { loadAllData().then(() => initReview()); }
@@ -7598,127 +7576,74 @@
         }
         function saveTopicData() { /* 已废弃，改用 Supabase */ }
 
-        // ============ Tophub 热榜 Functions (两层标签页) ============
+        // ============ 每日热榜 Functions ============
         let TOPHUB_DATA = null;
-        let tophubPanelVisible = false;
-        let thActivePlatform = null;   // 当前选中的平台名
-        let thActiveCat = null;        // 当前选中的赛道名
-
+        let thActivePlatform = null;
         const TH_ICONS = { "知乎":"💡", "微博":"📢", "微信":"💬", "澎湃":"📰", "百度":"🔍", "B站":"🎬", "抖音":"🎵", "今日头条":"📋" };
 
-        async function toggleTophubPanel() {
-            const panel = document.getElementById("tophubPanel");
-            const btn = document.getElementById("tophubToggle");
-            tophubPanelVisible = !tophubPanelVisible;
-            if (tophubPanelVisible) {
-                panel.classList.add("show");
-                btn.classList.add("active");
-                if (!TOPHUB_DATA) await loadTophubData();
-            } else {
-                panel.classList.remove("show");
-                btn.classList.remove("active");
-            }
-        }
-
-        async function loadTophubData() {
-            document.getElementById("thPlatformTabs").innerHTML = '';
-            document.getElementById("thCatTabs").innerHTML = '';
-            document.getElementById("thItems").innerHTML = '<div class="th-empty"><div>🔄 正在加载8平台热榜...</div></div>';
+        async function loadDailyRank() {
+            const itemsEl = document.getElementById("thItems");
+            itemsEl.innerHTML = '<div class="th-empty"><div class="th-empty-icon">🔄</div><div>加载中...</div></div>';
             try {
                 const resp = await fetch("tophub_data.json");
                 if (!resp.ok) throw new Error("HTTP " + resp.status);
                 TOPHUB_DATA = await resp.json();
+                if (!TOPHUB_DATA || !TOPHUB_DATA.platforms) throw new Error("empty data");
+                const meta = TOPHUB_DATA.meta || {};
+                document.getElementById("newsDate").textContent = `📅 ${meta.date || '??'} · TOP ${meta.top_n || 3}`;
                 renderPlatformTabs();
             } catch(e) {
-                document.getElementById("thItems").innerHTML = '<div class="th-empty"><div>📭 热榜数据暂未更新<br><small style="color:var(--gray-500);">请先运行 scraper 抓取当天数据</small></div></div>';
+                document.getElementById("newsDate").textContent = "";
+                itemsEl.innerHTML = '<div class="th-empty"><div class="th-empty-icon">📭</div><div>热榜数据暂未更新<br><small style="color:var(--gray-500);">请先运行 scraper 抓取当天数据</small></div></div>';
             }
         }
 
         function renderPlatformTabs() {
-            if (!TOPHUB_DATA || !TOPHUB_DATA.platforms) return;
             const platforms = TOPHUB_DATA.platforms;
-            const meta = TOPHUB_DATA.meta || {};
             const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
+            if (!thActivePlatform || !platforms[thActivePlatform]) thActivePlatform = pnames[0];
 
-            // 元信息
-            document.getElementById("tophubMeta").innerHTML =
-                `📅 ${meta.date || '??'} · ${pnames.length} 平台 · TOP ${meta.top_n || 3} <a href="tophub-report.html" target="_blank" style="margin-left:8px;color:var(--amber-bright);font-weight:600;">📄 完整报告 →</a>`;
-
-            // 平台标签
-            let tabsHtml = '';
+            let html = '';
             for (const pname of pnames) {
-                const icon = TH_ICONS[pname] || "📌";
                 const cats = platforms[pname];
                 const total = Object.values(cats).reduce((s, items) => s + items.length, 0);
                 const active = thActivePlatform === pname ? ' active' : '';
-                tabsHtml += `<div class="th-platform-tab${active}" data-platform="${escHtml(pname)}" onclick="selectPlatform(this)">${icon} ${escHtml(pname)} <span class="th-count">${Object.keys(cats).length}赛道·${total}条</span></div>`;
+                html += `<div class="th-platform-tab${active}" data-platform="${escHtml(pname)}" onclick="selectPlatform(this)">${TH_ICONS[pname]||'📌'} ${escHtml(pname)} <span class="th-count">${total}条</span></div>`;
             }
-            document.getElementById("thPlatformTabs").innerHTML = tabsHtml;
-
-            // 默认选中第一个平台
-            if (!thActivePlatform || !platforms[thActivePlatform]) {
-                thActivePlatform = pnames[0];
-            }
-            renderCatTabs();
+            document.getElementById("thPlatformTabs").innerHTML = html;
+            renderCards();
         }
 
         function selectPlatform(el) {
-            const pname = el.getAttribute("data-platform");
-            thActivePlatform = pname;
-            thActiveCat = null;
+            thActivePlatform = el.getAttribute("data-platform");
             document.querySelectorAll(".th-platform-tab").forEach(t => t.classList.remove("active"));
             el.classList.add("active");
-            renderCatTabs();
+            renderCards();
         }
 
-        function renderCatTabs() {
-            if (!TOPHUB_DATA || !thActivePlatform) return;
-            const platforms = TOPHUB_DATA.platforms;
-            const cats = platforms[thActivePlatform];
-            if (!cats) { document.getElementById("thCatTabs").innerHTML = ''; document.getElementById("thItems").innerHTML = ''; return; }
-
-            const catNames = Object.keys(cats).filter(c => cats[c] && cats[c].length > 0);
-            if (!thActiveCat || !cats[thActiveCat]) thActiveCat = catNames[0];
-
-            // 赛道标签
-            let html = '';
-            for (const cname of catNames) {
-                const items = cats[cname];
-                const active = thActiveCat === cname ? ' active' : '';
-                html += `<div class="th-cat-tab${active}" data-category="${escHtml(cname)}" onclick="selectCat(this)">🏷️ ${escHtml(cname)}<span class="th-badge">${items.length}条</span></div>`;
-            }
-            document.getElementById("thCatTabs").innerHTML = html;
-
-            renderItems();
-        }
-
-        function selectCat(el) {
-            thActiveCat = el.getAttribute("data-category");
-            document.querySelectorAll(".th-cat-tab").forEach(t => t.classList.remove("active"));
-            el.classList.add("active");
-            renderItems();
-        }
-
-        function renderItems() {
+        function renderCards() {
             const el = document.getElementById("thItems");
-            if (!TOPHUB_DATA || !thActivePlatform || !thActiveCat) { el.innerHTML = ''; return; }
-            const items = TOPHUB_DATA.platforms[thActivePlatform]?.[thActiveCat];
-            if (!items || items.length === 0) {
-                el.innerHTML = '<div class="th-empty"><div>📭 该赛道暂无数据</div></div>';
+            if (!TOPHUB_DATA || !thActivePlatform) return;
+            const cats = TOPHUB_DATA.platforms[thActivePlatform];
+            if (!cats || Object.keys(cats).length === 0) {
+                el.innerHTML = '<div class="th-empty"><div>📭 暂无数据</div></div>';
                 return;
             }
 
-            let html = `<div class="th-items"><div class="th-items-header"><span class="th-items-title">${TH_ICONS[thActivePlatform]||'📌'} ${escHtml(thActivePlatform)} · ${escHtml(thActiveCat)}</span><span class="th-items-link" onclick="window.open('tophub-report.html','_blank')">完整报告 →</span></div>`;
-            for (const item of items) {
-                const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
-                const t = item.link
-                    ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>`
-                    : escHtml(item.title);
-                html += `<div class="th-item">
-                    <span class="th-rank ${rcls}">${item.rank}</span>
-                    <span class="th-title">${t}</span>
-                    <span class="th-heat">${escHtml(item.heat || '')}</span>
-                </div>`;
+            const catEntries = Object.entries(cats).filter(([, items]) => items && items.length > 0);
+            let html = `<div class="th-cards">`;
+            for (const [catName, items] of catEntries) {
+                html += `<div class="th-card"><div class="th-card-head">🏷️ ${escHtml(catName)}</div>`;
+                for (const item of items) {
+                    const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
+                    const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
+                    html += `<div class="th-card-item">
+                        <span class="th-rank ${rcls}">${item.rank}</span>
+                        <span class="th-card-title">${t}</span>
+                        <span class="th-heat">${escHtml(item.heat || '')}</span>
+                    </div>`;
+                }
+                html += `</div>`;
             }
             html += `</div>`;
             el.innerHTML = html;
