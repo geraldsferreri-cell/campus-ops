@@ -1240,7 +1240,8 @@
             .brand-hero-visual-badge { padding: .8rem; }
             .brand-hero-visual-badge p { font-size: .8rem; }
             .news-header { flex-direction: column; align-items: flex-start; }
-            .th-cards { grid-template-columns: 1fr; }
+            .th-summary { grid-template-columns: 1fr; }
+            .th-detail-cards { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
             input, select, button, textarea { font-size: 16px !important; }
@@ -1281,24 +1282,38 @@
         .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
         .news-date { font-size: 13px; color: var(--gray-500); }
         /* 每日热榜 */
-        .th-platform-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--gray-200); }
-        .th-platform-tab { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border: 2px solid transparent; background: var(--gray-100); color: var(--cream); transition: all .2s; white-space: nowrap; }
-        .th-platform-tab:hover { background: var(--gray-200); }
-        .th-platform-tab.active { background: var(--amber); color: #fff; border-color: var(--amber); box-shadow: 0 2px 12px var(--amber-glow); }
-        .th-platform-tab .th-count { font-size: 11px; opacity: .65; font-weight: 500; }
-        /* 赛道卡片网格 */
-        .th-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
-        .th-card { background: var(--bg-card); border-radius: 12px; padding: 14px 18px; border: 1px solid var(--gray-200); box-shadow: var(--shadow); }
-        .th-card-head { font-size: 13px; font-weight: 700; color: var(--amber-bright); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
-        .th-card-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; border-bottom: 1px solid var(--gray-100); }
-        .th-card-item:last-child { border-bottom: none; }
+        .th-viewall-btn { padding: 6px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; border: 2px solid var(--amber); background: transparent; color: var(--amber-bright); transition: all .25s; white-space: nowrap; }
+        .th-viewall-btn:hover { background: var(--amber); color: #fff; }
+        .th-viewall-btn.active { background: var(--amber); color: #fff; }
+        /* 摘要：平台卡片网格 */
+        .th-summary { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+        .th-plat-card { background: var(--bg-card); border-radius: 12px; padding: 16px 18px; border: 1px solid var(--gray-200); box-shadow: var(--shadow); transition: all .2s; }
+        .th-plat-card:hover { border-color: var(--amber); box-shadow: var(--shadow-lg); }
+        .th-plat-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--amber); }
+        .th-plat-card-head .icon { font-size: 20px; }
+        .th-plat-card-head .name { font-size: 15px; font-weight: 700; color: var(--cream); }
+        .th-plat-card-head .count { font-size: 11px; color: var(--gray-500); margin-left: auto; }
+        /* 摘要条目 */
+        .th-summary-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13px; border-bottom: 1px solid var(--gray-100); }
+        .th-summary-item:last-child { border-bottom: none; }
+        /* 全部详情 */
+        .th-full { margin-top: 20px; }
+        .th-platform-block { margin-bottom: 24px; }
+        .th-platform-block-head { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--amber); }
+        .th-platform-block-head .icon { font-size: 22px; }
+        .th-platform-block-head .name { font-size: 17px; font-weight: 700; color: var(--cream); }
+        .th-platform-block-head .count { font-size: 12px; color: var(--gray-500); margin-left: auto; }
+        .th-detail-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+        .th-detail-card { background: var(--gray-100); border-radius: 10px; padding: 10px 14px; }
+        .th-detail-card-head { font-size: 13px; font-weight: 700; color: var(--amber-bright); margin-bottom: 6px; }
+        /* 通用条目 */
         .th-rank { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
         .th-rank.r1 { background: #FFE600; color: #1a0a3e; }
         .th-rank.r2 { background: var(--gray-300); color: var(--cream); }
         .th-rank.r3 { background: var(--gray-200); color: var(--cream); }
-        .th-card-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .th-card-title a { color: var(--cream); text-decoration: none; }
-        .th-card-title a:hover { color: var(--amber-bright); }
+        .th-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .th-title a { color: var(--cream); text-decoration: none; }
+        .th-title a:hover { color: var(--amber-bright); }
         .th-heat { font-size: 11px; color: var(--gray-500); flex-shrink: 0; }
         .th-empty { text-align: center; padding: 60px 20px; color: var(--gray-500); }
         .th-empty-icon { font-size: 48px; margin-bottom: 12px; }
@@ -2161,12 +2176,15 @@
             <div id="page-news" class="page">
                 <div class="news-header">
                     <h2>📡 资讯热点 · 每日热榜</h2>
-                    <span class="news-date" id="newsDate"></span>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <span class="news-date" id="newsDate"></span>
+                        <button class="th-viewall-btn" id="thViewAllBtn" onclick="toggleFullRank()">📋 查看全部赛道</button>
+                    </div>
                 </div>
-                <!-- 平台标签 -->
-                <div class="th-platform-tabs" id="thPlatformTabs"></div>
-                <!-- 赛道卡片区 -->
-                <div id="thItems"></div>
+                <!-- 摘要：每平台前3热榜 -->
+                <div id="thSummary"></div>
+                <!-- 全部：每平台全部赛道 -->
+                <div id="thFull" style="display:none;"></div>
             </div>
 
             <!-- Topics Page -->
@@ -7578,75 +7596,110 @@
 
         // ============ 每日热榜 Functions ============
         let TOPHUB_DATA = null;
-        let thActivePlatform = null;
+        let thFullVisible = false;
         const TH_ICONS = { "知乎":"💡", "微博":"📢", "微信":"💬", "澎湃":"📰", "百度":"🔍", "B站":"🎬", "抖音":"🎵", "今日头条":"📋" };
 
         async function loadDailyRank() {
-            const itemsEl = document.getElementById("thItems");
-            itemsEl.innerHTML = '<div class="th-empty"><div class="th-empty-icon">🔄</div><div>加载中...</div></div>';
+            document.getElementById("thSummary").innerHTML = '<div class="th-empty"><div class="th-empty-icon">🔄</div><div>加载中...</div></div>';
             try {
                 const resp = await fetch("tophub_data.json");
                 if (!resp.ok) throw new Error("HTTP " + resp.status);
                 TOPHUB_DATA = await resp.json();
-                if (!TOPHUB_DATA || !TOPHUB_DATA.platforms) throw new Error("empty data");
+                if (!TOPHUB_DATA || !TOPHUB_DATA.platforms) throw new Error("empty");
                 const meta = TOPHUB_DATA.meta || {};
                 document.getElementById("newsDate").textContent = `📅 ${meta.date || '??'} · TOP ${meta.top_n || 3}`;
-                renderPlatformTabs();
+                renderSummary();
             } catch(e) {
                 document.getElementById("newsDate").textContent = "";
-                itemsEl.innerHTML = '<div class="th-empty"><div class="th-empty-icon">📭</div><div>热榜数据暂未更新<br><small style="color:var(--gray-500);">请先运行 scraper 抓取当天数据</small></div></div>';
+                document.getElementById("thSummary").innerHTML = '<div class="th-empty"><div class="th-empty-icon">📭</div><div>热榜数据暂未更新<br><small style="color:var(--gray-500);">请运行 scraper 抓取当天数据</small></div></div>';
             }
         }
 
-        function renderPlatformTabs() {
+        function renderSummary() {
             const platforms = TOPHUB_DATA.platforms;
             const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
-            if (!thActivePlatform || !platforms[thActivePlatform]) thActivePlatform = pnames[0];
-
-            let html = '';
+            let html = '<div class="th-summary">';
             for (const pname of pnames) {
                 const cats = platforms[pname];
-                const total = Object.values(cats).reduce((s, items) => s + items.length, 0);
-                const active = thActivePlatform === pname ? ' active' : '';
-                html += `<div class="th-platform-tab${active}" data-platform="${escHtml(pname)}" onclick="selectPlatform(this)">${TH_ICONS[pname]||'📌'} ${escHtml(pname)} <span class="th-count">${total}条</span></div>`;
-            }
-            document.getElementById("thPlatformTabs").innerHTML = html;
-            renderCards();
-        }
+                const hotItems = cats["今日热榜"] || Object.values(cats)[0] || [];
+                const totalItems = Object.values(cats).reduce((s, items) => s + items.length, 0);
+                const catCount = Object.keys(cats).filter(c => cats[c] && cats[c].length > 0).length;
 
-        function selectPlatform(el) {
-            thActivePlatform = el.getAttribute("data-platform");
-            document.querySelectorAll(".th-platform-tab").forEach(t => t.classList.remove("active"));
-            el.classList.add("active");
-            renderCards();
-        }
-
-        function renderCards() {
-            const el = document.getElementById("thItems");
-            if (!TOPHUB_DATA || !thActivePlatform) return;
-            const cats = TOPHUB_DATA.platforms[thActivePlatform];
-            if (!cats || Object.keys(cats).length === 0) {
-                el.innerHTML = '<div class="th-empty"><div>📭 暂无数据</div></div>';
-                return;
-            }
-
-            const catEntries = Object.entries(cats).filter(([, items]) => items && items.length > 0);
-            let html = `<div class="th-cards">`;
-            for (const [catName, items] of catEntries) {
-                html += `<div class="th-card"><div class="th-card-head">🏷️ ${escHtml(catName)}</div>`;
-                for (const item of items) {
+                html += `<div class="th-plat-card">
+                    <div class="th-plat-card-head">
+                        <span class="icon">${TH_ICONS[pname]||'📌'}</span>
+                        <span class="name">${escHtml(pname)}</span>
+                        <span class="count">${catCount}赛道 · ${totalItems}条</span>
+                    </div>`;
+                for (const item of hotItems) {
                     const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
                     const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
-                    html += `<div class="th-card-item">
+                    html += `<div class="th-summary-item">
                         <span class="th-rank ${rcls}">${item.rank}</span>
-                        <span class="th-card-title">${t}</span>
+                        <span class="th-title">${t}</span>
                         <span class="th-heat">${escHtml(item.heat || '')}</span>
                     </div>`;
                 }
                 html += `</div>`;
             }
-            html += `</div>`;
-            el.innerHTML = html;
+            html += '</div>';
+            document.getElementById("thSummary").innerHTML = html;
+
+            // 如果之前展开了全部，刷新
+            if (thFullVisible) renderFull();
+        }
+
+        function toggleFullRank() {
+            thFullVisible = !thFullVisible;
+            const fullEl = document.getElementById("thFull");
+            const btn = document.getElementById("thViewAllBtn");
+            if (thFullVisible) {
+                btn.textContent = "📋 收起全部";
+                btn.classList.add("active");
+                renderFull();
+            } else {
+                btn.textContent = "📋 查看全部赛道";
+                btn.classList.remove("active");
+                fullEl.style.display = "none";
+            }
+        }
+
+        function renderFull() {
+            const fullEl = document.getElementById("thFull");
+            fullEl.style.display = "block";
+            const platforms = TOPHUB_DATA.platforms;
+            const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
+
+            let html = '';
+            for (const pname of pnames) {
+                const cats = platforms[pname];
+                const catEntries = Object.entries(cats).filter(([, items]) => items && items.length > 0);
+                const total = catEntries.reduce((s, [, items]) => s + items.length, 0);
+                html += `<div class="th-platform-block">
+                    <div class="th-platform-block-head">
+                        <span class="icon">${TH_ICONS[pname]||'📌'}</span>
+                        <span class="name">${escHtml(pname)}</span>
+                        <span class="count">${catEntries.length}赛道 · ${total}条</span>
+                    </div>
+                    <div class="th-detail-cards">`;
+                for (const [catName, items] of catEntries) {
+                    html += `<div class="th-detail-card">
+                        <div class="th-detail-card-head">🏷️ ${escHtml(catName)}</div>`;
+                    for (const item of items) {
+                        const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
+                        const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
+                        html += `<div class="th-summary-item">
+                            <span class="th-rank ${rcls}">${item.rank}</span>
+                            <span class="th-title">${t}</span>
+                            <span class="th-heat">${escHtml(item.heat || '')}</span>
+                        </div>`;
+                    }
+                    html += `</div>`;
+                }
+                html += `</div></div>`;
+            }
+            fullEl.innerHTML = '<div class="th-full">' + html + '</div>';
+            fullEl.scrollIntoView({ behavior: 'smooth' });
         }
 
         function escHtml(s) {
