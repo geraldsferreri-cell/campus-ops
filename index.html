@@ -1211,7 +1211,6 @@
             .charts-grid { grid-template-columns: 1fr; }
             .teacher-grid { grid-template-columns: 1fr; }
             .salary-summary { grid-template-columns: repeat(2, 1fr); gap: .75rem; }
-            .news-grid { grid-template-columns: 1fr; }
             .topics-grid { grid-template-columns: 1fr; gap: 16px; }
             .data-strip { padding: 2rem 0; }
             .data-strip-num { font-size: 2.2rem; }
@@ -1240,10 +1239,6 @@
             .logo-diamond-large { width: 48px; height: 48px; }
             .brand-hero-visual-badge { padding: .8rem; }
             .brand-hero-visual-badge p { font-size: .8rem; }
-            .news-card-video { grid-column: span 1; }
-            .news-video-thumb { height: 180px; }
-            .news-video-play { width: 52px; height: 52px; font-size: 24px; }
-            .news-tab { padding: 10px 14px; font-size: 13px; }
             .news-header { flex-direction: column; align-items: flex-start; }
         }
         @media (max-width: 480px) {
@@ -1275,8 +1270,6 @@
             .tiger-mascot { width: 42px; height: 42px; font-size: 22px; bottom: .75rem; right: .75rem; }
             .video-splash-brand { bottom: 1.5rem; }
             .mobile-menu-drawer { width: 260px; }
-            .news-video-thumb { height: 150px; }
-            .news-video-play { width: 44px; height: 44px; font-size: 20px; }
             .topics-header { flex-direction: column; gap: 8px; align-items: flex-start; }
             .topics-marquee-container { height: 90px; }
             .charts-grid { gap: 12px; }
@@ -1286,36 +1279,6 @@
         /* ── 资讯热点页 ── */
         .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
         .news-date { font-size: 13px; color: var(--gray-500); }
-        .news-tabs { display: flex; gap: 2px; border-bottom: 2px solid var(--gray-200); margin-bottom: 20px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .news-tabs::-webkit-scrollbar { display: none; }
-        .news-tab { padding: 10px 18px; cursor: pointer; font-size: 14px; color: #1a0a3e; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.2s; text-shadow: none; }
-        .news-tab:hover { color: var(--primary); }
-        .news-tab.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
-        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
-        .news-card { background: var(--bg-card); border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow); transition: all 0.25s; border: var(--gold-border); cursor: pointer; }
-        .news-card:hover { box-shadow: var(--shadow-gold); border-color: var(--gold); transform: translateY(-2px); }
-        .news-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-        .news-card-title { font-size: 15px; font-weight: 600; color: var(--gold-light); line-height: 1.5; flex: 1; text-shadow: var(--neon-stroke); }
-        .news-card-badge { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
-        .news-card-summary { font-size: 13px; color: var(--gray-500); line-height: 1.7; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        .news-card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray-500); }
-        .news-card-source { display: flex; align-items: center; gap: 4px; }
-        .news-card-time { font-size: 12px; }
-        .news-empty { text-align: center; padding: 60px 20px; color: var(--gray-500); }
-        .news-empty-icon { font-size: 48px; margin-bottom: 12px; }
-        /* 视频卡片 */
-        .news-card-video { grid-column: span 2; display: flex; flex-direction: column; }
-        .news-video-thumb { height: 220px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.2s; background: var(--gray-100); }
-        .news-video-thumb:hover { transform: scale(1.02); }
-        .news-video-thumb-bg { position: absolute; inset: 0; opacity: 0.15; background-size: cover; background-position: center; }
-        .news-video-play { width: 68px; height: 68px; border-radius: 50%; background: rgba(255,230,0,0.9); display: flex; align-items: center; justify-content: center; font-size: 30px; color: #1a0a3e; box-shadow: 0 6px 24px rgba(0,0,0,0.4); transition: all 0.25s; z-index: 1; }
-        .news-card-video:hover .news-video-play { transform: scale(1.12); box-shadow: 0 8px 32px rgba(255,230,0,0.3); }
-        .news-video-duration { position: absolute; bottom: 10px; right: 10px; background: rgba(0,0,0,0.8); color: var(--gold-light); padding: 3px 8px; border-radius: 4px; font-size: 11px; z-index: 1; text-shadow: var(--neon-stroke); }
-        .news-video-platform { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: var(--gold); padding: 2px 8px; border-radius: 4px; font-size: 11px; z-index: 1; display: flex; align-items: center; gap: 4px; text-shadow: var(--neon-stroke); }
-        .news-card-video .news-card-header { margin-bottom: 6px; }
-        .news-card-video .news-card-summary { -webkit-line-clamp: 2; }
-
-        /* ============ Tophub 热榜集成 - 两层标签页 ============ */
         .tophub-panel { display: none; }
         .tophub-panel.show { display: block; }
         .tophub-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; border: 2px solid var(--gold); background: var(--gold-gradient); color: #1a0a3e; transition: all .25s; white-space: nowrap; }
@@ -2227,10 +2190,7 @@
                     <!-- 第三层：条目列表 -->
                     <div id="thItems"></div>
                 </div>
-                <!-- 原有新闻分类 -->
-                <div class="news-tabs" id="newsTabs"></div>
-                <div id="newsContent"></div>
-            </div>
+                    </div>
 
             <!-- Topics Page -->
             <div id="page-topics" class="page">
@@ -3712,7 +3672,6 @@
             if (page === 'salaryConfig') loadSalaryConfigs();
             if (page === 'salary') { initSalaryMonth(); loadSalaryData(); }
             if (page === 'password') initPasswordPage();
-            if (page === 'news') renderNews();
             if (page === 'topics') { loadTopicData().then(() => renderTopics()); }
             if (page === 'review') { loadAllData().then(() => initReview()); }
         }
@@ -7617,186 +7576,27 @@
             try { await supabase.from('videos').delete().neq('id', 0); await supabase.from('accounts').delete().neq('id', 0); await supabase.from('users').delete().neq('id', 0); await supabase.from('groups').delete().neq('id', 0); await supabase.from('salaries').delete().neq('id', 0); toast('数据已清空'); loadAllData(); } catch (e) { toast('清空失败', 'error'); }
         }
 
-                                                                                        // ============ 资讯热点模块（数据独立于 HTML，从 news_data.json 加载） ============
-        // 内置极简兜底数据（仅 JSON 解析失败时使用，不会导致 JS 整体崩溃）
-        const NEWS_FALLBACK = { date: "加载中", categories: [] };
-        let NEWS_DATA = JSON.parse(JSON.stringify(NEWS_FALLBACK));
 
-        // 从独立 JSON 文件加载资讯数据（数据出错只影响资讯区，不影响登录等核心功能）
-        (async function loadNewsData() {
-            try {
-                const resp = await fetch("news_data.json");
-                if (!resp.ok) throw new Error("HTTP " + resp.status);
-                const data = await resp.json();
-                if (data && data.categories && data.categories.length > 0) {
-                    NEWS_DATA = data;
-                    console.log("资讯数据从 news_data.json 加载成功：", data.date, data.categories.length + "个分类");
-                } else {
-                    console.warn("news_data.json 内容为空，使用兜底数据");
-                }
-            } catch(e) {
-                console.warn("news_data.json 加载失败（不影响登录）：", e.message);
-            }
-        })();
 
         // ============ 近期选题数据（Supabase 存储，实时共享） ============
-        // TOPIC_DATA 在内存中缓存，从 Supabase topics 表加载
         let TOPIC_DATA = [];
 
-        // 从 Supabase 加载所有选题（无时间限制）
         async function loadTopicData() {
             if (!supabase) { console.warn('Supabase 未就绪，跳过选题加载'); return; }
             try {
                 const { data, error } = await supabase.from('topics').select('*').order('created_at', { ascending: false });
                 if (error) { console.error('加载选题失败:', error.message); return; }
-                // 将 DB 字段名映射为 JS 字段名
                 TOPIC_DATA = (data || []).map(row => ({
-                    id: row.id,
-                    title: row.title || '',
-                    author: row.author || '',
-                    url: row.url || '',
-                    createdAt: (row.created_at || '').slice(0, 10),
+                    id: row.id, title: row.title || '', author: row.author || '',
+                    url: row.url || '', createdAt: (row.created_at || '').slice(0, 10),
                     adoptedCount: row.adopted_count || 0,
                     adoptedBy: Array.isArray(row.adopted_by) ? row.adopted_by : (row.adopted_by ? JSON.parse(row.adopted_by) : []),
                     points: row.points || 0
                 }));
                 console.log('✅ 选题数据加载成功，共', TOPIC_DATA.length, '条');
-            } catch (e) {
-                console.error('加载选题异常:', e);
-            }
+            } catch (e) { console.error('加载选题异常:', e); }
         }
-
-        // 不再使用 localStorage 存选题（改为 Supabase，此函数保留为空以防旧调用）
         function saveTopicData() { /* 已废弃，改用 Supabase */ }
-
-        let currentNewsTab = "tech";
-
-        // 🔧 从 Supabase 加载当天新闻（优先于内置默认数据）
-        async function loadNewsFromSupabase() {
-            try {
-                // 等待 SDK 就绪（最多 5 秒）
-                for (let i = 0; i < 50 && !window._createClient; i++) {
-                    await new Promise(r => setTimeout(r, 100));
-                }
-                if (!window._createClient) { console.warn('Supabase SDK 未就绪，使用内置新闻'); return; }
-
-                const cfg = JSON.parse(localStorage.getItem('campus_cfg') || '{}');
-                const projectId = cfg.projectId || 'eeuvrabunfvsaxgpaiub';
-                const anonKey = cfg.anonKey || 'sb_publishable_fETyamK-jikojdIg9QwcJw__06jEb7A';
-                const sb = window._createClient('https://' + projectId + '.supabase.co', anonKey);
-
-                const today = new Date().toISOString().slice(0, 10);
-                const { data, error } = await sb.from('co_news').select('*').eq('scrape_date', today).order('created_at', { ascending: false });
-                if (error || !data || data.length === 0) { console.warn('Supabase 无当天新闻数据'); return; }
-
-                // 按分类重组
-                const cats = {};
-                for (const row of data) {
-                    const cid = row.category || 'fun';
-                    if (!cats[cid]) {
-                        cats[cid] = {
-                            id: cid,
-                            name: row.category_name || '🎮 好玩有趣',
-                            color: row.category_color || '#22c55e',
-                            items: []
-                        };
-                    }
-                    cats[cid].items.push({
-                        title: row.title,
-                        summary: row.summary || '',
-                        source: row.source || '未知',
-                        url: row.url || '',
-                        time: row.published_time || ''
-                    });
-                }
-
-                const categories = Object.values(cats);
-                if (categories.length > 0) {
-                    NEWS_DATA = { date: today, categories: categories };
-                    console.log('✅ 从 Supabase 加载 ' + data.length + ' 条新闻，' + categories.length + ' 个分类');
-                }
-            } catch(e) {
-                console.warn('Supabase 新闻加载失败，降级为内置数据:', e);
-            }
-        }
-
-        let newsLoaded = false;
-        async function renderNews() {
-            // 首次访问时尝试从 Supabase 加载
-            if (!newsLoaded) {
-                document.getElementById("newsDate").textContent = "📅 加载中...";
-                await loadNewsFromSupabase();
-                newsLoaded = true;
-            }
-            // 确保至少显示默认数据
-            if (!NEWS_DATA || !NEWS_DATA.categories || NEWS_DATA.categories.length === 0) {
-                NEWS_DATA = JSON.parse(JSON.stringify(NEWS_FALLBACK));
-            }
-            // 显示日期
-            document.getElementById("newsDate").textContent = "📅 " + NEWS_DATA.date;
-            // 渲染Tab
-            const tabsEl = document.getElementById("newsTabs");
-            tabsEl.innerHTML = NEWS_DATA.categories.map(c =>
-                `<div class="news-tab${c.id === currentNewsTab ? ' active' : ''}" onclick="switchNewsTab('${c.id}')">${c.name} <span style="font-size:11px;opacity:0.7;margin-left:4px;">${c.items.length}</span></div>`
-            ).join("");
-            // 渲染当前分类内容
-            renderNewsContent();
-        }
-
-        function switchNewsTab(id) {
-            currentNewsTab = id;
-            document.querySelectorAll(".news-tab").forEach(t => t.classList.remove("active"));
-            const target = document.querySelector(`.news-tab[onclick="switchNewsTab('${id}')"]`);
-            if (target) target.classList.add("active");
-            renderNewsContent();
-        }
-
-        function renderNewsContent() {
-            const cat = NEWS_DATA.categories.find(c => c.id === currentNewsTab);
-            const contentEl = document.getElementById("newsContent");
-            if (!cat || cat.items.length === 0) {
-                contentEl.innerHTML = `<div class="news-empty"><div class="news-empty-icon">📭</div><div>暂无资讯，等待每日 10:00 自动更新...</div></div>`;
-                return;
-            }
-            const platformIcons = { B站: "🎬 B站", 抖音: "🎵 抖音", 小红书: "📕 小红书", 视频号: "💬 视频号", 微博: "📢 微博", YouTube: "▶️ YouTube", 央视: "📺 央视", other: "📹 视频" };
-            contentEl.innerHTML = `<div class="news-grid">${cat.items.map(item => {
-                if (item.isVideo) {
-                    const pIcon = platformIcons[item.source] || platformIcons.other;
-                    const thumbStyle = item.thumbnail ? `background-image:url(${item.thumbnail})` : "";
-                    const playInfo = item.videoPlay ? `<span class="news-video-duration">📺 ${item.videoPlay}</span>` : "";
-                    return `
-                <div class="news-card news-card-video" onclick="window.open('${item.url || "#"}', '_blank')">
-                    <div class="news-video-thumb" style="background:linear-gradient(135deg, ${cat.color}20, ${cat.color}40)">
-                        ${thumbStyle ? `<div class="news-video-thumb-bg" style="${thumbStyle}"></div>` : ""}
-                        <span class="news-video-platform">${pIcon}</span>
-                        ${playInfo}
-                        <div class="news-video-play">▶</div>
-                    </div>
-                    <div class="news-card-header">
-                        <div class="news-card-title">${item.title}</div>
-                        <span class="news-card-badge" style="background:${cat.color}15;color:${cat.color}">${cat.name}</span>
-                    </div>
-                    <div class="news-card-summary">${item.summary}</div>
-                    <div class="news-card-footer">
-                        <span class="news-card-source">${pIcon} ${item.videoAuthor || item.source}</span>
-                        ${item.time ? `<span class="news-card-time">${item.time}</span>` : ""}
-                    </div>
-                </div>`;
-                }
-                return `
-                <div class="news-card" onclick="window.open('${item.url || "#"}', '_blank')">
-                    <div class="news-card-header">
-                        <div class="news-card-title">${item.title}</div>
-                        <span class="news-card-badge" style="background:${cat.color}15;color:${cat.color}">${cat.name}</span>
-                    </div>
-                    <div class="news-card-summary">${item.summary}</div>
-                    <div class="news-card-footer">
-                        <span class="news-card-source">📰 ${item.source}</span>
-                        ${item.time ? `<span class="news-card-time">${item.time}</span>` : ""}
-                    </div>
-                </div>`;
-            }).join("")}</div>`;
-        }
 
         // ============ Tophub 热榜 Functions (两层标签页) ============
         let TOPHUB_DATA = null;
