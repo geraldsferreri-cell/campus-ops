@@ -1,15 +1,41 @@
 {
   "date": "2026-07-10",
+  "scrape_time": "2026-07-10 13:59 CST",
+  "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
       "id": "tech",
       "name": "🤖 科技",
       "color": "#3b82f6",
       "items": [
-        { "title": "长征十号乙首飞成功", "summary": "全球首创海上网系回收技术，一子级成功回收", "source": "科技日报", "url": "https://www.stdaily.com/web/gdxw/2026-07/10/content_545300.html", "time": "7/10" },
-        { "title": "国家超算互联网核心节点上线", "summary": "郑州上线，可提供超10万卡国产AI算力", "source": "36氪", "url": "https://www.36kr.com/newsflashes/3887797387344387", "time": "7/9" },
-        { "title": "AI手机电脑销量将超非AI产品", "summary": "今年AI终端出货量有望保持高速增长", "source": "中新社", "url": "https://www.chinanews.com/cj/2026/07-07/10654584.shtml", "time": "7/7" },
-        { "title": "AI电子消费品进入爆发期", "summary": "上市公司积极布局AI PC和AI手机赛道", "source": "央视财经", "url": "https://finance.cctv.com/2026/07/09/ARTITdRBHIZkXo3nddx0cyHE260709.shtml", "time": "7/9" }
+        {
+          "title": "原则上无人机不许吊人但人民大于原则",
+          "summary": "最新资讯：原则上无人机不许吊人但人民大于原则（热度791.0万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%8E%9F%E5%88%99%E4%B8%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%B8%8D%E8%AE%B8%E5%90%8A%E4%BA%BA%E4%BD%86%E4%BA%BA%E6%B0%91%E5%A4%A7%E4%BA%8E%E5%8E%9F%E5%88%99",
+          "time": "7/10"
+        },
+        {
+          "title": "长征十号乙火箭回收成功",
+          "summary": "最新资讯：长征十号乙火箭回收成功（热度76.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E9%95%BF%E5%BE%81%E5%8D%81%E5%8F%B7%E4%B9%99%E7%81%AB%E7%AE%AD%E5%9B%9E%E6%94%B6%E6%88%90%E5%8A%9F",
+          "time": "7/10"
+        },
+        {
+          "title": "广西救援物资投放多亏无人机",
+          "summary": "最新资讯：广西救援物资投放多亏无人机（热度68.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%B9%BF%E8%A5%BF%E6%95%91%E6%8F%B4%E7%89%A9%E8%B5%84%E6%8A%95%E6%94%BE%E5%A4%9A%E4%BA%8F%E6%97%A0%E4%BA%BA%E6%9C%BA",
+          "time": "7/10"
+        },
+        {
+          "title": "华为联合伙伴发起OPEN NPO项目",
+          "summary": "最新资讯：华为联合伙伴发起OPEN NPO项目（热度59.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%8D%8E%E4%B8%BA%E8%81%94%E5%90%88%E4%BC%99%E4%BC%B4%E5%8F%91%E8%B5%B7OPEN%20NPO%E9%A1%B9%E7%9B%AE",
+          "time": "7/10"
+        }
       ]
     },
     {
@@ -17,10 +43,13 @@
       "name": "🧠 AI",
       "color": "#8b5cf6",
       "items": [
-        { "title": "OpenAI发布GPT-5.6系列模型", "summary": "旗舰Sol正式开放，支持Ultra模式并行处理", "source": "36氪", "url": "https://www.36kr.com/newsflashes/3889005901249030", "time": "7/10" },
-        { "title": "世界人工智能大会7/17举行", "summary": "上海举办，聚焦AI全球治理与产业融合", "source": "第一财经", "url": "https://www.yicai.com/news/103263501.html", "time": "7/7" },
-        { "title": "文心一言上线深度阅读功能", "summary": "新增图表生成能力，C端生产力再升级", "source": "新浪财经", "url": "https://finance.sina.com.cn/stock/t/2026-07-05/doc-inifuhwt9248889.shtml", "time": "7/5" },
-        { "title": "深圳发布15个政务AI场景", "summary": "覆盖辅助决策、政务服务等五大领域", "source": "深圳新闻网", "url": "https://www.sznews.com/news/content/2026-07/08/content_32114601.htm", "time": "7/8" }
+        {
+          "title": "2026 EWC 饿狼传说项目曾卓君爆冷不敌 naiwang 首轮出局，如何评价本场比赛？",
+          "summary": "26EWC饿狼小组赛AA组的比赛正在进行中，Xiaohai操刀空手先生不敌Naiwang就此止步，输掉比赛后Xiaohai捂脸不敢置信。 大爆冷？ewc饿狼传说xiaohai不敌naiwang出局 赛后捂脸不敢置信",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2058688182946992686",
+          "time": "7/10"
+        }
       ]
     },
     {
@@ -28,43 +57,41 @@
       "name": "⚽ 体育",
       "color": "#10b981",
       "items": [
-        { "title": "世界杯1/4决赛今夜开战", "summary": "法国vs摩洛哥打响首战，八强欧洲占六席", "source": "央视网", "url": "https://sports.cctv.com/2026/07/04/ARTIiEMYviQgWaG7i15vS1Bu260704.shtml", "time": "7/10" },
-        { "title": "阿根廷3-2逆转埃及晋级", "summary": "梅西助攻帽子戏法，潘帕斯雄鹰挺进八强", "source": "央视体育", "url": "https://sports.cctv.com/2026/07/08/VIDERYHintBkGyoDwEPzH2Sb260708.shtml", "time": "7/8" },
-        { "title": "欧洲六强围剿世界杯八强", "summary": "巴西德国出局，阿根廷摩洛哥成独苗", "source": "腾讯新闻", "url": "https://news.qq.com/rain/a/20260708A05GI400", "time": "7/8" },
-        { "title": "瑞士点球淘汰哥伦比亚", "summary": "0-0后点球4-3胜出，搭上八强末班车", "source": "新浪体育", "url": "https://sports.sina.com.cn/l/2026-07-08/doc-inihaawe8312808.shtml", "time": "7/8" }
+        {
+          "title": "输赢从来不是足球唯一答案",
+          "summary": "最新资讯：输赢从来不是足球唯一答案（热度64.0万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%BE%93%E8%B5%A2%E4%BB%8E%E6%9D%A5%E4%B8%8D%E6%98%AF%E8%B6%B3%E7%90%83%E5%94%AF%E4%B8%80%E7%AD%94%E6%A1%88",
+          "time": "7/10"
+        },
+        {
+          "title": "姆巴佩打进个人世界杯第 20 球，他能带领法国队夺冠吗？为什么都说他专为世界杯而生？",
+          "summary": "直播吧07月10日讯 美加墨世界杯1/4决赛，姆巴佩在对阵摩洛哥时破门！ 这是27岁的姆巴佩在世界杯赛场打进的个人第20个进球，他在个人第3届世界杯征程中就打进20球，本届至今6场比赛贡献8球。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2058815937646523146",
+          "time": "7/10"
+        },
+        {
+          "title": "如何看待Archivo VAR认为2026世界杯法国-摩洛哥比赛中姆巴佩点球系误判，应给假摔黄牌？",
+          "summary": "在此前的阿根廷-埃及比赛中，民间网红自媒体Archivo VAR因支持国际足联裁判判罚而被多位知乎答主引用作为背书，如今二者意见出现分歧，哪方更符合事实？",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2058796272027542564",
+          "time": "7/10"
+        }
       ]
     },
     {
-      "id": "ent",
+      "id": "show",
       "name": "🌟 秀场",
       "color": "#ec4899",
       "items": [
-        { "title": "星爷《功夫女足》明日上映", "summary": "张小斐迪丽热巴张艺兴领衔，预售破2000万", "source": "腾讯新闻", "url": "https://news.qq.com/rain/a/20260706A05YL600", "time": "7/10" },
-        { "title": "《悬案》央视开播话题爆了", "summary": "岳云鹏转型记者，王传君演隐藏杀人犯", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_2706a489b1a74852", "time": "7/3" },
-        { "title": "杨紫肖战王一博7月动态汇总", "summary": "新剧拍摄、商务代言、综艺录制全面开花", "source": "QQ新闻", "url": "https://so.html5.qq.com/page/real/search_news?docid=70000021_1156a4fc28263752", "time": "7/9" },
-        { "title": "古力娜扎湿发造型封面释出", "summary": "登芭莎珠宝七月刊，清凉性感魅力十足", "source": "中华网", "url": "http://ent.china.com/", "time": "7/2" }
-      ]
-    },
-    {
-      "id": "fashion",
-      "name": "👗 时尚",
-      "color": "#f43f5e",
-      "items": [
-        { "title": "Nike SB Dunk新联名本周发售", "summary": "全新配色确认，国区SNKRS同步上架", "source": "网易球鞋", "url": "https://www.163.com/dy/media/T1609665527571.html", "time": "7/9" },
-        { "title": "2026中国五大时装周格局解析", "summary": "区域分化加剧，上海时装周影响力持续攀升", "source": "消费日报", "url": "https://www.xfrb.com.cn/article/zx/11275975342241.html", "time": "6/28" },
-        { "title": "赵今麦登KINFOLK夏季封面", "summary": "首位00后女星刷新该刊最年轻纪录", "source": "新浪娱乐", "url": "https://ent.sina.cn/2026-06-27/detail-inieuimk5077970.d.html", "time": "6/27" },
-        { "title": "2026春夏十大时装趋势出炉", "summary": "VOGUE盘点流苏头巾哈伦裤等核心元素", "source": "VOGUE", "url": "https://www.vogue.com.tw/article/2026-spring-summer-trends-you-should-know", "time": "7/1" }
-      ]
-    },
-    {
-      "id": "variety",
-      "name": "📺 综艺",
-      "color": "#f59e0b",
-      "items": [
-        { "title": "暑期综艺格局巨变芒果领跑", "summary": "芒果超媒综艺矩阵优势扩大，两阵营分化加剧", "source": "新浪娱乐", "url": "https://app.myzaker.com/news/article.php?pk=6a507dd38e9f092e1979c0bb", "time": "7/8" },
-        { "title": "《桃花坞》聊斋志义开张", "summary": "腾讯视频热播，成员问题一个比一个劲爆", "source": "电视猫", "url": "https://www.tvmao.com/tvshow", "time": "7/11" },
-        { "title": "《奔跑吧13》嘉宾阵容全解析", "summary": "原班基底+新鲜血液，阵容策略受关注", "source": "新浪", "url": "https://k.sina.cn/article_7857201856_1d45362c001906jkh0.html", "time": "7/8" },
-        { "title": "《喜欢你6》《种地吧4》热播", "summary": "爱奇艺暑期综艺持续霸榜，话题不断", "source": "爱奇艺", "url": "https://www.iqiyi.com/zongyi/", "time": "7/9" }
+        {
+          "title": "给哈兰德做了一支AI大片",
+          "summary": "最新资讯：给哈兰德做了一支AI大片（热度767.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%BB%99%E5%93%88%E5%85%B0%E5%BE%B7%E5%81%9A%E4%BA%86%E4%B8%80%E6%94%AFAI%E5%A4%A7%E7%89%87",
+          "time": "7/10"
+        }
       ]
     },
     {
@@ -72,21 +99,62 @@
       "name": "🎬 影视",
       "color": "#6366f1",
       "items": [
-        { "title": "暑期档票房突破21亿大关", "summary": "超百部中外影片上映，全年票房破180亿", "source": "灯塔专业版", "url": "https://baijiahao.baidu.com/s?id=1870042582071718846", "time": "7/7" },
-        { "title": "《功夫女足》预售已破2000万", "summary": "周星驰时隔7年新作，明日全国正式上映", "source": "新浪", "url": "https://k.sina.com.cn/article_7880068204_1d5b04c6c06801be5g.html", "time": "7/7" },
-        { "title": "7月80部新片神仙打架", "summary": "《侏罗纪》首日1.2亿，《海洋奇缘》今日上映", "source": "新浪娱乐", "url": "https://ent.sina.cn/2026-07-09/detail-inihczpf1465470.d.html", "time": "7/9" },
-        { "title": "横店影视解锁电影+新体验", "summary": "暑期观影氛围升温，多元化消费场景创新", "source": "同花顺", "url": "https://stock.10jqka.com.cn/20260710/c678091399.shtml", "time": "7/10" }
+        {
+          "title": "电影想你了预售开启",
+          "summary": "最新资讯：电影想你了预售开启（热度766.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%83%B3%E4%BD%A0%E4%BA%86%E9%A2%84%E5%94%AE%E5%BC%80%E5%90%AF",
+          "time": "7/10"
+        }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "marketing",
+      "name": "📊 营销",
+      "color": "#f97316",
       "items": [
-        { "title": "TXT崔然竣solo今日回归", "summary": "迷你二辑《NO LABELS》主打曲Ice Cream", "source": "微博", "url": "https://ent.sina.cn/2026-06-15/detail-inicpmei7988488.d.html", "time": "7/10" },
-        { "title": "南柱赫退伍首作定档7/17", "summary": "《鬼谜东宫》Netflix上线，化身斩鬼使者", "source": "搜狐", "url": "https://www.sohu.com/a/1043919315_121983867", "time": "6/30" },
-        { "title": "aespa/ATEEZ等多团7月回归", "summary": "K-pop夏日大战开启，回归日程密集发布", "source": "Kpoppann", "url": "https://kpoppann.com/6418.html", "time": "6/17" },
-        { "title": "《金特务》夺话题韩剧冠军", "summary": "7月第一周GOODDATA榜单，讨论度爆表", "source": "搜狐", "url": "https://www.sohu.com/a/1047181966_121983867", "time": "7/1" }
+        {
+          "title": "美议员拍反华广告翻车",
+          "summary": "最新资讯：美议员拍反华广告翻车（热度65.2万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%BE%8E%E8%AE%AE%E5%91%98%E6%8B%8D%E5%8F%8D%E5%8D%8E%E5%B9%BF%E5%91%8A%E7%BF%BB%E8%BD%A6",
+          "time": "7/10"
+        }
+      ]
+    },
+    {
+      "id": "fun",
+      "name": "🎮 好玩有趣",
+      "color": "#22c55e",
+      "items": [
+        {
+          "title": "大疆救人",
+          "summary": "最新资讯：大疆救人（热度160.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%A4%A7%E7%96%86%E6%95%91%E4%BA%BA",
+          "time": "7/10"
+        },
+        {
+          "title": "1图了解台风天避险要点",
+          "summary": "最新资讯：1图了解台风天避险要点（热度127.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=1%E5%9B%BE%E4%BA%86%E8%A7%A3%E5%8F%B0%E9%A3%8E%E5%A4%A9%E9%81%BF%E9%99%A9%E8%A6%81%E7%82%B9",
+          "time": "7/10"
+        },
+        {
+          "title": "上班隐形成本真的很高",
+          "summary": "最新资讯：上班隐形成本真的很高（热度85.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%8A%E7%8F%AD%E9%9A%90%E5%BD%A2%E6%88%90%E6%9C%AC%E7%9C%9F%E7%9A%84%E5%BE%88%E9%AB%98",
+          "time": "7/10"
+        },
+        {
+          "title": "很多人低估了五万存款的威力",
+          "summary": "最新资讯：很多人低估了五万存款的威力（热度76.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%BE%88%E5%A4%9A%E4%BA%BA%E4%BD%8E%E4%BC%B0%E4%BA%86%E4%BA%94%E4%B8%87%E5%AD%98%E6%AC%BE%E7%9A%84%E5%A8%81%E5%8A%9B",
+          "time": "7/10"
+        }
       ]
     }
   ]
