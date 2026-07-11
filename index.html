@@ -7595,49 +7595,45 @@
         function saveTopicData() { /* 已废弃，改用 Supabase */ }
 
         // ============ 每日热榜 Functions ============
-        let TOPHUB_DATA = null;
+        let NEWS_DATA = null;
         let thFullVisible = false;
-        const TH_ICONS = { "知乎":"💡", "微博":"📢", "微信":"💬", "澎湃":"📰", "百度":"🔍", "B站":"🎬", "抖音":"🎵", "今日头条":"📋" };
 
         async function loadDailyRank() {
             document.getElementById("thSummary").innerHTML = '<div class="th-empty"><div class="th-empty-icon">🔄</div><div>加载中...</div></div>';
             try {
-                const resp = await fetch("tophub_data.json");
+                const resp = await fetch("news_data.json?t=" + Date.now());
                 if (!resp.ok) throw new Error("HTTP " + resp.status);
-                TOPHUB_DATA = await resp.json();
-                if (!TOPHUB_DATA || !TOPHUB_DATA.platforms) throw new Error("empty");
-                const meta = TOPHUB_DATA.meta || {};
-                document.getElementById("newsDate").textContent = `📅 ${meta.date || '??'} · TOP ${meta.top_n || 3}`;
+                NEWS_DATA = await resp.json();
+                if (!NEWS_DATA || !NEWS_DATA.categories) throw new Error("empty");
+                document.getElementById("newsDate").textContent = `📅 ${NEWS_DATA.date || '??'} · 每日精选`;
                 renderSummary();
             } catch(e) {
+                console.error('[loadDailyRank] 加载失败:', e);
                 document.getElementById("newsDate").textContent = "";
                 document.getElementById("thSummary").innerHTML = '<div class="th-empty"><div class="th-empty-icon">📭</div><div>热榜数据暂未更新<br><small style="color:var(--gray-500);">请运行 scraper 抓取当天数据</small></div></div>';
             }
         }
 
         function renderSummary() {
-            const platforms = TOPHUB_DATA.platforms;
-            const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
+            const categories = (NEWS_DATA.categories || []).filter(c => c.items && c.items.length > 0);
             let html = '<div class="th-summary">';
-            for (const pname of pnames) {
-                const cats = platforms[pname];
-                const hotItems = cats["今日热榜"] || Object.values(cats)[0] || [];
-                const totalItems = Object.values(cats).reduce((s, items) => s + items.length, 0);
-                const catCount = Object.keys(cats).filter(c => cats[c] && cats[c].length > 0).length;
-
-                html += `<div class="th-plat-card">
+            for (const cat of categories) {
+                const hotItems = (cat.items || []).slice(0, 3);
+                html += `<div class="th-plat-card" style="border-top-color:${escHtml(cat.color || '#ccc')}">
                     <div class="th-plat-card-head">
-                        <span class="icon">${TH_ICONS[pname]||'📌'}</span>
-                        <span class="name">${escHtml(pname)}</span>
-                        <span class="count">${catCount}赛道 · ${totalItems}条</span>
+                        <span class="icon">${escHtml(cat.name || '').replace(/[^\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|[\u2700-\u27BF]/gu, '') || '📌'}</span>
+                        <span class="name">${escHtml(cat.name || '')}</span>
+                        <span class="count">${cat.items.length}条</span>
                     </div>`;
-                for (const item of hotItems) {
-                    const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
-                    const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
+                for (let i = 0; i < hotItems.length; i++) {
+                    const item = hotItems[i];
+                    const rank = i + 1;
+                    const rcls = rank === 1 ? 'r1' : rank === 2 ? 'r2' : 'r3';
+                    const t = item.url ? `<a href="${item.url}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
                     html += `<div class="th-summary-item">
-                        <span class="th-rank ${rcls}">${item.rank}</span>
+                        <span class="th-rank ${rcls}">${rank}</span>
                         <span class="th-title">${t}</span>
-                        <span class="th-heat">${escHtml(item.heat || '')}</span>
+                        <span class="th-heat">${escHtml(item.source || '')}</span>
                     </div>`;
                 }
                 html += `</div>`;
@@ -7667,36 +7663,31 @@
         function renderFull() {
             const fullEl = document.getElementById("thFull");
             fullEl.style.display = "block";
-            const platforms = TOPHUB_DATA.platforms;
-            const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
+            const categories = (NEWS_DATA.categories || []).filter(c => c.items && c.items.length > 0);
 
             let html = '';
-            for (const pname of pnames) {
-                const cats = platforms[pname];
-                const catEntries = Object.entries(cats).filter(([, items]) => items && items.length > 0);
-                const total = catEntries.reduce((s, [, items]) => s + items.length, 0);
+            for (const cat of categories) {
                 html += `<div class="th-platform-block">
                     <div class="th-platform-block-head">
-                        <span class="icon">${TH_ICONS[pname]||'📌'}</span>
-                        <span class="name">${escHtml(pname)}</span>
-                        <span class="count">${catEntries.length}赛道 · ${total}条</span>
+                        <span class="name">${escHtml(cat.name || '')}</span>
+                        <span class="count">${cat.items.length}条</span>
                     </div>
                     <div class="th-detail-cards">`;
-                for (const [catName, items] of catEntries) {
-                    html += `<div class="th-detail-card">
-                        <div class="th-detail-card-head">🏷️ ${escHtml(catName)}</div>`;
-                    for (const item of items) {
-                        const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
-                        const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
-                        html += `<div class="th-summary-item">
-                            <span class="th-rank ${rcls}">${item.rank}</span>
-                            <span class="th-title">${t}</span>
-                            <span class="th-heat">${escHtml(item.heat || '')}</span>
-                        </div>`;
-                    }
-                    html += `</div>`;
+                html += `<div class="th-detail-card">
+                    <div class="th-detail-card-head">🏷️ ${escHtml(cat.name || '')}</div>`;
+                for (let i = 0; i < cat.items.length; i++) {
+                    const item = cat.items[i];
+                    const rank = i + 1;
+                    const rcls = rank === 1 ? 'r1' : rank === 2 ? 'r2' : 'r3';
+                    const t = item.url ? `<a href="${item.url}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
+                    html += `<div class="th-summary-item">
+                        <span class="th-rank ${rcls}">${rank}</span>
+                        <span class="th-title">${t}</span>
+                        <span class="th-heat">${escHtml(item.source || '')} ${escHtml(item.time || '')}</span>
+                    </div>
+                    ${item.summary ? `<div style="padding:0 12px 10px 46px;color:var(--gray-500);font-size:13px;line-height:1.5;">${escHtml(item.summary)}</div>` : ''}`;
                 }
-                html += `</div></div>`;
+                html += `</div></div></div>`;
             }
             fullEl.innerHTML = '<div class="th-full">' + html + '</div>';
             fullEl.scrollIntoView({ behavior: 'smooth' });
