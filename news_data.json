@@ -1,6 +1,6 @@
 {
-  "date": "2026-07-10",
-  "scrape_time": "2026-07-10 13:59 CST",
+  "date": "2026-07-11",
+  "scrape_time": "2026-07-11 13:09 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,46 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "原则上无人机不许吊人但人民大于原则",
-          "summary": "最新资讯：原则上无人机不许吊人但人民大于原则（热度791.0万）",
+          "title": "看广西洪灾中的救援硬核科技",
+          "summary": "最新资讯：看广西洪灾中的救援硬核科技（热度159.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8E%9F%E5%88%99%E4%B8%8A%E6%97%A0%E4%BA%BA%E6%9C%BA%E4%B8%8D%E8%AE%B8%E5%90%8A%E4%BA%BA%E4%BD%86%E4%BA%BA%E6%B0%91%E5%A4%A7%E4%BA%8E%E5%8E%9F%E5%88%99",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E7%9C%8B%E5%B9%BF%E8%A5%BF%E6%B4%AA%E7%81%BE%E4%B8%AD%E7%9A%84%E6%95%91%E6%8F%B4%E7%A1%AC%E6%A0%B8%E7%A7%91%E6%8A%80",
+          "time": "7/11"
         },
         {
-          "title": "长征十号乙火箭回收成功",
-          "summary": "最新资讯：长征十号乙火箭回收成功（热度76.7万）",
+          "title": "小米痛斥澎程被批量抹黑",
+          "summary": "最新资讯：小米痛斥澎程被批量抹黑（热度31.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%95%BF%E5%BE%81%E5%8D%81%E5%8F%B7%E4%B9%99%E7%81%AB%E7%AE%AD%E5%9B%9E%E6%94%B6%E6%88%90%E5%8A%9F",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E7%97%9B%E6%96%A5%E6%BE%8E%E7%A8%8B%E8%A2%AB%E6%89%B9%E9%87%8F%E6%8A%B9%E9%BB%91",
+          "time": "7/11"
         },
         {
-          "title": "广西救援物资投放多亏无人机",
-          "summary": "最新资讯：广西救援物资投放多亏无人机（热度68.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B9%BF%E8%A5%BF%E6%95%91%E6%8F%B4%E7%89%A9%E8%B5%84%E6%8A%95%E6%94%BE%E5%A4%9A%E4%BA%8F%E6%97%A0%E4%BA%BA%E6%9C%BA",
-          "time": "7/10"
-        },
-        {
-          "title": "华为联合伙伴发起OPEN NPO项目",
-          "summary": "最新资讯：华为联合伙伴发起OPEN NPO项目（热度59.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%8E%E4%B8%BA%E8%81%94%E5%90%88%E4%BC%99%E4%BC%B4%E5%8F%91%E8%B5%B7OPEN%20NPO%E9%A1%B9%E7%9B%AE",
-          "time": "7/10"
-        }
-      ]
-    },
-    {
-      "id": "ai",
-      "name": "🧠 AI",
-      "color": "#8b5cf6",
-      "items": [
-        {
-          "title": "2026 EWC 饿狼传说项目曾卓君爆冷不敌 naiwang 首轮出局，如何评价本场比赛？",
-          "summary": "26EWC饿狼小组赛AA组的比赛正在进行中，Xiaohai操刀空手先生不敌Naiwang就此止步，输掉比赛后Xiaohai捂脸不敢置信。 大爆冷？ewc饿狼传说xiaohai不敌naiwang出局 赛后捂脸不敢置信",
+          "title": "一位家长说自己不限制孩子玩手机，等到孩子玩腻了、感觉无聊了就不玩了，请问这有可能吗？",
+          "summary": "孩子，电子产品，教育，学习，孩子沉迷手机",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2058688182946992686",
-          "time": "7/10"
+          "url": "https://www.zhihu.com/question/2056407322340103396",
+          "time": "7/11"
+        },
+        {
+          "title": "给朋友拍照时就这样变身机器人",
+          "summary": "最新资讯：给朋友拍照时就这样变身机器人（热度1073.1万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%BB%99%E6%9C%8B%E5%8F%8B%E6%8B%8D%E7%85%A7%E6%97%B6%E5%B0%B1%E8%BF%99%E6%A0%B7%E5%8F%98%E8%BA%AB%E6%9C%BA%E5%99%A8%E4%BA%BA",
+          "time": "7/11"
         }
       ]
     },
@@ -58,25 +44,32 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "输赢从来不是足球唯一答案",
-          "summary": "最新资讯：输赢从来不是足球唯一答案（热度64.0万）",
+          "title": "C罗更新葡萄牙欧洲杯夺冠照",
+          "summary": "最新资讯：C罗更新葡萄牙欧洲杯夺冠照（热度42.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BE%93%E8%B5%A2%E4%BB%8E%E6%9D%A5%E4%B8%8D%E6%98%AF%E8%B6%B3%E7%90%83%E5%94%AF%E4%B8%80%E7%AD%94%E6%A1%88",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E6%9B%B4%E6%96%B0%E8%91%A1%E8%90%84%E7%89%99%E6%AC%A7%E6%B4%B2%E6%9D%AF%E5%A4%BA%E5%86%A0%E7%85%A7",
+          "time": "7/11"
         },
         {
-          "title": "姆巴佩打进个人世界杯第 20 球，他能带领法国队夺冠吗？为什么都说他专为世界杯而生？",
-          "summary": "直播吧07月10日讯 美加墨世界杯1/4决赛，姆巴佩在对阵摩洛哥时破门！ 这是27岁的姆巴佩在世界杯赛场打进的个人第20个进球，他在个人第3届世界杯征程中就打进20球，本届至今6场比赛贡献8球。",
+          "title": "德布劳内等比利时黄金一代结束了他们最后的世界杯旅途，他们本届比赛表现怎么样？你对黄金一代有哪些记忆？",
+          "summary": "世界杯1/4决赛，西班牙2-1力克比利时晋级四强，自2010年世界杯后再度闯入世界杯半决赛。",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2058815937646523146",
-          "time": "7/10"
+          "url": "https://www.zhihu.com/question/2059159511039055807",
+          "time": "7/11"
         },
         {
-          "title": "如何看待Archivo VAR认为2026世界杯法国-摩洛哥比赛中姆巴佩点球系误判，应给假摔黄牌？",
-          "summary": "在此前的阿根廷-埃及比赛中，民间网红自媒体Archivo VAR因支持国际足联裁判判罚而被多位知乎答主引用作为背书，如今二者意见出现分歧，哪方更符合事实？",
+          "title": "世界杯四强大胆预测，会是法国，阿根廷，英格兰和西班牙吗？",
+          "summary": "最新资讯：世界杯四强大胆预测，会是法国，阿根廷，英格兰和西班牙吗？",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2058796272027542564",
-          "time": "7/10"
+          "url": "https://www.zhihu.com/question/2058119231846322566",
+          "time": "7/11"
+        },
+        {
+          "title": "西班牙 2-1 比利时晋级世界杯半决赛，梅里诺替补绝杀，拉门斯送礼，如何评价本场比赛？",
+          "summary": "北京时间7月11日凌晨3:00，世界杯1/4决赛，西班牙在美国SoFi球场对阵比利时。蒂莱曼斯热身时受伤，本场首发位置被范纳肯替代。上半场法比安·鲁伊斯补射破门，德凯特拉雷扳平，西班牙暂1-1比利时；下半场库尔图瓦伤退，西班牙这边尼科复出，库巴西远射造成拉门斯脱手，梅里诺补射绝杀，最终西班牙2-1战胜比利时。北京时间7月15日凌晨3:00，西班牙将在半决赛对阵法国。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2058965616472450804",
+          "time": "7/11"
         }
       ]
     },
@@ -86,11 +79,46 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "给哈兰德做了一支AI大片",
-          "summary": "最新资讯：给哈兰德做了一支AI大片（热度767.3万）",
+          "title": "迪丽热巴颠球颠到脚腕肿得像馒头",
+          "summary": "最新资讯：迪丽热巴颠球颠到脚腕肿得像馒头（热度31.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E9%A2%A0%E7%90%83%E9%A2%A0%E5%88%B0%E8%84%9A%E8%85%95%E8%82%BF%E5%BE%97%E5%83%8F%E9%A6%92%E5%A4%B4",
+          "time": "7/11"
+        },
+        {
+          "title": "迪丽热巴三个月体脂率降到14%",
+          "summary": "最新资讯：迪丽热巴三个月体脂率降到14%（热度30.0万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E4%B8%89%E4%B8%AA%E6%9C%88%E4%BD%93%E8%84%82%E7%8E%87%E9%99%8D%E5%88%B014%25",
+          "time": "7/11"
+        },
+        {
+          "title": "白鹿出道十年跑男占六年",
+          "summary": "最新资讯：白鹿出道十年跑男占六年（热度27.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%87%BA%E9%81%93%E5%8D%81%E5%B9%B4%E8%B7%91%E7%94%B7%E5%8D%A0%E5%85%AD%E5%B9%B4",
+          "time": "7/11"
+        },
+        {
+          "title": "迪丽热巴谈参演功夫女足",
+          "summary": "最新资讯：迪丽热巴谈参演功夫女足（热度770.8万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%BB%99%E5%93%88%E5%85%B0%E5%BE%B7%E5%81%9A%E4%BA%86%E4%B8%80%E6%94%AFAI%E5%A4%A7%E7%89%87",
-          "time": "7/10"
+          "url": "https://www.douyin.com/search/%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E8%B0%88%E5%8F%82%E6%BC%94%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3",
+          "time": "7/11"
+        }
+      ]
+    },
+    {
+      "id": "variety",
+      "name": "📺 综艺",
+      "color": "#f59e0b",
+      "items": [
+        {
+          "title": "说唱巅峰对决2v2抢先看",
+          "summary": "最新资讯：说唱巅峰对决2v2抢先看（热度769.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E8%AF%B4%E5%94%B1%E5%B7%85%E5%B3%B0%E5%AF%B9%E5%86%B32v2%E6%8A%A2%E5%85%88%E7%9C%8B",
+          "time": "7/11"
         }
       ]
     },
@@ -100,25 +128,32 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "电影想你了预售开启",
-          "summary": "最新资讯：电影想你了预售开启（热度766.3万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E6%83%B3%E4%BD%A0%E4%BA%86%E9%A2%84%E5%94%AE%E5%BC%80%E5%90%AF",
-          "time": "7/10"
-        }
-      ]
-    },
-    {
-      "id": "marketing",
-      "name": "📊 营销",
-      "color": "#f97316",
-      "items": [
-        {
-          "title": "美议员拍反华广告翻车",
-          "summary": "最新资讯：美议员拍反华广告翻车（热度65.2万）",
+          "title": "功夫女足票房",
+          "summary": "最新资讯：功夫女足票房（热度202.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%BE%8E%E8%AE%AE%E5%91%98%E6%8B%8D%E5%8F%8D%E5%8D%8E%E5%B9%BF%E5%91%8A%E7%BF%BB%E8%BD%A6",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3%E7%A5%A8%E6%88%BF",
+          "time": "7/11"
+        },
+        {
+          "title": "电视剧公主官宣",
+          "summary": "最新资讯：电视剧公主官宣（热度32.6万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%94%B5%E8%A7%86%E5%89%A7%E5%85%AC%E4%B8%BB%E5%AE%98%E5%AE%A3",
+          "time": "7/11"
+        },
+        {
+          "title": "功夫女足预售票房破6000万",
+          "summary": "最新资讯：功夫女足预售票房破6000万（热度28.9万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3%E9%A2%84%E5%94%AE%E7%A5%A8%E6%88%BF%E7%A0%B46000%E4%B8%87",
+          "time": "7/11"
+        },
+        {
+          "title": "如何看待周星驰电影《功夫女足》首日排片超 22.6 万场，刷新中国内地影史暑期档首日场次纪录？",
+          "summary": "据猫眼专业版数据，周星驰电影《功夫女足》 首日场次超22.6万场，刷新中国影史暑期档首日场次纪录。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2059024185498808451",
+          "time": "7/11"
         }
       ]
     },
@@ -128,32 +163,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "大疆救人",
-          "summary": "最新资讯：大疆救人（热度160.4万）",
+          "title": "台风巴威又睁眼了",
+          "summary": "最新资讯：台风巴威又睁眼了（热度1043.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A4%A7%E7%96%86%E6%95%91%E4%BA%BA",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E5%8F%B0%E9%A3%8E%E5%B7%B4%E5%A8%81%E5%8F%88%E7%9D%81%E7%9C%BC%E4%BA%86",
+          "time": "7/11"
         },
         {
-          "title": "1图了解台风天避险要点",
-          "summary": "最新资讯：1图了解台风天避险要点（热度127.6万）",
+          "title": "功夫女足",
+          "summary": "最新资讯：功夫女足（热度118.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=1%E5%9B%BE%E4%BA%86%E8%A7%A3%E5%8F%B0%E9%A3%8E%E5%A4%A9%E9%81%BF%E9%99%A9%E8%A6%81%E7%82%B9",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3",
+          "time": "7/11"
         },
         {
-          "title": "上班隐形成本真的很高",
-          "summary": "最新资讯：上班隐形成本真的很高（热度85.4万）",
+          "title": "巴威登陆地点有变",
+          "summary": "最新资讯：巴威登陆地点有变（热度104.3万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%8A%E7%8F%AD%E9%9A%90%E5%BD%A2%E6%88%90%E6%9C%AC%E7%9C%9F%E7%9A%84%E5%BE%88%E9%AB%98",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E5%B7%B4%E5%A8%81%E7%99%BB%E9%99%86%E5%9C%B0%E7%82%B9%E6%9C%89%E5%8F%98",
+          "time": "7/11"
         },
         {
-          "title": "很多人低估了五万存款的威力",
-          "summary": "最新资讯：很多人低估了五万存款的威力（热度76.7万）",
+          "title": "孟子义你要毁了张真源吗",
+          "summary": "最新资讯：孟子义你要毁了张真源吗（热度97.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%BE%88%E5%A4%9A%E4%BA%BA%E4%BD%8E%E4%BC%B0%E4%BA%86%E4%BA%94%E4%B8%87%E5%AD%98%E6%AC%BE%E7%9A%84%E5%A8%81%E5%8A%9B",
-          "time": "7/10"
+          "url": "https://s.weibo.com/weibo?q=%E5%AD%9F%E5%AD%90%E4%B9%89%E4%BD%A0%E8%A6%81%E6%AF%81%E4%BA%86%E5%BC%A0%E7%9C%9F%E6%BA%90%E5%90%97",
+          "time": "7/11"
         }
       ]
     }
