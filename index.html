@@ -6529,6 +6529,12 @@
             const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
             if (groupStudents.length === 0) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
 
+            // 统一按自然月统计：从选中月份推导月初(1号)到月末(最后一天)
+            // 始终用 created_at 本地日期过滤，与视频记录页完全一致
+            const [ty, tm] = String(month).split('-').map(Number);
+            const monthStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
+            const monthEnd = formatLocalDate(new Date(ty, tm, 0)); // 该月最后一天
+
             // 计算小组内所有学生的发片总数
             let groupVideoCount = 0;
             let totalStudentBonus = 0;
@@ -6538,15 +6544,8 @@
                 const studentVideos = allVideos.filter(v => {
                     const nameMatch = studentNames.includes(v.publisher);
                     if (!nameMatch) return false;
-                    // 优先按日期范围过滤，否则按月份
-                    if (dateStart || dateEnd) {
-                        const videoDate = getLocalDateStr(v.created_at);
-                        const dateMatch = (!dateStart || videoDate >= dateStart) && (!dateEnd || videoDate <= dateEnd);
-                        return dateMatch;
-                    } else {
-                        const videoMonth = getVideoMonth(v);
-                        return videoMonth === month;
-                    }
+                    const videoDate = getLocalDateStr(v.created_at);
+                    return videoDate >= monthStart && videoDate <= monthEnd;
                 });
                 groupVideoCount += studentVideos.length;
                 
@@ -6668,22 +6667,19 @@
 
             // 先计算所有学生的薪资（底薪+奖金）
             console.log('查询薪资 - 月份:', month, '日期范围:', dateStart, '至', dateEnd, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length);
+            // 统一按自然月统计：从选中月份推导月初(1号)到月末(最后一天)
+            // 始终用 created_at 本地日期过滤，与视频记录页完全一致
+            const [sy, sm] = String(month).split('-').map(Number);
+            const monthStart = `${sy}-${String(sm).padStart(2, '0')}-01`;
+            const monthEnd = formatLocalDate(new Date(sy, sm, 0)); // 该月最后一天
+
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
-                // 匹配视频：publisher 在 userNames 中，且日期匹配
-                const targetMonth = String(month).trim();
                 const userVideos = allVideos.filter(v => {
                     const nameMatch = userNames.includes(v.publisher);
                     if (!nameMatch) return false;
-                    // 优先按日期范围过滤，否则按月份
-                    if (dateStart || dateEnd) {
-                        const videoDate = getLocalDateStr(v.created_at);
-                        const dateMatch = (!dateStart || videoDate >= dateStart) && (!dateEnd || videoDate <= dateEnd);
-                        return dateMatch;
-                    } else {
-                        const videoMonth = String(getVideoMonth(v) || '').trim();
-                        return videoMonth === targetMonth;
-                    }
+                    const videoDate = getLocalDateStr(v.created_at);
+                    return videoDate >= monthStart && videoDate <= monthEnd;
                 });
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;

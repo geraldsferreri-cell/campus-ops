@@ -1,4 +1,4 @@
-const CACHE_NAME = 'campus-ops-v3';
+const CACHE_NAME = 'campus-ops-v4';
 const ASSETS = [
   '/campus-ops/',
   '/campus-ops/index.html'
