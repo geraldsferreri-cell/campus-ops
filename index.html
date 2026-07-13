@@ -1969,7 +1969,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>姓名</th><th>用户名</th><th>角色</th><th>分组</th><th>状态</th><th>操作</th></tr>
+                                <tr><th>姓名</th><th>用户名</th><th>角色</th><th>分组</th><th>合作状态</th><th>状态</th><th>操作</th></tr>
                             </thead>
                             <tbody id="userTable"></tbody>
                         </table>
@@ -2608,6 +2608,16 @@
                     </select>
                 </div>
                 <div class="form-group"><label class="form-label">分组</label><select id="userGroup" class="form-input"><option value="">-- 选择分组 --</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">合作状态</label>
+                    <select id="userIsCooperating" class="form-input">
+                        <option value="true">合作</option>
+                        <option value="false">不合作</option>
+                    </select>
+                </div>
+                <div class="form-group"></div>
             </div>
             <div class="form-group"><label class="form-label">密码</label><input type="password" id="userPassword" class="form-input" placeholder="留空则不修改"></div>
             <div class="modal-footer">
@@ -3737,9 +3747,9 @@
                 return true;
             });
 
-            // 筛选老师和学生
-            const teachers = allUsers.filter(u => u.role === 'teacher' && (!group || u.group_name === group));
-            const students = allUsers.filter(u => u.role === 'student' && (!group || u.group_name === group));
+            // 筛选老师和学生（只统计合作状态的人员）
+            const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && (!group || u.group_name === group));
             const accounts = group ? allAccounts.filter(a => a.group_name === group) : allAccounts;
 
             // 千赞/万赞统计
@@ -5974,6 +5984,7 @@
                 <td>${u.username || '-'}</td>
                 <td><span class="badge ${u.role === 'admin' ? 'badge-purple' : u.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${roleMap[u.role] || u.role}</span></td>
                 <td>${u.group_name || '-'}</td>
+                <td><span class="badge ${u.is_cooperating !== false ? 'badge-success' : 'badge-danger'}">${u.is_cooperating !== false ? '合作' : '不合作'}</span></td>
                 <td><span class="badge ${u.active ? 'badge-success' : 'badge-danger'}">${u.active ? '正常' : '停用'}</span></td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editUser(${u.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteUser(${u.id})">删除</button></td>
             </tr>`).join('');
@@ -5983,7 +5994,7 @@
             document.getElementById('userId').value = id || '';
             document.getElementById('userModalTitle').textContent = id ? '编辑成员' : '添加成员';
             updateUserGroupSelect();
-            if (!id) { document.getElementById('userName').value = ''; document.getElementById('userUsername').value = ''; document.getElementById('userRole').value = 'student'; document.getElementById('userGroup').value = ''; document.getElementById('userPassword').value = '123456'; }
+            if (!id) { document.getElementById('userName').value = ''; document.getElementById('userUsername').value = ''; document.getElementById('userRole').value = 'student'; document.getElementById('userGroup').value = ''; document.getElementById('userIsCooperating').value = 'true'; document.getElementById('userPassword').value = '123456'; }
             document.getElementById('userModal').classList.add('show');
         }
 
@@ -5997,6 +6008,7 @@
             document.getElementById('userRole').value = u.role || 'student';
             updateUserGroupSelect();
             document.getElementById('userGroup').value = u.group_name || '';
+            document.getElementById('userIsCooperating').value = (u.is_cooperating !== false) ? 'true' : 'false';
             document.getElementById('userPassword').value = '';
             document.getElementById('userModal').classList.add('show');
         }
@@ -6007,7 +6019,7 @@
             const realName = document.getElementById('userName').value.trim();
             if (!realName) { toast('姓名不能为空', 'error'); return; }
             const username = realName; // 用户名默认等于姓名
-            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, active: true, password: '123456' };
+            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, is_cooperating: document.getElementById('userIsCooperating').value === 'true', active: true, password: '123456' };
             try {
                 let result;
                 if (id) {
@@ -6882,9 +6894,9 @@
             
             const videos = getFilteredVideos();
             const group = document.getElementById('filterGroup')?.value;
-            // 根据角色和组别筛选老师和学生
-            const teachers = allUsers.filter(u => u.role === 'teacher' && canViewUser(u) && (!group || u.group_name === group));
-            const students = allUsers.filter(u => u.role === 'student' && canViewUser(u) && (!group || u.group_name === group));
+            // 根据角色和组别筛选老师和学生（只统计合作状态的人员）
+            const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && canViewUser(u) && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && canViewUser(u) && (!group || u.group_name === group));
             // 用与 getDataStandardStatus 一致的逻辑：跨所有时间维度的点赞字段检查（v.likes 不存在，DB字段是 likes_day3/likes_day7/likes_month_end）
             const thousandVideos = videos.filter(v => {
                 const likes = [v.likes_day3, v.likes_day7, v.likes_month_end].filter(l => l != null && l !== '');
@@ -7307,7 +7319,7 @@
                 filename = '账号列表';
             } else if (type === 'users') {
                 data = getMyUsers();
-                headers = ['姓名', '用户名', '角色', '分组', '状态'];
+                headers = ['姓名', '用户名', '角色', '分组', '合作状态', '状态'];
                 filename = '人员名单';
             } else if (type === 'salary') {
                 data = allSalaries;
@@ -7500,10 +7512,11 @@
                 '播放(D7)': 'views_day7', '点赞(D7)': 'likes_day7',
                 '状态': 'status', '账号名': 'account_name', '负责人': 'owner', '分组': 'group_name', 
                 '姓名': 'real_name', '用户名': 'username', '角色': 'role', '奖金': 'bonus', '实发': 'total',
-                '播放': 'views', '点赞': 'likes'
+                '播放': 'views', '点赞': 'likes', '合作状态': 'is_cooperating'
             };
             const k = map[key] || key;
             if (obj[k] === undefined || obj[k] === null) return '';
+            if (key === '合作状态') return obj[k] ? '合作' : '不合作';
             if (obj[k] === true) return '正常';
             if (obj[k] === false) return '停用';
             if (typeof obj[k] === 'object') return JSON.stringify(obj[k]);
