@@ -2579,6 +2579,16 @@
                 <div class="form-group"><label class="form-label">负责人</label><select id="accountOwner" class="form-input"><option value="">-- 选择负责人 --</option></select></div>
                 <div class="form-group"><label class="form-label">分组</label><select id="accountGroup" class="form-input"><option value="">-- 选择分组 --</option></select></div>
             </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">账号状态</label>
+                    <select id="accountActive" class="form-input">
+                        <option value="true">正常</option>
+                        <option value="false">停更</option>
+                    </select>
+                </div>
+                <div class="form-group"></div>
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('accountModal')">取消</button>
                 <button class="btn btn-primary" onclick="saveAccount()">保存</button>
@@ -3750,7 +3760,7 @@
             // 筛选老师和学生（只统计合作状态的人员）
             const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && (!group || u.group_name === group));
             const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && (!group || u.group_name === group));
-            const accounts = group ? allAccounts.filter(a => a.group_name === group) : allAccounts;
+            const accounts = allAccounts.filter(a => a.active !== false && (!group || a.group_name === group));
 
             // 千赞/万赞统计
             const thousandVideos = videos.filter(v => getMaxLikes(v) >= 1000);
@@ -5885,7 +5895,7 @@
                 <td>${a.account_name || '-'}</td>
                 <td>${a.owner || '-'}</td>
                 <td>${a.group_name || '-'}</td>
-                <td><span class="badge ${a.active ? 'badge-success' : 'badge-danger'}">${a.active ? '正常' : '停用'}</span></td>
+                <td><span class="badge ${a.active !== false ? 'badge-success' : 'badge-danger'}">${a.active !== false ? '正常' : '停更'}</span></td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editAccount(${a.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteAccount(${a.id})">删除</button></td>
             </tr>`).join('');
         }
@@ -5908,7 +5918,7 @@
         function openAccountModal(id = null) {
             document.getElementById('accountId').value = id || '';
             document.getElementById('accountModalTitle').textContent = id ? '编辑账号' : '添加账号';
-            if (!id) { document.getElementById('accountPlatform').value = '抖音'; document.getElementById('accountName').value = ''; }
+            if (!id) { document.getElementById('accountPlatform').value = '抖音'; document.getElementById('accountName').value = ''; document.getElementById('accountActive').value = 'true'; }
             updateAccountSelects();
             document.getElementById('accountModal').classList.add('show');
         }
@@ -5923,6 +5933,7 @@
             updateAccountSelects();
             document.getElementById('accountOwner').value = a.owner || '';
             document.getElementById('accountGroup').value = a.group_name || '';
+            document.getElementById('accountActive').value = (a.active !== false) ? 'true' : 'false';
             document.getElementById('accountModal').classList.add('show');
         }
 
@@ -5935,7 +5946,7 @@
                 platform: document.getElementById('accountPlatform').value,
                 owner: document.getElementById('accountOwner').value,
                 group_name: document.getElementById('accountGroup').value,
-                active: true
+                active: document.getElementById('accountActive').value === 'true'
             };
             try {
                 let result;
@@ -6909,7 +6920,7 @@
 
             document.getElementById('statTeachers').textContent = teachers.length;
             document.getElementById('statStudents').textContent = students.length;
-            document.getElementById('statAccounts').textContent = allAccounts.length;
+            document.getElementById('statAccounts').textContent = allAccounts.filter(a => a.active !== false && (!group || a.group_name === group)).length;
             document.getElementById('statVideos').textContent = videos.length;
             document.getElementById('statThousand').textContent = thousandVideos.length;
             document.getElementById('statTenThousand').textContent = tenThousandVideos.length;
@@ -7315,7 +7326,7 @@
                 filename = '视频记录';
             } else if (type === 'accounts') {
                 data = getMyAccounts();
-                headers = ['平台', '账号名', '负责人', '分组', '状态'];
+                headers = ['平台', '账号名', '负责人', '分组', '账号状态'];
                 filename = '账号列表';
             } else if (type === 'users') {
                 data = getMyUsers();
@@ -7510,15 +7521,16 @@
                 '播放(发布)': 'views', '点赞(发布)': 'likes',
                 '播放(D3)': 'views_day3', '点赞(D3)': 'likes_day3',
                 '播放(D7)': 'views_day7', '点赞(D7)': 'likes_day7',
-                '状态': 'status', '账号名': 'account_name', '负责人': 'owner', '分组': 'group_name', 
+                '状态': 'status', '账号名': 'account_name', '负责人': 'owner', '分组': 'group_name', '账号状态': 'active',
                 '姓名': 'real_name', '用户名': 'username', '角色': 'role', '奖金': 'bonus', '实发': 'total',
                 '播放': 'views', '点赞': 'likes', '合作状态': 'is_cooperating'
             };
             const k = map[key] || key;
             if (obj[k] === undefined || obj[k] === null) return '';
             if (key === '合作状态') return obj[k] ? '合作' : '不合作';
+            if (key === '账号状态') return obj[k] !== false ? '正常' : '停更';
             if (obj[k] === true) return '正常';
-            if (obj[k] === false) return '停用';
+            if (obj[k] === false) return '停更';
             if (typeof obj[k] === 'object') return JSON.stringify(obj[k]);
             return obj[k];
         }
