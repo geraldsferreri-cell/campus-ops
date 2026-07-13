@@ -6660,10 +6660,12 @@
             await loadVideos();
             await loadUsers();
 
-            // 先重新加载现有薪资记录，避免重复
-            console.log('>>> 开始 loadSalaries');
-            await loadSalaries();
-            console.log('>>> loadSalaries 完成, allSalaries:', allSalaries.length);
+            // 先删除该月所有旧薪资记录，避免重复记录残留
+            console.log('>>> 删除', month, '旧薪资记录');
+            try {
+                const { error: delError } = await supabase.from('salaries').delete().eq('month', month);
+                if (delError) console.error('删除旧薪资记录失败:', delError);
+            } catch (e) { console.error('删除旧薪资记录异常:', e); }
 
             // 先计算所有学生的薪资（底薪+奖金）
             console.log('查询薪资 - 月份:', month, '日期范围:', dateStart, '至', dateEnd, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length);
@@ -6711,19 +6713,8 @@
                     status: '待结算'
                 };
                 try {
-                    // 清理可能的重复记录，然后插入/更新
-                    const existing = allSalaries.find(s => s.user_id === student.id && s.month === month && s.role === 'student');
-                    if (existing) {
-                        // 使用 count:exact 验证更新是否真正生效
-                        const { count, error } = await supabase.from('salaries').update(data, { count: 'exact' }).eq('id', existing.id);
-                        if (error) throw error;
-                        if (count === 0) {
-                            // 记录可能不存在（被并发删除），走插入
-                            await supabase.from('salaries').insert(data);
-                        }
-                    } else {
-                        await supabase.from('salaries').insert(data);
-                    }
+                    // 已在开头删除该月所有记录，直接插入
+                    await supabase.from('salaries').insert(data);
                 } catch (e) { console.error('保存学生薪资失败:', student.real_name || student.name, e); }
             }
 
@@ -6754,16 +6745,8 @@
                     status: '待结算'
                 };
                 try {
-                    const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month && s.role === 'teacher');
-                    if (existing) {
-                        const { count, error } = await supabase.from('salaries').update(data, { count: 'exact' }).eq('id', existing.id);
-                        if (error) throw error;
-                        if (count === 0) {
-                            await supabase.from('salaries').insert(data);
-                        }
-                    } else {
-                        await supabase.from('salaries').insert(data);
-                    }
+                    // 已在开头删除该月所有记录，直接插入
+                    await supabase.from('salaries').insert(data);
                 } catch (e) { console.error('保存老师薪资失败:', teacher.real_name || teacher.name, e); }
             }
 
