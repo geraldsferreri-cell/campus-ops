@@ -1656,7 +1656,7 @@
                 <a class="topnav-link admin-only-link" data-page="groups">编导分组</a>
                 <a class="topnav-link admin-only-link" data-page="salaryConfig">薪资配置</a>
                 <a class="topnav-link admin-only-link" data-page="salary">薪资结算</a>
-                <a class="topnav-link" data-page="news">资讯热点</a>
+                <a class="topnav-link" href="https://wu1y-1v4p.studio.fengbao.com/" target="_blank">📡 资讯热点</a>
                 <a class="topnav-link" data-page="topics">近期选题</a>
                 <a class="topnav-link admin-only-link" data-page="review">📊 数据复盘</a>
                 <a class="topnav-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
@@ -1685,7 +1685,7 @@
             <a class="mobile-menu-link admin-only-link" data-page="groups" onclick="mobileNavTo('groups')">编导分组</a>
             <a class="mobile-menu-link admin-only-link" data-page="salaryConfig" onclick="mobileNavTo('salaryConfig')">薪资配置</a>
             <a class="mobile-menu-link admin-only-link" data-page="salary" onclick="mobileNavTo('salary')">薪资结算</a>
-            <a class="mobile-menu-link" data-page="news" onclick="mobileNavTo('news')">资讯热点</a>
+            <a class="mobile-menu-link" href="https://wu1y-1v4p.studio.fengbao.com/" target="_blank">📡 资讯热点</a>
             <a class="mobile-menu-link" data-page="topics" onclick="mobileNavTo('topics')">近期选题</a>
             <a class="mobile-menu-link admin-only-link" data-page="review" onclick="mobileNavTo('review')">📊 数据复盘</a>
             <a class="mobile-menu-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
@@ -1971,7 +1971,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>姓名</th><th>用户名</th><th>角色</th><th>分组</th><th>状态</th><th>操作</th></tr>
+                                <tr><th>姓名</th><th>用户名</th><th>角色</th><th>分组</th><th>合作状态</th><th>状态</th><th>操作</th></tr>
                             </thead>
                             <tbody id="userTable"></tbody>
                         </table>
@@ -2581,6 +2581,16 @@
                 <div class="form-group"><label class="form-label">负责人</label><select id="accountOwner" class="form-input"><option value="">-- 选择负责人 --</option></select></div>
                 <div class="form-group"><label class="form-label">分组</label><select id="accountGroup" class="form-input"><option value="">-- 选择分组 --</option></select></div>
             </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">账号状态</label>
+                    <select id="accountActive" class="form-input">
+                        <option value="true">正常</option>
+                        <option value="false">停更</option>
+                    </select>
+                </div>
+                <div class="form-group"></div>
+            </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('accountModal')">取消</button>
                 <button class="btn btn-primary" onclick="saveAccount()">保存</button>
@@ -2610,6 +2620,16 @@
                     </select>
                 </div>
                 <div class="form-group"><label class="form-label">分组</label><select id="userGroup" class="form-input"><option value="">-- 选择分组 --</option></select></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">合作状态</label>
+                    <select id="userIsCooperating" class="form-input">
+                        <option value="true">合作</option>
+                        <option value="false">不合作</option>
+                    </select>
+                </div>
+                <div class="form-group"></div>
             </div>
             <div class="form-group"><label class="form-label">密码</label><input type="password" id="userPassword" class="form-input" placeholder="留空则不修改"></div>
             <div class="modal-footer">
@@ -3739,10 +3759,10 @@
                 return true;
             });
 
-            // 筛选老师和学生
-            const teachers = allUsers.filter(u => u.role === 'teacher' && (!group || u.group_name === group));
-            const students = allUsers.filter(u => u.role === 'student' && (!group || u.group_name === group));
-            const accounts = group ? allAccounts.filter(a => a.group_name === group) : allAccounts;
+            // 筛选老师和学生（只统计合作状态的人员）
+            const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && (!group || u.group_name === group));
+            const accounts = allAccounts.filter(a => a.active !== false && (!group || a.group_name === group));
 
             // 千赞/万赞统计
             const thousandVideos = videos.filter(v => getMaxLikes(v) >= 1000);
@@ -5877,7 +5897,7 @@
                 <td>${a.account_name || '-'}</td>
                 <td>${a.owner || '-'}</td>
                 <td>${a.group_name || '-'}</td>
-                <td><span class="badge ${a.active ? 'badge-success' : 'badge-danger'}">${a.active ? '正常' : '停用'}</span></td>
+                <td><span class="badge ${a.active !== false ? 'badge-success' : 'badge-danger'}">${a.active !== false ? '正常' : '停更'}</span></td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editAccount(${a.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteAccount(${a.id})">删除</button></td>
             </tr>`).join('');
         }
@@ -5900,7 +5920,7 @@
         function openAccountModal(id = null) {
             document.getElementById('accountId').value = id || '';
             document.getElementById('accountModalTitle').textContent = id ? '编辑账号' : '添加账号';
-            if (!id) { document.getElementById('accountPlatform').value = '抖音'; document.getElementById('accountName').value = ''; }
+            if (!id) { document.getElementById('accountPlatform').value = '抖音'; document.getElementById('accountName').value = ''; document.getElementById('accountActive').value = 'true'; }
             updateAccountSelects();
             document.getElementById('accountModal').classList.add('show');
         }
@@ -5915,6 +5935,7 @@
             updateAccountSelects();
             document.getElementById('accountOwner').value = a.owner || '';
             document.getElementById('accountGroup').value = a.group_name || '';
+            document.getElementById('accountActive').value = (a.active !== false) ? 'true' : 'false';
             document.getElementById('accountModal').classList.add('show');
         }
 
@@ -5927,7 +5948,7 @@
                 platform: document.getElementById('accountPlatform').value,
                 owner: document.getElementById('accountOwner').value,
                 group_name: document.getElementById('accountGroup').value,
-                active: true
+                active: document.getElementById('accountActive').value === 'true'
             };
             try {
                 let result;
@@ -5976,6 +5997,7 @@
                 <td>${u.username || '-'}</td>
                 <td><span class="badge ${u.role === 'admin' ? 'badge-purple' : u.role === 'teacher' ? 'badge-success' : 'badge-warning'}">${roleMap[u.role] || u.role}</span></td>
                 <td>${u.group_name || '-'}</td>
+                <td><span class="badge ${u.is_cooperating !== false ? 'badge-success' : 'badge-danger'}">${u.is_cooperating !== false ? '合作' : '不合作'}</span></td>
                 <td><span class="badge ${u.active ? 'badge-success' : 'badge-danger'}">${u.active ? '正常' : '停用'}</span></td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editUser(${u.id})">编辑</button><button class="btn btn-sm btn-danger" onclick="deleteUser(${u.id})">删除</button></td>
             </tr>`).join('');
@@ -5985,7 +6007,7 @@
             document.getElementById('userId').value = id || '';
             document.getElementById('userModalTitle').textContent = id ? '编辑成员' : '添加成员';
             updateUserGroupSelect();
-            if (!id) { document.getElementById('userName').value = ''; document.getElementById('userUsername').value = ''; document.getElementById('userRole').value = 'student'; document.getElementById('userGroup').value = ''; document.getElementById('userPassword').value = '123456'; }
+            if (!id) { document.getElementById('userName').value = ''; document.getElementById('userUsername').value = ''; document.getElementById('userRole').value = 'student'; document.getElementById('userGroup').value = ''; document.getElementById('userIsCooperating').value = 'true'; document.getElementById('userPassword').value = '123456'; }
             document.getElementById('userModal').classList.add('show');
         }
 
@@ -5999,6 +6021,7 @@
             document.getElementById('userRole').value = u.role || 'student';
             updateUserGroupSelect();
             document.getElementById('userGroup').value = u.group_name || '';
+            document.getElementById('userIsCooperating').value = (u.is_cooperating !== false) ? 'true' : 'false';
             document.getElementById('userPassword').value = '';
             document.getElementById('userModal').classList.add('show');
         }
@@ -6009,7 +6032,7 @@
             const realName = document.getElementById('userName').value.trim();
             if (!realName) { toast('姓名不能为空', 'error'); return; }
             const username = realName; // 用户名默认等于姓名
-            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, active: true, password: '123456' };
+            const data = { name: realName, real_name: realName, username: username, role: document.getElementById('userRole').value, group_name: document.getElementById('userGroup').value, is_cooperating: document.getElementById('userIsCooperating').value === 'true', active: true, password: '123456' };
             try {
                 let result;
                 if (id) {
@@ -6537,6 +6560,12 @@
             const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
             if (groupStudents.length === 0) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
 
+            // 统一按自然月统计：从选中月份推导月初(1号)到月末(最后一天)
+            // 始终用 created_at 本地日期过滤，与视频记录页完全一致
+            const [ty, tm] = String(month).split('-').map(Number);
+            const monthStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
+            const monthEnd = formatLocalDate(new Date(ty, tm, 0)); // 该月最后一天
+
             // 计算小组内所有学生的发片总数
             let groupVideoCount = 0;
             let totalStudentBonus = 0;
@@ -6546,15 +6575,8 @@
                 const studentVideos = allVideos.filter(v => {
                     const nameMatch = studentNames.includes(v.publisher);
                     if (!nameMatch) return false;
-                    // 优先按日期范围过滤，否则按月份
-                    if (dateStart || dateEnd) {
-                        const videoDate = getLocalDateStr(v.created_at);
-                        const dateMatch = (!dateStart || videoDate >= dateStart) && (!dateEnd || videoDate <= dateEnd);
-                        return dateMatch;
-                    } else {
-                        const videoMonth = getVideoMonth(v);
-                        return videoMonth === month;
-                    }
+                    const videoDate = getLocalDateStr(v.created_at);
+                    return videoDate >= monthStart && videoDate <= monthEnd;
                 });
                 groupVideoCount += studentVideos.length;
                 
@@ -6669,29 +6691,28 @@
             await loadVideos();
             await loadUsers();
 
-            // 先重新加载现有薪资记录，避免重复
-            console.log('>>> 开始 loadSalaries');
-            await loadSalaries();
-            console.log('>>> loadSalaries 完成, allSalaries:', allSalaries.length);
+            // 先删除该月所有旧薪资记录，避免重复记录残留
+            console.log('>>> 删除', month, '旧薪资记录');
+            try {
+                const { error: delError } = await supabase.from('salaries').delete().eq('month', month);
+                if (delError) console.error('删除旧薪资记录失败:', delError);
+            } catch (e) { console.error('删除旧薪资记录异常:', e); }
 
             // 先计算所有学生的薪资（底薪+奖金）
             console.log('查询薪资 - 月份:', month, '日期范围:', dateStart, '至', dateEnd, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length);
+            // 统一按自然月统计：从选中月份推导月初(1号)到月末(最后一天)
+            // 始终用 created_at 本地日期过滤，与视频记录页完全一致
+            const [sy, sm] = String(month).split('-').map(Number);
+            const monthStart = `${sy}-${String(sm).padStart(2, '0')}-01`;
+            const monthEnd = formatLocalDate(new Date(sy, sm, 0)); // 该月最后一天
+
             for (const student of allUsers.filter(u => u.role === 'student')) {
                 const userNames = getUserAllNames(student);
-                // 匹配视频：publisher 在 userNames 中，且日期匹配
-                const targetMonth = String(month).trim();
                 const userVideos = allVideos.filter(v => {
                     const nameMatch = userNames.includes(v.publisher);
                     if (!nameMatch) return false;
-                    // 优先按日期范围过滤，否则按月份
-                    if (dateStart || dateEnd) {
-                        const videoDate = getLocalDateStr(v.created_at);
-                        const dateMatch = (!dateStart || videoDate >= dateStart) && (!dateEnd || videoDate <= dateEnd);
-                        return dateMatch;
-                    } else {
-                        const videoMonth = String(getVideoMonth(v) || '').trim();
-                        return videoMonth === targetMonth;
-                    }
+                    const videoDate = getLocalDateStr(v.created_at);
+                    return videoDate >= monthStart && videoDate <= monthEnd;
                 });
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
@@ -6723,19 +6744,8 @@
                     status: '待结算'
                 };
                 try {
-                    // 清理可能的重复记录，然后插入/更新
-                    const existing = allSalaries.find(s => s.user_id === student.id && s.month === month && s.role === 'student');
-                    if (existing) {
-                        // 使用 count:exact 验证更新是否真正生效
-                        const { count, error } = await supabase.from('salaries').update(data, { count: 'exact' }).eq('id', existing.id);
-                        if (error) throw error;
-                        if (count === 0) {
-                            // 记录可能不存在（被并发删除），走插入
-                            await supabase.from('salaries').insert(data);
-                        }
-                    } else {
-                        await supabase.from('salaries').insert(data);
-                    }
+                    // 已在开头删除该月所有记录，直接插入
+                    await supabase.from('salaries').insert(data);
                 } catch (e) { console.error('保存学生薪资失败:', student.real_name || student.name, e); }
             }
 
@@ -6766,16 +6776,8 @@
                     status: '待结算'
                 };
                 try {
-                    const existing = allSalaries.find(s => s.user_id === teacher.id && s.month === month && s.role === 'teacher');
-                    if (existing) {
-                        const { count, error } = await supabase.from('salaries').update(data, { count: 'exact' }).eq('id', existing.id);
-                        if (error) throw error;
-                        if (count === 0) {
-                            await supabase.from('salaries').insert(data);
-                        }
-                    } else {
-                        await supabase.from('salaries').insert(data);
-                    }
+                    // 已在开头删除该月所有记录，直接插入
+                    await supabase.from('salaries').insert(data);
                 } catch (e) { console.error('保存老师薪资失败:', teacher.real_name || teacher.name, e); }
             }
 
@@ -6911,9 +6913,9 @@
             
             const videos = getFilteredVideos();
             const group = document.getElementById('filterGroup')?.value;
-            // 根据角色和组别筛选老师和学生
-            const teachers = allUsers.filter(u => u.role === 'teacher' && canViewUser(u) && (!group || u.group_name === group));
-            const students = allUsers.filter(u => u.role === 'student' && canViewUser(u) && (!group || u.group_name === group));
+            // 根据角色和组别筛选老师和学生（只统计合作状态的人员）
+            const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && canViewUser(u) && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && canViewUser(u) && (!group || u.group_name === group));
             // 用与 getDataStandardStatus 一致的逻辑：跨所有时间维度的点赞字段检查（v.likes 不存在，DB字段是 likes_day3/likes_day7/likes_month_end）
             const thousandVideos = videos.filter(v => {
                 const likes = [v.likes_day3, v.likes_day7, v.likes_month_end].filter(l => l != null && l !== '');
@@ -6926,7 +6928,7 @@
 
             document.getElementById('statTeachers').textContent = teachers.length;
             document.getElementById('statStudents').textContent = students.length;
-            document.getElementById('statAccounts').textContent = allAccounts.length;
+            document.getElementById('statAccounts').textContent = allAccounts.filter(a => a.active !== false && (!group || a.group_name === group)).length;
             document.getElementById('statVideos').textContent = videos.length;
             document.getElementById('statThousand').textContent = thousandVideos.length;
             document.getElementById('statTenThousand').textContent = tenThousandVideos.length;
@@ -7332,11 +7334,11 @@
                 filename = '视频记录';
             } else if (type === 'accounts') {
                 data = getMyAccounts();
-                headers = ['平台', '账号名', '负责人', '分组', '状态'];
+                headers = ['平台', '账号名', '负责人', '分组', '账号状态'];
                 filename = '账号列表';
             } else if (type === 'users') {
                 data = getMyUsers();
-                headers = ['姓名', '用户名', '角色', '分组', '状态'];
+                headers = ['姓名', '用户名', '角色', '分组', '合作状态', '状态'];
                 filename = '人员名单';
             } else if (type === 'salary') {
                 data = allSalaries;
@@ -7527,14 +7529,16 @@
                 '播放(发布)': 'views', '点赞(发布)': 'likes',
                 '播放(D3)': 'views_day3', '点赞(D3)': 'likes_day3',
                 '播放(D7)': 'views_day7', '点赞(D7)': 'likes_day7',
-                '状态': 'status', '账号名': 'account_name', '负责人': 'owner', '分组': 'group_name', 
+                '状态': 'status', '账号名': 'account_name', '负责人': 'owner', '分组': 'group_name', '账号状态': 'active',
                 '姓名': 'real_name', '用户名': 'username', '角色': 'role', '奖金': 'bonus', '实发': 'total',
-                '播放': 'views', '点赞': 'likes'
+                '播放': 'views', '点赞': 'likes', '合作状态': 'is_cooperating'
             };
             const k = map[key] || key;
             if (obj[k] === undefined || obj[k] === null) return '';
+            if (key === '合作状态') return obj[k] ? '合作' : '不合作';
+            if (key === '账号状态') return obj[k] !== false ? '正常' : '停更';
             if (obj[k] === true) return '正常';
-            if (obj[k] === false) return '停用';
+            if (obj[k] === false) return '停更';
             if (typeof obj[k] === 'object') return JSON.stringify(obj[k]);
             return obj[k];
         }
@@ -7603,49 +7607,45 @@
         function saveTopicData() { /* 已废弃，改用 Supabase */ }
 
         // ============ 每日热榜 Functions ============
-        let TOPHUB_DATA = null;
+        let NEWS_DATA = null;
         let thFullVisible = false;
-        const TH_ICONS = { "知乎":"💡", "微博":"📢", "微信":"💬", "澎湃":"📰", "百度":"🔍", "B站":"🎬", "抖音":"🎵", "今日头条":"📋" };
 
         async function loadDailyRank() {
             document.getElementById("thSummary").innerHTML = '<div class="th-empty"><div class="th-empty-icon">🔄</div><div>加载中...</div></div>';
             try {
-                const resp = await fetch("tophub_data.json");
+                const resp = await fetch("news_data.json?t=" + Date.now());
                 if (!resp.ok) throw new Error("HTTP " + resp.status);
-                TOPHUB_DATA = await resp.json();
-                if (!TOPHUB_DATA || !TOPHUB_DATA.platforms) throw new Error("empty");
-                const meta = TOPHUB_DATA.meta || {};
-                document.getElementById("newsDate").textContent = `📅 ${meta.date || '??'} · TOP ${meta.top_n || 3}`;
+                NEWS_DATA = await resp.json();
+                if (!NEWS_DATA || !NEWS_DATA.categories) throw new Error("empty");
+                document.getElementById("newsDate").textContent = `📅 ${NEWS_DATA.date || '??'} · 每日精选`;
                 renderSummary();
             } catch(e) {
+                console.error('[loadDailyRank] 加载失败:', e);
                 document.getElementById("newsDate").textContent = "";
                 document.getElementById("thSummary").innerHTML = '<div class="th-empty"><div class="th-empty-icon">📭</div><div>热榜数据暂未更新<br><small style="color:var(--gray-500);">请运行 scraper 抓取当天数据</small></div></div>';
             }
         }
 
         function renderSummary() {
-            const platforms = TOPHUB_DATA.platforms;
-            const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
+            const categories = (NEWS_DATA.categories || []).filter(c => c.items && c.items.length > 0);
             let html = '<div class="th-summary">';
-            for (const pname of pnames) {
-                const cats = platforms[pname];
-                const hotItems = cats["今日热榜"] || Object.values(cats)[0] || [];
-                const totalItems = Object.values(cats).reduce((s, items) => s + items.length, 0);
-                const catCount = Object.keys(cats).filter(c => cats[c] && cats[c].length > 0).length;
-
-                html += `<div class="th-plat-card">
+            for (const cat of categories) {
+                const hotItems = (cat.items || []).slice(0, 3);
+                html += `<div class="th-plat-card" style="border-top-color:${escHtml(cat.color || '#ccc')}">
                     <div class="th-plat-card-head">
-                        <span class="icon">${TH_ICONS[pname]||'📌'}</span>
-                        <span class="name">${escHtml(pname)}</span>
-                        <span class="count">${catCount}赛道 · ${totalItems}条</span>
+                        <span class="icon">${escHtml(cat.name || '').replace(/[^\u{1F300}-\u{1F9FF}]|[\u2600-\u26FF]|[\u2700-\u27BF]/gu, '') || '📌'}</span>
+                        <span class="name">${escHtml(cat.name || '')}</span>
+                        <span class="count">${cat.items.length}条</span>
                     </div>`;
-                for (const item of hotItems) {
-                    const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
-                    const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
+                for (let i = 0; i < hotItems.length; i++) {
+                    const item = hotItems[i];
+                    const rank = i + 1;
+                    const rcls = rank === 1 ? 'r1' : rank === 2 ? 'r2' : 'r3';
+                    const t = item.url ? `<a href="${item.url}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
                     html += `<div class="th-summary-item">
-                        <span class="th-rank ${rcls}">${item.rank}</span>
+                        <span class="th-rank ${rcls}">${rank}</span>
                         <span class="th-title">${t}</span>
-                        <span class="th-heat">${escHtml(item.heat || '')}</span>
+                        <span class="th-heat">${escHtml(item.source || '')}</span>
                     </div>`;
                 }
                 html += `</div>`;
@@ -7675,36 +7675,31 @@
         function renderFull() {
             const fullEl = document.getElementById("thFull");
             fullEl.style.display = "block";
-            const platforms = TOPHUB_DATA.platforms;
-            const pnames = Object.keys(platforms).filter(k => Object.keys(platforms[k]).length > 0);
+            const categories = (NEWS_DATA.categories || []).filter(c => c.items && c.items.length > 0);
 
             let html = '';
-            for (const pname of pnames) {
-                const cats = platforms[pname];
-                const catEntries = Object.entries(cats).filter(([, items]) => items && items.length > 0);
-                const total = catEntries.reduce((s, [, items]) => s + items.length, 0);
+            for (const cat of categories) {
                 html += `<div class="th-platform-block">
                     <div class="th-platform-block-head">
-                        <span class="icon">${TH_ICONS[pname]||'📌'}</span>
-                        <span class="name">${escHtml(pname)}</span>
-                        <span class="count">${catEntries.length}赛道 · ${total}条</span>
+                        <span class="name">${escHtml(cat.name || '')}</span>
+                        <span class="count">${cat.items.length}条</span>
                     </div>
                     <div class="th-detail-cards">`;
-                for (const [catName, items] of catEntries) {
-                    html += `<div class="th-detail-card">
-                        <div class="th-detail-card-head">🏷️ ${escHtml(catName)}</div>`;
-                    for (const item of items) {
-                        const rcls = item.rank === 1 ? 'r1' : item.rank === 2 ? 'r2' : 'r3';
-                        const t = item.link ? `<a href="${item.link}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
-                        html += `<div class="th-summary-item">
-                            <span class="th-rank ${rcls}">${item.rank}</span>
-                            <span class="th-title">${t}</span>
-                            <span class="th-heat">${escHtml(item.heat || '')}</span>
-                        </div>`;
-                    }
-                    html += `</div>`;
+                html += `<div class="th-detail-card">
+                    <div class="th-detail-card-head">🏷️ ${escHtml(cat.name || '')}</div>`;
+                for (let i = 0; i < cat.items.length; i++) {
+                    const item = cat.items[i];
+                    const rank = i + 1;
+                    const rcls = rank === 1 ? 'r1' : rank === 2 ? 'r2' : 'r3';
+                    const t = item.url ? `<a href="${item.url}" target="_blank" rel="nofollow">${escHtml(item.title)}</a>` : escHtml(item.title);
+                    html += `<div class="th-summary-item">
+                        <span class="th-rank ${rcls}">${rank}</span>
+                        <span class="th-title">${t}</span>
+                        <span class="th-heat">${escHtml(item.source || '')} ${escHtml(item.time || '')}</span>
+                    </div>
+                    ${item.summary ? `<div style="padding:0 12px 10px 46px;color:var(--gray-500);font-size:13px;line-height:1.5;">${escHtml(item.summary)}</div>` : ''}`;
                 }
-                html += `</div></div>`;
+                html += `</div></div></div>`;
             }
             fullEl.innerHTML = '<div class="th-full">' + html + '</div>';
             fullEl.scrollIntoView({ behavior: 'smooth' });

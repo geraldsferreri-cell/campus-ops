@@ -1,0 +1,2 @@
+- [campus-ops 校园运营项目](campus-ops-project.md) — 配色方案、功能修改、部署记录（赛博深紫+荧光亮黄）
+- [campus-ops Loop Engineering](campus-ops-loop-engineering.md) — 5步全自动循环迭代更新流程：接收指令→定位代码→执行修改→自检3轮→自动部署

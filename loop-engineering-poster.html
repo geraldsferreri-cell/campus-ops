@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方片校园运营 · Loop Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F3FF;
+    --purple: #4D00FF;
+    --purple-deep: #2d0099;
+    --purple-dark: #1a0a3e;
+    --yellow: #FFE600;
+    --yellow-bright: #FFF04D;
+    --yellow-dark: #CCA800;
+    --white: #ffffff;
+    --stripe: rgba(77, 0, 255, 0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    font-family: 'Noto Sans SC', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    background-image:
+      repeating-linear-gradient(45deg, transparent, transparent 40px, var(--stripe) 40px, var(--stripe) 80px),
+      radial-gradient(ellipse at 15% 20%, rgba(77,0,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 85% 80%, rgba(255,230,0,0.05) 0%, transparent 60%);
+  }
+
+  /* ── Poster Container ── */
+  .poster {
+    width: 1200px;
+    max-width: 100%;
+    background: var(--white);
+    border: 3px solid var(--purple-dark);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 4px var(--white),
+      0 0 0 8px var(--purple),
+      0 0 0 12px var(--white),
+      0 0 0 16px var(--purple-dark),
+      24px 24px 0 rgba(26,10,62,0.15),
+      48px 48px 0 rgba(77,0,255,0.06);
+    position: relative;
+  }
+
+  /* ── Top Stripe ── */
+  .top-stripe {
+    background: linear-gradient(90deg, var(--purple-dark) 0%, var(--purple) 40%, var(--yellow) 50%, var(--purple) 60%, var(--purple-dark) 100%);
+    height: 8px;
+    position: relative;
+  }
+  .top-stripe::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow-bright);
+    opacity: 0.6;
+  }
+
+  /* ── Interior ── */
+  .interior {
+    padding: 56px 64px 48px;
+    position: relative;
+  }
+
+  /* ── Badge ── */
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--purple);
+    color: var(--yellow);
+    font-family: 'Orbitron', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 6px 16px;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .badge::after {
+    content: '';
+    position: absolute;
+    top: 3px; left: 3px; right: 3px; bottom: 3px;
+    border: 1px solid rgba(255,230,0,0.4);
+  }
+  .badge-live {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--purple-dark);
+    font-weight: 500;
+    font-family: 'Orbitron', monospace;
+    letter-spacing: 1px;
+  }
+  .badge-live .dot {
+    width: 8px; height: 8px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+    box-shadow: 0 0 8px #00ff88;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.6); }
+  }
+
+  /* ── Title ── */
+  .title-block {
+    margin-bottom: 8px;
+  }
+  .title-main {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: var(--purple-dark);
+    line-height: 1.1;
+    position: relative;
+    display: inline-block;
+  }
+  .title-main::after {
+    content: '';
+    position: absolute;
+    bottom: 6px; left: 0; right: 0;
+    height: 10px;
+    background: var(--yellow);
+    z-index: -1;
+    opacity: 0.6;
+  }
+  .title-sub {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--purple);
+    letter-spacing: 6px;
+    margin-top: 4px;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0 36px;
+  }
+  .divider-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--purple-dark), transparent);
+    opacity: 0.25;
+  }
+  .divider-icon {
+    font-size: 20px;
+    color: var(--yellow);
+    filter: drop-shadow(0 0 6px rgba(255,230,0,0.5));
+  }
+
+  /* ── Flow ── */
+  .flow {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    position: relative;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .step-wrap {
+    display: flex;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .step-card {
+    width: 170px;
+    text-align: center;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .step-number {
+    width: 64px; height: 64px;
+    margin: 0 auto 12px;
+    background: var(--purple-dark);
+    border: 3px solid var(--yellow);
+    color: var(--yellow);
+    font-family: 'Orbitron', monospace;
+    font-size: 28px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow:
+      4px 4px 0 var(--yellow),
+      inset 0 0 20px rgba(255,230,0,0.1);
+    transition: transform 0.2s;
+  }
+  .step-number::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(255,230,0,0.2);
+  }
+  .step-card:nth-child(1) .step-number { box-shadow: 4px 4px 0 var(--yellow), inset 0 0 20px rgba(255,230,0,0.1); }
+  .step-card:nth-child(1) .step-number { background: var(--purple); box-shadow: 4px 4px 0 #FFE600, inset 0 0 30px rgba(255,230,0,0.12); }
+  .step-card:nth-child(2) .step-number { margin-top: 14px; }
+  .step-card:nth-child(3) .step-number { box-shadow: 4px 4px 0 #FFE600, inset 0 0 30px rgba(255,230,0,0.15); background: #5a10ff; }
+  .step-card:nth-child(4) .step-number { margin-top: 14px; }
+  .step-card:nth-child(5) .step-number { box-shadow: 4px 4px 0 #FFE600, inset 0 0 40px rgba(255,230,0,0.18); background: #6000ff;
+    animation: glow 2s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 4px 4px 0 #FFE600, inset 0 0 40px rgba(255,230,0,0.18), 0 0 20px rgba(77,0,255,0.3); }
+    50% { box-shadow: 4px 4px 0 #FFE600, inset 0 0 60px rgba(255,230,0,0.3), 0 0 40px rgba(77,0,255,0.5); }
+  }
+
+  .step-label {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--purple-dark);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .step-desc {
+    font-size: 12px;
+    color: rgba(26,10,62,0.6);
+    line-height: 1.5;
+    font-weight: 400;
+    padding: 0 4px;
+  }
+  .step-desc strong {
+    color: var(--purple);
+    font-weight: 600;
+  }
+
+  /* ── Arrow Connector ── */
+  .arrow {
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    flex-shrink: 0;
+    margin: 0 -4px;
+    position: relative;
+    z-index: 2;
+  }
+  .arrow-body {
+    width: 48px;
+    height: 3px;
+    background: var(--yellow);
+    position: relative;
+  }
+  .arrow-body::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: 0; right: 0; bottom: -3px;
+    border-top: 1px solid var(--purple-dark);
+    border-bottom: 1px solid var(--purple-dark);
+    opacity: 0.5;
+  }
+  .arrow-head {
+    width: 0; height: 0;
+    border-left: 14px solid var(--purple);
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    filter: drop-shadow(2px 0 0 rgba(77,0,255,0.3));
+  }
+
+  /* ── Info Row ── */
+  .info-row {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .info-card {
+    flex: 1;
+    min-width: 200px;
+    max-width: 260px;
+    background: var(--bg);
+    border: 2px solid rgba(77,0,255,0.15);
+    padding: 20px 24px;
+    text-align: center;
+    position: relative;
+  }
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+  }
+  .info-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  .info-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--purple-dark);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--purple-dark);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+  .info-value span {
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  /* ── Footer ── */
+  .footer-strip {
+    border-top: 2px solid rgba(77,0,255,0.1);
+    padding-top: 24px;
+    margin-top: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .tech-stack {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tech-item {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--purple-dark);
+    background: var(--bg);
+    padding: 6px 14px;
+    border: 1px solid rgba(77,0,255,0.2);
+    position: relative;
+  }
+  .tech-sep {
+    color: var(--yellow);
+    font-weight: 900;
+    font-size: 18px;
+    text-shadow: 2px 2px 0 rgba(77,0,255,0.2);
+  }
+  .credits {
+    font-size: 12px;
+    color: rgba(26,10,62,0.5);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  .credits strong {
+    color: var(--purple);
+    font-weight: 600;
+  }
+
+  /* ── Corner deco ── */
+  .corner {
+    position: absolute;
+    width: 40px; height: 40px;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .corner-tl { top: 0; left: 0; border-top: 3px solid var(--yellow); border-left: 3px solid var(--yellow); }
+  .corner-br { bottom: 0; right: 0; border-bottom: 3px solid var(--yellow); border-right: 3px solid var(--yellow); }
+
+  /* ── Scanline ── */
+  .scanline {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.008) 2px,
+      rgba(0,0,0,0.008) 4px
+    );
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: white; padding: 0; }
+    .poster {
+      box-shadow: none;
+      border: 2px solid #1a0a3e;
+      max-width: 100%;
+    }
+    .scanline { display: none; }
+    @page { margin: 8mm; size: A3 landscape; }
+  }
+
+  /* ── Mobile stack ── */
+  @media (max-width: 1100px) {
+    .flow { flex-direction: column; align-items: center; }
+    .step-wrap { flex-direction: column; align-items: center; }
+    .arrow { transform: rotate(90deg); padding-top: 0; margin: 8px 0; }
+    .arrow-body { width: 32px; }
+    .interior { padding: 32px 24px 28px; }
+    .title-main { font-size: 32px; }
+    .step-card { width: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="poster">
+  <div class="scanline"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- Top stripe -->
+  <div class="top-stripe"></div>
+
+  <div class="interior">
+
+    <!-- Badge -->
+    <div class="badge-row">
+      <div class="badge">AUTOMATION</div>
+      <div class="badge-live"><span class="dot"></span>LIVE · 全自动运行中</div>
+    </div>
+
+    <!-- Title -->
+    <div class="title-block">
+      <div class="title-main">LOOP ENGINEERING</div>
+      <div class="title-sub">🐯 方片校园运营 · 循环迭代系统</div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">⚡</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- 5-Step Flow -->
+    <div class="flow">
+
+      <!-- Step 1 -->
+      <div class="step-wrap">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-label">📡 接收指令</div>
+          <div class="step-desc">用户指定<strong>板块</strong> + <strong>操作内容</strong> + <strong>最终标准</strong>，无需确认流程</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arrow">
+        <div class="arrow-body"></div>
+        <div class="arrow-head"></div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-wrap">
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-label">🔍 定位代码</div>
+          <div class="step-desc">在 <strong>index.html</strong> 中精准锁定目标板块，不触碰无关代码</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arrow">
+        <div class="arrow-body"></div>
+        <div class="arrow-head"></div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-wrap">
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-label">✏️ 执行修改</div>
+          <div class="step-desc">仅修改<strong>目标代码片段</strong>，保持其他部分完全不变</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arrow">
+        <div class="arrow-body"></div>
+        <div class="arrow-head"></div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-wrap">
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-label">🔄 自检循环</div>
+          <div class="step-desc">语法校验 + 需求对照 + 影响面扫描，<strong>最多3轮</strong>调整</div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="arrow">
+        <div class="arrow-body"></div>
+        <div class="arrow-head"></div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step-wrap">
+        <div class="step-card">
+          <div class="step-number">5</div>
+          <div class="step-label">🚀 自动部署</div>
+          <div class="step-desc"><strong>Commit → Push</strong> → GitHub Pages，1-2分钟全球生效</div>
+        </div>
+      </div>
+
+    </div><!-- /flow -->
+
+    <!-- Info Cards -->
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-icon">📋</div>
+        <div class="info-title">覆盖板块</div>
+        <div class="info-value"><span>16个</span> 功能模块<br>8种模态弹窗</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">⚡</div>
+        <div class="info-title">平均耗时</div>
+        <div class="info-value">指令到上线<br><span>&lt; 60 秒</span></div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🎯</div>
+        <div class="info-title">精准修改</div>
+        <div class="info-value">仅改目标代码<br>零误伤保证</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🔁</div>
+        <div class="info-title">自检机制</div>
+        <div class="info-value">3轮自动循环<br><span>不符合标准即重调</span></div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-strip">
+      <div class="tech-stack">
+        <span class="tech-item">纯前端 SPA</span>
+        <span class="tech-sep">×</span>
+        <span class="tech-item">Supabase</span>
+        <span class="tech-sep">×</span>
+        <span class="tech-item">GitHub Pages</span>
+        <span class="tech-sep">×</span>
+        <span class="tech-item">自动部署</span>
+      </div>
+      <div class="credits">
+        🐯 <strong>方片校园运营系统</strong> © 2026 · Built by Loop Engineering
+      </div>
+    </div>
+
+  </div><!-- /interior -->
+</div><!-- /poster -->
+
+</body>
+</html>
