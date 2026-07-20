@@ -1886,21 +1886,21 @@
                     </div>
                     <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr)">
                         <div class="stat-card">
-                            <div class="stat-label">我的发片数</div>
+                            <div class="stat-label">本月发片数</div>
                             <div class="stat-value" id="myVideoCount">0</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-label">我的千赞数</div>
+                            <div class="stat-label">本月千赞数</div>
                             <div class="stat-value" id="myThousandLike">0</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-label">我的万赞数</div>
+                            <div class="stat-label">本月万赞数</div>
                             <div class="stat-value" id="myTenThousandLike">0</div>
                         </div>
                     </div>
-                    <!-- 我的薪资计算 -->
+                    <!-- 本月薪资计算 -->
                     <div id="mySalaryCard" class="card" style="margin-top:12px;display:none">
-                        <div class="card-header"><span class="card-title">💰 我的薪资计算</span></div>
+                        <div class="card-header"><span class="card-title">💰 本月薪资计算</span></div>
                         <div id="mySalaryDetail" style="font-size:14px;line-height:2;"></div>
                         <div id="mySalaryResult" style="margin-top:12px;padding:12px;background:var(--gold-gradient);color:#1a0a3e;border-radius:8px;font-size:18px;font-weight:700;"></div>
                     </div>
@@ -5512,6 +5512,16 @@
                     const myNames = getCurrentUserNames();
                     myVideos = allVideos.filter(v => myNames.includes(v.publisher));
                 }
+
+                // 按月筛选：只统计本月数据
+                const now = new Date();
+                const monthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+                const monthEnd = formatLocalDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+                myVideos = myVideos.filter(v => {
+                    const videoDate = getLocalDateStr(v.created_at);
+                    return videoDate >= monthStart && videoDate <= monthEnd;
+                });
+
                 const videoCount = myVideos.length;
                 // 使用统一的数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
@@ -5533,9 +5543,9 @@
                 const isTeacher = currentUser?.role === 'teacher';
                 const labels = studentStats.querySelectorAll('.stat-label');
                 if (labels.length >= 3) {
-                    labels[0].textContent = isTeacher ? '组内发片数' : '我的发片数';
-                    labels[1].textContent = isTeacher ? '组内千赞数' : '我的千赞数';
-                    labels[2].textContent = isTeacher ? '组内万赞数' : '我的万赞数';
+                    labels[0].textContent = isTeacher ? '本月组内发片数' : '本月发片数';
+                    labels[1].textContent = isTeacher ? '本月组内千赞数' : '本月千赞数';
+                    labels[2].textContent = isTeacher ? '本月组内万赞数' : '本月万赞数';
                 }
                 
                 // 计算薪资并展示
