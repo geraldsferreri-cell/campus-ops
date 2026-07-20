@@ -7685,7 +7685,7 @@
                 return;
             }
 
-            const tables = ['videos', 'accounts', 'users', 'groups', 'salary_configs', 'salaries', 'market_reports'];
+            const tables = ['videos', 'accounts', 'users', 'groups', 'salary_configs', 'salaries', 'market_reports', 'topics'];
             const failed = [];
             for (const table of tables) {
                 // 直接关闭 RLS（与 co_* 表一致，整个系统用 anon key，RLS 不提供安全价值）
@@ -7716,7 +7716,7 @@
                     try { await supabase.rpc('pgio', { query: sql }); } catch (e) { console.log('SQL执行:', e.message); }
                 }
                 // RLS
-                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE market_reports ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON market_reports; CREATE POLICY "pub" ON market_reports FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE videos ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON videos; CREATE POLICY "pub" ON videos FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE accounts ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON accounts; CREATE POLICY "pub" ON accounts FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE users ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON users; CREATE POLICY "pub" ON users FOR ALL USING (true) WITH CHECK (true);`];
+                const rls = [`ALTER TABLE groups ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON groups; CREATE POLICY "pub" ON groups FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salary_configs ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salary_configs; CREATE POLICY "pub" ON salary_configs FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE salaries ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON salaries; CREATE POLICY "pub" ON salaries FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE market_reports ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON market_reports; CREATE POLICY "pub" ON market_reports FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE videos ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON videos; CREATE POLICY "pub" ON videos FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE accounts ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON accounts; CREATE POLICY "pub" ON accounts FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE users ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON users; CREATE POLICY "pub" ON users FOR ALL USING (true) WITH CHECK (true);`, `ALTER TABLE IF EXISTS topics ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON topics; CREATE POLICY "pub" ON topics FOR ALL USING (true) WITH CHECK (true);`];
                 for (const r of rls) { try { await supabase.rpc('pgio', { query: r }); } catch (e) { console.log('RLS:', e.message); } }
                 toast('数据库初始化完成！', 'success');
                 loadAllData();
@@ -7739,6 +7739,11 @@
             try {
                 const { data, error } = await supabase.from('topics').select('*').order('created_at', { ascending: false });
                 if (error) { console.error('加载选题失败:', error.message); return; }
+                // 如果 RLS 导致非管理员查询返回空数据，保留已有本地数据防止误清
+                if ((data || []).length === 0 && TOPIC_DATA.length > 0 && !isAdmin()) {
+                    console.warn('⚠️ 选题查询返回空（可能被 RLS 限制），保留本地缓存');
+                    return;
+                }
                 TOPIC_DATA = (data || []).map(row => {
                     let adoptedBy = [];
                     if (Array.isArray(row.adopted_by)) {
