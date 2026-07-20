@@ -391,6 +391,8 @@
         .btn-secondary { border-color: rgba(240,230,216,.1); color: var(--text-secondary); }
         .btn-secondary:hover { border-color: rgba(240,230,216,.2); color: var(--text-primary); }
         .btn-sm { padding: .35rem .8rem; font-size: .6rem; }
+        .btn-pay { background: linear-gradient(135deg, #F59E0B, #D97706); color: #fff; border: none; cursor: pointer; font-weight: 700; letter-spacing: .05em; transition: all .2s ease; }
+        .btn-pay:hover { background: linear-gradient(135deg, #D97706, #B45309); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(245,158,11,.35); }
         .btn + .btn { margin-left: .5rem; }
         .form-group { margin-bottom: 1rem; }
         .form-label {
@@ -2100,7 +2102,7 @@
                         <div class="salary-card-value" id="salaryTotal">¥0</div>
                     </div>
                     <div class="salary-card green">
-                        <div class="salary-card-label">已结算</div>
+                        <div class="salary-card-label">已结清</div>
                         <div class="salary-card-value" id="salaryPaid">¥0</div>
                     </div>
                     <div class="salary-card orange">
@@ -2116,7 +2118,7 @@
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr><th>姓名</th><th>角色</th><th>分组</th><th>发片数</th><th>千赞数</th><th>万赞数</th><th>底薪</th><th>奖金</th><th>实发</th><th>状态</th><th>操作</th></tr>
+                                <tr><th>姓名</th><th>角色</th><th>分组</th><th>发片数</th><th>千赞数</th><th>万赞数</th><th>底薪</th><th>奖金</th><th>实发</th><th>状态</th></tr>
                             </thead>
                             <tbody id="salaryTable"></tbody>
                         </table>
@@ -6352,6 +6354,13 @@
                 const { data, error } = await supabase.from('salaries').select('*').eq('month', month).order('created_at', { ascending: false });
                 if (error) throw error;
                 allSalaries = data || [];
+                // 实发为0自动标记为已结清
+                const needAutoPaid = allSalaries.filter(s => (s.total || 0) === 0 && s.status !== '已结清' && s.status !== '已结算');
+                if (needAutoPaid.length > 0) {
+                    const ids = needAutoPaid.map(s => s.id);
+                    await supabase.from('salaries').update({ status: '已结清' }).in('id', ids);
+                    needAutoPaid.forEach(s => { s.status = '已结清'; });
+                }
                 updateSalaryNameFilter();
                 renderSalaryTable();
             } catch (e) { console.error(e); allSalaries = []; renderSalaryTable(); }
@@ -6386,7 +6395,7 @@
             const tbody = document.getElementById('salaryTable');
             if (!tbody) return;
             const filtered = getFilteredSalaries();
-            if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="11" class="empty-state">暂无结算数据</td></tr>'; renderSalaryPagination(0, 0); return; }
+            if (filtered.length === 0) { tbody.innerHTML = '<tr><td colspan="10" class="empty-state">暂无结算数据</td></tr>'; renderSalaryPagination(0, 0); return; }
 
             // 先更新顶部统计卡片（与表格同一个人筛选条件）
             loadSalarySummary(filtered);
@@ -6412,8 +6421,7 @@
                 <td>¥${s.base_salary || 0}</td>
                 <td>¥${s.bonus || 0}${isTeacher && deduction > 0 ? '<br><small style="color:var(--gray-400)">需达标12条</small>' : ''}</td>
                 <td><strong>¥${s.total || 0}</strong></td>
-                <td><span class="badge ${s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span></td>
-                <td><button class="btn btn-sm ${s.status === '已结算' ? 'btn-success' : 'btn-secondary'}" onclick="event.stopPropagation();markSalaryPaid(${s.id})" ${s.status === '已结算' ? 'disabled' : ''}>${s.status === '已结算' ? '已结算' : '确认结算'}</button></td>
+                <td>${s.status === '已结清' || s.status === '已结算' || (s.total || 0) === 0 ? `<span class="badge badge-success">已结清</span>` : `<button class="btn btn-sm btn-pay" onclick="event.stopPropagation();markSalaryPaid(${s.id})">待结算</button>`}</td>
             </tr>`;
             }).join('');
 
@@ -6450,8 +6458,8 @@
         async function loadSalarySummary(filteredData) {
             const data = filteredData || allSalaries;
             const total = data.reduce((sum, s) => sum + (s.total || 0), 0);
-            const paid = data.filter(s => s.status === '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
-            const pending = data.filter(s => s.status !== '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
+            const paid = data.filter(s => s.status === '已结清' || s.status === '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
+            const pending = data.filter(s => s.status !== '已结清' && s.status !== '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
             const deduction = data.reduce((sum, s) => sum + (s.deduction || 0), 0);
             document.getElementById('salaryTotal').textContent = '¥' + total;
             document.getElementById('salaryPaid').textContent = '¥' + paid;
@@ -6778,7 +6786,7 @@
         }
 
         async function markSalaryPaid(id) {
-            try { const { error } = await supabase.from('salaries').update({ status: '已结算' }).eq('id', id); if (error) throw error; toast('已标记为结算'); loadSalaries(); } catch (e) { toast('操作失败', 'error'); }
+            try { const { error } = await supabase.from('salaries').update({ status: '已结清' }).eq('id', id); if (error) throw error; toast('已标记为已结清'); loadSalaries(); } catch (e) { toast('操作失败', 'error'); }
         }
 
         // 显示薪资明细弹窗
@@ -6831,7 +6839,7 @@
                 </div>`;
                 html += `<div style="display:flex;justify-content:space-between;align-items:center;">
                     <span>状态</span>
-                    <span class="badge ${s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span>
+                    <span class="badge ${s.status === '已结清' || s.status === '已结算' ? 'badge-success' : 'badge-warning'}">${s.status || '待结算'}</span>
                 </div>`;
             }
             
