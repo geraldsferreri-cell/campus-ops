@@ -10,6 +10,7 @@ CREATE OR REPLACE FUNCTION public.pgio(query text)
 RETURNS void
 LANGUAGE plpgsql
 SECURITY DEFINER
+SET search_path = public
 AS $$
 BEGIN
   EXECUTE query;
@@ -19,19 +20,19 @@ $$;
 -- 授权所有角色调用
 GRANT EXECUTE ON FUNCTION public.pgio(text) TO anon, authenticated, service_role;
 
--- 2. 修复所有表的 RLS 策略（幂等操作）
+-- 2. 直接关闭所有应用表的 RLS（与 co_* 表做法一致）
+--    原因：整个系统使用 anon key，没有 Supabase Auth，RLS 不提供安全价值
+--    客户端 canViewVideo/canViewUser 已处理访问控制
 DO $$
 DECLARE
   tbl text;
   tables text[] := ARRAY['videos','accounts','users','groups','salary_configs','salaries','market_reports'];
 BEGIN
   FOREACH tbl IN ARRAY tables LOOP
-    -- 启用 RLS
-    EXECUTE format('ALTER TABLE IF EXISTS public.%I ENABLE ROW LEVEL SECURITY', tbl);
-    -- 删除旧策略（避免重复）
+    -- 先删除旧策略（如有）
     EXECUTE format('DROP POLICY IF EXISTS "pub" ON public.%I', tbl);
-    -- 创建全开放策略
-    EXECUTE format('CREATE POLICY "pub" ON public.%I FOR ALL USING (true) WITH CHECK (true)', tbl);
+    -- 关闭 RLS
+    EXECUTE format('ALTER TABLE IF EXISTS public.%I DISABLE ROW LEVEL SECURITY', tbl);
   END LOOP;
 END;
 $$;
@@ -40,9 +41,9 @@ $$;
 ALTER TABLE public.videos ADD COLUMN IF NOT EXISTS created_by bigint;
 
 -- 4. 验证结果
-SELECT tablename, policyname, cmd, qual, with_check
-FROM pg_policies
-WHERE schemaname = 'public'
-ORDER BY tablename, policyname;
+SELECT tablename, rowsecurity
+FROM pg_tables
+WHERE schemaname = 'public' AND tablename IN ('videos','accounts','users','groups','salary_configs','salaries','market_reports')
+ORDER BY tablename;
 
-SELECT 'pgio 函数 + RLS 修复完成！' AS result;
+SELECT '✅ pgio 函数已创建，所有表 RLS 已关闭！' AS result;

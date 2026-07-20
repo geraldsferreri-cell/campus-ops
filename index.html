@@ -5212,10 +5212,23 @@
             try {
                 // 始终从数据库加载全量视频，不附加任何筛选条件
                 // 平台/状态/关键词/日期等筛选全部在 renderVideoTable() 客户端过滤
-                // 这样 allVideos 始终是完整数据集，数据看板和视频记录页完全独立
                 let query = supabase.from('videos').select('*').order('created_at', { ascending: false });
-                const { data, error } = await query;
-                if (error) throw error;
+                let { data, error } = await query;
+
+                // 权限错误时尝试自动修复 RLS 并重试一次
+                if (error) {
+                    const code = error.code || '';
+                    const msg = (error.message || '');
+                    if (code === '42501' || code === 'PGRST301' || msg.includes('permission') || msg.includes('policy')) {
+                        console.warn('[loadVideos] ⚠️ 权限被拒绝，尝试自动修复 RLS...');
+                        await fixRLS();
+                        const retry = await supabase.from('videos').select('*').order('created_at', { ascending: false });
+                        if (retry.error) throw retry.error;
+                        data = retry.data;
+                    } else {
+                        throw error;
+                    }
+                }
 
                 allVideos = (data || []).filter(v => canViewVideo(v));
                 console.log('[loadVideos] DB返回:', (data || []).length, '条, canViewVideo过滤后:', allVideos.length, '条, 当前角色:', currentUser?.role);
@@ -7655,7 +7668,10 @@
                     const msg = testErr.message || '';
                     if (msg.includes('function') || msg.includes('not found') || msg.includes('exist')) {
                         console.error('[fixRLS] ❌ pgio 函数不存在！请在 Supabase SQL Editor 中运行 migrations/add-pgio-function.sql');
-                        toast('⚠️ 数据库初始化未完成：pgio 函数缺失，请联系管理员运行 SQL 迁移（migrations/add-pgio-function.sql）', 'error');
+                        if (!sessionStorage.getItem('pgio_warned')) {
+                            sessionStorage.setItem('pgio_warned', '1');
+                            toast('⚠️ 数据库初始化未完成：pgio 函数缺失，请联系管理员运行 SQL 迁移（migrations/add-pgio-function.sql）', 'error');
+                        }
                         return;
                     }
                     // 其他错误（如语法问题）不阻塞，继续尝试
@@ -7670,7 +7686,8 @@
             const tables = ['videos', 'accounts', 'users', 'groups', 'salary_configs', 'salaries', 'market_reports'];
             const failed = [];
             for (const table of tables) {
-                const sql = `ALTER TABLE ${table} ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON ${table}; CREATE POLICY "pub" ON ${table} FOR ALL USING (true) WITH CHECK (true);`;
+                // 直接关闭 RLS（与 co_* 表一致，整个系统用 anon key，RLS 不提供安全价值）
+                const sql = `DROP POLICY IF EXISTS "pub" ON ${table}; ALTER TABLE IF EXISTS ${table} DISABLE ROW LEVEL SECURITY;`;
                 try {
                     const { error } = await supabase.rpc('pgio', { query: sql });
                     if (error) { failed.push(table); console.warn('[fixRLS] ' + table + ':', error.message); }
