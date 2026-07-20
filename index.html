@@ -1922,7 +1922,7 @@
                             <option value="爆款">爆款</option>
                             <option value="失败">失败</option>
                         </select>
-                        <select id="filterTeacher" onchange="loadVideos()">
+                        <select id="filterTeacher" onchange="onVideoFilterChange()">
                             <option value="">全部老师</option>
                         </select>
                         <input type="text" id="searchKeyword" placeholder="搜索..." oninput="loadVideos()">
@@ -5218,6 +5218,7 @@
                 if (error) throw error;
 
                 allVideos = (data || []).filter(v => canViewVideo(v));
+                console.log('[loadVideos] DB返回:', (data || []).length, '条, canViewVideo过滤后:', allVideos.length, '条, 当前角色:', currentUser?.role);
 
                 // 渲染视频记录表格（内部会按视频记录页的所有筛选条件过滤）
                 videoPage = 1;
@@ -5415,6 +5416,22 @@
                     (v.account_name || '').toLowerCase().includes(kw) ||
                     (v.publisher || '').toLowerCase().includes(kw)
                 );
+            }
+
+            // 老师筛选（按分组筛选：选中老师后只显示该老师所带学生+老师自己的视频）
+            const filterTeacher = document.getElementById('filterTeacher')?.value;
+            if (filterTeacher) {
+                const teacherUser = allUsers.find(u => (u.real_name === filterTeacher || u.name === filterTeacher) && u.role === 'teacher');
+                if (teacherUser) {
+                    const teacherGroup = teacherUser.group_name;
+                    const studentNames = new Set();
+                    getUserAllNames(teacherUser).forEach(n => studentNames.add(n));
+                    if (teacherGroup) {
+                        allUsers.filter(u => u.role === 'student' && u.group_name === teacherGroup)
+                            .forEach(s => getUserAllNames(s).forEach(n => studentNames.add(n)));
+                    }
+                    filteredVideos = filteredVideos.filter(v => studentNames.has(v.publisher));
+                }
             }
 
             if (filteredVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; renderVideoPagination(0, 0); return; }
@@ -5898,6 +5915,8 @@
                 // 月中/末数据
                 views_month_end: getVal('videoViewsMonthEnd'),
                 likes_month_end: getVal('videoLikesMonthEnd'),
+                // 数据追溯
+                created_by: currentUser?.id || null,
             };
             // 填写时自动记录时间
             if (data.views_day3 !== null && data.views_day3 !== undefined) data.stats_day3_at = now;
@@ -7628,14 +7647,40 @@
         // 自动修复所有表的RLS权限（包括DELETE），管理员登录后静默执行
         async function fixRLS() {
             if (!supabase) return;
+
+            // 🔧 先检测 pgio 函数是否存在（否则所有 RLS 修复静默失败）
+            try {
+                const { error: testErr } = await supabase.rpc('pgio', { query: 'SELECT 1' });
+                if (testErr) {
+                    const msg = testErr.message || '';
+                    if (msg.includes('function') || msg.includes('not found') || msg.includes('exist')) {
+                        console.error('[fixRLS] ❌ pgio 函数不存在！请在 Supabase SQL Editor 中运行 migrations/add-pgio-function.sql');
+                        toast('⚠️ 数据库初始化未完成：pgio 函数缺失，请联系管理员运行 SQL 迁移（migrations/add-pgio-function.sql）', 'error');
+                        return;
+                    }
+                    // 其他错误（如语法问题）不阻塞，继续尝试
+                    console.warn('[fixRLS] pgio 测试返回错误:', msg);
+                }
+            } catch (e) {
+                console.error('[fixRLS] pgio RPC 调用失败:', e.message);
+                toast('⚠️ 数据库权限修复失败，请联系管理员', 'error');
+                return;
+            }
+
             const tables = ['videos', 'accounts', 'users', 'groups', 'salary_configs', 'salaries', 'market_reports'];
+            const failed = [];
             for (const table of tables) {
                 const sql = `ALTER TABLE ${table} ENABLE ROW LEVEL SECURITY; DROP POLICY IF EXISTS "pub" ON ${table}; CREATE POLICY "pub" ON ${table} FOR ALL USING (true) WITH CHECK (true);`;
                 try {
                     const { error } = await supabase.rpc('pgio', { query: sql });
-                    if (error) console.warn('[fixRLS] ' + table + ':', error.message);
+                    if (error) { failed.push(table); console.warn('[fixRLS] ' + table + ':', error.message); }
                     else console.log('[fixRLS] ✅ ' + table + ' RLS已修复');
-                } catch (e) { console.warn('[fixRLS] ' + table + ' RPC失败:', e.message); }
+                } catch (e) { failed.push(table); console.warn('[fixRLS] ' + table + ' RPC失败:', e.message); }
+            }
+            if (failed.length > 0) {
+                console.error('[fixRLS] ⚠️ 以下表 RLS 修复失败: ' + failed.join(', '));
+            } else {
+                console.log('[fixRLS] ✅ 全部 ' + tables.length + ' 张表 RLS 已就绪');
             }
         }
 
