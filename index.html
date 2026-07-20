@@ -5962,13 +5962,15 @@
 
         async function deleteVideo(id) {
             if (!supabase) { toast('系统正在连接数据库，请稍后重试', 'error'); return; }
+            // 确保 id 是数字（onclick 传来的是字符串，bigint 列需要数字匹配）
+            const numId = parseInt(id);
+            if (isNaN(numId)) { toast('❌ 删除失败：无效的视频ID', 'error'); return; }
             try {
-                // 用 count: 'exact' 检测是否真的删除了行（RLS可能静默阻止DELETE）
-                const { count, error } = await supabase.from('videos').delete({ count: 'exact' }).eq('id', id);
+                const { count, error } = await supabase.from('videos').delete({ count: 'exact' }).eq('id', numId);
                 if (error) throw error;
                 if (count === 0) {
-                    toast('❌ 删除失败：数据库权限不足，请联系管理员修复', 'error');
-                    await fixRLS(); // 自动尝试修复RLS权限
+                    console.warn('[deleteVideo] count=0, id=' + numId + ' 可能已被删除或不存在');
+                    toast('❌ 删除失败：该记录可能已被删除，请刷新页面', 'error');
                     return;
                 }
                 toast('✅ 删除成功');
