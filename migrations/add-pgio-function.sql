@@ -20,7 +20,7 @@ $$;
 -- 授权所有角色调用
 GRANT EXECUTE ON FUNCTION public.pgio(text) TO anon, authenticated, service_role;
 
--- 2. 直接关闭所有应用表的 RLS（与 co_* 表做法一致）
+-- 2. 关闭所有应用表的 RLS（跳过不存在的表）
 --    原因：整个系统使用 anon key，没有 Supabase Auth，RLS 不提供安全价值
 --    客户端 canViewVideo/canViewUser 已处理访问控制
 DO $$
@@ -29,10 +29,11 @@ DECLARE
   tables text[] := ARRAY['videos','accounts','users','groups','salary_configs','salaries','market_reports'];
 BEGIN
   FOREACH tbl IN ARRAY tables LOOP
-    -- 先删除旧策略（如有）
-    EXECUTE format('DROP POLICY IF EXISTS "pub" ON public.%I', tbl);
-    -- 关闭 RLS
-    EXECUTE format('ALTER TABLE IF EXISTS public.%I DISABLE ROW LEVEL SECURITY', tbl);
+    -- 检查表是否存在（避免 market_reports 等未创建的表报错）
+    IF EXISTS (SELECT 1 FROM pg_tables WHERE schemaname = 'public' AND tablename = tbl) THEN
+      EXECUTE format('DROP POLICY IF EXISTS "pub" ON public.%I', tbl);
+      EXECUTE format('ALTER TABLE public.%I DISABLE ROW LEVEL SECURITY', tbl);
+    END IF;
   END LOOP;
 END;
 $$;
