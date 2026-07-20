@@ -7739,13 +7739,21 @@
             try {
                 const { data, error } = await supabase.from('topics').select('*').order('created_at', { ascending: false });
                 if (error) { console.error('加载选题失败:', error.message); return; }
-                TOPIC_DATA = (data || []).map(row => ({
-                    id: row.id, title: row.title || '', author: row.author || '',
-                    url: row.url || '', createdAt: (row.created_at || '').slice(0, 10),
-                    adoptedCount: row.adopted_count || 0,
-                    adoptedBy: Array.isArray(row.adopted_by) ? row.adopted_by : (row.adopted_by ? JSON.parse(row.adopted_by) : []),
-                    points: row.points || 0
-                }));
+                TOPIC_DATA = (data || []).map(row => {
+                    let adoptedBy = [];
+                    if (Array.isArray(row.adopted_by)) {
+                        adoptedBy = row.adopted_by;
+                    } else if (row.adopted_by) {
+                        try { adoptedBy = JSON.parse(row.adopted_by); } catch (e) { adoptedBy = []; }
+                    }
+                    return {
+                        id: row.id, title: (row.title || '').trim(), author: (row.author || '').trim(),
+                        url: row.url || '', createdAt: (row.created_at || '').slice(0, 10),
+                        adoptedCount: row.adopted_count || 0,
+                        adoptedBy: adoptedBy,
+                        points: row.points || 0
+                    };
+                });
                 console.log('✅ 选题数据加载成功，共', TOPIC_DATA.length, '条');
             } catch (e) { console.error('加载选题异常:', e); }
         }
@@ -7871,7 +7879,7 @@
 
         function renderTopics() {
             const recent = getRecentTopics();
-            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            const currentUserName = (currentUser ? (currentUser.real_name || currentUser.username) : '').trim();
             const isAdminUser = isAdmin();
 
             // ========== Marquee: 3-row danmu ==========
@@ -8042,6 +8050,19 @@
             if (error) { toast('提交失败：' + error.message, 'error'); return; }
             toast('选题提交成功！🎉');
             closeModal('topicModal');
+            // 立即将新选题加入本地数据，防止 loadTopicData 失败导致看不到
+            if (data) {
+                const newTopic = {
+                    id: data.id, title: data.title || '', author: (data.author || '').trim(),
+                    url: data.url || '', createdAt: (data.created_at || '').slice(0, 10),
+                    adoptedCount: data.adopted_count || 0,
+                    adoptedBy: Array.isArray(data.adopted_by) ? data.adopted_by : (data.adopted_by ? (() => { try { return JSON.parse(data.adopted_by); } catch(e) { return []; } })() : []),
+                    points: data.points || 0
+                };
+                const existingIdx = TOPIC_DATA.findIndex(t => t.id === newTopic.id);
+                if (existingIdx >= 0) { TOPIC_DATA[existingIdx] = newTopic; }
+                else { TOPIC_DATA.unshift(newTopic); }
+            }
             await loadTopicData();
             renderTopics();
         }
@@ -8050,7 +8071,7 @@
             const date = document.getElementById('uploadTopicDate').value;
             const title = document.getElementById('uploadTopicTitle').value.trim();
             const url = document.getElementById('uploadTopicUrl').value.trim();
-            const author = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            const author = (currentUser ? (currentUser.real_name || currentUser.username) : '').trim();
             if (!author) { toast('请先登录', 'error'); return; }
             if (!date) { toast('请选择日期', 'error'); return; }
             if (!title) { toast('请输入选题名称', 'error'); return; }
@@ -8072,6 +8093,19 @@
             toast('选题上传成功！🎉');
             document.getElementById('uploadTopicTitle').value = '';
             document.getElementById('uploadTopicUrl').value = '';
+            // 立即将新选题加入本地数据，防止 loadTopicData 失败导致看不到
+            if (data) {
+                const newTopic = {
+                    id: data.id, title: data.title || '', author: (data.author || '').trim(),
+                    url: data.url || '', createdAt: (data.created_at || '').slice(0, 10),
+                    adoptedCount: data.adopted_count || 0,
+                    adoptedBy: Array.isArray(data.adopted_by) ? data.adopted_by : [],
+                    points: data.points || 0
+                };
+                const existingIdx = TOPIC_DATA.findIndex(t => t.id === newTopic.id);
+                if (existingIdx >= 0) { TOPIC_DATA[existingIdx] = newTopic; }
+                else { TOPIC_DATA.unshift(newTopic); }
+            }
             await loadTopicData();
             renderTopics();
         }
@@ -8079,7 +8113,7 @@
         async function adoptTopic(topicId) {
             const topic = TOPIC_DATA.find(t => t.id === topicId);
             if (!topic) return;
-            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '访客';
+            const currentUserName = (currentUser ? (currentUser.real_name || currentUser.username) : '访客').trim();
             // 自己不能采纳自己的选题（不加积分）
             if (topic.author === currentUserName) {
                 toast('不能采纳自己提交的选题', 'error');
@@ -8105,7 +8139,7 @@
         async function deleteTopic(topicId) {
             const topic = TOPIC_DATA.find(t => t.id === topicId);
             if (!topic) return;
-            const currentUserName = currentUser ? (currentUser.real_name || currentUser.username) : '';
+            const currentUserName = (currentUser ? (currentUser.real_name || currentUser.username) : '').trim();
             const canDelete = topic.author === currentUserName || isAdmin();
             if (!canDelete) {
                 toast('只能删除自己提交的选题', 'error');
