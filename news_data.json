@@ -1,75 +1,33 @@
 {
-  "date": "2026-07-19",
-  "scrape_time": "2026-07-19 13:17 CST",
+  "date": "2026-07-20",
+  "scrape_time": "2026-07-20 13:35 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
-    {
-      "id": "tech",
-      "name": "🤖 科技",
-      "color": "#3b82f6",
-      "items": [
-        {
-          "title": "高通发布会机器人现场摔倒",
-          "summary": "最新资讯：高通发布会机器人现场摔倒（热度35.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%AB%98%E9%80%9A%E5%8F%91%E5%B8%83%E4%BC%9A%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%8E%B0%E5%9C%BA%E6%91%94%E5%80%92",
-          "time": "7/19"
-        },
-        {
-          "title": "吴磊把手机插泥地里了",
-          "summary": "最新资讯：吴磊把手机插泥地里了（热度35.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%90%B4%E7%A3%8A%E6%8A%8A%E6%89%8B%E6%9C%BA%E6%8F%92%E6%B3%A5%E5%9C%B0%E9%87%8C%E4%BA%86",
-          "time": "7/19"
-        },
-        {
-          "title": "全家手机瘾最大之人",
-          "summary": "最新资讯：全家手机瘾最大之人（热度18.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%85%A8%E5%AE%B6%E6%89%8B%E6%9C%BA%E7%98%BE%E6%9C%80%E5%A4%A7%E4%B9%8B%E4%BA%BA",
-          "time": "7/19"
-        },
-        {
-          "title": "长鑫科技中签结果",
-          "summary": "最新资讯：长鑫科技中签结果（热度18.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%95%BF%E9%91%AB%E7%A7%91%E6%8A%80%E4%B8%AD%E7%AD%BE%E7%BB%93%E6%9E%9C",
-          "time": "7/19"
-        }
-      ]
-    },
     {
       "id": "ai",
       "name": "🧠 AI",
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "这一秒过火 AI片头",
-          "summary": "最新资讯：这一秒过火 AI片头（热度118.1万）",
+          "title": "中国开辟AI发展新路径",
+          "summary": "最新资讯：中国开辟AI发展新路径（热度293.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BF%99%E4%B8%80%E7%A7%92%E8%BF%87%E7%81%AB%20AI%E7%89%87%E5%A4%B4",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%AD%E5%9B%BD%E5%BC%80%E8%BE%9FAI%E5%8F%91%E5%B1%95%E6%96%B0%E8%B7%AF%E5%BE%84",
+          "time": "7/20"
         },
         {
-          "title": "中国推动全球AI治理迈入合作新阶段",
-          "summary": "最新资讯：中国推动全球AI治理迈入合作新阶段（热度68.3万）",
+          "title": "OpenAI称Kimi开源是减速主义",
+          "summary": "最新资讯：OpenAI称Kimi开源是减速主义（热度79.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%AD%E5%9B%BD%E6%8E%A8%E5%8A%A8%E5%85%A8%E7%90%83AI%E6%B2%BB%E7%90%86%E8%BF%88%E5%85%A5%E5%90%88%E4%BD%9C%E6%96%B0%E9%98%B6%E6%AE%B5",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=OpenAI%E7%A7%B0Kimi%E5%BC%80%E6%BA%90%E6%98%AF%E5%87%8F%E9%80%9F%E4%B8%BB%E4%B9%89",
+          "time": "7/20"
         },
         {
-          "title": "AI行业要重新洗牌了",
-          "summary": "最新资讯：AI行业要重新洗牌了（热度36.0万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=AI%E8%A1%8C%E4%B8%9A%E8%A6%81%E9%87%8D%E6%96%B0%E6%B4%97%E7%89%8C%E4%BA%86",
-          "time": "7/19"
-        },
-        {
-          "title": "看见中国人工智能创新力量",
-          "summary": "最新资讯：看见中国人工智能创新力量（热度1134.8万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%9C%8B%E8%A7%81%E4%B8%AD%E5%9B%BD%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E5%88%9B%E6%96%B0%E5%8A%9B%E9%87%8F",
-          "time": "7/19"
+          "title": "全美出现数据中心出售潮，「反数据中心运动」又向红蓝州同时蔓延，这会对市场和AI产业形成多大影响？",
+          "summary": "美国反数据中心运动蔓延向全国 AI基建热潮遭遇阻力_腾讯新闻美国数据中心出售潮",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2062127994513183627",
+          "time": "7/20"
         }
       ]
     },
@@ -79,32 +37,32 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "世界杯",
-          "summary": "最新资讯：世界杯（热度16.8万）",
+          "title": "林俊杰七七挽手看世界杯决赛",
+          "summary": "最新资讯：林俊杰七七挽手看世界杯决赛（热度79.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=%E6%9E%97%E4%BF%8A%E6%9D%B0%E4%B8%83%E4%B8%83%E6%8C%BD%E6%89%8B%E7%9C%8B%E4%B8%96%E7%95%8C%E6%9D%AF%E5%86%B3%E8%B5%9B",
+          "time": "7/20"
         },
         {
-          "title": "姆巴佩 2 射 1 传成历史射手王，一战刷爆 14 大纪录，如何评价他在世界杯季军赛的表现？",
-          "summary": "世界杯季军赛，法国 4-6 英格兰，萨卡戴帽，姆巴佩双响创纪录，如何评价本场比赛？加冕世界杯历史射手王！姆巴佩一战刷爆14大纪录：68年历史第一人不是点球大战，英格兰6-4法国获季军，姆巴佩2射1传成历史射手王，萨卡戴帽",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2062077879253295768",
-          "time": "7/19"
+          "title": "何猷君奚梦瑶观看世界杯决赛",
+          "summary": "最新资讯：何猷君奚梦瑶观看世界杯决赛（热度58.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E4%BD%95%E7%8C%B7%E5%90%9B%E5%A5%9A%E6%A2%A6%E7%91%B6%E8%A7%82%E7%9C%8B%E4%B8%96%E7%95%8C%E6%9D%AF%E5%86%B3%E8%B5%9B",
+          "time": "7/20"
         },
         {
-          "title": "世界杯季军赛，法国 4-6 英格兰，萨卡戴帽，姆巴佩双响创纪录，如何评价本场比赛？",
-          "summary": "你看好谁能取胜？",
+          "title": "2026年世界杯决赛，恩佐下半场两黄变一红被罚下，对此你怎么看？这是本场比赛的转折点吗？",
+          "summary": "西班牙vs阿根廷，恩佐第93分钟放倒库巴西，两黄变一红被罚下！阿根廷10人作战！",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2061740947776579179",
-          "time": "7/19"
+          "url": "https://www.zhihu.com/question/2062406274260492889",
+          "time": "7/20"
         },
         {
-          "title": "有没有办法增加球队对世界杯季军争夺的热情？",
-          "summary": "2026世界杯季军赛即将开始，但是英法两队对季军赛的热情普遍不大。有没有办法增加球队对世界杯季军争夺的热情？",
+          "title": "世界杯夺冠后爆发冲突，帕雷德斯锁喉加西亚+怒推加维，他会受到追加处罚吗？",
+          "summary": "直播吧07月20日讯 世界杯决赛赛后，帕雷德斯锁喉埃里克·加西亚，怒推加维，被直红罚下！ 帕雷德斯被直红罚下！帕雷德斯赛后锁喉加西亚+怒推加维",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2061861632372953655",
-          "time": "7/19"
+          "url": "https://www.zhihu.com/question/2062426996529783130",
+          "time": "7/20"
         }
       ]
     },
@@ -114,18 +72,81 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "提前预习小个子秋冬穿搭指南",
-          "summary": "最新资讯：提前预习小个子秋冬穿搭指南（热度1144.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8F%90%E5%89%8D%E9%A2%84%E4%B9%A0%E5%B0%8F%E4%B8%AA%E5%AD%90%E7%A7%8B%E5%86%AC%E7%A9%BF%E6%90%AD%E6%8C%87%E5%8D%97",
-          "time": "7/19"
+          "title": "张凌赫 旺老艺人",
+          "summary": "最新资讯：张凌赫 旺老艺人（热度71.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%BC%A0%E5%87%8C%E8%B5%AB%20%E6%97%BA%E8%80%81%E8%89%BA%E4%BA%BA",
+          "time": "7/20"
         },
         {
-          "title": "被陈泽杯即梦生日大片帅到了",
-          "summary": "最新资讯：被陈泽杯即梦生日大片帅到了（热度765.2万）",
+          "title": "世界杯决赛现场的明星",
+          "summary": "最新资讯：世界杯决赛现场的明星（热度65.2万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%96%E7%95%8C%E6%9D%AF%E5%86%B3%E8%B5%9B%E7%8E%B0%E5%9C%BA%E7%9A%84%E6%98%8E%E6%98%9F",
+          "time": "7/20"
+        },
+        {
+          "title": "女明星的簪花造型",
+          "summary": "最新资讯：女明星的簪花造型（热度60.2万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%A5%B3%E6%98%8E%E6%98%9F%E7%9A%84%E7%B0%AA%E8%8A%B1%E9%80%A0%E5%9E%8B",
+          "time": "7/20"
+        },
+        {
+          "title": "提前预习小个子秋冬穿搭指南",
+          "summary": "最新资讯：提前预习小个子秋冬穿搭指南（热度766.3万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%A2%AB%E9%99%88%E6%B3%BD%E6%9D%AF%E5%8D%B3%E6%A2%A6%E7%94%9F%E6%97%A5%E5%A4%A7%E7%89%87%E5%B8%85%E5%88%B0%E4%BA%86",
-          "time": "7/19"
+          "url": "https://www.douyin.com/search/%E6%8F%90%E5%89%8D%E9%A2%84%E4%B9%A0%E5%B0%8F%E4%B8%AA%E5%AD%90%E7%A7%8B%E5%86%AC%E7%A9%BF%E6%90%AD%E6%8C%87%E5%8D%97",
+          "time": "7/20"
+        }
+      ]
+    },
+    {
+      "id": "variety",
+      "name": "📺 综艺",
+      "color": "#f59e0b",
+      "items": [
+        {
+          "title": "庄法在乘风2026还是收敛了",
+          "summary": "最新资讯：庄法在乘风2026还是收敛了（热度60.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%BA%84%E6%B3%95%E5%9C%A8%E4%B9%98%E9%A3%8E2026%E8%BF%98%E6%98%AF%E6%94%B6%E6%95%9B%E4%BA%86",
+          "time": "7/20"
+        }
+      ]
+    },
+    {
+      "id": "film",
+      "name": "🎬 影视",
+      "color": "#6366f1",
+      "items": [
+        {
+          "title": "如何评价《鸣潮》宣布动画化？",
+          "summary": "昨晚，《鸣潮》线下演唱会“致予新世界”圆满结束。演出期间，库洛公布了全新鸣潮主题动画企划——向彼方行，标志着首部原创动画项目正式启动 从官方预告画面可见，场景以海畔风貌为主，建筑风格独特，初步判断取景地为游戏中尚未实装的黎那汐塔区域，角色形象与设定指向此前仅在背景设定中提及、尚未在游戏中正式登场的莉莉兰德。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2062181700122187357",
+          "time": "7/20"
+        },
+        {
+          "title": "电影八仙孙悟空出场救赎感拉满",
+          "summary": "最新资讯：电影八仙孙悟空出场救赎感拉满（热度777.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E5%85%AB%E4%BB%99%E5%AD%99%E6%82%9F%E7%A9%BA%E5%87%BA%E5%9C%BA%E6%95%91%E8%B5%8E%E6%84%9F%E6%8B%89%E6%BB%A1",
+          "time": "7/20"
+        },
+        {
+          "title": "功夫女足上映9天票房突破13亿",
+          "summary": "最新资讯：功夫女足上映9天票房突破13亿（热度773.8万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3%E4%B8%8A%E6%98%A09%E5%A4%A9%E7%A5%A8%E6%88%BF%E7%AA%81%E7%A0%B413%E4%BA%BF",
+          "time": "7/20"
+        },
+        {
+          "title": "李熊猫动画定档0729",
+          "summary": "最新资讯：李熊猫动画定档0729（热度765.7万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%9D%8E%E7%86%8A%E7%8C%AB%E5%8A%A8%E7%94%BB%E5%AE%9A%E6%A1%A30729",
+          "time": "7/20"
         }
       ]
     },
@@ -135,39 +156,11 @@
       "color": "#14b8a6",
       "items": [
         {
-          "title": "刑天小队回归",
-          "summary": "最新资讯：刑天小队回归（热度772.4万）",
+          "title": "甲亢哥追星BTS",
+          "summary": "最新资讯：甲亢哥追星BTS（热度778.4万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%88%91%E5%A4%A9%E5%B0%8F%E9%98%9F%E5%9B%9E%E5%BD%92",
-          "time": "7/19"
-        }
-      ]
-    },
-    {
-      "id": "marketing",
-      "name": "📊 营销",
-      "color": "#f97316",
-      "items": [
-        {
-          "title": "法国门将身价堪比一杯蜜雪冰城",
-          "summary": "最新资讯：法国门将身价堪比一杯蜜雪冰城（热度36.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%B3%95%E5%9B%BD%E9%97%A8%E5%B0%86%E8%BA%AB%E4%BB%B7%E5%A0%AA%E6%AF%94%E4%B8%80%E6%9D%AF%E8%9C%9C%E9%9B%AA%E5%86%B0%E5%9F%8E",
-          "time": "7/19"
-        },
-        {
-          "title": "上半年入境外国人超 2291 万人次，同比增长20.4%，希腊游客增长近2倍，老外为何扎堆来中国避暑？",
-          "summary": "眼下国内已正式“入伏” 大批外国游客却涌入中国 数据显示 上半年 入境外国人超2291万人次 希腊游客增长近2倍 老外为何扎堆来中国“避暑”？ 国家移民管理局数据显示，今年上半年，入境外国人达2291.4万人次，同比增长20.4%。暑期以来，广东深圳入境的海外游客数量持续攀升，其中来自欧洲的旅客较之前明显增多。 视频丨上半年入境外国人超2291万人次 来中国避暑，火了“赴华机票销量暴涨1240%”",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2061485273788191373",
-          "time": "7/19"
-        },
-        {
-          "title": "LV 老板被法国当局责令补税，税款高达 1.74 亿元，对其和 LV 品牌可能有怎样的影响？",
-          "summary": "据中新经纬综合外媒报道，近日，在一场持续多年的法律诉讼后，法国首富、奢侈品集团路威酩轩（LVMH）掌门人贝尔纳·阿尔诺(Bernard Arnault)被法国当局责令补缴2250万欧元（约合人民币1.74亿元）税款。 据新加坡《联合早报》援引法新社报道，巴黎行政上诉法院近期一份裁决显示，阿尔诺和他的夫人被要求向法国当局缴纳2010年的1296万欧元“额外缴款”(additional contrib",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2061436955464660003",
-          "time": "7/19"
+          "url": "https://www.douyin.com/search/%E7%94%B2%E4%BA%A2%E5%93%A5%E8%BF%BD%E6%98%9FBTS",
+          "time": "7/20"
         }
       ]
     },
@@ -177,32 +170,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "姆巴佩历史第一",
-          "summary": "最新资讯：姆巴佩历史第一（热度85.1万）",
+          "title": "阿根廷队无法接受输掉决赛的事实",
+          "summary": "最新资讯：阿根廷队无法接受输掉决赛的事实（热度460.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A7%86%E5%B7%B4%E4%BD%A9%E5%8E%86%E5%8F%B2%E7%AC%AC%E4%B8%80",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=%E9%98%BF%E6%A0%B9%E5%BB%B7%E9%98%9F%E6%97%A0%E6%B3%95%E6%8E%A5%E5%8F%97%E8%BE%93%E6%8E%89%E5%86%B3%E8%B5%9B%E7%9A%84%E4%BA%8B%E5%AE%9E",
+          "time": "7/20"
         },
         {
-          "title": "刘宇宁让粉丝删掉不好听的评论",
-          "summary": "最新资讯：刘宇宁让粉丝删掉不好听的评论（热度63.5万）",
+          "title": "西班牙领奖时阿根廷全队背过身",
+          "summary": "最新资讯：西班牙领奖时阿根廷全队背过身（热度372.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%88%98%E5%AE%87%E5%AE%81%E8%AE%A9%E7%B2%89%E4%B8%9D%E5%88%A0%E6%8E%89%E4%B8%8D%E5%A5%BD%E5%90%AC%E7%9A%84%E8%AF%84%E8%AE%BA",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=%E8%A5%BF%E7%8F%AD%E7%89%99%E9%A2%86%E5%A5%96%E6%97%B6%E9%98%BF%E6%A0%B9%E5%BB%B7%E5%85%A8%E9%98%9F%E8%83%8C%E8%BF%87%E8%BA%AB",
+          "time": "7/20"
         },
         {
-          "title": "姆巴佩决赛预测",
-          "summary": "最新资讯：姆巴佩决赛预测（热度58.0万）",
+          "title": "千万不要在网上买低价饮料",
+          "summary": "最新资讯：千万不要在网上买低价饮料（热度218.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A7%86%E5%B7%B4%E4%BD%A9%E5%86%B3%E8%B5%9B%E9%A2%84%E6%B5%8B",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=%E5%8D%83%E4%B8%87%E4%B8%8D%E8%A6%81%E5%9C%A8%E7%BD%91%E4%B8%8A%E4%B9%B0%E4%BD%8E%E4%BB%B7%E9%A5%AE%E6%96%99",
+          "time": "7/20"
         },
         {
-          "title": "张凌赫王楚然招商",
-          "summary": "最新资讯：张凌赫王楚然招商（热度55.5万）",
+          "title": "遗传眼病孩子问为什么要生我",
+          "summary": "最新资讯：遗传眼病孩子问为什么要生我（热度152.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%BC%A0%E5%87%8C%E8%B5%AB%E7%8E%8B%E6%A5%9A%E7%84%B6%E6%8B%9B%E5%95%86",
-          "time": "7/19"
+          "url": "https://s.weibo.com/weibo?q=%E9%81%97%E4%BC%A0%E7%9C%BC%E7%97%85%E5%AD%A9%E5%AD%90%E9%97%AE%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%9F%E6%88%91",
+          "time": "7/20"
         }
       ]
     }
