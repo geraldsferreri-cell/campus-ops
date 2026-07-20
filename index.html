@@ -1900,7 +1900,7 @@
                     </div>
                     <!-- 本月薪资计算 -->
                     <div id="mySalaryCard" class="card" style="margin-top:12px;display:none">
-                        <div class="card-header"><span class="card-title">💰 本月薪资计算</span></div>
+                        <div class="card-header"><span class="card-title" id="mySalaryTitle">💰 本月薪资计算</span></div>
                         <div id="mySalaryDetail" style="font-size:14px;line-height:2;"></div>
                         <div id="mySalaryResult" style="margin-top:12px;padding:12px;background:var(--gold-gradient);color:#1a0a3e;border-radius:8px;font-size:18px;font-weight:700;"></div>
                     </div>
@@ -5231,6 +5231,7 @@
         function onVideoFilterChange() {
             videoPage = 1;
             renderVideoTable();
+            updateStudentVideoStats();
         }
 
         // 设置视频记录的日期范围
@@ -5513,14 +5514,29 @@
                     myVideos = allVideos.filter(v => myNames.includes(v.publisher));
                 }
 
-                // 按月筛选：只统计本月数据
-                const now = new Date();
-                const monthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
-                const monthEnd = formatLocalDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
-                myVideos = myVideos.filter(v => {
-                    const videoDate = getLocalDateStr(v.created_at);
-                    return videoDate >= monthStart && videoDate <= monthEnd;
-                });
+                // 按视频记录页的日期筛选过滤（未设置则默认本月）
+                const dateStartEl = document.getElementById('videoDateStart');
+                const dateEndEl = document.getElementById('videoDateEnd');
+                const dateStart = dateStartEl?.value;
+                const dateEnd = dateEndEl?.value;
+                if (dateStart || dateEnd) {
+                    // 使用用户在视频记录页设置的日期范围
+                    myVideos = myVideos.filter(v => {
+                        const videoDate = getLocalDateStr(v.created_at);
+                        if (dateStart && videoDate < dateStart) return false;
+                        if (dateEnd && videoDate > dateEnd) return false;
+                        return true;
+                    });
+                } else {
+                    // 未设置筛选：默认本月
+                    const now = new Date();
+                    const monthStart = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+                    const monthEnd = formatLocalDate(new Date(now.getFullYear(), now.getMonth() + 1, 0));
+                    myVideos = myVideos.filter(v => {
+                        const videoDate = getLocalDateStr(v.created_at);
+                        return videoDate >= monthStart && videoDate <= monthEnd;
+                    });
+                }
 
                 const videoCount = myVideos.length;
                 // 使用统一的数据达标计算（同链接只算一次，万赞优先）
@@ -5539,17 +5555,36 @@
                 document.getElementById('myThousandLike').textContent = thousandCount;
                 document.getElementById('myTenThousandLike').textContent = tenThousandCount;
                 
-                // 老师视角：更新卡片标签为"组内"前缀
+                // 老师视角：更新卡片标签，根据筛选状态决定前缀
                 const isTeacher = currentUser?.role === 'teacher';
+                const hasFilter = !!(dateStart || dateEnd);
+                // 生成日期范围短标签
+                let dateLabel = '本月';
+                if (hasFilter) {
+                    if (dateStart && dateEnd) {
+                        // 如果起止都在同一个月，显示"X月"
+                        const sm = parseInt(dateStart.split('-')[1]);
+                        const em = parseInt(dateEnd.split('-')[1]);
+                        if (dateStart.slice(0, 7) === dateEnd.slice(0, 7)) {
+                            dateLabel = `${sm}月`;
+                        } else {
+                            dateLabel = `${dateStart} ~ ${dateEnd}`;
+                        }
+                    } else if (dateStart) {
+                        dateLabel = `${dateStart}起`;
+                    } else {
+                        dateLabel = `至${dateEnd}`;
+                    }
+                }
                 const labels = studentStats.querySelectorAll('.stat-label');
                 if (labels.length >= 3) {
-                    labels[0].textContent = isTeacher ? '本月组内发片数' : '本月发片数';
-                    labels[1].textContent = isTeacher ? '本月组内千赞数' : '本月千赞数';
-                    labels[2].textContent = isTeacher ? '本月组内万赞数' : '本月万赞数';
+                    labels[0].textContent = isTeacher ? `${dateLabel}组内发片数` : `${dateLabel}发片数`;
+                    labels[1].textContent = isTeacher ? `${dateLabel}组内千赞数` : `${dateLabel}千赞数`;
+                    labels[2].textContent = isTeacher ? `${dateLabel}组内万赞数` : `${dateLabel}万赞数`;
                 }
                 
                 // 计算薪资并展示
-                updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount);
+                updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount, dateStart, dateEnd);
                 
                 // 更新待填写数据提醒
                 const reminderBar = document.getElementById('statsReminder');
@@ -5575,21 +5610,45 @@
         }
 
         // 更新我的薪资展示
-        function updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount) {
+        function updateMySalaryDisplay(videoCount, thousandCount, tenThousandCount, dateStart, dateEnd) {
             const salaryCard = document.getElementById('mySalaryCard');
             const salaryDetail = document.getElementById('mySalaryDetail');
             const salaryResult = document.getElementById('mySalaryResult');
             if (!salaryCard || !salaryDetail || !salaryResult) return;
-            
+
             const isTeacher = currentUser?.role === 'teacher';
             salaryCard.style.display = 'block';
-            
+
+            // 日期标签
+            const hasFilter = !!(dateStart || dateEnd);
+            let dateLabel = '本月';
+            if (hasFilter) {
+                if (dateStart && dateEnd) {
+                    dateLabel = dateStart.slice(0, 7) === dateEnd.slice(0, 7)
+                        ? `${parseInt(dateStart.split('-')[1])}月`
+                        : `${dateStart} ~ ${dateEnd}`;
+                } else if (dateStart) {
+                    dateLabel = `${dateStart}起`;
+                } else {
+                    dateLabel = `至${dateEnd}`;
+                }
+            }
+            // 更新卡片标题
+            const salaryTitle = document.getElementById('mySalaryTitle');
+            if (salaryTitle) salaryTitle.textContent = `💰 ${dateLabel}薪资计算`;
+
             if (isTeacher) {
-                // 老师：显示带教奖金
+                // 老师：显示带教奖金，使用与统计卡片一致的日期范围
                 const group = getUserGroup();
-                const now = new Date();
-                const month = now.toISOString().slice(0, 7); // 当前月份 YYYY-MM
-                const bonusInfo = calcTeacherBonus(group, month);
+                let month;
+                if (hasFilter) {
+                    // 有筛选时用筛选出的月份；跨月取起始月
+                    month = (dateStart || dateEnd).slice(0, 7);
+                } else {
+                    const now = new Date();
+                    month = now.toISOString().slice(0, 7);
+                }
+                const bonusInfo = calcTeacherBonus(group, month, dateStart, dateEnd);
                 
                 let detailHTML = '';
                 detailHTML += `<div style="margin-bottom:8px"><b>📊 组内数据：</b></div>`;
@@ -5611,9 +5670,9 @@
                 
                 salaryDetail.innerHTML = detailHTML;
                 if (bonusInfo.qualified) {
-                    salaryResult.innerHTML = `💰 本月预计带教奖金：<span style="font-size:24px">¥${bonusInfo.total}</span>`;
+                    salaryResult.innerHTML = `💰 ${dateLabel}预计带教奖金：<span style="font-size:24px">¥${bonusInfo.total}</span>`;
                 } else {
-                    salaryResult.innerHTML = `💰 本月预计带教奖金：<span style="font-size:24px">¥0</span>　（组内发片未达12条）`;
+                    salaryResult.innerHTML = `💰 ${dateLabel}预计带教奖金：<span style="font-size:24px">¥0</span>　（组内发片未达12条）`;
                 }
             } else {
                 // 学生：显示底薪+奖金
@@ -5664,7 +5723,7 @@
                 detailHTML += `</div>`;
                 
                 salaryDetail.innerHTML = detailHTML;
-                salaryResult.innerHTML = `💰 本月预计薪资：<span style="font-size:24px">¥${total}</span>　（底薪¥${baseSalary} + 奖金¥${totalBonus}）`;
+                salaryResult.innerHTML = `💰 ${dateLabel}预计薪资：<span style="font-size:24px">¥${total}</span>　（底薪¥${baseSalary} + 奖金¥${totalBonus}）`;
             }
         }
 
@@ -6570,11 +6629,23 @@
             const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
             if (groupStudents.length === 0) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
 
-            // 统一按自然月统计：从选中月份推导月初(1号)到月末(最后一天)
-            // 始终用 created_at 本地日期过滤，与视频记录页完全一致
-            const [ty, tm] = String(month).split('-').map(Number);
-            const monthStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
-            const monthEnd = formatLocalDate(new Date(ty, tm, 0)); // 该月最后一天
+            // 确定日期范围：优先用传入的起止日期，否则推导自然月
+            let rangeStart, rangeEnd;
+            if (dateStart || dateEnd) {
+                // 有显式日期范围：使用范围，缺的一端用月份推导兜底
+                if (dateStart) {
+                    rangeStart = dateStart;
+                    rangeEnd = dateEnd || formatLocalDate(new Date(parseInt(month.split('-')[0]), parseInt(month.split('-')[1]), 0));
+                } else {
+                    const [ty, tm] = String(month).split('-').map(Number);
+                    rangeStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
+                    rangeEnd = dateEnd;
+                }
+            } else {
+                const [ty, tm] = String(month).split('-').map(Number);
+                rangeStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
+                rangeEnd = formatLocalDate(new Date(ty, tm, 0));
+            }
 
             // 计算小组内所有学生的发片总数
             let groupVideoCount = 0;
@@ -6586,7 +6657,7 @@
                     const nameMatch = studentNames.includes(v.publisher);
                     if (!nameMatch) return false;
                     const videoDate = getLocalDateStr(v.created_at);
-                    return videoDate >= monthStart && videoDate <= monthEnd;
+                    return videoDate >= rangeStart && videoDate <= rangeEnd;
                 });
                 groupVideoCount += studentVideos.length;
                 
