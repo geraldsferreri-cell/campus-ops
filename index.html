@@ -82,8 +82,8 @@
         .app { min-height: 100vh; }
         .topnav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            padding: 1rem 2.5rem;
-            display: flex; justify-content: space-between; align-items: center;
+            padding: .85rem 2.5rem 1rem;
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
             background: rgba(243,240,248,.92); backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(77,0,255,.1);
             mix-blend-mode: normal; transition: background .3s ease;
@@ -96,15 +96,15 @@
         }
         .topnav-brand img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; border: 2px solid rgba(77,0,255,.3); }
         .topnav-links {
-            display: flex; gap: .25rem; align-items: center;
-            overflow-x: auto; scrollbar-width: none;
+            display: flex; flex-wrap: wrap; gap: .25rem; justify-content: center; align-items: center;
+            width: 100%; margin-top: .65rem;
+            padding-top: .65rem; border-top: 1px dashed rgba(77,0,255,.12);
         }
-        .topnav-links::-webkit-scrollbar { display: none; }
         .topnav-link {
-            font-family: var(--sans); font-size: .7rem; font-weight: 600;
-            letter-spacing: .15em; text-transform: uppercase;
+            font-family: var(--sans); font-size: .68rem; font-weight: 600;
+            letter-spacing: .12em; text-transform: uppercase;
             color: var(--text-secondary); text-decoration: none;
-            padding: .5rem .85rem; border-radius: 4px;
+            padding: .4rem .7rem; border-radius: 4px;
             cursor: pointer; white-space: nowrap;
             transition: all .3s ease; position: relative;
         }
@@ -147,7 +147,7 @@
             text-transform: uppercase; color: var(--amber);
             padding: .75rem 1.25rem .25rem;
         }
-        .main { padding-top: 72px; }
+        .main { padding-top: 130px; }
 
         /* ─── BRAND HERO (Dashboard Top) ─── */
         .brand-hero {
@@ -1659,7 +1659,7 @@
                 <a class="topnav-link" href="https://wu1y-1v4p.studio.fengbao.com/" target="_blank">📡 资讯热点</a>
                 <a class="topnav-link" data-page="topics">近期选题</a>
                 <a class="topnav-link admin-only-link" data-page="review">📊 数据复盘</a>
-                <a class="topnav-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
+                <a class="topnav-link" href="https://ugmf-1vs3.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
                 <a class="topnav-link" data-page="password">修改密码</a>
             </div>
             
@@ -1688,7 +1688,7 @@
             <a class="mobile-menu-link" href="https://wu1y-1v4p.studio.fengbao.com/" target="_blank">📡 资讯热点</a>
             <a class="mobile-menu-link" data-page="topics" onclick="mobileNavTo('topics')">近期选题</a>
             <a class="mobile-menu-link admin-only-link" data-page="review" onclick="mobileNavTo('review')">📊 数据复盘</a>
-            <a class="mobile-menu-link" href="https://45mh-1uc7.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
+            <a class="mobile-menu-link" href="https://ugmf-1vs3.studio.fengbao.com/" target="_blank">🤖 AI 助手</a>
             <a class="mobile-menu-link" data-page="password" onclick="mobileNavTo('password')">修改密码</a>
             <div class="mobile-menu-logout" onclick="logout()">退出登录</div>
         </div>
