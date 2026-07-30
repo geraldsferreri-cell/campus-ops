@@ -1,6 +1,6 @@
 {
-  "date": "2026-07-29",
-  "scrape_time": "2026-07-29 13:17 CST",
+  "date": "2026-07-30",
+  "scrape_time": "2026-07-30 12:54 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,32 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "王者荣耀萌新之夜阵容",
-          "summary": "最新资讯：王者荣耀萌新之夜阵容（热度43.4万）",
+          "title": "A股科技退潮",
+          "summary": "最新资讯：A股科技退潮（热度107.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E8%90%8C%E6%96%B0%E4%B9%8B%E5%A4%9C%E9%98%B5%E5%AE%B9",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=A%E8%82%A1%E7%A7%91%E6%8A%80%E9%80%80%E6%BD%AE",
+          "time": "7/30"
         },
         {
-          "title": "小米澎程可加92号汽油引争议",
-          "summary": "最新资讯：小米澎程可加92号汽油引争议（热度43.3万）",
+          "title": "小米澎程实车内饰曝光",
+          "summary": "最新资讯：小米澎程实车内饰曝光（热度38.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E6%BE%8E%E7%A8%8B%E5%8F%AF%E5%8A%A092%E5%8F%B7%E6%B1%BD%E6%B2%B9%E5%BC%95%E4%BA%89%E8%AE%AE",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E5%B0%8F%E7%B1%B3%E6%BE%8E%E7%A8%8B%E5%AE%9E%E8%BD%A6%E5%86%85%E9%A5%B0%E6%9B%9D%E5%85%89",
+          "time": "7/30"
         },
         {
-          "title": "挺好个机器人非得长个嘴",
-          "summary": "最新资讯：挺好个机器人非得长个嘴（热度34.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%8C%BA%E5%A5%BD%E4%B8%AA%E6%9C%BA%E5%99%A8%E4%BA%BA%E9%9D%9E%E5%BE%97%E9%95%BF%E4%B8%AA%E5%98%B4",
-          "time": "7/29"
-        },
-        {
-          "title": "疑似南方医科大学珠江医院一医生发布「除非死人，不要临时请假」言论，院方已启动调查，反映了哪些问题？",
-          "summary": "近日，一段群消息流出，一位医务工作者在群内发布“除非家里死人，以后不要跟我临时请假”等内容。网友称事发医院为南方医科大学珠江医院，发言者为一名医师。 聊天信息显示，该医务工作者曾询问“是否交代某某帮写病历”“私信说明为何不来查房”等内容，并在后续发布“除非家里死人，以后不要跟我临时请假”，信息发布于4月。 另一截图显示，疑似该医务工作者又在群内发布“请不要随意请假换班。更不可能根据个人需求排班，除",
+          "title": "雷军称增程市场大有可为且小米做增程不晚，这一观点站得住脚吗？小米为何选择此时布局增程车型？",
+          "summary": "[2 张图片]",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2065711565274177872",
-          "time": "7/29"
+          "url": "https://www.zhihu.com/question/2065799308067041337",
+          "time": "7/30"
+        },
+        {
+          "title": "日本技术人员拆解宇树机器人后称「赶不上中国」，从螺丝到整机，中国机器人供应链优势体现在哪些环节？",
+          "summary": "日经xTECH网站7月23日发布了一段日本技术人员拆解中国宇树科技G1人形机器人的视频，尝试探究其内部结构与技术水平，日方人员直呼“赶不上中国”。 在这段视频中，日方技术人员和媒体记者边拆边感叹中国人形机器人的技术水平之高： “中国的螺丝，总感觉拧起来特别顺滑。” “电池能在保持高输出功率的同时，做到如此小巧，极具吸引力。” “从小腿到脚掌，最大的特点就是，它的机械运动方式再现了人类脚踝的运动。两",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2064993421949755491",
+          "time": "7/30"
         }
       ]
     },
@@ -44,32 +44,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "会计被AI取代的概率",
-          "summary": "最新资讯：会计被AI取代的概率（热度153.8万）",
+          "title": "如何用AI做自己的专属工作台",
+          "summary": "最新资讯：如何用AI做自己的专属工作台（热度36.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BC%9A%E8%AE%A1%E8%A2%ABAI%E5%8F%96%E4%BB%A3%E7%9A%84%E6%A6%82%E7%8E%87",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E5%A6%82%E4%BD%95%E7%94%A8AI%E5%81%9A%E8%87%AA%E5%B7%B1%E7%9A%84%E4%B8%93%E5%B1%9E%E5%B7%A5%E4%BD%9C%E5%8F%B0",
+          "time": "7/30"
         },
         {
-          "title": "AI剧 一本万利",
-          "summary": "最新资讯：AI剧 一本万利（热度91.6万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=AI%E5%89%A7%20%E4%B8%80%E6%9C%AC%E4%B8%87%E5%88%A9",
-          "time": "7/29"
-        },
-        {
-          "title": "AI帮他69次投递拿下工作",
-          "summary": "最新资讯：AI帮他69次投递拿下工作（热度43.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=AI%E5%B8%AE%E4%BB%9669%E6%AC%A1%E6%8A%95%E9%80%92%E6%8B%BF%E4%B8%8B%E5%B7%A5%E4%BD%9C",
-          "time": "7/29"
-        },
-        {
-          "title": "如何看待某历史学老师在期中考试的题目中加入白色隐藏文字，导致35位学生中的32位因使用ai成绩不及格？",
-          "summary": "包含一个隐藏的白色字体提示，要求以“毫无意义的方式”使用“马达加斯加”这个词。所以，如果他看到“马达加斯加”这个词，“我就知道他们是把整段代码复制粘贴过来，然后直接扔进人工智能程序里了。”",
+          "title": "曝多家AI公司大量收购旧书训练模型后销毁，此前先例被法院认定合理，这会成为常态吗？可能带来哪些影响？",
+          "summary": "IT之家 7 月 28 日消息，AI 公司在推动内存和存储资源日益紧张之后，如今似乎又将目光投向了人类的文学遗产。调查媒体 404 Media 最新报道称，多家 AI 公司正通过中间商大规模收购二手图书，以获取高质量训练数据用于训练 AI 模型，同时避免引发公众舆论反弹。 AI 的发展离不开海量数据，但并非所有数据都有价值，关键在于数据质量。近年来，大量由 AI 生成的低质量内容（俗称“AI 垃圾",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2065158710427751418",
-          "time": "7/29"
+          "url": "https://www.zhihu.com/question/2065707692950123437",
+          "time": "7/30"
+        },
+        {
+          "title": "为什么ChatGPT已经发布4年了，社会总生产力纹丝不动？",
+          "summary": "Open Markets Institute的Matt Scherer认为，AI并没有提高企业的生产力，也改善不了经济体系。他认为AI带来的单纯生产效率的提升并不能让社会生产力改变。甚至因为垃圾信息和幻觉的存在，导致AI给予的只是生产力的幻觉。如何看待他的观点？AI真的对社会总生产力没有帮助吗？ 见：https://www.hardresetmedia.com/p/the-ai-productiv",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2065583157664018461",
+          "time": "7/30"
+        },
+        {
+          "title": "OpenAI、Anthropic 等上千员工联名请愿美政府控制 AI 发展速度，反映了什么？有何影响？",
+          "summary": "会对AI后续的发展产生影响吗？OpenAI、谷歌、Anthropic等企业上千员工联名请愿美国政府|界面新闻 · 快讯",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2065729146383071132",
+          "time": "7/30"
         }
       ]
     },
@@ -79,32 +79,25 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "布克与C罗前任交往",
-          "summary": "最新资讯：布克与C罗前任交往（热度32.5万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%B8%83%E5%85%8B%E4%B8%8EC%E7%BD%97%E5%89%8D%E4%BB%BB%E4%BA%A4%E5%BE%80",
-          "time": "7/29"
-        },
-        {
-          "title": "佛得角后卫卡布拉尔世界波当选世界杯最佳进球，如何看待卡布拉尔世界杯表现？",
-          "summary": "北京时间7月27日，国际足联官方宣布，佛得角后卫卡布拉尔对阵阿根廷的世界波破门，当选2026美加墨世界杯最佳进球。 美加墨世界杯1/16决赛，佛得角对阵阿根廷。第103分钟，佛得角后卫卡布拉尔内切一步轰出超级世界波，兜射直挂死角。佛得角2-2再次扳平阿根廷。 世界杯最佳进球由球迷投票产生。最佳进球第二名是乌兹别克斯坦前锋肖穆罗多夫对阵民主刚果的小角度吊射。第三名是海地球员伊西多尔对阵摩洛哥的超级世",
+          "title": "C 罗因无世界杯冠军遭航空公司公开嘲讽，你如何看待这种营销行为？",
+          "summary": "#C罗无世界杯冠军遭航空公司嘲讽# 欧洲的瑞安航空公司近日在社媒整了个大活，他们转发了C罗30岁与40岁的肌肉对比图，配文却写着：“0世界杯冠军 vs 0世界杯冠军”，调侃C罗10年过去仍未捧起大力神杯。这是小编切错了账号吗？世界杯 c罗无世界杯冠军遭航空公司嘲讽",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2065399230286636311",
-          "time": "7/29"
+          "url": "https://www.zhihu.com/question/2065437203300364298",
+          "time": "7/30"
         },
         {
-          "title": "为什么NBA里有抱团一说，足球皇马银河战舰，巴萨msn，梦三，没人说抱团？",
-          "summary": "网上经常看到说NBA乐邦抱团，杜兰特抱团，但很少看到有人说足球抱团，这是为什么",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2065398739267801441",
-          "time": "7/29"
-        },
-        {
-          "title": "抖音乒乓百分大战再现里约对决",
-          "summary": "最新资讯：抖音乒乓百分大战再现里约对决（热度1050.4万）",
+          "title": "韩国股市暴跌背后的真相",
+          "summary": "最新资讯：韩国股市暴跌背后的真相（热度1038.2万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8A%96%E9%9F%B3%E4%B9%92%E4%B9%93%E7%99%BE%E5%88%86%E5%A4%A7%E6%88%98%E5%86%8D%E7%8E%B0%E9%87%8C%E7%BA%A6%E5%AF%B9%E5%86%B3",
-          "time": "7/29"
+          "url": "https://www.douyin.com/search/%E9%9F%A9%E5%9B%BD%E8%82%A1%E5%B8%82%E6%9A%B4%E8%B7%8C%E8%83%8C%E5%90%8E%E7%9A%84%E7%9C%9F%E7%9B%B8",
+          "time": "7/30"
+        },
+        {
+          "title": "抖音乒乓百分大战下次见",
+          "summary": "最新资讯：抖音乒乓百分大战下次见（热度916.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%8A%96%E9%9F%B3%E4%B9%92%E4%B9%93%E7%99%BE%E5%88%86%E5%A4%A7%E6%88%98%E4%B8%8B%E6%AC%A1%E8%A7%81",
+          "time": "7/30"
         }
       ]
     },
@@ -114,32 +107,32 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "迪丽热巴29.5克拉海蓝宝颈链",
-          "summary": "最新资讯：迪丽热巴29.5克拉海蓝宝颈链（热度33.6万）",
+          "title": "人民军队制胜大片太燃了",
+          "summary": "最新资讯：人民军队制胜大片太燃了（热度117.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B429.5%E5%85%8B%E6%8B%89%E6%B5%B7%E8%93%9D%E5%AE%9D%E9%A2%88%E9%93%BE",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E4%BA%BA%E6%B0%91%E5%86%9B%E9%98%9F%E5%88%B6%E8%83%9C%E5%A4%A7%E7%89%87%E5%A4%AA%E7%87%83%E4%BA%86",
+          "time": "7/30"
         },
         {
-          "title": "白鹿周翊然合作透明爱人MV",
-          "summary": "最新资讯：白鹿周翊然合作透明爱人MV（热度33.3万）",
+          "title": "白鹿周翊然透明爱人MV亲了",
+          "summary": "最新资讯：白鹿周翊然透明爱人MV亲了（热度104.3万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%91%A8%E7%BF%8A%E7%84%B6%E5%90%88%E4%BD%9C%E9%80%8F%E6%98%8E%E7%88%B1%E4%BA%BAMV",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%91%A8%E7%BF%8A%E7%84%B6%E9%80%8F%E6%98%8E%E7%88%B1%E4%BA%BAMV%E4%BA%B2%E4%BA%86",
+          "time": "7/30"
         },
         {
-          "title": "挑战夏日穿搭一周不重样",
-          "summary": "最新资讯：挑战夏日穿搭一周不重样（热度1050.6万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8C%91%E6%88%98%E5%A4%8F%E6%97%A5%E7%A9%BF%E6%90%AD%E4%B8%80%E5%91%A8%E4%B8%8D%E9%87%8D%E6%A0%B7",
-          "time": "7/29"
+          "title": "白鹿只有一部待播剧了",
+          "summary": "最新资讯：白鹿只有一部待播剧了（热度47.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E9%B9%BF%E5%8F%AA%E6%9C%89%E4%B8%80%E9%83%A8%E5%BE%85%E6%92%AD%E5%89%A7%E4%BA%86",
+          "time": "7/30"
         },
         {
-          "title": "超火微胖显瘦穿搭测评",
-          "summary": "最新资讯：超火微胖显瘦穿搭测评（热度770.1万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%B6%85%E7%81%AB%E5%BE%AE%E8%83%96%E6%98%BE%E7%98%A6%E7%A9%BF%E6%90%AD%E6%B5%8B%E8%AF%84",
-          "time": "7/29"
+          "title": "迪丽热巴VOGUE单人三封",
+          "summary": "最新资讯：迪丽热巴VOGUE单人三封（热度36.9万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4VOGUE%E5%8D%95%E4%BA%BA%E4%B8%89%E5%B0%81",
+          "time": "7/30"
         }
       ]
     },
@@ -150,10 +143,10 @@
       "items": [
         {
           "title": "阿哲自制综艺六人大头杀来了",
-          "summary": "最新资讯：阿哲自制综艺六人大头杀来了（热度785.8万）",
+          "summary": "最新资讯：阿哲自制综艺六人大头杀来了（热度769.0万）",
           "source": "抖音",
           "url": "https://www.douyin.com/search/%E9%98%BF%E5%93%B2%E8%87%AA%E5%88%B6%E7%BB%BC%E8%89%BA%E5%85%AD%E4%BA%BA%E5%A4%A7%E5%A4%B4%E6%9D%80%E6%9D%A5%E4%BA%86",
-          "time": "7/29"
+          "time": "7/30"
         }
       ]
     },
@@ -163,25 +156,53 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "TF四代新歌预告",
-          "summary": "最新资讯：TF四代新歌预告（热度43.3万）",
+          "title": "刘亦菲浮城如戏台W平面电影",
+          "summary": "最新资讯：刘亦菲浮城如戏台W平面电影（热度31.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=TF%E5%9B%9B%E4%BB%A3%E6%96%B0%E6%AD%8C%E9%A2%84%E5%91%8A",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E5%88%98%E4%BA%A6%E8%8F%B2%E6%B5%AE%E5%9F%8E%E5%A6%82%E6%88%8F%E5%8F%B0W%E5%B9%B3%E9%9D%A2%E7%94%B5%E5%BD%B1",
+          "time": "7/30"
         },
         {
-          "title": "如何看待《蜘蛛侠：崭新之日》总票房预测达18亿，首日预测超2.5亿，预售破亿，零点场近3000万？",
-          "summary": "蜘蛛侠系列电影 漫威杀回来了吗？",
+          "title": "天才女友定档",
+          "summary": "最新资讯：天才女友定档（热度30.9万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%A4%A9%E6%89%8D%E5%A5%B3%E5%8F%8B%E5%AE%9A%E6%A1%A3",
+          "time": "7/30"
+        },
+        {
+          "title": "如何看待 2026 年 7 月 28 日周星驰新电影《功夫女足》总票房突破 20 亿人民币？",
+          "summary": "[图片]",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2065385829304727519",
-          "time": "7/29"
+          "url": "https://www.zhihu.com/question/2059346993907081482",
+          "time": "7/30"
         },
         {
-          "title": "六公主评功夫女足票房破20亿",
-          "summary": "最新资讯：六公主评功夫女足票房破20亿（热度774.1万）",
+          "title": "2026年度总票房突破220亿元",
+          "summary": "最新资讯：2026年度总票房突破220亿元（热度1110.1万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%85%AD%E5%85%AC%E4%B8%BB%E8%AF%84%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3%E7%A5%A8%E6%88%BF%E7%A0%B420%E4%BA%BF",
-          "time": "7/29"
+          "url": "https://www.douyin.com/search/2026%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%A5%A8%E6%88%BF%E7%AA%81%E7%A0%B4220%E4%BA%BF%E5%85%83",
+          "time": "7/30"
+        }
+      ]
+    },
+    {
+      "id": "kpop",
+      "name": "🇰🇷 韩娱",
+      "color": "#14b8a6",
+      "items": [
+        {
+          "title": "格莱美删除BTS表演舞台",
+          "summary": "最新资讯：格莱美删除BTS表演舞台（热度79.4万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%A0%BC%E8%8E%B1%E7%BE%8E%E5%88%A0%E9%99%A4BTS%E8%A1%A8%E6%BC%94%E8%88%9E%E5%8F%B0",
+          "time": "7/30"
+        },
+        {
+          "title": "我在等紧身裤时代回归",
+          "summary": "最新资讯：我在等紧身裤时代回归（热度773.6万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E6%88%91%E5%9C%A8%E7%AD%89%E7%B4%A7%E8%BA%AB%E8%A3%A4%E6%97%B6%E4%BB%A3%E5%9B%9E%E5%BD%92",
+          "time": "7/30"
         }
       ]
     },
@@ -191,32 +212,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "泸溪河桃酥 牙冠",
-          "summary": "最新资讯：泸溪河桃酥 牙冠（热度218.2万）",
+          "title": "天价退票费全额退了",
+          "summary": "最新资讯：天价退票费全额退了（热度169.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%B3%B8%E6%BA%AA%E6%B2%B3%E6%A1%83%E9%85%A5%20%E7%89%99%E5%86%A0",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E5%A4%A9%E4%BB%B7%E9%80%80%E7%A5%A8%E8%B4%B9%E5%85%A8%E9%A2%9D%E9%80%80%E4%BA%86",
+          "time": "7/30"
         },
         {
-          "title": "王戟是谁",
-          "summary": "最新资讯：王戟是谁（热度105.2万）",
+          "title": "30岁小伙负债170万卖饺子翻身",
+          "summary": "最新资讯：30岁小伙负债170万卖饺子翻身（热度138.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E6%88%9F%E6%98%AF%E8%B0%81",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=30%E5%B2%81%E5%B0%8F%E4%BC%99%E8%B4%9F%E5%80%BA170%E4%B8%87%E5%8D%96%E9%A5%BA%E5%AD%90%E7%BF%BB%E8%BA%AB",
+          "time": "7/30"
         },
         {
-          "title": "李想回复雷军",
-          "summary": "最新资讯：李想回复雷军（热度88.7万）",
+          "title": "退休后旅游根本没有意义",
+          "summary": "最新资讯：退休后旅游根本没有意义（热度115.3万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9D%8E%E6%83%B3%E5%9B%9E%E5%A4%8D%E9%9B%B7%E5%86%9B",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E9%80%80%E4%BC%91%E5%90%8E%E6%97%85%E6%B8%B8%E6%A0%B9%E6%9C%AC%E6%B2%A1%E6%9C%89%E6%84%8F%E4%B9%89",
+          "time": "7/30"
         },
         {
-          "title": "莫氏鸡煲老板称现在压力非常大",
-          "summary": "最新资讯：莫氏鸡煲老板称现在压力非常大（热度86.0万）",
+          "title": "张雅琪 花少",
+          "summary": "最新资讯：张雅琪 花少（热度102.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%8E%AB%E6%B0%8F%E9%B8%A1%E7%85%B2%E8%80%81%E6%9D%BF%E7%A7%B0%E7%8E%B0%E5%9C%A8%E5%8E%8B%E5%8A%9B%E9%9D%9E%E5%B8%B8%E5%A4%A7",
-          "time": "7/29"
+          "url": "https://s.weibo.com/weibo?q=%E5%BC%A0%E9%9B%85%E7%90%AA%20%E8%8A%B1%E5%B0%91",
+          "time": "7/30"
         }
       ]
     }
