@@ -1,6 +1,6 @@
 {
-  "date": "2026-08-03",
-  "scrape_time": "2026-08-03 13:37 CST",
+  "date": "2026-08-04",
+  "scrape_time": "2026-08-04 13:00 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,32 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "显卡跳涨",
-          "summary": "最新资讯：显卡跳涨（热度39.3万）",
+          "title": "我军三型无人机成体系应用首次公开",
+          "summary": "最新资讯：我军三型无人机成体系应用首次公开（热度72.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%98%BE%E5%8D%A1%E8%B7%B3%E6%B6%A8",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E6%88%91%E5%86%9B%E4%B8%89%E5%9E%8B%E6%97%A0%E4%BA%BA%E6%9C%BA%E6%88%90%E4%BD%93%E7%B3%BB%E5%BA%94%E7%94%A8%E9%A6%96%E6%AC%A1%E5%85%AC%E5%BC%80",
+          "time": "8/4"
         },
         {
-          "title": "王者荣耀",
-          "summary": "最新资讯：王者荣耀（热度19.1万）",
+          "title": "罗正一年花170元146给了苹果",
+          "summary": "最新资讯：罗正一年花170元146给了苹果（热度72.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E7%BD%97%E6%AD%A3%E4%B8%80%E5%B9%B4%E8%8A%B1170%E5%85%83146%E7%BB%99%E4%BA%86%E8%8B%B9%E6%9E%9C",
+          "time": "8/4"
         },
         {
-          "title": "方程豹 7 月销量超 4 万辆，这对新能源汽车市场意味着什么？越野市场需求被打开了吗？",
-          "summary": "快科技8月1日消息，比亚迪公布2026年7月销量数据，集团全品类一共卖出419211台车，其中乘用车411072台，整体体量依旧断层领先国内车企。 海外市场的增长势头格外猛，7月乘用车加皮卡海外交付179841台，同比涨幅124.3%，直接实现销量翻倍，海外渠道扩张的效果完全显现。 分品牌来看，比亚迪王朝、海洋系列依旧是走量基本盘，单月卖出350178台，覆盖家用轿车、SUV，受众基数最大。 主打",
+          "title": "上海制造业这么厉害，为什么没有诞生长鑫科技这样的高科技公司？长鑫上市后，存储价格会白菜化吗？",
+          "summary": "最新资讯：上海制造业这么厉害，为什么没有诞生长鑫科技这样的高科技公司？长鑫上市后，存储价格会白菜化吗？",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2066988587279718231",
-          "time": "8/3"
+          "url": "https://www.zhihu.com/question/2065082707370042083",
+          "time": "8/4"
         },
         {
-          "title": "如何看待雷军在发布会最后说「晚安」被指营销？",
+          "title": "如何评价继小米拆车直播之后，理想、极氪也官宣直播拆车？",
           "summary": "[2 张图片]",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2067158057784718693",
-          "time": "8/3"
+          "url": "https://www.zhihu.com/question/2067668934749427118",
+          "time": "8/4"
         }
       ]
     },
@@ -44,18 +44,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "如何评价OpenAI、Anthropic、谷歌等巨头联名呼吁控制前沿自动化AI研发？",
-          "summary": "来自OpenAI、Anthropic、谷歌等巨头1100+核心员工联名，发起了「Pacing the Frontier」的请愿书。 这个名单上署名的人，多到一眼望不到头。而且，这个数字还在涨。 仔细一看，名单几乎集齐了AI圈的「半壁江山」—— OpenAI首席科学家Jakub Pachocki、首席研究官Mark Chen； Anthropic CEODario Amodei，以及四位联创Jare",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2065724643378570793",
-          "time": "8/3"
+          "title": "DeepSeek斩杀线",
+          "summary": "最新资讯：DeepSeek斩杀线（热度72.3万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=DeepSeek%E6%96%A9%E6%9D%80%E7%BA%BF",
+          "time": "8/4"
         },
         {
-          "title": "如何看待 OpenAI 宣布 Astra 在十个长期开放的数学与理论计算机问题上取得重大进展？",
-          "summary": "2026 年 8 月 1 日，OpenAI 公布了其下一代内部模型 Astra 在数学和理论计算机科学领域取得的十项成果。https://openai.com/index/ten-advances-in-mathematics/ 根据 OpenAI 的说法，这些问题的核心结论至少十年没有取得进展，多数问题开放的时间更长，覆盖高维几何、编码理论、算术电路复杂性、群论、算子代数、量子复杂性、格密码学和",
+          "title": "为什么大家都说 DeepSeek 已经成为大模型的「斩杀线」？",
+          "summary": "快科技8月1日消息，赶在7月最后一天，DeepSeek终于拿出了V4正式版，首发的只是V4 Flash-0731，Pro正式版要到8月初，会随着DeepSeek的Harness工具一起问世。 V4 Flash-0731发布之后，之前还因为DeepSeek跳票而把梁文锋称为小梁、梁白开的网友马上恢复了梁圣的称号，因为它的表现超过了预期，官方测试性能超过了GLM-5.2，比Opus 4.8低一些，部分",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2066921241156523798",
-          "time": "8/3"
+          "url": "https://www.zhihu.com/question/2067545767003120313",
+          "time": "8/4"
+        },
+        {
+          "title": "如何看待24岁华尔街AI天才掌管450亿美元、以4倍杠杆极致梭哈AI硬件，最终遭华尔街「围猎」爆仓？",
+          "summary": "Leopold Aschenbrenner曾是OpenAI超级对齐团队成员。2024年，他凭借一篇预测AGI进程的长文走红，随后创办对冲基金Situational Awareness，重仓存储芯片、AI云、数据中心和电力等AI基础设施。 截至2026年6月底，该基金年内净回报一度达到439%，规模最高膨胀至450亿美元。但进入7月后，AI硬件股突然集体暴跌，叠加约4倍杠杆和空头头寸反向上涨，基金很",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2066578072997049748",
+          "time": "8/4"
+        },
+        {
+          "title": "OpenCode 发文称 DeepSeek 单日吞下 8 万亿 Token，传递出哪些信号？",
+          "summary": "【CNMO科技消息】8月3日，海外开发者开源项目团队OpenCode发文称，其平台上DeepSeek V4 Flash的调用量大幅飙升，单日处理达8万亿Token。其中5万亿为免费试用额度消耗，3万亿为开发者通过OpenCode平台付费使用。与此同时，模型API分发平台OpenRouter的最新数据显示，上周（7月27日至8月2日）DeepSeek V4 Flash以7.22万亿Token的周调用",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2067873642554156045",
+          "time": "8/4"
         }
       ]
     },
@@ -65,46 +79,46 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "韩国股市逾百万账户爆仓",
-          "summary": "最新资讯：韩国股市逾百万账户爆仓（热度39.5万）",
+          "title": "杜兰特称当年勇士不比如今76人",
+          "summary": "最新资讯：杜兰特称当年勇士不比如今76人（热度72.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E8%82%A1%E5%B8%82%E9%80%BE%E7%99%BE%E4%B8%87%E8%B4%A6%E6%88%B7%E7%88%86%E4%BB%93",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E6%9D%9C%E5%85%B0%E7%89%B9%E7%A7%B0%E5%BD%93%E5%B9%B4%E5%8B%87%E5%A3%AB%E4%B8%8D%E6%AF%94%E5%A6%82%E4%BB%8A76%E4%BA%BA",
+          "time": "8/4"
         },
         {
-          "title": "孙颖莎退赛王楚钦缺席WTT瑞典站",
-          "summary": "最新资讯：孙颖莎退赛王楚钦缺席WTT瑞典站（热度39.1万）",
+          "title": "韩国年轻人正进入无恋爱社会",
+          "summary": "最新资讯：韩国年轻人正进入无恋爱社会（热度47.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%AD%99%E9%A2%96%E8%8E%8E%E9%80%80%E8%B5%9B%E7%8E%8B%E6%A5%9A%E9%92%A6%E7%BC%BA%E5%B8%ADWTT%E7%91%9E%E5%85%B8%E7%AB%99",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E5%B9%B4%E8%BD%BB%E4%BA%BA%E6%AD%A3%E8%BF%9B%E5%85%A5%E6%97%A0%E6%81%8B%E7%88%B1%E7%A4%BE%E4%BC%9A",
+          "time": "8/4"
         },
         {
-          "title": "ChatGpt官方卖篮球",
-          "summary": "最新资讯：ChatGpt官方卖篮球（热度19.4万）",
+          "title": "樊振东周杰伦乒乓球对打",
+          "summary": "最新资讯：樊振东周杰伦乒乓球对打（热度27.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=ChatGpt%E5%AE%98%E6%96%B9%E5%8D%96%E7%AF%AE%E7%90%83",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E6%A8%8A%E6%8C%AF%E4%B8%9C%E5%91%A8%E6%9D%B0%E4%BC%A6%E4%B9%92%E4%B9%93%E7%90%83%E5%AF%B9%E6%89%93",
+          "time": "8/4"
         },
         {
-          "title": "孙颖莎因伤退出WTT瑞典站赛事",
-          "summary": "最新资讯：孙颖莎因伤退出WTT瑞典站赛事（热度820.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%AD%99%E9%A2%96%E8%8E%8E%E5%9B%A0%E4%BC%A4%E9%80%80%E5%87%BAWTT%E7%91%9E%E5%85%B8%E7%AB%99%E8%B5%9B%E4%BA%8B",
-          "time": "8/3"
+          "title": "如何评价阿德巴约评 NBA 历史前 5 球星，詹姆斯未能入选？你心中的历史前 5 是谁？",
+          "summary": "北京时间8月3日，热火球星阿德巴约接受媒体采访，谈到了字母哥加盟热火，回应了詹姆斯选择76人一事。值得一提的是，他在采访中把詹姆斯称为兄弟，但在当日活动中评选历史前五球星，他却没有选择詹姆斯。记者问阿德巴约：“在拉斯维加斯，扬尼斯（字母哥）正式官宣加盟之后，你们第一次碰面交流是什么场景？当时沟通的核心是什么？”阿德巴约说道：“我们满脑子都是投入训练、全力冲目标。夺冠就是他的信念，在这件事上我们想法",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2067640141900768289",
+          "time": "8/4"
         }
       ]
     },
     {
-      "id": "show",
-      "name": "🌟 秀场",
-      "color": "#ec4899",
+      "id": "fashion",
+      "name": "👗 时尚",
+      "color": "#f43f5e",
       "items": [
         {
-          "title": "迪丽热巴反复强调能撤一下吗",
-          "summary": "最新资讯：迪丽热巴反复强调能撤一下吗（热度19.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BF%AA%E4%B8%BD%E7%83%AD%E5%B7%B4%E5%8F%8D%E5%A4%8D%E5%BC%BA%E8%B0%83%E8%83%BD%E6%92%A4%E4%B8%80%E4%B8%8B%E5%90%97",
-          "time": "8/3"
+          "title": "到中国旅游正在成为一种潮流",
+          "summary": "最新资讯：到中国旅游正在成为一种潮流（热度1107.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%88%B0%E4%B8%AD%E5%9B%BD%E6%97%85%E6%B8%B8%E6%AD%A3%E5%9C%A8%E6%88%90%E4%B8%BA%E4%B8%80%E7%A7%8D%E6%BD%AE%E6%B5%81",
+          "time": "8/4"
         }
       ]
     },
@@ -114,46 +128,18 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "大众电影百花奖",
-          "summary": "最新资讯：大众电影百花奖（热度19.0万）",
+          "title": "花开锦绣定档",
+          "summary": "最新资讯：花开锦绣定档（热度173.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A4%A7%E4%BC%97%E7%94%B5%E5%BD%B1%E7%99%BE%E8%8A%B1%E5%A5%96",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E8%8A%B1%E5%BC%80%E9%94%A6%E7%BB%A3%E5%AE%9A%E6%A1%A3",
+          "time": "8/4"
         },
         {
-          "title": "电影《蜘蛛侠：崭新之日》里琴最后怎么就被一句话给感动，放下复仇了呢？",
-          "summary": "很多人吐槽这点太随意，不符合逻辑，你怎么看？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2066994358264636483",
-          "time": "8/3"
-        },
-        {
-          "title": "电影去你的岛提档",
-          "summary": "最新资讯：电影去你的岛提档（热度780.8万）",
+          "title": "火影百战虎皮招募动画",
+          "summary": "最新资讯：火影百战虎皮招募动画（热度764.0万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E5%8E%BB%E4%BD%A0%E7%9A%84%E5%B2%9B%E6%8F%90%E6%A1%A3",
-          "time": "8/3"
-        },
-        {
-          "title": "电影去你的岛后劲太大了",
-          "summary": "最新资讯：电影去你的岛后劲太大了（热度769.7万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E5%8E%BB%E4%BD%A0%E7%9A%84%E5%B2%9B%E5%90%8E%E5%8A%B2%E5%A4%AA%E5%A4%A7%E4%BA%86",
-          "time": "8/3"
-        }
-      ]
-    },
-    {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
-      "items": [
-        {
-          "title": "HYBE新女团TUIDE公开",
-          "summary": "最新资讯：HYBE新女团TUIDE公开（热度774.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/HYBE%E6%96%B0%E5%A5%B3%E5%9B%A2TUIDE%E5%85%AC%E5%BC%80",
-          "time": "8/3"
+          "url": "https://www.douyin.com/search/%E7%81%AB%E5%BD%B1%E7%99%BE%E6%88%98%E8%99%8E%E7%9A%AE%E6%8B%9B%E5%8B%9F%E5%8A%A8%E7%94%BB",
+          "time": "8/4"
         }
       ]
     },
@@ -163,11 +149,11 @@
       "color": "#f97316",
       "items": [
         {
-          "title": "瑞幸对嘴喷奶油员工已开除",
-          "summary": "最新资讯：瑞幸对嘴喷奶油员工已开除（热度97.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%91%9E%E5%B9%B8%E5%AF%B9%E5%98%B4%E5%96%B7%E5%A5%B6%E6%B2%B9%E5%91%98%E5%B7%A5%E5%B7%B2%E5%BC%80%E9%99%A4",
-          "time": "8/3"
+          "title": "一代人有一代人的公益广告",
+          "summary": "最新资讯：一代人有一代人的公益广告（热度773.1万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E4%B8%80%E4%BB%A3%E4%BA%BA%E6%9C%89%E4%B8%80%E4%BB%A3%E4%BA%BA%E7%9A%84%E5%85%AC%E7%9B%8A%E5%B9%BF%E5%91%8A",
+          "time": "8/4"
         }
       ]
     },
@@ -177,32 +163,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "豆包简直是压力全吃之人",
-          "summary": "最新资讯：豆包简直是压力全吃之人（热度156.3万）",
+          "title": "丈夫称愿意销毁胚胎患癌妻子回应",
+          "summary": "最新资讯：丈夫称愿意销毁胚胎患癌妻子回应（热度93.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%B1%86%E5%8C%85%E7%AE%80%E7%9B%B4%E6%98%AF%E5%8E%8B%E5%8A%9B%E5%85%A8%E5%90%83%E4%B9%8B%E4%BA%BA",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%88%E5%A4%AB%E7%A7%B0%E6%84%BF%E6%84%8F%E9%94%80%E6%AF%81%E8%83%9A%E8%83%8E%E6%82%A3%E7%99%8C%E5%A6%BB%E5%AD%90%E5%9B%9E%E5%BA%94",
+          "time": "8/4"
         },
         {
-          "title": "这是国之重器也是国之底气",
-          "summary": "最新资讯：这是国之重器也是国之底气（热度96.0万）",
+          "title": "不要抽穷公司的团建奖",
+          "summary": "最新资讯：不要抽穷公司的团建奖（热度72.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%BF%99%E6%98%AF%E5%9B%BD%E4%B9%8B%E9%87%8D%E5%99%A8%E4%B9%9F%E6%98%AF%E5%9B%BD%E4%B9%8B%E5%BA%95%E6%B0%94",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%8D%E8%A6%81%E6%8A%BD%E7%A9%B7%E5%85%AC%E5%8F%B8%E7%9A%84%E5%9B%A2%E5%BB%BA%E5%A5%96",
+          "time": "8/4"
         },
         {
-          "title": "女儿考上北大 请大家喝水",
-          "summary": "最新资讯：女儿考上北大 请大家喝水（热度92.5万）",
+          "title": "终于知道自助小火锅限时的原因了",
+          "summary": "最新资讯：终于知道自助小火锅限时的原因了（热度72.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%A5%B3%E5%84%BF%E8%80%83%E4%B8%8A%E5%8C%97%E5%A4%A7%20%E8%AF%B7%E5%A4%A7%E5%AE%B6%E5%96%9D%E6%B0%B4",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E7%BB%88%E4%BA%8E%E7%9F%A5%E9%81%93%E8%87%AA%E5%8A%A9%E5%B0%8F%E7%81%AB%E9%94%85%E9%99%90%E6%97%B6%E7%9A%84%E5%8E%9F%E5%9B%A0%E4%BA%86",
+          "time": "8/4"
         },
         {
-          "title": "从养老院回来后坚定了粗腿的决心",
-          "summary": "最新资讯：从养老院回来后坚定了粗腿的决心（热度91.4万）",
+          "title": "婚外试管丈夫声称离婚5个0不属实",
+          "summary": "最新资讯：婚外试管丈夫声称离婚5个0不属实（热度72.3万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BB%8E%E5%85%BB%E8%80%81%E9%99%A2%E5%9B%9E%E6%9D%A5%E5%90%8E%E5%9D%9A%E5%AE%9A%E4%BA%86%E7%B2%97%E8%85%BF%E7%9A%84%E5%86%B3%E5%BF%83",
-          "time": "8/3"
+          "url": "https://s.weibo.com/weibo?q=%E5%A9%9A%E5%A4%96%E8%AF%95%E7%AE%A1%E4%B8%88%E5%A4%AB%E5%A3%B0%E7%A7%B0%E7%A6%BB%E5%A9%9A5%E4%B8%AA0%E4%B8%8D%E5%B1%9E%E5%AE%9E",
+          "time": "8/4"
         }
       ]
     }
