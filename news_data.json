@@ -1,6 +1,6 @@
 {
-  "date": "2026-08-08",
-  "scrape_time": "2026-08-08 11:20 CST",
+  "date": "2026-08-09",
+  "scrape_time": "2026-08-09 11:28 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,32 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "iPhone18系列发布节奏",
-          "summary": "最新资讯：iPhone18系列发布节奏（热度16.6万）",
+          "title": "上半年国内手机销量TOP30出炉",
+          "summary": "最新资讯：上半年国内手机销量TOP30出炉（热度130.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=iPhone18%E7%B3%BB%E5%88%97%E5%8F%91%E5%B8%83%E8%8A%82%E5%A5%8F",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%8A%E5%8D%8A%E5%B9%B4%E5%9B%BD%E5%86%85%E6%89%8B%E6%9C%BA%E9%94%80%E9%87%8FTOP30%E5%87%BA%E7%82%89",
+          "time": "8/9"
         },
         {
-          "title": "华为阔直板新机曝光",
-          "summary": "最新资讯：华为阔直板新机曝光（热度16.5万）",
+          "title": "这种手机壳可能是医疗垃圾做的",
+          "summary": "最新资讯：这种手机壳可能是医疗垃圾做的（热度15.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%8E%E4%B8%BA%E9%98%94%E7%9B%B4%E6%9D%BF%E6%96%B0%E6%9C%BA%E6%9B%9D%E5%85%89",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E8%BF%99%E7%A7%8D%E6%89%8B%E6%9C%BA%E5%A3%B3%E5%8F%AF%E8%83%BD%E6%98%AF%E5%8C%BB%E7%96%97%E5%9E%83%E5%9C%BE%E5%81%9A%E7%9A%84",
+          "time": "8/9"
         },
         {
-          "title": "投资或达8000亿元的芯片工厂来了",
-          "summary": "最新资讯：投资或达8000亿元的芯片工厂来了（热度16.3万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%8A%95%E8%B5%84%E6%88%96%E8%BE%BE8000%E4%BA%BF%E5%85%83%E7%9A%84%E8%8A%AF%E7%89%87%E5%B7%A5%E5%8E%82%E6%9D%A5%E4%BA%86",
-          "time": "8/8"
-        },
-        {
-          "title": "跑了几天外卖发现，很多人原来是修手机的、修汽车的、修家电的技术人员，有手艺为什么要来跑外卖呢？",
-          "summary": "最新资讯：跑了几天外卖发现，很多人原来是修手机的、修汽车的、修家电的技术人员，有手艺为什么要来跑外卖呢？",
+          "title": "如何看待贵州网红金蝉子账号发布讣告，称外号「老表」的打工网红彭仕运在老家游泳时不幸溺水身亡？",
+          "summary": "[视频]",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2068266947939153909",
-          "time": "8/8"
+          "url": "https://www.zhihu.com/question/2068817961792623517",
+          "time": "8/9"
+        },
+        {
+          "title": "比亚迪纯电 K-car「海獭」Racco 在日本获超 700 辆订单，这对其出海战略意味着什么？",
+          "summary": "IT之家 8 月 5 日消息，据日经新闻报道，比亚迪 3 日宣布，7 月 28 日上市的日本专属纯电 K-Car“Racco（海獭）”订单量已经突破 700 辆。不过，日本汽车销售行业组织同日公布的数据显示，Racco 上市头 4 天仅计入 125 辆销量。日本汽车销售协会联合会和全国 K-Car 协会联合会汇总的统计数据显示，7 月日本新车销量同比增长 7% 至 417163 辆，连续 4 个月",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2068423027138859669",
+          "time": "8/9"
         }
       ]
     },
@@ -44,32 +44,46 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "自媒体红利期只剩AI了",
-          "summary": "最新资讯：自媒体红利期只剩AI了（热度13.3万）",
+          "title": "苹果AI国行版上线官网",
+          "summary": "最新资讯：苹果AI国行版上线官网（热度29.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%87%AA%E5%AA%92%E4%BD%93%E7%BA%A2%E5%88%A9%E6%9C%9F%E5%8F%AA%E5%89%A9AI%E4%BA%86",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E8%8B%B9%E6%9E%9CAI%E5%9B%BD%E8%A1%8C%E7%89%88%E4%B8%8A%E7%BA%BF%E5%AE%98%E7%BD%91",
+          "time": "8/9"
         },
         {
-          "title": "网传DeepSeek V4 Flash完成任务后写了个游戏玩一上午，是真的吗？为什么会出现这样的现象？",
-          "summary": "[图片]",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2068108635620774765",
-          "time": "8/8"
+          "title": "AI短剧和真人剧观众两极分化",
+          "summary": "最新资讯：AI短剧和真人剧观众两极分化（热度16.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=AI%E7%9F%AD%E5%89%A7%E5%92%8C%E7%9C%9F%E4%BA%BA%E5%89%A7%E8%A7%82%E4%BC%97%E4%B8%A4%E6%9E%81%E5%88%86%E5%8C%96",
+          "time": "8/9"
+        }
+      ]
+    },
+    {
+      "id": "sports",
+      "name": "⚽ 体育",
+      "color": "#10b981",
+      "items": [
+        {
+          "title": "C罗发表情包回应婚礼",
+          "summary": "最新资讯：C罗发表情包回应婚礼（热度29.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E5%8F%91%E8%A1%A8%E6%83%85%E5%8C%85%E5%9B%9E%E5%BA%94%E5%A9%9A%E7%A4%BC",
+          "time": "8/9"
         },
         {
-          "title": "四大会计事务所的研究报告集体陷入「AI  幻觉」，对咨询行业的公信力会造成怎样的冲击？暴露了什么问题？",
-          "summary": "近日，AI检测机构GPTZero团队对普华永道（PwC）发布的研究报告开展了一次“AI体检”。 检测结果显示，2024年至2026年间，普华永道中东分支机构（PwC Middle East）陆续发布的4份研究报告中充斥着大量“AI幻觉”，包括虚构概念、错误引用及编造参考文献等，其中一份报告被检测工具判定为100%由AI生成。 普华永道并非孤例。在此之前，“四大”会计事务所中的另外三家——德勤、安永",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2068674224802067300",
-          "time": "8/8"
+          "title": "数千C罗球迷误闯普通人婚礼",
+          "summary": "最新资讯：数千C罗球迷误闯普通人婚礼（热度15.8万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%95%B0%E5%8D%83C%E7%BD%97%E7%90%83%E8%BF%B7%E8%AF%AF%E9%97%AF%E6%99%AE%E9%80%9A%E4%BA%BA%E5%A9%9A%E7%A4%BC",
+          "time": "8/9"
         },
         {
-          "title": "张朝阳说「AI 让内容产生了塑料感，像化肥催出来的西红柿」，你认同他的观点吗？AI 创作究竟缺了什么？",
-          "summary": "搜狐创始人、董事局主席兼首席执行官张朝阳在接受采访时表示，真人互动与真实内容是AI永远替代不了的。信息获取和真人的沟通是两回事，AI目前取代不了人类交流。在信息海洋里，人更需要出来交流。AI时代，真实互动的环境更加难能可贵。 聊到内容从业者的AI焦虑，他用一个比喻做了回应：“现在AI产生的东西，让媒体和内容产生了塑料的感觉。就像化肥催出来的西红柿，看着光鲜，吃着一点味道都没有；带点泥的胡萝卜，看着",
+          "title": "网球影响力为何远远大于羽毛球乒乓球?",
+          "summary": "就运动员而言，费德勒纳达尔德约的影响力大于林丹，李宗伟，张继科。而比赛规模，四大满贯关注度也比世乒赛和苏迪曼杯高的多。",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2069026444722843772",
-          "time": "8/8"
+          "url": "https://www.zhihu.com/question/30020661",
+          "time": "8/9"
         }
       ]
     },
@@ -79,32 +93,32 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "提前预习秋天穿搭",
-          "summary": "最新资讯：提前预习秋天穿搭（热度793.8万）",
+          "title": "早秋韩系奶油风穿搭",
+          "summary": "最新资讯：早秋韩系奶油风穿搭（热度1019.8万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8F%90%E5%89%8D%E9%A2%84%E4%B9%A0%E7%A7%8B%E5%A4%A9%E7%A9%BF%E6%90%AD",
-          "time": "8/8"
+          "url": "https://www.douyin.com/search/%E6%97%A9%E7%A7%8B%E9%9F%A9%E7%B3%BB%E5%A5%B6%E6%B2%B9%E9%A3%8E%E7%A9%BF%E6%90%AD",
+          "time": "8/9"
         },
         {
-          "title": "显瘦穿搭灵感",
-          "summary": "最新资讯：显瘦穿搭灵感（热度778.0万）",
+          "title": "穿搭没有公式",
+          "summary": "最新资讯：穿搭没有公式（热度874.8万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%98%BE%E7%98%A6%E7%A9%BF%E6%90%AD%E7%81%B5%E6%84%9F",
-          "time": "8/8"
+          "url": "https://www.douyin.com/search/%E7%A9%BF%E6%90%AD%E6%B2%A1%E6%9C%89%E5%85%AC%E5%BC%8F",
+          "time": "8/9"
         },
         {
-          "title": "秋天的第一套奶茶风穿搭",
-          "summary": "最新资讯：秋天的第一套奶茶风穿搭（热度771.3万）",
+          "title": "全明星刺激之夜吃鸡行为大赏",
+          "summary": "最新资讯：全明星刺激之夜吃鸡行为大赏（热度844.6万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%A7%8B%E5%A4%A9%E7%9A%84%E7%AC%AC%E4%B8%80%E5%A5%97%E5%A5%B6%E8%8C%B6%E9%A3%8E%E7%A9%BF%E6%90%AD",
-          "time": "8/8"
+          "url": "https://www.douyin.com/search/%E5%85%A8%E6%98%8E%E6%98%9F%E5%88%BA%E6%BF%80%E4%B9%8B%E5%A4%9C%E5%90%83%E9%B8%A1%E8%A1%8C%E4%B8%BA%E5%A4%A7%E8%B5%8F",
+          "time": "8/9"
         },
         {
-          "title": "全明星打卡泡泡手势舞",
-          "summary": "最新资讯：全明星打卡泡泡手势舞（热度769.4万）",
+          "title": "白鹿户外氛围感随拍",
+          "summary": "最新资讯：白鹿户外氛围感随拍（热度769.7万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%85%A8%E6%98%8E%E6%98%9F%E6%89%93%E5%8D%A1%E6%B3%A1%E6%B3%A1%E6%89%8B%E5%8A%BF%E8%88%9E",
-          "time": "8/8"
+          "url": "https://www.douyin.com/search/%E7%99%BD%E9%B9%BF%E6%88%B7%E5%A4%96%E6%B0%9B%E5%9B%B4%E6%84%9F%E9%9A%8F%E6%8B%8D",
+          "time": "8/9"
         }
       ]
     },
@@ -114,18 +128,11 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "佛山一中学招聘前 13 名考生均被淘汰，后 5 名反进体检，教育局已成立调查组，哪些信息值得关注？",
-          "summary": "8月7日，佛山市教育局通报：针对网传佛山市季华中学教师招聘有关情况，佛山市教育局已叫停学校招聘工作，成立专门调查组，开展全面核查，调查情况将向社会通报。感谢广大网民的监督，我们将依法依规处置，努力营造公平公正的选人用人环境。 佛山市教育局发布情况通报 8月5日，佛山市季华中学公布了2026年面向社会招聘教师总成绩，其中物理教师岗位最后进入体检名单的人员引发争议。网友指出，进入面试的18人中，笔试成",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2069064416709063399",
-          "time": "8/8"
-        },
-        {
-          "title": "歌手歌王之战舞台",
-          "summary": "最新资讯：歌手歌王之战舞台（热度776.2万）",
+          "title": "叫号取餐选秀大会",
+          "summary": "最新资讯：叫号取餐选秀大会（热度770.3万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%AD%8C%E6%89%8B%E6%AD%8C%E7%8E%8B%E4%B9%8B%E6%88%98%E8%88%9E%E5%8F%B0",
-          "time": "8/8"
+          "url": "https://www.douyin.com/search/%E5%8F%AB%E5%8F%B7%E5%8F%96%E9%A4%90%E9%80%89%E7%A7%80%E5%A4%A7%E4%BC%9A",
+          "time": "8/9"
         }
       ]
     },
@@ -135,39 +142,60 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "挑战看电影去你的岛不哭",
-          "summary": "最新资讯：挑战看电影去你的岛不哭（热度769.5万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%8C%91%E6%88%98%E7%9C%8B%E7%94%B5%E5%BD%B1%E5%8E%BB%E4%BD%A0%E7%9A%84%E5%B2%9B%E4%B8%8D%E5%93%AD",
-          "time": "8/8"
+          "title": "如何评价超前点映中，由文牧野执导、沈腾领衔主演的电影《欢迎来龙餐馆》？",
+          "summary": "[图片]",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2068425373046544035",
+          "time": "8/9"
         },
         {
-          "title": "蜘蛛侠4观影后遗症",
-          "summary": "最新资讯：蜘蛛侠4观影后遗症（热度767.8万）",
+          "title": "2026 暑期档国产片频繁提档、撤档，进口片档期却基本不变，可能有哪些原因？频繁调整档期的影响有多大？",
+          "summary": "截止 8 月 4 日统计：空降组 《功夫女足》：空降 7.11提档组 《八仙！》：原定 7.24 → 提档 7.18 《群星闪耀时》：原定 8.1 → 提档 7.25 《年会不能停！2》：原定 8.7 → 提档 8.1 《去你的岛》：原定 8.19 → 提档 8.7 《想你了》：原定 7.24 → 提档 7.17 《魔方小姐》：原定 7.3 → 提档 6.30 《我看见两朵一样的云》：原定 6.2",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2067995468202599329",
+          "time": "8/9"
+        },
+        {
+          "title": "《年会不能停！2》票房预测跌至2.48亿，甚至不到第一部票房的零头，问题出在哪里？",
+          "summary": "[2 张图片]",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2068466998103822555",
+          "time": "8/9"
+        },
+        {
+          "title": "千名武警观看电影功夫女足",
+          "summary": "最新资讯：千名武警观看电影功夫女足（热度767.1万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%9C%98%E8%9B%9B%E4%BE%A04%E8%A7%82%E5%BD%B1%E5%90%8E%E9%81%97%E7%97%87",
-          "time": "8/8"
+          "url": "https://www.douyin.com/search/%E5%8D%83%E5%90%8D%E6%AD%A6%E8%AD%A6%E8%A7%82%E7%9C%8B%E7%94%B5%E5%BD%B1%E5%8A%9F%E5%A4%AB%E5%A5%B3%E8%B6%B3",
+          "time": "8/9"
         }
       ]
     },
     {
-      "id": "kpop",
-      "name": "🇰🇷 韩娱",
-      "color": "#14b8a6",
+      "id": "marketing",
+      "name": "📊 营销",
+      "color": "#f97316",
       "items": [
         {
-          "title": "Jennie晒BLACKPINK公开合照",
-          "summary": "最新资讯：Jennie晒BLACKPINK公开合照（热度14.8万）",
+          "title": "我国日均词元调用量超千倍增长",
+          "summary": "最新资讯：我国日均词元调用量超千倍增长（热度79.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=Jennie%E6%99%92BLACKPINK%E5%85%AC%E5%BC%80%E5%90%88%E7%85%A7",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E6%88%91%E5%9B%BD%E6%97%A5%E5%9D%87%E8%AF%8D%E5%85%83%E8%B0%83%E7%94%A8%E9%87%8F%E8%B6%85%E5%8D%83%E5%80%8D%E5%A2%9E%E9%95%BF",
+          "time": "8/9"
         },
         {
-          "title": "aespa首尔演唱会",
-          "summary": "最新资讯：aespa首尔演唱会（热度767.2万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/aespa%E9%A6%96%E5%B0%94%E6%BC%94%E5%94%B1%E4%BC%9A",
-          "time": "8/8"
+          "title": "孙颖莎入选中国品牌青年榜",
+          "summary": "最新资讯：孙颖莎入选中国品牌青年榜（热度28.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%AD%99%E9%A2%96%E8%8E%8E%E5%85%A5%E9%80%89%E4%B8%AD%E5%9B%BD%E5%93%81%E7%89%8C%E9%9D%92%E5%B9%B4%E6%A6%9C",
+          "time": "8/9"
+        },
+        {
+          "title": "雪佛兰正式停售中国市场，如何评价这个汽车品牌在华的21年？",
+          "summary": "8月7日，据多家媒体报道，雪佛兰品牌将停止在国内销售。 当 “再见，金领结” 的画面刷屏汽车圈，陪伴国内消费者 21 年的雪佛兰，正式宣告停止中国市场新车销售业务。有意思的是，上汽通用合资合约反而续约 20 年至 2047 年，别克、凯迪拉克将继续深耕国内市场，而雪佛兰选择转换身份：国内工厂保留生产，产品主要用于出口海外，现有 750 万车主的售后权益也将得到保障。 金领结虽然告别国内新车市场，但",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2069357693840667744",
+          "time": "8/9"
         }
       ]
     },
@@ -177,32 +205,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "白海豚已闭眼",
-          "summary": "最新资讯：白海豚已闭眼（热度177.0万）",
+          "title": "上海台风",
+          "summary": "最新资讯：上海台风（热度86.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%99%BD%E6%B5%B7%E8%B1%9A%E5%B7%B2%E9%97%AD%E7%9C%BC",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%8A%E6%B5%B7%E5%8F%B0%E9%A3%8E",
+          "time": "8/9"
         },
         {
-          "title": "张本智和 零封不算意外",
-          "summary": "最新资讯：张本智和 零封不算意外（热度94.6万）",
+          "title": "中国富二代在泰国遭遇情杀",
+          "summary": "最新资讯：中国富二代在泰国遭遇情杀（热度78.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%BC%A0%E6%9C%AC%E6%99%BA%E5%92%8C%20%E9%9B%B6%E5%B0%81%E4%B8%8D%E7%AE%97%E6%84%8F%E5%A4%96",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E4%B8%AD%E5%9B%BD%E5%AF%8C%E4%BA%8C%E4%BB%A3%E5%9C%A8%E6%B3%B0%E5%9B%BD%E9%81%AD%E9%81%87%E6%83%85%E6%9D%80",
+          "time": "8/9"
         },
         {
-          "title": "向陕西增加调拨3.2万件救灾物资",
-          "summary": "最新资讯：向陕西增加调拨3.2万件救灾物资（热度73.1万）",
+          "title": "保护脊柱腰椎 幻想自己有一条尾巴",
+          "summary": "最新资讯：保护脊柱腰椎 幻想自己有一条尾巴（热度74.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%90%91%E9%99%95%E8%A5%BF%E5%A2%9E%E5%8A%A0%E8%B0%83%E6%8B%A83.2%E4%B8%87%E4%BB%B6%E6%95%91%E7%81%BE%E7%89%A9%E8%B5%84",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E4%BF%9D%E6%8A%A4%E8%84%8A%E6%9F%B1%E8%85%B0%E6%A4%8E%20%E5%B9%BB%E6%83%B3%E8%87%AA%E5%B7%B1%E6%9C%89%E4%B8%80%E6%9D%A1%E5%B0%BE%E5%B7%B4",
+          "time": "8/9"
         },
         {
-          "title": "薛之谦杭州站演唱会取消",
-          "summary": "最新资讯：薛之谦杭州站演唱会取消（热度73.0万）",
+          "title": "天才女友总制片人怎么了",
+          "summary": "最新资讯：天才女友总制片人怎么了（热度61.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%96%9B%E4%B9%8B%E8%B0%A6%E6%9D%AD%E5%B7%9E%E7%AB%99%E6%BC%94%E5%94%B1%E4%BC%9A%E5%8F%96%E6%B6%88",
-          "time": "8/8"
+          "url": "https://s.weibo.com/weibo?q=%E5%A4%A9%E6%89%8D%E5%A5%B3%E5%8F%8B%E6%80%BB%E5%88%B6%E7%89%87%E4%BA%BA%E6%80%8E%E4%B9%88%E4%BA%86",
+          "time": "8/9"
         }
       ]
     }
