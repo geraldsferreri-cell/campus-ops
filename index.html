@@ -6824,35 +6824,60 @@
                 if (delError) console.error('删除旧薪资记录失败:', delError);
             } catch (e) { console.error('删除旧薪资记录异常:', e); }
 
-            // 先计算所有学生的薪资（底薪+奖金）
+            // ★★★ 重构：视频驱动模式 — 遍历当月视频的所有发布者，而非 users 表
+            // 这样即使发布者不在 users 表里，也能正常计算薪资
             console.log('查询薪资 - 月份:', month, '日期范围:', dateStart, '至', dateEnd, '视频总数:', allVideos.length, '学生数:', allUsers.filter(u => u.role === 'student').length);
             // 统一按自然月统计：从选中月份推导月初(1号)到月末(最后一天)
-            // 始终用 created_at 本地日期过滤，与视频记录页完全一致
             const [sy, sm] = String(month).split('-').map(Number);
             const monthStart = `${sy}-${String(sm).padStart(2, '0')}-01`;
             const monthEnd = formatLocalDate(new Date(sy, sm, 0)); // 该月最后一天
 
-            // 去重：同名（real_name）学生只算一次，避免重复用户记录导致薪资翻倍
-            const seenStudentNames = new Set();
-            const assignedVideoIds = new Set(); // 防止同一视频被多个学生认领
-            for (const student of allUsers.filter(u => u.role === 'student')) {
-                const studentKey = student.real_name || student.name;
-                if (!studentKey || seenStudentNames.has(studentKey)) {
-                    console.log('>>> 跳过重复学生:', studentKey);
+            // 第1步：从当月视频中提取所有唯一发布者
+            const monthVideos = allVideos.filter(v => {
+                const videoDate = getLocalDateStr(v.created_at);
+                return videoDate >= monthStart && videoDate <= monthEnd;
+            });
+            const allPublishers = [...new Set(monthVideos.map(v => v.publisher).filter(Boolean))];
+            console.log('>>> 当月视频发布者:', allPublishers.length, '人 —', allPublishers.join('、'));
+
+            // 第2步：为每个发布者查找匹配的用户记录
+            const assignedVideoIds = new Set();
+            const processedPublishers = new Set();
+
+            for (const publisher of allPublishers) {
+                if (processedPublishers.has(publisher)) continue;
+                processedPublishers.add(publisher);
+
+                // 查找匹配的用户：按 real_name / name / username 匹配
+                let matchedUser = allUsers.find(u =>
+                    u.real_name === publisher || u.name === publisher || u.username === publisher
+                );
+                // 如果精确匹配不到，尝试模糊匹配（处理可能的空格/字符差异）
+                if (!matchedUser) {
+                    matchedUser = allUsers.find(u => {
+                        const names = getUserAllNames(u);
+                        return names.some(n => n && publisher && (
+                            n === publisher ||
+                            n.replace(/\s+/g, '') === publisher.replace(/\s+/g, '') ||
+                            publisher.includes(n) || n.includes(publisher)
+                        ));
+                    });
+                }
+
+                const studentKey = publisher;
+                const userNames = matchedUser ? getUserAllNames(matchedUser) : [publisher];
+
+                // 获取该发布者的所有当月视频
+                const userVideos = monthVideos.filter(v => {
+                    if (assignedVideoIds.has(v.id)) return false;
+                    return userNames.includes(v.publisher);
+                });
+                userVideos.forEach(v => assignedVideoIds.add(v.id));
+
+                if (userVideos.length === 0) {
+                    console.log('>>> 发布者', publisher, '无视频（可能已被其他匹配名认领）');
                     continue;
                 }
-                seenStudentNames.add(studentKey);
-
-                const userNames = getUserAllNames(student);
-                const userVideos = allVideos.filter(v => {
-                    if (assignedVideoIds.has(v.id)) return false; // 已被其他学生认领
-                    const nameMatch = userNames.includes(v.publisher);
-                    if (!nameMatch) return false;
-                    const videoDate = getLocalDateStr(v.created_at);
-                    return videoDate >= monthStart && videoDate <= monthEnd;
-                });
-                // 标记这些视频已被认领
-                userVideos.forEach(v => assignedVideoIds.add(v.id));
 
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
@@ -6867,10 +6892,10 @@
                 });
                 const salaryInfo = calcStudentSalary(userVideos.length, thousandCount, tenThousandCount);
                 const data = {
-                    user_id: student.id,
+                    user_id: matchedUser ? matchedUser.id : null,
                     user_name: studentKey,
                     role: 'student',
-                    group_name: student.group_name,
+                    group_name: matchedUser ? matchedUser.group_name : '',
                     month,
                     video_count: userVideos.length,
                     thousand_count: thousandCount,
@@ -6883,8 +6908,8 @@
                     total: salaryInfo.total,
                     status: '待结算'
                 };
+                console.log('>>> 薪资:', studentKey, '视频:', userVideos.length, '千赞:', thousandCount, '万赞:', tenThousandCount, '实发:', salaryInfo.total);
                 try {
-                    // 已在开头删除该月所有记录，直接插入
                     await supabase.from('salaries').insert(data);
                 } catch (e) { console.error('保存学生薪资失败:', studentKey, e); }
             }
