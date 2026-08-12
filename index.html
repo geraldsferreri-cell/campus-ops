@@ -6681,20 +6681,31 @@
                 rangeEnd = formatLocalDate(new Date(ty, tm, 0));
             }
 
-            // 计算小组内所有学生的发片总数
+            // 计算小组内所有学生的发片总数（同名去重，视频去重）
             let groupVideoCount = 0;
             let totalStudentBonus = 0;
+            const seenGroupStudentNames = new Set();
+            const assignedGroupVideoIds = new Set();
 
             for (const student of groupStudents) {
+                const studentKey = student.real_name || student.name;
+                if (!studentKey || seenGroupStudentNames.has(studentKey)) {
+                    console.log('>>> calcTeacherBonus 跳过重复学生:', studentKey);
+                    continue;
+                }
+                seenGroupStudentNames.add(studentKey);
+
                 const studentNames = getUserAllNames(student);
                 const studentVideos = allVideos.filter(v => {
+                    if (assignedGroupVideoIds.has(v.id)) return false;
                     const nameMatch = studentNames.includes(v.publisher);
                     if (!nameMatch) return false;
                     const videoDate = getLocalDateStr(v.created_at);
                     return videoDate >= rangeStart && videoDate <= rangeEnd;
                 });
+                studentVideos.forEach(v => assignedGroupVideoIds.add(v.id));
                 groupVideoCount += studentVideos.length;
-                
+
                     // 计算每个学生的奖励（使用统一数据达标计算，按链接去重）
                     let thousandCount = 0;
                     let tenThousandCount = 0;
@@ -6821,14 +6832,28 @@
             const monthStart = `${sy}-${String(sm).padStart(2, '0')}-01`;
             const monthEnd = formatLocalDate(new Date(sy, sm, 0)); // 该月最后一天
 
+            // 去重：同名（real_name）学生只算一次，避免重复用户记录导致薪资翻倍
+            const seenStudentNames = new Set();
+            const assignedVideoIds = new Set(); // 防止同一视频被多个学生认领
             for (const student of allUsers.filter(u => u.role === 'student')) {
+                const studentKey = student.real_name || student.name;
+                if (!studentKey || seenStudentNames.has(studentKey)) {
+                    console.log('>>> 跳过重复学生:', studentKey);
+                    continue;
+                }
+                seenStudentNames.add(studentKey);
+
                 const userNames = getUserAllNames(student);
                 const userVideos = allVideos.filter(v => {
+                    if (assignedVideoIds.has(v.id)) return false; // 已被其他学生认领
                     const nameMatch = userNames.includes(v.publisher);
                     if (!nameMatch) return false;
                     const videoDate = getLocalDateStr(v.created_at);
                     return videoDate >= monthStart && videoDate <= monthEnd;
                 });
+                // 标记这些视频已被认领
+                userVideos.forEach(v => assignedVideoIds.add(v.id));
+
                 // 使用统一数据达标计算（同链接只算一次，万赞优先）
                 let thousandCount = 0;
                 let tenThousandCount = 0;
@@ -6843,7 +6868,7 @@
                 const salaryInfo = calcStudentSalary(userVideos.length, thousandCount, tenThousandCount);
                 const data = {
                     user_id: student.id,
-                    user_name: student.real_name || student.name,
+                    user_name: studentKey,
                     role: 'student',
                     group_name: student.group_name,
                     month,
@@ -6861,7 +6886,7 @@
                 try {
                     // 已在开头删除该月所有记录，直接插入
                     await supabase.from('salaries').insert(data);
-                } catch (e) { console.error('保存学生薪资失败:', student.real_name || student.name, e); }
+                } catch (e) { console.error('保存学生薪资失败:', studentKey, e); }
             }
 
             // 再计算老师的带教奖金
