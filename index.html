@@ -6533,7 +6533,7 @@
                 <td>¥${s.base_salary || 0}</td>
                 <td>¥${s.bonus || 0}</td>
                 <td><strong>¥${s.total || 0}</strong></td>
-                <td>${s.status === '已结清' || s.status === '已结算' || (s.total || 0) === 0 ? `<span class="badge badge-success">已结清</span>` : `<button class="btn btn-sm btn-pay" onclick="event.stopPropagation();markSalaryPaid(${s.id})">待结算</button>`}</td>
+                <td>${s.status === '已结清' || s.status === '已结算' || (s.total || 0) === 0 ? `<span class="badge badge-success">已结清</span>` : `<button type="button" class="btn btn-sm btn-pay" onclick="event.preventDefault(); event.stopPropagation(); markSalaryPaid(${s.id})">待结算</button>`}</td>
             </tr>`;
             }).join('');
 
@@ -6945,7 +6945,28 @@
         }
 
         async function markSalaryPaid(id) {
-            try { const { error } = await supabase.from('salaries').update({ status: '已结清' }).eq('id', id); if (error) throw error; toast('已标记为已结清'); loadSalaries(); } catch (e) { toast('操作失败', 'error'); }
+            if (!id || !supabase) { toast('操作失败：参数或数据库未就绪', 'error'); return; }
+            console.log('[markSalaryPaid] 标记结清 id=', id);
+            try {
+                const { count, error } = await supabase.from('salaries').update({ status: '已结清' }, { count: 'exact' }).eq('id', id);
+                if (error) throw error;
+                if (!count || count === 0) {
+                    console.warn('[markSalaryPaid] 未更新到行，尝试修复RLS后重试 id=', id);
+                    await fixRLS();
+                    const retry = await supabase.from('salaries').update({ status: '已结清' }, { count: 'exact' }).eq('id', id);
+                    if (retry.error) throw retry.error;
+                    if (!retry.count || retry.count === 0) {
+                        toast('操作失败：未找到对应薪资记录', 'error');
+                        return;
+                    }
+                }
+                toast('已标记为已结清');
+                await loadSalaries();
+            } catch (e) {
+                console.error('[markSalaryPaid] 失败:', e);
+                toast('操作失败: ' + (e.message || e), 'error');
+                await fixRLS();
+            }
         }
 
         // 显示薪资明细弹窗
