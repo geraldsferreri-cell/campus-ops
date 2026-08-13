@@ -1,6 +1,6 @@
 {
-  "date": "2026-08-12",
-  "scrape_time": "2026-08-12 12:02 CST",
+  "date": "2026-08-13",
+  "scrape_time": "2026-08-13 12:06 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,25 +9,32 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "河南发布暴雨红色预警",
-          "summary": "最新资讯：河南发布暴雨红色预警（热度1212.4万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%B2%B3%E5%8D%97%E5%8F%91%E5%B8%83%E6%9A%B4%E9%9B%A8%E7%BA%A2%E8%89%B2%E9%A2%84%E8%AD%A6",
-          "time": "8/12"
+          "title": "卢伟冰官宣小米澎湃OS4",
+          "summary": "最新资讯：卢伟冰官宣小米澎湃OS4（热度17.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%8D%A2%E4%BC%9F%E5%86%B0%E5%AE%98%E5%AE%A3%E5%B0%8F%E7%B1%B3%E6%BE%8E%E6%B9%83OS4",
+          "time": "8/13"
         },
         {
-          "title": "十五五生态保护规划发布",
-          "summary": "最新资讯：十五五生态保护规划发布（热度1109.3万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%8D%81%E4%BA%94%E4%BA%94%E7%94%9F%E6%80%81%E4%BF%9D%E6%8A%A4%E8%A7%84%E5%88%92%E5%8F%91%E5%B8%83",
-          "time": "8/12"
+          "title": "网友爆料科技圈电商圈的大厂拒收阿里系中高层，是真的吗？反映了什么问题？他们为什么被称为互联网藤壶？",
+          "summary": "近日，一则关于大厂招聘的爆料引起小编注意。 爆料称，\"听我科技圈和电商圈的一些朋友讲，现大公司招聘已经封杀阿里的中高层，凡是阿里出身的，一概不要。\" 评论区不少网友表示认同。 有网友总结：“最大的问题是阿里的思维模式已经固化了，完全没有了当初的那种冲劲和创新精神，更多的是形式化、体制化了，需要成长的公司压根就不要这些老爷，人力成本还高得离谱，同样的预算，还不如请年轻人，干活卖力，肯吃苦，还有闯劲。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2070900468931191892",
+          "time": "8/13"
         },
         {
-          "title": "辽宁铁人就要求换裁判发布致歉信",
-          "summary": "最新资讯：辽宁铁人就要求换裁判发布致歉信（热度768.1万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E8%BE%BD%E5%AE%81%E9%93%81%E4%BA%BA%E5%B0%B1%E8%A6%81%E6%B1%82%E6%8D%A2%E8%A3%81%E5%88%A4%E5%8F%91%E5%B8%83%E8%87%B4%E6%AD%89%E4%BF%A1",
-          "time": "8/12"
+          "title": "媒体曝茶颜悦色入职培训强制收手机、被子叠「豆腐块」，具体什么情况？企业的行为侵犯员工权益了吗？",
+          "summary": "“裹着军事化外壳的形式主义大秀，恶心程度直接拉满”，近期，茶颜悦色因内部管理等问题引发众多员工不满。 《BUG》栏目获悉，该品牌正要求湖南、江苏等地员工入职前参加“军训”，军训期间的规定十分严苛： 手机必须上交； 内务要求叠“豆腐块”； 就餐全程禁言且有专人检查剩饭情况，不许剩一粒米； 需要背诵学习包括企业文化、服务口播话术等多项内容 … 上述都合格后才能“毕业”。 新员工质疑：“明明是做奶茶的入",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2070982459156424668",
+          "time": "8/13"
+        },
+        {
+          "title": "苹果被曝正测试长鑫存储芯片，将用于在中国市场销售的设备，双方最终达成合作的可能性有多大？",
+          "summary": "据《华尔街日报》8月9日报道，苹果公司正在其iPhone和MacBook等产品线中测试长鑫存储（CXMT）的存储芯片，以缓解因人工智能热潮引发的内存短缺问题。报道援引知情人士称，苹果公司已与中国最大的芯片制造商长鑫存储就零部件供应展开初步洽谈，目标是在中国销售的部分设备中使用这些芯片。路透社此前报道称，长鑫存储正考虑在北京建设第二座存储芯片工厂，以提高产能。此外，笔记本电脑制造商惠普（HP）和宏碁",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2070073820929419121",
+          "time": "8/13"
         }
       ]
     },
@@ -37,32 +44,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "国行苹果AI支持机型",
-          "summary": "最新资讯：国行苹果AI支持机型（热度43.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%9B%BD%E8%A1%8C%E8%8B%B9%E6%9E%9CAI%E6%94%AF%E6%8C%81%E6%9C%BA%E5%9E%8B",
-          "time": "8/12"
-        },
-        {
-          "title": "Chatgpt把Deepseek当宿敌了",
-          "summary": "最新资讯：Chatgpt把Deepseek当宿敌了（热度18.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=Chatgpt%E6%8A%8ADeepseek%E5%BD%93%E5%AE%BF%E6%95%8C%E4%BA%86",
-          "time": "8/12"
-        },
-        {
-          "title": "怎么看 DeepSeek 注册 Harness 公众号并选用黑鲸鱼 logo ？",
-          "summary": "DeepSeek Harness 的 Logo 是一只黑色鲸鱼",
+          "title": "DeepSeek V4 Pro 正式版发布，如何评价该模型？",
+          "summary": "官网模型编号已变更为DeepSeek-V4-Pro-0813",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070437867311174069",
-          "time": "8/12"
+          "url": "https://www.zhihu.com/question/2071014727606703118",
+          "time": "8/13"
         },
         {
-          "title": "曝 10 万亿参数的 GPT-6 即将发布，10 万亿参数是什么水平？对此你有哪些期待？",
-          "summary": "10万亿参数的GPT-6，即将于本月发布！ 就在刚刚，X上传来惊爆消息。 AI内幕记者ChrisGPT爆料，即使顶着政府审查的压力，GPT-6 （Astra）仍将在8月发布。 GPT-6，就是昨天OpenAI紧急暂停发布的模型Astra。 9个月前，OpenAI开始发力，重新分配计算资源。意识到Anthropic在预训练上领先，OpenAI着急了！ 据估计GPT-4的参数约为1.8万亿。如果Ast",
+          "title": "Deepseek V4Pro正式版发布，相比Claude Fable 5等模型，性能如何？性价比高吗？",
+          "summary": "DeepSeek-V4-Pro正式版API发布，大幅增强Agent能力，部分性能逼近甚至超越Claude Fable 5。 DeepSeek-V4-Pro正式版的基准测试显示，其性能相比预览版全面提升，在AI安全智能体基准测试套件Cybergym、工作流智能体AutomationBench中，DeepSeek-V4-Pro正式版的表现超越Fable 5。 值得一提的是，在针对长周期、高复杂度真实软",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070445459840000945",
-          "time": "8/12"
+          "url": "https://www.zhihu.com/question/2071019389479023642",
+          "time": "8/13"
+        },
+        {
+          "title": "如何评价 Anthropic CEO Dario Amodei 害怕被绑架？",
+          "summary": "the information报道，Dario Amodei因为害怕被绑架。",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2069971685403628839",
+          "time": "8/13"
+        },
+        {
+          "title": "deepseek的harness值得期待吗？",
+          "summary": "之前不是说deepseekV4正式版发布的时候，harness也会同步发布啊，折哦都快8月15了， 还没动静。搞大动作吗",
+          "source": "知乎",
+          "url": "https://www.zhihu.com/question/2068471750665545109",
+          "time": "8/13"
         }
       ]
     },
@@ -72,25 +79,18 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "C罗宣布结婚",
-          "summary": "最新资讯：C罗宣布结婚（热度294.2万）",
+          "title": "邹市明45岁重返拳击赛场",
+          "summary": "最新资讯：邹市明45岁重返拳击赛场（热度100.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E5%AE%A3%E5%B8%83%E7%BB%93%E5%A9%9A",
-          "time": "8/12"
+          "url": "https://s.weibo.com/weibo?q=%E9%82%B9%E5%B8%82%E6%98%8E45%E5%B2%81%E9%87%8D%E8%BF%94%E6%8B%B3%E5%87%BB%E8%B5%9B%E5%9C%BA",
+          "time": "8/13"
         },
         {
-          "title": "C罗五个孩子出席婚礼",
-          "summary": "最新资讯：C罗五个孩子出席婚礼（热度33.7万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E4%BA%94%E4%B8%AA%E5%AD%A9%E5%AD%90%E5%87%BA%E5%B8%AD%E5%A9%9A%E7%A4%BC",
-          "time": "8/12"
-        },
-        {
-          "title": "NBA公布26-27赛季常规赛赛程，詹姆斯连续八年打揭幕战，这体现了他在联盟中怎样的地位？",
-          "summary": "北京时间8月12日消息，NBA官方确认2026-27赛季完整常规赛赛程将于北京时间8月15日凌晨3点发布。据联盟公布的揭幕战安排，今夏底薪加盟费城76人的勒布朗·詹姆斯，将随队客场挑战卫冕冠军尼克斯。这意味着詹姆斯将连续第8个赛季站上NBA揭幕战舞台，目前他生涯揭幕战总得分已达到549分，高居NBA历史第一。[5] 詹姆斯是2003年NBA选秀状元，职业生涯先后效力骑士、热火、湖人。2025-26",
+          "title": "威少（维斯布鲁克）宣布退役，结束长达 18 年的 NBA 生涯，如何评价他的职业生涯？",
+          "summary": "北京时间8月13日，拉塞尔·威斯布鲁克更新了个人社媒，宣布自己将退役，结束18年的NBA生涯。 威少在个人社媒发布了一则视频，配文写道：有时候，你甚至未曾察觉，自己已见证了最后的绝唱。唯有亲历现场，方能体会那份震撼。而如今，曲终人散。 生涯18个赛季，威少效力过雷霆、火箭、奇才、湖人、快船、掘金和国王7支队伍，共出战1301场常规赛，场均得到20.9分6.9篮板8助攻1.6抢断0.3盖帽，投篮命中",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070559888154145150",
-          "time": "8/12"
+          "url": "https://www.zhihu.com/question/2071116184003646639",
+          "time": "8/13"
         }
       ]
     },
@@ -100,53 +100,25 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "杨幂王骁合作过10部剧",
-          "summary": "最新资讯：杨幂王骁合作过10部剧（热度33.2万）",
+          "title": "章若楠被金靖穿搭可爱到受不了",
+          "summary": "最新资讯：章若楠被金靖穿搭可爱到受不了（热度18.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9D%A8%E5%B9%82%E7%8E%8B%E9%AA%81%E5%90%88%E4%BD%9C%E8%BF%8710%E9%83%A8%E5%89%A7",
-          "time": "8/12"
+          "url": "https://s.weibo.com/weibo?q=%E7%AB%A0%E8%8B%A5%E6%A5%A0%E8%A2%AB%E9%87%91%E9%9D%96%E7%A9%BF%E6%90%AD%E5%8F%AF%E7%88%B1%E5%88%B0%E5%8F%97%E4%B8%8D%E4%BA%86",
+          "time": "8/13"
         },
         {
-          "title": "百花奖男女明星怼脸镜头",
-          "summary": "最新资讯：百花奖男女明星怼脸镜头（热度768.6万）",
+          "title": "穿搭改变环境",
+          "summary": "最新资讯：穿搭改变环境（热度830.2万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E7%99%BE%E8%8A%B1%E5%A5%96%E7%94%B7%E5%A5%B3%E6%98%8E%E6%98%9F%E6%80%BC%E8%84%B8%E9%95%9C%E5%A4%B4",
-          "time": "8/12"
-        }
-      ]
-    },
-    {
-      "id": "fashion",
-      "name": "👗 时尚",
-      "color": "#f43f5e",
-      "items": [
-        {
-          "title": "郑雅贤把粉丝送的裙子穿反了",
-          "summary": "最新资讯：郑雅贤把粉丝送的裙子穿反了（热度765.5万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E9%83%91%E9%9B%85%E8%B4%A4%E6%8A%8A%E7%B2%89%E4%B8%9D%E9%80%81%E7%9A%84%E8%A3%99%E5%AD%90%E7%A9%BF%E5%8F%8D%E4%BA%86",
-          "time": "8/12"
-        }
-      ]
-    },
-    {
-      "id": "variety",
-      "name": "📺 综艺",
-      "color": "#f59e0b",
-      "items": [
-        {
-          "title": "步惊云脱口秀 杀猪盘",
-          "summary": "最新资讯：步惊云脱口秀 杀猪盘（热度43.7万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%AD%A5%E6%83%8A%E4%BA%91%E8%84%B1%E5%8F%A3%E7%A7%80%20%E6%9D%80%E7%8C%AA%E7%9B%98",
-          "time": "8/12"
+          "url": "https://www.douyin.com/search/%E7%A9%BF%E6%90%AD%E6%94%B9%E5%8F%98%E7%8E%AF%E5%A2%83",
+          "time": "8/13"
         },
         {
-          "title": "JDG淘汰EDG",
-          "summary": "最新资讯：JDG淘汰EDG（热度908.3万）",
+          "title": "智性韩系毛衣开启初秋穿搭",
+          "summary": "最新资讯：智性韩系毛衣开启初秋穿搭（热度761.8万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/JDG%E6%B7%98%E6%B1%B0EDG",
-          "time": "8/12"
+          "url": "https://www.douyin.com/search/%E6%99%BA%E6%80%A7%E9%9F%A9%E7%B3%BB%E6%AF%9B%E8%A1%A3%E5%BC%80%E5%90%AF%E5%88%9D%E7%A7%8B%E7%A9%BF%E6%90%AD",
+          "time": "8/13"
         }
       ]
     },
@@ -156,32 +128,32 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "曝方文山长期婚内出轨，精神操控多位女性，方文山回应因筹拍网剧产生纠纷被投资方污蔑，具体啥情况？",
-          "summary": "最新进展 8月11日，方文山发文： 身为公众人物对于网络上散播的传闻，是有必要出面澄清。近期我们在筹拍一部网剧，因为求好心切，总投入已经超一般中长剧体量，过程中因为资金招募，私人借贷，股份比例等因素造成某投资方不满与误解，该投资方为身边长期的一名男性友人，也因此在我们的剧即将送审完成预计今年第四季上映前，散播不实传闻，此传闻势必影响网剧的上线，以及损及所有参演演员的努力与辛苦，对此，希望谣言止于智",
+          "title": "从电视剧《重器》来看，为何 80 年代流氓罪会被判死刑？",
+          "summary": "有什么时代意义？",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070481032956962155",
-          "time": "8/12"
+          "url": "https://www.zhihu.com/question/2070179095023981949",
+          "time": "8/13"
         },
         {
-          "title": "欢迎来龙餐馆票房破两亿",
-          "summary": "最新资讯：欢迎来龙餐馆票房破两亿（热度913.2万）",
+          "title": "伦纳德百分大战定档",
+          "summary": "最新资讯：伦纳德百分大战定档（热度773.2万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E9%BE%99%E9%A4%90%E9%A6%86%E7%A5%A8%E6%88%BF%E7%A0%B4%E4%B8%A4%E4%BA%BF",
-          "time": "8/12"
+          "url": "https://www.douyin.com/search/%E4%BC%A6%E7%BA%B3%E5%BE%B7%E7%99%BE%E5%88%86%E5%A4%A7%E6%88%98%E5%AE%9A%E6%A1%A3",
+          "time": "8/13"
         },
         {
           "title": "影之刃零11分钟实机预告",
-          "summary": "最新资讯：影之刃零11分钟实机预告（热度818.6万）",
+          "summary": "最新资讯：影之刃零11分钟实机预告（热度763.2万）",
           "source": "抖音",
           "url": "https://www.douyin.com/search/%E5%BD%B1%E4%B9%8B%E5%88%83%E9%9B%B611%E5%88%86%E9%92%9F%E5%AE%9E%E6%9C%BA%E9%A2%84%E5%91%8A",
-          "time": "8/12"
+          "time": "8/13"
         },
         {
-          "title": "沈腾说被导演讲进戏里",
-          "summary": "最新资讯：沈腾说被导演讲进戏里（热度773.5万）",
+          "title": "欢迎来龙餐馆票房破三亿",
+          "summary": "最新资讯：欢迎来龙餐馆票房破三亿（热度763.1万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%B2%88%E8%85%BE%E8%AF%B4%E8%A2%AB%E5%AF%BC%E6%BC%94%E8%AE%B2%E8%BF%9B%E6%88%8F%E9%87%8C",
-          "time": "8/12"
+          "url": "https://www.douyin.com/search/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E9%BE%99%E9%A4%90%E9%A6%86%E7%A5%A8%E6%88%BF%E7%A0%B4%E4%B8%89%E4%BA%BF",
+          "time": "8/13"
         }
       ]
     },
@@ -191,11 +163,11 @@
       "color": "#f97316",
       "items": [
         {
-          "title": "胖东来公布侵犯员工尊严案例，顾客驾车顶撞员工被行拘、掌掴员工被起诉，员工获上万元赔偿，如何看待此事？",
-          "summary": "8月10日，胖东来通过官方社交媒体账号公布了两起侵犯员工人格尊严的典型案例，被侵犯的员工分别获得1万元和5万元补偿。目前，其中一起涉及精神疾病患者的案件已进入民事诉讼程序。 被车顶撞补偿1万，肇事者行拘6日 据胖东来公示信息，2026年2月11日，新乡门店公共安全部员工武某某在执勤期间，发现一名顾客驾驶车辆违规插队，多次上前制止。该顾客不听劝阻，驾车顶撞员工武某某向前行驶，在场其他员工共同制止车辆",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070467817976210988",
-          "time": "8/12"
+          "title": "八仙曹国舅出场台词火出圈",
+          "summary": "最新资讯：八仙曹国舅出场台词火出圈（热度26.1万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E5%85%AB%E4%BB%99%E6%9B%B9%E5%9B%BD%E8%88%85%E5%87%BA%E5%9C%BA%E5%8F%B0%E8%AF%8D%E7%81%AB%E5%87%BA%E5%9C%88",
+          "time": "8/13"
         }
       ]
     },
@@ -205,32 +177,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "陈俊生离婚后为什么对平儿不好",
-          "summary": "最新资讯：陈俊生离婚后为什么对平儿不好（热度129.7万）",
+          "title": "朱镕基同志逝世",
+          "summary": "最新资讯：朱镕基同志逝世（热度101.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%99%88%E4%BF%8A%E7%94%9F%E7%A6%BB%E5%A9%9A%E5%90%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AF%B9%E5%B9%B3%E5%84%BF%E4%B8%8D%E5%A5%BD",
-          "time": "8/12"
+          "url": "https://s.weibo.com/weibo?q=%E6%9C%B1%E9%95%95%E5%9F%BA%E5%90%8C%E5%BF%97%E9%80%9D%E4%B8%96",
+          "time": "8/13"
         },
         {
-          "title": "新业态激活日常消费市场",
-          "summary": "最新资讯：新业态激活日常消费市场（热度85.5万）",
+          "title": "我国生态治理迈向新阶段",
+          "summary": "最新资讯：我国生态治理迈向新阶段（热度97.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%96%B0%E4%B8%9A%E6%80%81%E6%BF%80%E6%B4%BB%E6%97%A5%E5%B8%B8%E6%B6%88%E8%B4%B9%E5%B8%82%E5%9C%BA",
-          "time": "8/12"
+          "url": "https://s.weibo.com/weibo?q=%E6%88%91%E5%9B%BD%E7%94%9F%E6%80%81%E6%B2%BB%E7%90%86%E8%BF%88%E5%90%91%E6%96%B0%E9%98%B6%E6%AE%B5",
+          "time": "8/13"
         },
         {
-          "title": "我们的少年时代2",
-          "summary": "最新资讯：我们的少年时代2（热度85.3万）",
+          "title": "骑行辅警被刺死其父亲发声",
+          "summary": "最新资讯：骑行辅警被刺死其父亲发声（热度92.9万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%88%91%E4%BB%AC%E7%9A%84%E5%B0%91%E5%B9%B4%E6%97%B6%E4%BB%A32",
-          "time": "8/12"
+          "url": "https://s.weibo.com/weibo?q=%E9%AA%91%E8%A1%8C%E8%BE%85%E8%AD%A6%E8%A2%AB%E5%88%BA%E6%AD%BB%E5%85%B6%E7%88%B6%E4%BA%B2%E5%8F%91%E5%A3%B0",
+          "time": "8/13"
         },
         {
-          "title": "高钾晚餐可以让人睡得更香",
-          "summary": "最新资讯：高钾晚餐可以让人睡得更香（热度83.5万）",
+          "title": "胖东来新乡店旧址如今客流稀少",
+          "summary": "最新资讯：胖东来新乡店旧址如今客流稀少（热度91.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%AB%98%E9%92%BE%E6%99%9A%E9%A4%90%E5%8F%AF%E4%BB%A5%E8%AE%A9%E4%BA%BA%E7%9D%A1%E5%BE%97%E6%9B%B4%E9%A6%99",
-          "time": "8/12"
+          "url": "https://s.weibo.com/weibo?q=%E8%83%96%E4%B8%9C%E6%9D%A5%E6%96%B0%E4%B9%A1%E5%BA%97%E6%97%A7%E5%9D%80%E5%A6%82%E4%BB%8A%E5%AE%A2%E6%B5%81%E7%A8%80%E5%B0%91",
+          "time": "8/13"
         }
       ]
     }
