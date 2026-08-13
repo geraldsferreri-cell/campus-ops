@@ -3901,7 +3901,7 @@
                         <td>${v.account_name || '-'}</td>
                         <td>${v.publisher || '-'}</td>
                         <td style="color:#ef4444;font-weight:700;">${getMaxLikes(v)}</td>
-                        <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" style="color:#3b82f6;">查看</a>` : '-'}</td>
+                        <td>${v.video_link ? `<button type="button" class="btn btn-sm btn-secondary" onclick="openVideoLink('${String(v.video_link).replace(/'/g, "\\'")}')">查看</button><button type="button" class="btn btn-sm btn-secondary" onclick="copyVideoLink('${String(v.video_link).replace(/'/g, "\\'")}')" style="margin-left:4px;">复制</button>` : '-'}</td>
                     </tr>
                 `).join('');
 
@@ -3914,7 +3914,7 @@
                         <td>${v.account_name || '-'}</td>
                         <td>${v.publisher || '-'}</td>
                         <td>${getMaxLikes(v)}</td>
-                        <td>${v.video_link ? `<a href="${v.video_link}" target="_blank" style="color:#3b82f6;">查看</a>` : '-'}</td>
+                        <td>${v.video_link ? `<button type="button" class="btn btn-sm btn-secondary" onclick="openVideoLink('${String(v.video_link).replace(/'/g, "\\'")}')">查看</button><button type="button" class="btn btn-sm btn-secondary" onclick="copyVideoLink('${String(v.video_link).replace(/'/g, "\\'")}')" style="margin-left:4px;">复制</button>` : '-'}</td>
                     </tr>
                 `).join('');
         }
@@ -3926,6 +3926,50 @@
             t.className = 'toast ' + type;
             t.style.display = 'block';
             setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        // 打开视频链接（尽量使用系统浏览器新标签，避免 PWA/webview 内被平台拦截）
+        function openVideoLink(url) {
+            if (!url) return;
+            // 小红书短链强制使用 https，减少浏览器安全拦截
+            let openUrl = url;
+            if (openUrl.startsWith('http://xhslink.com/') || openUrl.startsWith('http://www.xiaohongshu.com/')) {
+                openUrl = openUrl.replace(/^http:/, 'https:');
+            }
+            // 对小红书完整链接，优先使用 /explore/ 路径（网页版兼容性更好）
+            const xhsMatch = openUrl.match(/https:\/\/www\.xiaohongshu\.com\/(discovery|explore)\/item\/([a-f0-9]+)/i);
+            if (xhsMatch) {
+                openUrl = `https://www.xiaohongshu.com/explore/${xhsMatch[2]}`;
+            }
+            const win = window.open(openUrl, '_blank', 'noopener,noreferrer');
+            if (!win || win.closed || typeof win.closed === 'undefined') {
+                // 弹窗被拦截，退化为当前页跳转（移动端常见）
+                const a = document.createElement('a');
+                a.href = openUrl;
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+        }
+
+        // 复制视频链接到剪贴板
+        async function copyVideoLink(url) {
+            if (!url) return;
+            try {
+                await navigator.clipboard.writeText(url);
+                toast('链接已复制，请在对应App中打开');
+            } catch (e) {
+                // 降级方案
+                const input = document.createElement('input');
+                input.value = url;
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                document.body.removeChild(input);
+                toast('链接已复制，请在对应App中打开');
+            }
         }
 
         // ============ 市场大盘分析 ============
@@ -5470,7 +5514,7 @@
                     <td>${v.account_name || '-'}</td>
                     <td>${v.publisher || '-'}</td>
                     <td>${v.group_name || '-'}</td>
-                    <td>${v.video_link ? '<a href="' + v.video_link + '" target="_blank" class="link">查看</a>' : '-'}</td>
+                    <td>${v.video_link ? '<button type="button" class="btn btn-sm btn-secondary" onclick="openVideoLink(\'' + String(v.video_link).replace(/'/g, "\\'") + '\')">查看</button><button type="button" class="btn btn-sm btn-secondary" onclick="copyVideoLink(\'' + String(v.video_link).replace(/'/g, "\\'") + '\')" style="margin-left:4px;">复制</button>' : '-'}</td>
                     <td class="${reminder.needDay3 ? 'cell-reminder' : ''}" title="${day3Date} (发布后第3天)">
                         ${formatStatsCell(v.views_day3, v.likes_day3, !day3Filled, '第3天', shouldFillDayN(publishDate, 3))}
                     </td>
@@ -6208,13 +6252,13 @@
                 </td>
             </tr>`;
             html += `<tr style="background:var(--gray-100);color:var(--gray-500);font-size:12px;">
-                <td>姓名</td><td>用户名</td><td>分组</td><td>状态</td><td>操作</td>
+                <td>姓名</td><td>用户名</td><td>分组</td><td>合作状态</td><td>操作</td>
             </tr>`;
             html += students.map(s => `<tr>
                 <td>${s.real_name || s.name || '-'}</td>
                 <td>${s.username || '-'}</td>
                 <td>${s.group_name || '-'}</td>
-                <td><span class="badge ${s.active ? 'badge-success' : 'badge-danger'}">${s.active ? '正常' : '停用'}</span></td>
+                <td><span class="badge ${s.is_cooperating !== false ? 'badge-success' : 'badge-danger'}">${s.is_cooperating !== false ? '合作' : '不合作'}</span></td>
                 <td><button class="btn btn-sm btn-secondary" onclick="editUser(${s.id})">编辑</button></td>
             </tr>`).join('');
             tbody.innerHTML = html;
@@ -7290,59 +7334,77 @@
             // 千赞TOP5 - 柱状图
             const topThousand = [...videos].filter(v => getMaxLikes(v) >= 1000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
             const thousandCanvas = document.getElementById('topThousandChart');
-            if (thousandCanvas && topThousand.length > 0) {
-                if (chartInstances['thousand']) chartInstances['thousand'].destroy();
-                chartInstances['thousand'] = new Chart(thousandCanvas, {
-                    type: 'bar',
-                    data: {
-                        labels: topThousand.map(v => v.publisher || '-'),
-                        datasets: [{
-                            label: '点赞数',
-                            data: topThousand.map(v => getMaxLikes(v)),
-                            backgroundColor: 'rgba(245, 158, 11, 0.8)',
-                            borderColor: 'rgb(245, 158, 11)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: { legend: { display: false } },
-                        scales: { x: { beginAtZero: true } }
+            if (thousandCanvas) {
+                const thousandParent = thousandCanvas.parentElement;
+                const thousandEmpty = thousandParent?.querySelector('.empty-state');
+                if (topThousand.length > 0) {
+                    thousandCanvas.style.display = 'block';
+                    if (thousandEmpty) thousandEmpty.remove();
+                    if (chartInstances['thousand']) chartInstances['thousand'].destroy();
+                    chartInstances['thousand'] = new Chart(thousandCanvas, {
+                        type: 'bar',
+                        data: {
+                            labels: topThousand.map(v => v.publisher || '-'),
+                            datasets: [{
+                                label: '点赞数',
+                                data: topThousand.map(v => getMaxLikes(v)),
+                                backgroundColor: 'rgba(245, 158, 11, 0.8)',
+                                borderColor: 'rgb(245, 158, 11)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false } },
+                            scales: { x: { beginAtZero: true } }
+                        }
+                    });
+                } else {
+                    thousandCanvas.style.display = 'none';
+                    if (!thousandEmpty && thousandParent) {
+                        thousandParent.insertAdjacentHTML('beforeend', '<div class="empty-state" style="padding: 40px;">暂无千赞数据</div>');
                     }
-                });
-            } else if (thousandCanvas) {
-                thousandCanvas.parentElement.innerHTML = '<div class="empty-state" style="padding: 40px;">暂无千赞数据</div>';
+                }
             }
 
             // 万赞TOP5 - 柱状图
             const topTenThousand = [...videos].filter(v => getMaxLikes(v) >= 10000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
             const tenThousandCanvas = document.getElementById('topTenThousandChart');
-            if (tenThousandCanvas && topTenThousand.length > 0) {
-                if (chartInstances['tenThousand']) chartInstances['tenThousand'].destroy();
-                chartInstances['tenThousand'] = new Chart(tenThousandCanvas, {
-                    type: 'bar',
-                    data: {
-                        labels: topTenThousand.map(v => v.publisher || '-'),
-                        datasets: [{
-                            label: '点赞数',
-                            data: topTenThousand.map(v => getMaxLikes(v)),
-                            backgroundColor: 'rgba(139, 92, 246, 0.8)',
-                            borderColor: 'rgb(139, 92, 246)',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: { legend: { display: false } },
-                        scales: { x: { beginAtZero: true } }
+            if (tenThousandCanvas) {
+                const tenThousandParent = tenThousandCanvas.parentElement;
+                const tenThousandEmpty = tenThousandParent?.querySelector('.empty-state');
+                if (topTenThousand.length > 0) {
+                    tenThousandCanvas.style.display = 'block';
+                    if (tenThousandEmpty) tenThousandEmpty.remove();
+                    if (chartInstances['tenThousand']) chartInstances['tenThousand'].destroy();
+                    chartInstances['tenThousand'] = new Chart(tenThousandCanvas, {
+                        type: 'bar',
+                        data: {
+                            labels: topTenThousand.map(v => v.publisher || '-'),
+                            datasets: [{
+                                label: '点赞数',
+                                data: topTenThousand.map(v => getMaxLikes(v)),
+                                backgroundColor: 'rgba(139, 92, 246, 0.8)',
+                                borderColor: 'rgb(139, 92, 246)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                            responsive: true,
+                            maintainAspectRatio: true,
+                            plugins: { legend: { display: false } },
+                            scales: { x: { beginAtZero: true } }
+                        }
+                    });
+                } else {
+                    tenThousandCanvas.style.display = 'none';
+                    if (!tenThousandEmpty && tenThousandParent) {
+                        tenThousandParent.insertAdjacentHTML('beforeend', '<div class="empty-state" style="padding: 40px;">暂无万赞数据</div>');
                     }
-                });
-            } else if (tenThousandCanvas) {
-                tenThousandCanvas.parentElement.innerHTML = '<div class="empty-state" style="padding: 40px;">暂无万赞数据</div>';
+                }
             }
 
             // 同学发片数排名 - 柱状图（基于所有学生名单统计，包含发片数为0的同学）
