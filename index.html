@@ -2109,10 +2109,6 @@
                         <div class="salary-card-label">待结算</div>
                         <div class="salary-card-value" id="salaryPending">¥0</div>
                     </div>
-                    <div class="salary-card red">
-                        <div class="salary-card-label">老师未达标</div>
-                        <div class="salary-card-value" id="salaryDeduction">¥0</div>
-                    </div>
                 </div>
                 <div class="card">
                     <div class="table-wrapper">
@@ -5685,25 +5681,16 @@
                 detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
                 detailHTML += `组内发片总数：${bonusInfo.groupVideoCount} 条<br>`;
                 detailHTML += `学生奖金总和：¥${bonusInfo.studentBonus}<br>`;
-                detailHTML += `达标条件：组内发片 ≥ 12 条 → ${bonusInfo.qualified ? '<span style="color:var(--success)">✅ 已达标</span>' : '<span style="color:var(--danger)">❌ 未达标</span>'}`;
                 detailHTML += `</div>`;
                 
                 detailHTML += `<div style="margin-top:12px;margin-bottom:8px"><b>🏆 带教奖金计算：</b></div>`;
                 detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
                 detailHTML += `带教奖金 = 学生奖金总和 × 带教比例<br>`;
-                if (bonusInfo.qualified) {
-                    detailHTML += `= ¥${bonusInfo.studentBonus} × ${(getSalaryConfig('teacher').ten_thousand_bonus || 50)}% = <b>¥${bonusInfo.total}</b>`;
-                } else {
-                    detailHTML += `组内发片未达12条，暂不带教奖金`;
-                }
+                detailHTML += `= ¥${bonusInfo.studentBonus} × ${(getSalaryConfig('teacher').ten_thousand_bonus || 50)}% = <b>¥${bonusInfo.total}</b>`;
                 detailHTML += `</div>`;
                 
                 salaryDetail.innerHTML = detailHTML;
-                if (bonusInfo.qualified) {
-                    salaryResult.innerHTML = `💰 ${dateLabel}预计带教奖金：<span style="font-size:24px">¥${bonusInfo.total}</span>`;
-                } else {
-                    salaryResult.innerHTML = `💰 ${dateLabel}预计带教奖金：<span style="font-size:24px">¥0</span>　（组内发片未达12条）`;
-                }
+                salaryResult.innerHTML = `💰 ${dateLabel}预计带教奖金：<span style="font-size:24px">¥${bonusInfo.total}</span>`;
             } else {
                 // 学生：显示底薪+奖金
                 const config = getSalaryConfig('student');
@@ -6536,7 +6523,6 @@
 
             tbody.innerHTML = pageSalaries.map(s => {
                 const isTeacher = s.role === 'teacher';
-                const deduction = s.deduction || 0;
                 return `<tr style="cursor:pointer;" onclick="showSalaryDetail(${s.id})">
                 <td><a href="javascript:void(0)" style="color:var(--primary);text-decoration:none;" onclick="event.stopPropagation();showSalaryDetail(${s.id})">${s.user_name || '-'}</a></td>
                 <td><span class="badge ${isTeacher ? 'badge-success' : 'badge-warning'}">${isTeacher ? '老师' : '学生'}</span></td>
@@ -6545,7 +6531,7 @@
                 <td>${s.thousand_count || 0}</td>
                 <td>${s.ten_thousand_count || 0}</td>
                 <td>¥${s.base_salary || 0}</td>
-                <td>¥${s.bonus || 0}${isTeacher && deduction > 0 ? '<br><small style="color:var(--gray-400)">需达标12条</small>' : ''}</td>
+                <td>¥${s.bonus || 0}</td>
                 <td><strong>¥${s.total || 0}</strong></td>
                 <td>${s.status === '已结清' || s.status === '已结算' || (s.total || 0) === 0 ? `<span class="badge badge-success">已结清</span>` : `<button class="btn btn-sm btn-pay" onclick="event.stopPropagation();markSalaryPaid(${s.id})">待结算</button>`}</td>
             </tr>`;
@@ -6586,11 +6572,10 @@
             const total = data.reduce((sum, s) => sum + (s.total || 0), 0);
             const paid = data.filter(s => s.status === '已结清' || s.status === '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
             const pending = data.filter(s => s.status !== '已结清' && s.status !== '已结算').reduce((sum, s) => sum + (s.total || 0), 0);
-            const deduction = data.reduce((sum, s) => sum + (s.deduction || 0), 0);
             document.getElementById('salaryTotal').textContent = '¥' + total;
             document.getElementById('salaryPaid').textContent = '¥' + paid;
             document.getElementById('salaryPending').textContent = '¥' + pending;
-            document.getElementById('salaryDeduction').textContent = '¥' + deduction;
+            if (document.getElementById('salaryDeduction')) document.getElementById('salaryDeduction').textContent = '¥0';
         }
 
         // 获取薪资配置（根据角色）
@@ -6724,12 +6709,11 @@
                 totalStudentBonus += thousandBonus + tenThousandBonus;
             }
             
-            // 在小组内所有账号发够12条视频的前提下，老师奖金 = 学生奖励总和 × 配置的比例
-            const qualified = groupVideoCount >= 12;
-            const ratio = qualified ? teacherRatio / 100 : 0;
-            const total = qualified ? Math.round(totalStudentBonus * ratio) : 0;
+            // 老师奖金 = 组内学生奖金总和 × 配置的比例（无12条门槛）
+            const ratio = teacherRatio / 100;
+            const total = Math.round(totalStudentBonus * ratio);
             
-            return { total, studentBonus: totalStudentBonus, qualified, groupVideoCount };
+            return { total, studentBonus: totalStudentBonus, qualified: true, groupVideoCount };
         }
 
         // 导出薪资数据为 XLSX（Excel格式）
@@ -6945,7 +6929,7 @@
                     ten_thousand_bonus: 0,
                     bonus: teacherBonusInfo.total,
                     total: teacherBonusInfo.total,
-                    deduction: teacherBonusInfo.qualified ? 0 : teacherBonusInfo.studentBonus,
+                    deduction: 0,
                     status: '待结算'
                 };
                 try {
@@ -6981,17 +6965,13 @@
                     <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>分组</span><span>${s.group_name || '-'}</span></div>
                     <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>月份</span><span>${month}</span></div>
                     <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>小组发片总数</span><span>${s.video_count || 0} 条</span></div>
-                    <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>达标状态</span><span style="color:${s.deduction > 0 ? 'var(--danger)' : 'var(--success)'}">${s.deduction > 0 ? '未达标（需≥12条）' : '已达标'}</span></div>
                 </div>`;
                 html += `<div style="background:var(--gray-50);padding:12px;border-radius:8px;margin-bottom:16px;">
                     <div style="font-weight:600;margin-bottom:8px;">带教奖金计算</div>
-                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>学生奖金总和</span><span>¥${s.deduction > 0 ? (s.deduction + s.bonus) : s.bonus}</span></div>
-                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>带教比例</span><span>${s.deduction > 0 ? '0%' : '50%'}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>学生奖金总和</span><span>¥${s.bonus}</span></div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span>带教比例</span><span>${(getSalaryConfig('teacher').ten_thousand_bonus || 50)}%</span></div>
                     <div style="border-top:1px solid var(--gray-200);margin:8px 0;padding-top:8px;display:flex;justify-content:space-between;"><span>带教奖金</span><b>¥${s.bonus || 0}</b></div>
                 </div>`;
-                if (s.deduction > 0) {
-                    html += `<div style="color:var(--danger);font-size:13px;">* 小组发片未满12条，带教奖金为0</div>`;
-                }
             } else {
                 // 学生明细
                 const config = getSalaryConfig('student');
