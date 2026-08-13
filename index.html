@@ -5766,13 +5766,15 @@
                 let detailHTML = '';
                 detailHTML += `<div style="margin-bottom:8px"><b>📊 底薪计算：</b></div>`;
                 detailHTML += `<div style="padding-left:16px;color:var(--gray-600);font-size:13px;">`;
-                if (videoCount <= 2) {
-                    detailHTML += `发片数 ${videoCount} 条（0-2条档）→ 单价 20元/条<br>`;
-                } else if (videoCount <= 5) {
-                    detailHTML += `发片数 ${videoCount} 条（3-5条档）→ 单价 25元/条<br>`;
+                // 单价档位由爆款视频数决定，而不是发片条数
+                if (qualifiedCount >= tier3Min) {
+                    detailHTML += `爆款数 ${qualifiedCount} 条（≥${tier3Min}条档）→ 单价 ${tier3Salary}元/条<br>`;
+                } else if (qualifiedCount >= tier2Min) {
+                    detailHTML += `爆款数 ${qualifiedCount} 条（${tier2Min}-${tier2Max}条档）→ 单价 ${tier2Salary}元/条<br>`;
                 } else {
-                    detailHTML += `发片数 ${videoCount} 条（>5条档）→ 单价 30元/条<br>`;
+                    detailHTML += `爆款数 ${qualifiedCount} 条（${tier1Min}-${tier1Max}条档）→ 单价 ${tier1Salary}元/条<br>`;
                 }
+                detailHTML += `<span style="font-size:12px;color:var(--gray-500);">（爆款 = 千赞视频 + 万赞视频，不重复计）</span><br>`;
                 detailHTML += `底薪 = ${unitPrice} × ${videoCount} = <b>${baseSalary}元</b>`;
                 detailHTML += `</div>`;
                 
@@ -7331,8 +7333,13 @@
         }
 
         function renderTopLists(videos) {
+            // 学生端只看自己的千赞视频，管理员/老师看全部
+            const currentUserNames = currentUser ? getUserAllNames(currentUser) : [];
+            const isStudentView = currentUser?.role === 'student';
+            const personalVideos = isStudentView ? videos.filter(v => currentUserNames.includes(v.publisher)) : videos;
+
             // 千赞TOP5 - 柱状图
-            const topThousand = [...videos].filter(v => getMaxLikes(v) >= 1000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
+            const topThousand = [...personalVideos].filter(v => getMaxLikes(v) >= 1000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
             const thousandCanvas = document.getElementById('topThousandChart');
             if (thousandCanvas) {
                 const thousandParent = thousandCanvas.parentElement;
@@ -7874,7 +7881,9 @@
                     }
                     return {
                         id: row.id, title: (row.title || '').trim(), author: (row.author || '').trim(),
-                        url: row.url || '', createdAt: (row.created_at || '').slice(0, 10),
+                        url: row.url || '',
+                        createdAt: row.created_at ? formatLocalDate(new Date(row.created_at)) : '',
+                        sortAt: row.created_at ? new Date(row.created_at).getTime() : 0,
                         adoptedCount: row.adopted_count || 0,
                         adoptedBy: adoptedBy,
                         points: row.points || 0
@@ -7999,8 +8008,8 @@
         }
 
         function getRecentTopics() {
-            // 不再过滤时间，全部显示（从 Supabase 加载的均为有效数据）
-            return [...TOPIC_DATA].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            // 不再过滤时间，按实际提交时间倒序（最新上传的排在最前面）
+            return [...TOPIC_DATA].sort((a, b) => (b.sortAt || 0) - (a.sortAt || 0));
         }
 
         function renderTopics() {
@@ -8180,7 +8189,9 @@
             if (data) {
                 const newTopic = {
                     id: data.id, title: data.title || '', author: (data.author || '').trim(),
-                    url: data.url || '', createdAt: (data.created_at || '').slice(0, 10),
+                    url: data.url || '',
+                    createdAt: data.created_at ? formatLocalDate(new Date(data.created_at)) : formatLocalDate(new Date()),
+                    sortAt: data.created_at ? new Date(data.created_at).getTime() : Date.now(),
                     adoptedCount: data.adopted_count || 0,
                     adoptedBy: Array.isArray(data.adopted_by) ? data.adopted_by : (data.adopted_by ? (() => { try { return JSON.parse(data.adopted_by); } catch(e) { return []; } })() : []),
                     points: data.points || 0
@@ -8209,7 +8220,8 @@
                 title: title,
                 author: author,
                 url: url,
-                created_at: date + 'T00:00:00+08:00',
+                // 用当天中午12点代替0点，避免东八区 midnight 存储后被 Supabase 按 UTC 解释为前一天
+                created_at: date + 'T12:00:00+08:00',
                 adopted_count: 0,
                 adopted_by: [],
                 points: 0
@@ -8223,7 +8235,9 @@
             if (data) {
                 const newTopic = {
                     id: data.id, title: data.title || '', author: (data.author || '').trim(),
-                    url: data.url || '', createdAt: (data.created_at || '').slice(0, 10),
+                    url: data.url || '',
+                    createdAt: data.created_at ? formatLocalDate(new Date(data.created_at)) : formatLocalDate(new Date()),
+                    sortAt: data.created_at ? new Date(data.created_at).getTime() : Date.now(),
                     adoptedCount: data.adopted_count || 0,
                     adoptedBy: Array.isArray(data.adopted_by) ? data.adopted_by : [],
                     points: data.points || 0
@@ -8234,6 +8248,9 @@
             }
             await loadTopicData();
             renderTopics();
+            // 上传后自动滚动到滚动条，让用户立刻看到新选题
+            const marqueeSection = document.getElementById('topicsMarquee');
+            if (marqueeSection) marqueeSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         async function adoptTopic(topicId) {
