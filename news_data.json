@@ -1,6 +1,6 @@
 {
-  "date": "2026-08-13",
-  "scrape_time": "2026-08-13 12:06 CST",
+  "date": "2026-08-14",
+  "scrape_time": "2026-08-14 12:02 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
     {
@@ -9,32 +9,18 @@
       "color": "#3b82f6",
       "items": [
         {
-          "title": "卢伟冰官宣小米澎湃OS4",
-          "summary": "最新资讯：卢伟冰官宣小米澎湃OS4（热度17.7万）",
+          "title": "梁文锋打新宇树科技",
+          "summary": "最新资讯：梁文锋打新宇树科技（热度28.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8D%A2%E4%BC%9F%E5%86%B0%E5%AE%98%E5%AE%A3%E5%B0%8F%E7%B1%B3%E6%BE%8E%E6%B9%83OS4",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E6%A2%81%E6%96%87%E9%94%8B%E6%89%93%E6%96%B0%E5%AE%87%E6%A0%91%E7%A7%91%E6%8A%80",
+          "time": "8/14"
         },
         {
-          "title": "网友爆料科技圈电商圈的大厂拒收阿里系中高层，是真的吗？反映了什么问题？他们为什么被称为互联网藤壶？",
-          "summary": "近日，一则关于大厂招聘的爆料引起小编注意。 爆料称，\"听我科技圈和电商圈的一些朋友讲，现大公司招聘已经封杀阿里的中高层，凡是阿里出身的，一概不要。\" 评论区不少网友表示认同。 有网友总结：“最大的问题是阿里的思维模式已经固化了，完全没有了当初的那种冲劲和创新精神，更多的是形式化、体制化了，需要成长的公司压根就不要这些老爷，人力成本还高得离谱，同样的预算，还不如请年轻人，干活卖力，肯吃苦，还有闯劲。",
+          "title": "长鑫科技单日市值超越腾讯，成 A 股、港股两市市值最高的中国上市公司，如何看待当下市场给出的估值水平？",
+          "summary": "8月13日，截至A股收盘，长鑫科技最新市值约3.54万亿元人民币。 港股方面，腾讯控股今日收跌4.46%，最新市值约4.01万亿港元，按当前汇率折算约合3.45万亿元人民币。 长鑫科技市值已超过腾讯控股，成为目前A股+港股市值最大的上市公司。https://mp.weixin.qq.com/s/_NtfVulY6VMwGQv_zoMYoA",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070900468931191892",
-          "time": "8/13"
-        },
-        {
-          "title": "媒体曝茶颜悦色入职培训强制收手机、被子叠「豆腐块」，具体什么情况？企业的行为侵犯员工权益了吗？",
-          "summary": "“裹着军事化外壳的形式主义大秀，恶心程度直接拉满”，近期，茶颜悦色因内部管理等问题引发众多员工不满。 《BUG》栏目获悉，该品牌正要求湖南、江苏等地员工入职前参加“军训”，军训期间的规定十分严苛： 手机必须上交； 内务要求叠“豆腐块”； 就餐全程禁言且有专人检查剩饭情况，不许剩一粒米； 需要背诵学习包括企业文化、服务口播话术等多项内容 … 上述都合格后才能“毕业”。 新员工质疑：“明明是做奶茶的入",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070982459156424668",
-          "time": "8/13"
-        },
-        {
-          "title": "苹果被曝正测试长鑫存储芯片，将用于在中国市场销售的设备，双方最终达成合作的可能性有多大？",
-          "summary": "据《华尔街日报》8月9日报道，苹果公司正在其iPhone和MacBook等产品线中测试长鑫存储（CXMT）的存储芯片，以缓解因人工智能热潮引发的内存短缺问题。报道援引知情人士称，苹果公司已与中国最大的芯片制造商长鑫存储就零部件供应展开初步洽谈，目标是在中国销售的部分设备中使用这些芯片。路透社此前报道称，长鑫存储正考虑在北京建设第二座存储芯片工厂，以提高产能。此外，笔记本电脑制造商惠普（HP）和宏碁",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070073820929419121",
-          "time": "8/13"
+          "url": "https://www.zhihu.com/question/2071276837125334204",
+          "time": "8/14"
         }
       ]
     },
@@ -44,32 +30,32 @@
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "DeepSeek V4 Pro 正式版发布，如何评价该模型？",
-          "summary": "官网模型编号已变更为DeepSeek-V4-Pro-0813",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2071014727606703118",
-          "time": "8/13"
+          "title": "AI用配音演员声线接广告",
+          "summary": "最新资讯：AI用配音演员声线接广告（热度32.3万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=AI%E7%94%A8%E9%85%8D%E9%9F%B3%E6%BC%94%E5%91%98%E5%A3%B0%E7%BA%BF%E6%8E%A5%E5%B9%BF%E5%91%8A",
+          "time": "8/14"
         },
         {
-          "title": "Deepseek V4Pro正式版发布，相比Claude Fable 5等模型，性能如何？性价比高吗？",
-          "summary": "DeepSeek-V4-Pro正式版API发布，大幅增强Agent能力，部分性能逼近甚至超越Claude Fable 5。 DeepSeek-V4-Pro正式版的基准测试显示，其性能相比预览版全面提升，在AI安全智能体基准测试套件Cybergym、工作流智能体AutomationBench中，DeepSeek-V4-Pro正式版的表现超越Fable 5。 值得一提的是，在针对长周期、高复杂度真实软",
+          "title": "如何评价在 8 月 13 日发布的 DeepSeek Harness？",
+          "summary": "DeepSeek Harness（dsh）是由DeepSeek AI开发的开源 agent harness（智能体框架）。 它采用一切皆插件的架构，并由Cordis驱动，其设计参见论文A Programming Paradigm for Spatiotemporal Composability。",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2071019389479023642",
-          "time": "8/13"
+          "url": "https://www.zhihu.com/question/2071335529577239335",
+          "time": "8/14"
         },
         {
-          "title": "如何评价 Anthropic CEO Dario Amodei 害怕被绑架？",
-          "summary": "the information报道，Dario Amodei因为害怕被绑架。",
+          "title": "戚薇推出数字分身，成为首位内娱开放 AI 授权的艺人，明星拥抱数字分身将带来哪些新变化？",
+          "summary": "8月6日，艺人@戚薇通过社交平台官宣推出个人官方数字分身，正式开放自身形象的规范化AI授权。眼下AI技术正持续重塑演艺行业生态，AI短剧、原生AI虚拟艺人等新业态层出不穷，肖像权违规使用、AI侵权等纠纷也随之频发。 在此背景下，戚薇主动以官方身份完成个人形象的合规AI授权，这一举措也引发业界探讨，该模式对于艺人后续演艺生涯布局、商业价值拓展的长期影响，仍有待进一步观察。戚薇官宣推出个人数字分身，主",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2069971685403628839",
-          "time": "8/13"
+          "url": "https://www.zhihu.com/question/2068993919958742400",
+          "time": "8/14"
         },
         {
-          "title": "deepseek的harness值得期待吗？",
-          "summary": "之前不是说deepseekV4正式版发布的时候，harness也会同步发布啊，折哦都快8月15了， 还没动静。搞大动作吗",
+          "title": "如何看待DeepSeek撤回v4Pro正式版的公告？",
+          "summary": "官网图片已消失，公告已撤回",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2068471750665545109",
-          "time": "8/13"
+          "url": "https://www.zhihu.com/question/2071225352072999482",
+          "time": "8/14"
         }
       ]
     },
@@ -79,18 +65,32 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "邹市明45岁重返拳击赛场",
-          "summary": "最新资讯：邹市明45岁重返拳击赛场（热度100.4万）",
+          "title": "C罗乔治娜财产协议曝光",
+          "summary": "最新资讯：C罗乔治娜财产协议曝光（热度81.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%82%B9%E5%B8%82%E6%98%8E45%E5%B2%81%E9%87%8D%E8%BF%94%E6%8B%B3%E5%87%BB%E8%B5%9B%E5%9C%BA",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=C%E7%BD%97%E4%B9%94%E6%B2%BB%E5%A8%9C%E8%B4%A2%E4%BA%A7%E5%8D%8F%E8%AE%AE%E6%9B%9D%E5%85%89",
+          "time": "8/14"
         },
         {
-          "title": "威少（维斯布鲁克）宣布退役，结束长达 18 年的 NBA 生涯，如何评价他的职业生涯？",
-          "summary": "北京时间8月13日，拉塞尔·威斯布鲁克更新了个人社媒，宣布自己将退役，结束18年的NBA生涯。 威少在个人社媒发布了一则视频，配文写道：有时候，你甚至未曾察觉，自己已见证了最后的绝唱。唯有亲历现场，方能体会那份震撼。而如今，曲终人散。 生涯18个赛季，威少效力过雷霆、火箭、奇才、湖人、快船、掘金和国王7支队伍，共出战1301场常规赛，场均得到20.9分6.9篮板8助攻1.6抢断0.3盖帽，投篮命中",
+          "title": "韩国女星被扒曾祖父是韩奸",
+          "summary": "最新资讯：韩国女星被扒曾祖父是韩奸（热度48.7万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E9%9F%A9%E5%9B%BD%E5%A5%B3%E6%98%9F%E8%A2%AB%E6%89%92%E6%9B%BE%E7%A5%96%E7%88%B6%E6%98%AF%E9%9F%A9%E5%A5%B8",
+          "time": "8/14"
+        },
+        {
+          "title": "WTT 瑞典大满贯王曼昱蒯曼 2-3 惜败杜凯琹吴咏琳，无缘女双四强，如何评价这场比赛？",
+          "summary": "北京时间2026年8月14日凌晨，WTT瑞典大满贯女双1/4决赛爆出冷门：头号种子王曼昱/蒯曼苦战五局，以2比3（4-11、9-11、11-4、12-10、5-11）不敌中国香港组合杜凯琹/吴咏琳，无缘女双四强。据《体育赛场记》报道[1]，这场失利也意味着国乒女双在本站仅剩王艺迪/陈熠一对组合继续冲击冠军。",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2071116184003646639",
-          "time": "8/13"
+          "url": "https://www.zhihu.com/question/2071533584435733783",
+          "time": "8/14"
+        },
+        {
+          "title": "谢震业全国田径锦标赛百米夺冠",
+          "summary": "最新资讯：谢震业全国田径锦标赛百米夺冠（热度1110.3万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E8%B0%A2%E9%9C%87%E4%B8%9A%E5%85%A8%E5%9B%BD%E7%94%B0%E5%BE%84%E9%94%A6%E6%A0%87%E8%B5%9B%E7%99%BE%E7%B1%B3%E5%A4%BA%E5%86%A0",
+          "time": "8/14"
         }
       ]
     },
@@ -100,25 +100,46 @@
       "color": "#ec4899",
       "items": [
         {
-          "title": "章若楠被金靖穿搭可爱到受不了",
-          "summary": "最新资讯：章若楠被金靖穿搭可爱到受不了（热度18.7万）",
+          "title": "曝杨幂金鹰奖掉提",
+          "summary": "最新资讯：曝杨幂金鹰奖掉提（热度95.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%AB%A0%E8%8B%A5%E6%A5%A0%E8%A2%AB%E9%87%91%E9%9D%96%E7%A9%BF%E6%90%AD%E5%8F%AF%E7%88%B1%E5%88%B0%E5%8F%97%E4%B8%8D%E4%BA%86",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E6%9B%9D%E6%9D%A8%E5%B9%82%E9%87%91%E9%B9%B0%E5%A5%96%E6%8E%89%E6%8F%90",
+          "time": "8/14"
+        },
+        {
+          "title": "用豆包给各地特产拍大片",
+          "summary": "最新资讯：用豆包给各地特产拍大片（热度774.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E7%94%A8%E8%B1%86%E5%8C%85%E7%BB%99%E5%90%84%E5%9C%B0%E7%89%B9%E4%BA%A7%E6%8B%8D%E5%A4%A7%E7%89%87",
+          "time": "8/14"
         },
         {
           "title": "穿搭改变环境",
-          "summary": "最新资讯：穿搭改变环境（热度830.2万）",
+          "summary": "最新资讯：穿搭改变环境（热度764.5万）",
           "source": "抖音",
           "url": "https://www.douyin.com/search/%E7%A9%BF%E6%90%AD%E6%94%B9%E5%8F%98%E7%8E%AF%E5%A2%83",
-          "time": "8/13"
+          "time": "8/14"
         },
         {
           "title": "智性韩系毛衣开启初秋穿搭",
-          "summary": "最新资讯：智性韩系毛衣开启初秋穿搭（热度761.8万）",
+          "summary": "最新资讯：智性韩系毛衣开启初秋穿搭（热度764.4万）",
           "source": "抖音",
           "url": "https://www.douyin.com/search/%E6%99%BA%E6%80%A7%E9%9F%A9%E7%B3%BB%E6%AF%9B%E8%A1%A3%E5%BC%80%E5%90%AF%E5%88%9D%E7%A7%8B%E7%A9%BF%E6%90%AD",
-          "time": "8/13"
+          "time": "8/14"
+        }
+      ]
+    },
+    {
+      "id": "fashion",
+      "name": "👗 时尚",
+      "color": "#f43f5e",
+      "items": [
+        {
+          "title": "张予曦薄荷绿裙子配拖鞋太有梗了",
+          "summary": "最新资讯：张予曦薄荷绿裙子配拖鞋太有梗了（热度764.4万）",
+          "source": "抖音",
+          "url": "https://www.douyin.com/search/%E5%BC%A0%E4%BA%88%E6%9B%A6%E8%96%84%E8%8D%B7%E7%BB%BF%E8%A3%99%E5%AD%90%E9%85%8D%E6%8B%96%E9%9E%8B%E5%A4%AA%E6%9C%89%E6%A2%97%E4%BA%86",
+          "time": "8/14"
         }
       ]
     },
@@ -128,32 +149,32 @@
       "color": "#6366f1",
       "items": [
         {
-          "title": "从电视剧《重器》来看，为何 80 年代流氓罪会被判死刑？",
-          "summary": "有什么时代意义？",
+          "title": "沈腾回应0影帝",
+          "summary": "最新资讯：沈腾回应0影帝（热度48.5万）",
+          "source": "微博热搜",
+          "url": "https://s.weibo.com/weibo?q=%E6%B2%88%E8%85%BE%E5%9B%9E%E5%BA%940%E5%BD%B1%E5%B8%9D",
+          "time": "8/14"
+        },
+        {
+          "title": "电影《欢迎来龙餐馆》结尾为什么没有赛夫和徐福相认的情节？",
+          "summary": "我提个天马行空且有点阴谋论的看法（别喷我），电影结尾赛夫一直背对着徐福，结合前面徐福说的“战争没有侥幸“，会不会暗示最终孩子并没有获救，这一切都是幻想呢？",
           "source": "知乎",
-          "url": "https://www.zhihu.com/question/2070179095023981949",
-          "time": "8/13"
+          "url": "https://www.zhihu.com/question/2070303800259303115",
+          "time": "8/14"
         },
         {
-          "title": "伦纳德百分大战定档",
-          "summary": "最新资讯：伦纳德百分大战定档（热度773.2万）",
+          "title": "欢迎来龙餐馆票房破四亿",
+          "summary": "最新资讯：欢迎来龙餐馆票房破四亿（热度797.3万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E4%BC%A6%E7%BA%B3%E5%BE%B7%E7%99%BE%E5%88%86%E5%A4%A7%E6%88%98%E5%AE%9A%E6%A1%A3",
-          "time": "8/13"
+          "url": "https://www.douyin.com/search/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E9%BE%99%E9%A4%90%E9%A6%86%E7%A5%A8%E6%88%BF%E7%A0%B4%E5%9B%9B%E4%BA%BF",
+          "time": "8/14"
         },
         {
-          "title": "影之刃零11分钟实机预告",
-          "summary": "最新资讯：影之刃零11分钟实机预告（热度763.2万）",
+          "title": "电影逃出绝命街上映",
+          "summary": "最新资讯：电影逃出绝命街上映（热度773.0万）",
           "source": "抖音",
-          "url": "https://www.douyin.com/search/%E5%BD%B1%E4%B9%8B%E5%88%83%E9%9B%B611%E5%88%86%E9%92%9F%E5%AE%9E%E6%9C%BA%E9%A2%84%E5%91%8A",
-          "time": "8/13"
-        },
-        {
-          "title": "欢迎来龙餐馆票房破三亿",
-          "summary": "最新资讯：欢迎来龙餐馆票房破三亿（热度763.1万）",
-          "source": "抖音",
-          "url": "https://www.douyin.com/search/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E9%BE%99%E9%A4%90%E9%A6%86%E7%A5%A8%E6%88%BF%E7%A0%B4%E4%B8%89%E4%BA%BF",
-          "time": "8/13"
+          "url": "https://www.douyin.com/search/%E7%94%B5%E5%BD%B1%E9%80%83%E5%87%BA%E7%BB%9D%E5%91%BD%E8%A1%97%E4%B8%8A%E6%98%A0",
+          "time": "8/14"
         }
       ]
     },
@@ -163,11 +184,11 @@
       "color": "#f97316",
       "items": [
         {
-          "title": "八仙曹国舅出场台词火出圈",
-          "summary": "最新资讯：八仙曹国舅出场台词火出圈（热度26.1万）",
+          "title": "魏子宸出圈度",
+          "summary": "最新资讯：魏子宸出圈度（热度47.8万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%85%AB%E4%BB%99%E6%9B%B9%E5%9B%BD%E8%88%85%E5%87%BA%E5%9C%BA%E5%8F%B0%E8%AF%8D%E7%81%AB%E5%87%BA%E5%9C%88",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E9%AD%8F%E5%AD%90%E5%AE%B8%E5%87%BA%E5%9C%88%E5%BA%A6",
+          "time": "8/14"
         }
       ]
     },
@@ -177,32 +198,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "朱镕基同志逝世",
-          "summary": "最新资讯：朱镕基同志逝世（热度101.6万）",
+          "title": "银行能办结婚证了",
+          "summary": "最新资讯：银行能办结婚证了（热度140.3万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9C%B1%E9%95%95%E5%9F%BA%E5%90%8C%E5%BF%97%E9%80%9D%E4%B8%96",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E9%93%B6%E8%A1%8C%E8%83%BD%E5%8A%9E%E7%BB%93%E5%A9%9A%E8%AF%81%E4%BA%86",
+          "time": "8/14"
         },
         {
-          "title": "我国生态治理迈向新阶段",
-          "summary": "最新资讯：我国生态治理迈向新阶段（热度97.2万）",
+          "title": "胖东来闭店一天整条街都没人出摊",
+          "summary": "最新资讯：胖东来闭店一天整条街都没人出摊（热度111.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%88%91%E5%9B%BD%E7%94%9F%E6%80%81%E6%B2%BB%E7%90%86%E8%BF%88%E5%90%91%E6%96%B0%E9%98%B6%E6%AE%B5",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E8%83%96%E4%B8%9C%E6%9D%A5%E9%97%AD%E5%BA%97%E4%B8%80%E5%A4%A9%E6%95%B4%E6%9D%A1%E8%A1%97%E9%83%BD%E6%B2%A1%E4%BA%BA%E5%87%BA%E6%91%8A",
+          "time": "8/14"
         },
         {
-          "title": "骑行辅警被刺死其父亲发声",
-          "summary": "最新资讯：骑行辅警被刺死其父亲发声（热度92.9万）",
+          "title": "工业旅游市场有望突破3000亿元",
+          "summary": "最新资讯：工业旅游市场有望突破3000亿元（热度103.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%AA%91%E8%A1%8C%E8%BE%85%E8%AD%A6%E8%A2%AB%E5%88%BA%E6%AD%BB%E5%85%B6%E7%88%B6%E4%BA%B2%E5%8F%91%E5%A3%B0",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E5%B7%A5%E4%B8%9A%E6%97%85%E6%B8%B8%E5%B8%82%E5%9C%BA%E6%9C%89%E6%9C%9B%E7%AA%81%E7%A0%B43000%E4%BA%BF%E5%85%83",
+          "time": "8/14"
         },
         {
-          "title": "胖东来新乡店旧址如今客流稀少",
-          "summary": "最新资讯：胖东来新乡店旧址如今客流稀少（热度91.4万）",
+          "title": "男主身高164劝退六成读者",
+          "summary": "最新资讯：男主身高164劝退六成读者（热度102.2万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E8%83%96%E4%B8%9C%E6%9D%A5%E6%96%B0%E4%B9%A1%E5%BA%97%E6%97%A7%E5%9D%80%E5%A6%82%E4%BB%8A%E5%AE%A2%E6%B5%81%E7%A8%80%E5%B0%91",
-          "time": "8/13"
+          "url": "https://s.weibo.com/weibo?q=%E7%94%B7%E4%B8%BB%E8%BA%AB%E9%AB%98164%E5%8A%9D%E9%80%80%E5%85%AD%E6%88%90%E8%AF%BB%E8%80%85",
+          "time": "8/14"
         }
       ]
     }
