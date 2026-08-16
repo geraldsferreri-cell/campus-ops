@@ -5270,8 +5270,8 @@
                     }
                 }
 
-                allVideos = (data || []).filter(v => canViewVideo(v));
-                console.log('[loadVideos] DB返回:', (data || []).length, '条, canViewVideo过滤后:', allVideos.length, '条, 当前角色:', currentUser?.role);
+                allVideos = data || [];
+                console.log('[loadVideos] DB返回:', (data || []).length, '条, 当前角色:', currentUser?.role);
 
                 // 渲染视频记录表格（内部会按视频记录页的所有筛选条件过滤）
                 videoPage = 1;
@@ -5437,7 +5437,8 @@
             if (allVideos.length === 0) { tbody.innerHTML = '<tr><td colspan="12" class="empty-state">暂无数据</td></tr>'; return; }
 
             // 视频记录页：从 allVideos 全量数据中按所有筛选条件独立过滤（不影响数据看板）
-            let filteredVideos = allVideos;
+            // 角色权限过滤：管理员看全部，学生只看自己，老师看自己和所带学生
+            let filteredVideos = allVideos.filter(v => canViewVideo(v));
 
             // 日期范围过滤
             const dateStart = document.getElementById('videoDateStart')?.value;
@@ -7121,9 +7122,9 @@
             
             const videos = getFilteredVideos();
             const group = document.getElementById('filterGroup')?.value;
-            // 根据角色和组别筛选老师和学生（只统计合作状态的人员）
-            const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && canViewUser(u) && (!group || u.group_name === group));
-            const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && canViewUser(u) && (!group || u.group_name === group));
+            // 根据角色和组别筛选老师和学生（只统计合作状态的人员）——数据看板所有角色统计口径与管理员一致
+            const teachers = allUsers.filter(u => u.role === 'teacher' && u.is_cooperating !== false && (!group || u.group_name === group));
+            const students = allUsers.filter(u => u.role === 'student' && u.is_cooperating !== false && (!group || u.group_name === group));
             // 用与 getDataStandardStatus 一致的逻辑：跨所有时间维度的点赞字段检查（v.likes 不存在，DB字段是 likes_day3/likes_day7/likes_month_end）
             const thousandVideos = videos.filter(v => {
                 const likes = [v.likes_day3, v.likes_day7, v.likes_month_end].filter(l => l != null && l !== '');
