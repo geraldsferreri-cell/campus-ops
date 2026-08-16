@@ -7321,13 +7321,8 @@
         }
 
         function renderTopLists(videos) {
-            // 学生端只看自己的千赞视频，管理员/老师看全部
-            const currentUserNames = currentUser ? getUserAllNames(currentUser) : [];
-            const isStudentView = currentUser?.role === 'student';
-            const personalVideos = isStudentView ? videos.filter(v => currentUserNames.includes(v.publisher)) : videos;
-
-            // 千赞TOP5 - 柱状图
-            const topThousand = [...personalVideos].filter(v => getMaxLikes(v) >= 1000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
+            // 千赞TOP5 - 柱状图（与管理员一致，展示筛选范围内所有千赞视频）
+            const topThousand = [...videos].filter(v => getMaxLikes(v) >= 1000).sort((a, b) => getMaxLikes(b) - getMaxLikes(a)).slice(0, 5);
             const thousandCanvas = document.getElementById('topThousandChart');
             if (thousandCanvas) {
                 const thousandParent = thousandCanvas.parentElement;
