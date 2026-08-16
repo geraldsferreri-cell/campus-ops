@@ -6694,23 +6694,11 @@
             const groupStudents = allUsers.filter(u => u.role === 'student' && u.group_name === groupName);
             if (groupStudents.length === 0) return { total: 0, studentBonus: 0, qualified: false, groupVideoCount: 0 };
 
-            // 确定日期范围：优先用传入的起止日期，否则推导自然月
-            let rangeStart, rangeEnd;
-            if (dateStart || dateEnd) {
-                // 有显式日期范围：使用范围，缺的一端用月份推导兜底
-                if (dateStart) {
-                    rangeStart = dateStart;
-                    rangeEnd = dateEnd || formatLocalDate(new Date(parseInt(month.split('-')[0]), parseInt(month.split('-')[1]), 0));
-                } else {
-                    const [ty, tm] = String(month).split('-').map(Number);
-                    rangeStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
-                    rangeEnd = dateEnd;
-                }
-            } else {
-                const [ty, tm] = String(month).split('-').map(Number);
-                rangeStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
-                rangeEnd = formatLocalDate(new Date(ty, tm, 0));
-            }
+            // ★ 统一按自然月统计：始终从月份推导月初(1号)到月末，忽略自定义日期范围
+            //   与 querySalary 学生部分保持一致，避免日期范围不一致导致老师奖金与学生奖金对不上
+            const [ty, tm] = String(month).split('-').map(Number);
+            const rangeStart = `${ty}-${String(tm).padStart(2, '0')}-01`;
+            const rangeEnd = formatLocalDate(new Date(ty, tm, 0));
 
             // 计算小组内所有学生的发片总数（同名去重，视频去重）
             let groupVideoCount = 0;
