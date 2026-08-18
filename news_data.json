@@ -1,61 +1,19 @@
 {
-  "date": "2026-08-17",
-  "scrape_time": "2026-08-17 10:54 CST",
+  "date": "2026-08-18",
+  "scrape_time": "2026-08-18 10:51 CST",
   "data_source": "60s.viki.moe (微博/知乎/抖音/百度)",
   "categories": [
-    {
-      "id": "tech",
-      "name": "🤖 科技",
-      "color": "#3b82f6",
-      "items": [
-        {
-          "title": "建议这类手机壳赶紧扔掉",
-          "summary": "最新资讯：建议这类手机壳赶紧扔掉（热度81.2万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%BB%BA%E8%AE%AE%E8%BF%99%E7%B1%BB%E6%89%8B%E6%9C%BA%E5%A3%B3%E8%B5%B6%E7%B4%A7%E6%89%94%E6%8E%89",
-          "time": "8/17"
-        },
-        {
-          "title": "手机壳 医疗垃圾",
-          "summary": "最新资讯：手机壳 医疗垃圾（热度36.9万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%89%8B%E6%9C%BA%E5%A3%B3%20%E5%8C%BB%E7%96%97%E5%9E%83%E5%9C%BE",
-          "time": "8/17"
-        },
-        {
-          "title": "继小米YU7完成品类启蒙后，岚图追光S、智界RX接连入局，FUV这个市场到底有没有想象空间？",
-          "summary": "2026年被称为“中国FUV元年”。继小米YU7完成品类启蒙后，岚图追光S、智界RX等产品接连入局。 FUV概念最早由法拉利在2022年提出，本意是“法拉利多功能车”。把一台低趴宽体的“大两厢”重新定义为FUV，到底是开辟新品类，还是SUV红利见顶后造出的“营销新词”？ 会不会重蹈当年“旅行车”叫好不叫座的覆辙？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2072291192566452332",
-          "time": "8/17"
-        }
-      ]
-    },
     {
       "id": "ai",
       "name": "🧠 AI",
       "color": "#8b5cf6",
       "items": [
         {
-          "title": "DeepSeek正式涨价",
-          "summary": "最新资讯：DeepSeek正式涨价（热度31.3万）",
+          "title": "大批AI博主停更了",
+          "summary": "最新资讯：大批AI博主停更了（热度77.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=DeepSeek%E6%AD%A3%E5%BC%8F%E6%B6%A8%E4%BB%B7",
-          "time": "8/17"
-        },
-        {
-          "title": "首个被AI老板开除的人类员工",
-          "summary": "最新资讯：首个被AI老板开除的人类员工（热度26.8万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E9%A6%96%E4%B8%AA%E8%A2%ABAI%E8%80%81%E6%9D%BF%E5%BC%80%E9%99%A4%E7%9A%84%E4%BA%BA%E7%B1%BB%E5%91%98%E5%B7%A5",
-          "time": "8/17"
-        },
-        {
-          "title": "如何评价 DeepSeek 涨价后，OpenCode Go 套餐的 Flash 模型调用量削减94%？",
-          "summary": "5小时用量从63300削减到3800",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2072481373085028433",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E5%A4%A7%E6%89%B9AI%E5%8D%9A%E4%B8%BB%E5%81%9C%E6%9B%B4%E4%BA%86",
+          "time": "8/18"
         }
       ]
     },
@@ -65,32 +23,11 @@
       "color": "#10b981",
       "items": [
         {
-          "title": "2026 WTT瑞典大满贯，菲利克斯·勒布伦 4-1 击败张本智和，获得男单冠军，如何评价这场比赛？",
-          "summary": "最新资讯：2026 WTT瑞典大满贯，菲利克斯·勒布伦 4-1 击败张本智和，获得男单冠军，如何评价这场比赛？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2072504249347577067",
-          "time": "8/17"
-        },
-        {
-          "title": "2026 WTT瑞典大满贯赛女单决赛，王曼昱 4-2 战胜王艺迪夺得女单冠军，如何评价这场比赛？",
-          "summary": "最新资讯：2026 WTT瑞典大满贯赛女单决赛，王曼昱 4-2 战胜王艺迪夺得女单冠军，如何评价这场比赛？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2072490910139544733",
-          "time": "8/17"
-        }
-      ]
-    },
-    {
-      "id": "show",
-      "name": "🌟 秀场",
-      "color": "#ec4899",
-      "items": [
-        {
-          "title": "劣迹艺人那艺娜活动被当场叫停",
-          "summary": "最新资讯：劣迹艺人那艺娜活动被当场叫停（热度31.6万）",
+          "title": "珍妮巴斯或无法继续担任湖人老板",
+          "summary": "最新资讯：珍妮巴斯或无法继续担任湖人老板（热度34.1万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E5%8A%A3%E8%BF%B9%E8%89%BA%E4%BA%BA%E9%82%A3%E8%89%BA%E5%A8%9C%E6%B4%BB%E5%8A%A8%E8%A2%AB%E5%BD%93%E5%9C%BA%E5%8F%AB%E5%81%9C",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E7%8F%8D%E5%A6%AE%E5%B7%B4%E6%96%AF%E6%88%96%E6%97%A0%E6%B3%95%E7%BB%A7%E7%BB%AD%E6%8B%85%E4%BB%BB%E6%B9%96%E4%BA%BA%E8%80%81%E6%9D%BF",
+          "time": "8/18"
         }
       ]
     },
@@ -100,11 +37,11 @@
       "color": "#f43f5e",
       "items": [
         {
-          "title": "瑞幸联名漫画 抄袭",
-          "summary": "最新资讯：瑞幸联名漫画 抄袭（热度86.6万）",
+          "title": "王一博转圈喷香水",
+          "summary": "最新资讯：王一博转圈喷香水（热度34.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%91%9E%E5%B9%B8%E8%81%94%E5%90%8D%E6%BC%AB%E7%94%BB%20%E6%8A%84%E8%A2%AD",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E7%8E%8B%E4%B8%80%E5%8D%9A%E8%BD%AC%E5%9C%88%E5%96%B7%E9%A6%99%E6%B0%B4",
+          "time": "8/18"
         }
       ]
     },
@@ -114,46 +51,11 @@
       "color": "#f59e0b",
       "items": [
         {
-          "title": "披荆斩棘一公组队",
-          "summary": "最新资讯：披荆斩棘一公组队（热度63.2万）",
+          "title": "曹骏初舞台人气票数倒挂",
+          "summary": "最新资讯：曹骏初舞台人气票数倒挂（热度37.7万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%8A%AB%E8%8D%86%E6%96%A9%E6%A3%98%E4%B8%80%E5%85%AC%E7%BB%84%E9%98%9F",
-          "time": "8/17"
-        },
-        {
-          "title": "披荆斩棘排名",
-          "summary": "最新资讯：披荆斩棘排名（热度28.1万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%8A%AB%E8%8D%86%E6%96%A9%E6%A3%98%E6%8E%92%E5%90%8D",
-          "time": "8/17"
-        },
-        {
-          "title": "如何评价TI2026三支CN战队全军覆没，没有任何一个队伍进入淘汰赛，CN刀塔是否已经没救了？",
-          "summary": "[图片]",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2072347964153107891",
-          "time": "8/17"
-        }
-      ]
-    },
-    {
-      "id": "film",
-      "name": "🎬 影视",
-      "color": "#6366f1",
-      "items": [
-        {
-          "title": "电影数到三定档",
-          "summary": "最新资讯：电影数到三定档（热度29.4万）",
-          "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%94%B5%E5%BD%B1%E6%95%B0%E5%88%B0%E4%B8%89%E5%AE%9A%E6%A1%A3",
-          "time": "8/17"
-        },
-        {
-          "title": "电影《欢迎来龙餐馆》中有哪些剧情和设计戳到你？",
-          "summary": "最新资讯：电影《欢迎来龙餐馆》中有哪些剧情和设计戳到你？",
-          "source": "知乎",
-          "url": "https://www.zhihu.com/question/2071629653404554183",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E6%9B%B9%E9%AA%8F%E5%88%9D%E8%88%9E%E5%8F%B0%E4%BA%BA%E6%B0%94%E7%A5%A8%E6%95%B0%E5%80%92%E6%8C%82",
+          "time": "8/18"
         }
       ]
     },
@@ -163,32 +65,32 @@
       "color": "#22c55e",
       "items": [
         {
-          "title": "纪念江泽民同志诞辰100周年大会",
-          "summary": "最新资讯：纪念江泽民同志诞辰100周年大会（热度115.5万）",
+          "title": "天安门下半旗悼念朱镕基同志",
+          "summary": "最新资讯：天安门下半旗悼念朱镕基同志（热度106.0万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E7%BA%AA%E5%BF%B5%E6%B1%9F%E6%B3%BD%E6%B0%91%E5%90%8C%E5%BF%97%E8%AF%9E%E8%BE%B0100%E5%91%A8%E5%B9%B4%E5%A4%A7%E4%BC%9A",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E5%A4%A9%E5%AE%89%E9%97%A8%E4%B8%8B%E5%8D%8A%E6%97%97%E6%82%BC%E5%BF%B5%E6%9C%B1%E9%95%95%E5%9F%BA%E5%90%8C%E5%BF%97",
+          "time": "8/18"
         },
         {
-          "title": "欢天喜地七仙女凡间造型",
-          "summary": "最新资讯：欢天喜地七仙女凡间造型（热度113.2万）",
+          "title": "印度教授发中国街景称被印媒骗惨了",
+          "summary": "最新资讯：印度教授发中国街景称被印媒骗惨了（热度77.6万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%AC%A2%E5%A4%A9%E5%96%9C%E5%9C%B0%E4%B8%83%E4%BB%99%E5%A5%B3%E5%87%A1%E9%97%B4%E9%80%A0%E5%9E%8B",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E5%8D%B0%E5%BA%A6%E6%95%99%E6%8E%88%E5%8F%91%E4%B8%AD%E5%9B%BD%E8%A1%97%E6%99%AF%E7%A7%B0%E8%A2%AB%E5%8D%B0%E5%AA%92%E9%AA%97%E6%83%A8%E4%BA%86",
+          "time": "8/18"
         },
         {
-          "title": "暴雨天留心4个风险点",
-          "summary": "最新资讯：暴雨天留心4个风险点（热度98.7万）",
+          "title": "前7个月国民经济总体平稳向新向优",
+          "summary": "最新资讯：前7个月国民经济总体平稳向新向优（热度77.5万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E6%9A%B4%E9%9B%A8%E5%A4%A9%E7%95%99%E5%BF%834%E4%B8%AA%E9%A3%8E%E9%99%A9%E7%82%B9",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E5%89%8D7%E4%B8%AA%E6%9C%88%E5%9B%BD%E6%B0%91%E7%BB%8F%E6%B5%8E%E6%80%BB%E4%BD%93%E5%B9%B3%E7%A8%B3%E5%90%91%E6%96%B0%E5%90%91%E4%BC%98",
+          "time": "8/18"
         },
         {
-          "title": "人生不只有考公考研两条路",
-          "summary": "最新资讯：人生不只有考公考研两条路（热度98.2万）",
+          "title": "榴莲价格彻底崩了",
+          "summary": "最新资讯：榴莲价格彻底崩了（热度77.4万）",
           "source": "微博热搜",
-          "url": "https://s.weibo.com/weibo?q=%E4%BA%BA%E7%94%9F%E4%B8%8D%E5%8F%AA%E6%9C%89%E8%80%83%E5%85%AC%E8%80%83%E7%A0%94%E4%B8%A4%E6%9D%A1%E8%B7%AF",
-          "time": "8/17"
+          "url": "https://s.weibo.com/weibo?q=%E6%A6%B4%E8%8E%B2%E4%BB%B7%E6%A0%BC%E5%BD%BB%E5%BA%95%E5%B4%A9%E4%BA%86",
+          "time": "8/18"
         }
       ]
     }
